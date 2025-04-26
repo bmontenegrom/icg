@@ -12,13 +12,24 @@ private:
 	WormHead* head;
 	WormTail* tail;
 	std::vector<Entity*> body;
-	int size;
+	int length;
 	float speed;
-	Direction direction;
 public:
-	Worm(float x, float y, float z, Direction direction);
+	Worm(float x, float y, float z);
 	~Worm();
 	void render() override;
+
+	void move(Direction newDirection);
+
+	// Setters
+	void setSpeed(float speed);
+	
+
+	// Getters
+	int getLength() const;
+	float getSpeed() const;
+	Direction getHeadDirection() const;
+
 
 };
 
