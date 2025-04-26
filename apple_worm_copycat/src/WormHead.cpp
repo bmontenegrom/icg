@@ -1,8 +1,13 @@
 #include "WormHead.h"
 
-WormHead::WormHead(/* args */)
+
+WormHead::WormHead(float x, float y, float z, Direction direction) : Entity(x, y, z), direction(direction){
+}
+
+WormHead::~WormHead()
 {
 }
-WormHead::~WormHead()
+
+void WormHead::render()
 {
 }

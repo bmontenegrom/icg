@@ -147,9 +147,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Constants.h" />
     <ClInclude Include="include\Display.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\Worm.h" />
     <ClInclude Include="include\WormBody.h" />
     <ClInclude Include="include\WormHead.h" />
     <ClInclude Include="include\WormTail.h" />
@@ -159,6 +161,7 @@
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Worm.cpp" />
     <ClCompile Include="src\WormBody.cpp" />
     <ClCompile Include="src\WormHead.cpp" />
     <ClCompile Include="src\WormTail.cpp" />
