@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Wall.h"
 #include <iostream>
 
 Game::Game()
@@ -7,6 +8,17 @@ Game::Game()
 	this->worm = new Worm(0.5f, 0.5f, 0.0f);
 	this->apple = new Apple(0.8f, 0.2f, 0.0f, 0.05f, 0.05f, 0.05f);
 	this->entities = std::vector<Entity*>();
+
+	for (int i = 0; i < 21; ++i) {
+		Wall* wall = new Wall(0.0 + i * 0.05, 0.025, 0.0, 0.05, 0.05, 0.05);
+		this->entities.push_back(wall);
+	}
+	for (int i = 0; i < 10; ++i) {
+		Wall* wall = new Wall(0.7, 0.0 + i* 0.05, 0.0, 0.05, 0.05, 0.05);
+		this->entities.push_back(wall);
+	}
+
+
 }
 
 Game::~Game(){
@@ -30,6 +42,10 @@ void Game::run()
 	SDL_Event event;
 
 	while (running) {
+		if (apple != nullptr && apple->eaten()) {
+			delete apple;
+			apple = nullptr;
+		}
 		//MANEJO DE EVENTOS
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT) {
@@ -38,16 +54,16 @@ void Game::run()
 			else if (event.type == SDL_KEYDOWN) {
 				switch (event.key.keysym.sym) {
 				case SDLK_UP:
-					this->worm->move(UP);
+					this->worm->move(UP, this->entities, this->apple);
 					break;
 				case SDLK_DOWN:
-					this->worm->move(DOWN);
+					this->worm->move(DOWN, this->entities, this->apple);
 					break;
 				case SDLK_LEFT:
-					this->worm->move(LEFT);
+					this->worm->move(LEFT, this->entities, this->apple);
 					break;
 				case SDLK_RIGHT:
-					this->worm->move(RIGHT);
+					this->worm->move(RIGHT, this->entities, this->apple);
 					break;
 				}
 			}
@@ -57,7 +73,11 @@ void Game::run()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 		this->worm->render();
-		//this->apple->render();
+		this->renderMap();
+		if (this->apple != nullptr) {
+			this->apple->render();
+		}
+		
 		SDL_GL_SwapWindow(display->getWindow());
 	}
 

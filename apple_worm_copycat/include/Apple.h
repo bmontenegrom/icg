@@ -4,4 +4,9 @@ class Apple : public Entity {
 public:
 	Apple(double x, double y, double z, double width, double height, double depth);
 	void render() override;
+	bool eaten();
+	void setEaten(bool eaten);
+
+private:
+	bool isEaten;
 };

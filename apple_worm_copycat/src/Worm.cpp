@@ -2,6 +2,7 @@
 #include "WormHead.h"
 #include "WormTail.h"
 #include "WormBody.h"
+#include "Apple.h"
 #include <iostream>
 
 Worm::Worm(double x, double y, double z) : Entity(x, y, z) {
@@ -37,7 +38,7 @@ void Worm::render(){
 	}
 }
 
-void Worm::move(Direction newDirection)
+void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, Apple* apple)
 {
 	if (this->head->getDirection() == Direction::UP && newDirection == Direction::DOWN ||
 		this->head->getDirection() == Direction::DOWN && newDirection == Direction::UP ||
@@ -73,13 +74,32 @@ void Worm::move(Direction newDirection)
 	// Check if the worm is colliding with itself
 	for (int i = 1; i < body.size(); ++i) {
 		if (this->head->isColliding(*body[i])) {
-			
 			this->head->setPosition(oldX, oldY, oldZ);
 			this->head->setDirection(oldDirection);
 			return;
 		}
 	}
 
+	// Check if the worm is colliding with a wall
+	for (auto wall : walls) {
+		if (this->head->isColliding(*wall)) {
+			this->head->setPosition(oldX, oldY, oldZ);
+			this->head->setDirection(oldDirection);
+			return;
+		}
+	}
+
+	// Check if the worm is colliding with an apple
+	if (apple != nullptr && this->head->isColliding(*apple)) {
+		//apple->setPosition(rand() % 20 * 0.05, rand() % 20 * 0.05, 0.0);
+		this->length++;
+		double bodyX = this->body[this->length - 2]->getX();
+		double bodyY = this->body[this->length - 2]->getY();
+		double bodyZ = this->body[this->length - 2]->getZ();
+		WormBody* segment = new WormBody(bodyX, bodyY, bodyZ, this->head->getWidth(), this->head->getHeight(), this->head->getDepth(), this->head->getDirection());
+		this->body.insert(this->body.end() - 1, segment);
+		apple->setEaten(true);
+	}
 
 	for (int i = body.size() - 1; i > 0; --i) {
 		body[i]->setPosition(body[i - 1]->getX(), body[i - 1]->getY(), body[i - 1]->getZ());

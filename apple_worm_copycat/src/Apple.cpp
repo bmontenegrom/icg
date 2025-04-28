@@ -3,7 +3,7 @@
 #include <SDL_opengl.h>
 #include <GL/glu.h>
 
-Apple::Apple(double x, double y, double z, double width, double height, double depth) : Entity(x, y, z, width, height, depth) {
+Apple::Apple(double x, double y, double z, double width, double height, double depth) : Entity(x, y, z, width, height, depth), isEaten(false) {
 }
 
 void Apple::render()
@@ -20,3 +20,16 @@ glVertex3f(this->getX() - this->getWidth() / 2, this->getY() + this->getHeight()
 glEnd();
 glPopMatrix();
 }
+
+bool Apple::eaten()
+{
+	return this->isEaten;
+}
+
+void Apple::setEaten(bool eaten)
+{
+	this->isEaten = eaten;
+}
+
+
+

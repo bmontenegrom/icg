@@ -15,7 +15,7 @@ void WormHead::render()
 	glPushMatrix();
 	//glTranslatef(this->getX(), this->getY(), this->getZ());
 	glBegin(GL_QUADS);
-	glColor3f(1.0, 0.0, 0.0);
+	glColor3f(0.0, 1.0, 0.0);
 	glVertex3f(this->getX() - this->getWidth() / 2, this->getY() - this->getHeight() / 2, 0.);
 	glVertex3f(this->getX() + this->getWidth() / 2, this->getY() - this->getHeight() / 2, 0.);
 	glVertex3f(this->getX() + this->getWidth() / 2, this->getY() + this->getHeight() / 2, 0.);

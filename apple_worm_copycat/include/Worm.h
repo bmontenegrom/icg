@@ -6,6 +6,7 @@
 class WormHead;
 class WormBody;
 class WormTail;
+class Apple;
 
 class Worm : public Entity {
 private:
@@ -19,7 +20,7 @@ public:
 	~Worm();
 	void render() override;
 
-	void move(Direction newDirection);
+	void move(Direction newDirection, const std::vector<Entity*> &walls, Apple* apple);
 
 	// Setters
 	void setSpeed(double speed);

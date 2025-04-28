@@ -152,6 +152,7 @@
     <ClInclude Include="include\Display.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\Wall.h" />
     <ClInclude Include="include\Worm.h" />
     <ClInclude Include="include\WormBody.h" />
     <ClInclude Include="include\WormHead.h" />
@@ -163,6 +164,7 @@
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Wall.cpp" />
     <ClCompile Include="src\Worm.cpp" />
     <ClCompile Include="src\WormBody.cpp" />
     <ClCompile Include="src\WormHead.cpp" />
