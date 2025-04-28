@@ -38,7 +38,7 @@ SDL_Window* Display::getWindow()
 void Display::init(){
 	glMatrixMode(GL_PROJECTION);
 	glClearColor(0, 0, 0, 1);
-	gluPerspective(45, SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1, 100);
+	gluPerspective(45, SCREEN_WIDTH / (double)SCREEN_HEIGHT, 0.1, 100);
 	glEnable(GL_DEPTH_TEST);
 	glMatrixMode(GL_MODELVIEW);
 }

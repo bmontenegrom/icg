@@ -2,10 +2,11 @@
 #include "WormHead.h"
 #include "WormTail.h"
 #include "WormBody.h"
+#include <iostream>
 
-Worm::Worm(float x, float y, float z) : Entity(x, y, z) {
+Worm::Worm(double x, double y, double z) : Entity(x, y, z) {
 	
-	float segment_size = 0.05f;
+	double segment_size = 0.05f;
 	Direction initialDirection = Direction::RIGHT; // dirección inicial a la derecha
 	this->head = new WormHead(x, y, z, segment_size, segment_size, segment_size, initialDirection);
 	this->body = std::vector<Entity*>();
@@ -13,9 +14,9 @@ Worm::Worm(float x, float y, float z) : Entity(x, y, z) {
 	this->length = 5;
 
 	for (int i = 1; i < length - 1; i++) {
-		float bodyX = x - (i * segment_size );
-		float bodyY = y;
-		float bodyZ = z;
+		double bodyX = x - (i * segment_size );
+		double bodyY = y;
+		double bodyZ = z;
 		WormBody* segment = new WormBody(bodyX, bodyY, bodyZ, segment_size, segment_size, segment_size, initialDirection);
 		this->body.push_back(segment);
 	}
@@ -44,9 +45,9 @@ void Worm::move(Direction newDirection)
 		this->head->getDirection() == Direction::RIGHT && newDirection == Direction::LEFT) {
 		return; // No se puede mover en la dirección opuesta
 	}
-	float oldX = this->head->getX();
-	float oldY = this->head->getY();
-	float oldZ = this->head->getZ();
+	double oldX = this->head->getX();
+	double oldY = this->head->getY();
+	double oldZ = this->head->getZ();
 	Direction oldDirection = this->head->getDirection();
 
 	this->head->setDirection(newDirection);
@@ -72,6 +73,7 @@ void Worm::move(Direction newDirection)
 	// Check if the worm is colliding with itself
 	for (int i = 1; i < body.size(); ++i) {
 		if (this->head->isColliding(*body[i])) {
+			
 			this->head->setPosition(oldX, oldY, oldZ);
 			this->head->setDirection(oldDirection);
 			return;
@@ -86,7 +88,7 @@ void Worm::move(Direction newDirection)
 
 
 
-void Worm::setSpeed(float speed)
+void Worm::setSpeed(double speed)
 {
 	this->speed = speed;
 }
@@ -98,7 +100,7 @@ int Worm::getLength() const
 	return this->length;
 }
 
-float Worm::getSpeed() const
+double Worm::getSpeed() const
 {
 	return this->speed;
 }

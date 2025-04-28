@@ -1,12 +1,13 @@
 #include "Entity.h"
+#include <iostream>
 #include <cmath>
 
 
-Entity::Entity(float x, float y, float z, float width, float height, float depth): x(x), y(y), z(z), width(width), height(height), depth(depth){
+Entity::Entity(double x, double y, double z, double width, double height, double depth): x(x), y(y), z(z), width(width), height(height), depth(depth){
 	
 }
 
-Entity::Entity(float x, float y, float z) : x(x), y(y), z(z), width(0.0f), height(0.0f), depth(0.0f)
+Entity::Entity(double x, double y, double z) : x(x), y(y), z(z), width(0.0f), height(0.0f), depth(0.0f)
 {
 }
 
@@ -14,63 +15,63 @@ Entity::~Entity()
 {
 }
 
-void Entity::setPosition(float x, float y, float z){
+void Entity::setPosition(double x, double y, double z){
 	this->x = x;
 	this->y = y;
 	this->z = z;
 }
 
-void Entity::setX(float x){
+void Entity::setX(double x){
 	this->x = x;
 }
 
-void Entity::setY(float y){
+void Entity::setY(double y){
 	this->y = y;
 }
 
-void Entity::setZ(float z){
+void Entity::setZ(double z){
 	this->z = z;
 }
 
-void Entity::setWidth(float width){
+void Entity::setWidth(double width){
 	this->width = width;
 }
 
-void Entity::setHeight(float height)
+void Entity::setHeight(double height)
 {
 	this->height = height;
 }
 
-void Entity::setDepth(float depth)
+void Entity::setDepth(double depth)
 {
 	this->depth = depth;
 }
 
-float Entity::getX() const{
+double Entity::getX() const{
 	return this->x;
 }
 
-float Entity::getY() const
+double Entity::getY() const
 {
 	return this->y;
 }
 
-float Entity::getZ() const
+double Entity::getZ() const
 {
 	return this->z;
 }
 
-float Entity::getWidth() const
+double Entity::getWidth() const
 {
 	return this->width;
 }
 
-float Entity::getHeight() const
+double Entity::getHeight() const
 {
 	return this->height;
 }
 
-float Entity::getDepth() const
+double Entity::getDepth() const
 {
 	return this->depth;
 }

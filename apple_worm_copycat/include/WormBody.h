@@ -4,7 +4,7 @@
 
 class WormBody : public Entity{
 public:
-	WormBody(float x, float y, float z, float width, float height, float depth, Direction direction);
+	WormBody(double x, double y, double z, double width, double height, double depth, Direction direction);
 	~WormBody();
 
 	// Setters

@@ -5,6 +5,7 @@ Game::Game()
 {
 	this->display = new Display();
 	this->worm = new Worm(0.5f, 0.5f, 0.0f);
+	this->apple = new Apple(0.8f, 0.2f, 0.0f, 0.05f, 0.05f, 0.05f);
 	this->entities = std::vector<Entity*>();
 }
 
@@ -12,6 +13,8 @@ Game::~Game(){
 	for (Entity* entity : entities) {
 		delete entity;
 	}
+	delete worm;
+	delete apple;
 	delete display;
 }
 
@@ -54,6 +57,7 @@ void Game::run()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 		this->worm->render();
+		//this->apple->render();
 		SDL_GL_SwapWindow(display->getWindow());
 	}
 

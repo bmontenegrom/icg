@@ -3,7 +3,7 @@
 #include <SDL_opengl.h>
 #include <GL/glu.h>
 
-WormTail::WormTail(float x, float y, float z, float width, float height, float depth, Direction direction) : Entity(x, y, z, width, height, depth), direction(direction) {
+WormTail::WormTail(double x, double y, double z, double width, double height, double depth, Direction direction) : Entity(x, y, z, width, height, depth), direction(direction) {
 }
 
 WormTail::~WormTail()
@@ -12,7 +12,7 @@ WormTail::~WormTail()
 
 void WormTail::render()
 {
-	//float size = 0.3f;
+	//double size = 0.3f;
 	glPushMatrix();
 	//glTranslatef(this->getX(), this->getY(), this->getZ());
 	glBegin(GL_QUADS);

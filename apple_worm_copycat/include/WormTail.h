@@ -6,7 +6,7 @@ class WormTail : public Entity
 {
 
 public:
-    WormTail(float x, float y, float z, float width, float height, float depth, Direction direction);
+    WormTail(double x, double y, double z, double width, double height, double depth, Direction direction);
     ~WormTail();
 	void render() override;
 	// Setters

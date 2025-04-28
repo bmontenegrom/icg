@@ -4,7 +4,7 @@
 #include <GL/glu.h>
 
 
-WormBody::WormBody(float x, float y, float z, float width, float height, float depth, Direction direction) : Entity(x, y, z, width, height, depth), direction(direction)
+WormBody::WormBody(double x, double y, double z, double width, double height, double depth, Direction direction) : Entity(x, y, z, width, height, depth), direction(direction)
 {
 }
 WormBody::~WormBody()

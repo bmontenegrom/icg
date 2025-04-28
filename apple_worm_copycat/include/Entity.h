@@ -2,29 +2,29 @@
 
 class Entity {
 public:
-	Entity(float x, float y, float z, float width, float height, float depth);
-	Entity(float x, float y, float z);
+	Entity(double x, double y, double z, double width, double height, double depth);
+	Entity(double x, double y, double z);
 	virtual ~Entity();
 	virtual void render() = 0;
 
 
 	// Setters
-	void setPosition(float x, float y, float z);
-	void setX(float x);
-	void setY(float y);
-	void setZ(float z);
-	void setWidth(float width);
-	void setHeight(float height);
-	void setDepth(float depth);
+	void setPosition(double x, double y, double z);
+	void setX(double x);
+	void setY(double y);
+	void setZ(double z);
+	void setWidth(double width);
+	void setHeight(double height);
+	void setDepth(double depth);
 
 	// Getters
 
-	float getX() const;
-	float getY() const;
-	float getZ() const;
-	float getWidth() const;
-	float getHeight() const;
-	float getDepth() const;
+	double getX() const;
+	double getY() const;
+	double getZ() const;
+	double getWidth() const;
+	double getHeight() const;
+	double getDepth() const;
 
 
 	// Check if the entity is colliding with another entity
@@ -32,13 +32,13 @@ public:
 
 private:
 	//center position
-	float x;
-	float y;
-	float z;
+	double x;
+	double y;
+	double z;
 	//hitbox
-	float width;
-	float height;
-	float depth;
+	double width;
+	double height;
+	double depth;
 
 
 };

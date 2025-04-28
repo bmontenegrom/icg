@@ -5,7 +5,7 @@
 
 class WormHead : public Entity {
 public:
-	WormHead(float x, float y, float z, float width, float height, float depth, Direction direction);
+	WormHead(double x, double y, double z, double width, double height, double depth, Direction direction);
 	~WormHead();
 	void render() override;
 

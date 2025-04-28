@@ -3,7 +3,7 @@
 #include <SDL_opengl.h>
 #include <GL/glu.h>
 
-WormHead::WormHead(float x, float y, float z, float width, float height, float depth, Direction direction) : Entity(x, y, z, width, height, depth), direction(direction){
+WormHead::WormHead(double x, double y, double z, double width, double height, double depth, Direction direction) : Entity(x, y, z, width, height, depth), direction(direction){
 }
 
 WormHead::~WormHead()
