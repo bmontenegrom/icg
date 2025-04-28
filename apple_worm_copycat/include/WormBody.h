@@ -4,15 +4,13 @@
 
 class WormBody : public Entity{
 public:
-	WormBody(float x, float y, float z, float size, Direction direction);
+	WormBody(float x, float y, float z, float width, float height, float depth, Direction direction);
 	~WormBody();
 
 	// Setters
-	void setSize(float size);
 	void setDirection(Direction direction);
 	
 	// Getters
-	float getSize() const;
 	Direction getDirection() const;
 
 
@@ -20,6 +18,5 @@ public:
 
 private:
 	Direction direction;
-	float size;
 
 };

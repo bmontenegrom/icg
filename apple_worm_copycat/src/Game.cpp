@@ -4,7 +4,7 @@
 Game::Game()
 {
 	this->display = new Display();
-	this->worm = new Worm(0.0f, 0.0f, 0.0f);
+	this->worm = new Worm(0.5f, 0.5f, 0.0f);
 	this->entities = std::vector<Entity*>();
 }
 

@@ -6,18 +6,16 @@ class WormTail : public Entity
 {
 
 public:
-    WormTail(float x, float y, float z, float size, Direction direction);
+    WormTail(float x, float y, float z, float width, float height, float depth, Direction direction);
     ~WormTail();
 	void render() override;
 	// Setters
-	void setSize(float size);
 	void setDirection(Direction direction);
 	// Getters
-	float getSize() const;
+
 	Direction getDirection() const;
 
 private:
     Direction direction;
-    float size;
 
 };

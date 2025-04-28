@@ -5,21 +5,21 @@
 
 Worm::Worm(float x, float y, float z) : Entity(x, y, z) {
 	
-	float size = 0.05f;
-	Direction initialDirection = Direction::RIGHT; // Cambia la dirección inicial a la derecha
-	this->head = new WormHead(x, y, z, size, initialDirection);
+	float segment_size = 0.05f;
+	Direction initialDirection = Direction::RIGHT; // dirección inicial a la derecha
+	this->head = new WormHead(x, y, z, segment_size, segment_size, segment_size, initialDirection);
 	this->body = std::vector<Entity*>();
 	this->body.push_back(head);
 	this->length = 5;
 
 	for (int i = 1; i < length - 1; i++) {
-		float bodyX = x - (i * size);
+		float bodyX = x - (i * segment_size );
 		float bodyY = y;
 		float bodyZ = z;
-		WormBody* segment = new WormBody(bodyX, bodyY, bodyZ, size, initialDirection);
+		WormBody* segment = new WormBody(bodyX, bodyY, bodyZ, segment_size, segment_size, segment_size, initialDirection);
 		this->body.push_back(segment);
 	}
-	this->tail = new WormTail(x - (length - 1) * size, y, z, size, initialDirection);
+	this->tail = new WormTail(x - (length - 1) * segment_size , y, z, segment_size,segment_size , segment_size, initialDirection);
 	this->body.push_back(tail);
 	this->speed = 0.05f;
 }
@@ -44,11 +44,14 @@ void Worm::move(Direction newDirection)
 		this->head->getDirection() == Direction::RIGHT && newDirection == Direction::LEFT) {
 		return; // No se puede mover en la dirección opuesta
 	}
-	this->head->setDirection(newDirection);
+	float oldX = this->head->getX();
+	float oldY = this->head->getY();
+	float oldZ = this->head->getZ();
+	Direction oldDirection = this->head->getDirection();
 
-	for (int i = body.size() - 1; i > 0; --i) {
-		body[i]->setPosition(body[i - 1]->getX(), body[i - 1]->getY(), body[i - 1]->getZ());
-	}
+	this->head->setDirection(newDirection);
+	
+
 
 	switch (this->getHeadDirection())
 	{
@@ -64,6 +67,20 @@ void Worm::move(Direction newDirection)
 	case RIGHT:
 		this->head->setX(this->head->getX() + this->speed);
 		break;
+	}
+
+	// Check if the worm is colliding with itself
+	for (int i = 1; i < body.size(); ++i) {
+		if (this->head->isColliding(*body[i])) {
+			this->head->setPosition(oldX, oldY, oldZ);
+			this->head->setDirection(oldDirection);
+			return;
+		}
+	}
+
+
+	for (int i = body.size() - 1; i > 0; --i) {
+		body[i]->setPosition(body[i - 1]->getX(), body[i - 1]->getY(), body[i - 1]->getZ());
 	}
 }
 
