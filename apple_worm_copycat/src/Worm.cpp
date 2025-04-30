@@ -23,7 +23,7 @@ Worm::Worm(double x, double y, double z) : Entity(x, y, z) {
 	}
 	this->tail = new WormTail(x - (length - 1) * segment_size , y, z, segment_size,segment_size , segment_size, initialDirection);
 	this->body.push_back(tail);
-	this->speed = 0.05f;
+	this->speed = 3.2f;
 }
 
 Worm::~Worm() {
@@ -38,7 +38,7 @@ void Worm::render(){
 	}
 }
 
-void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, Apple* apple)
+void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, Apple* apple, float timeStep)
 {
 	if (this->head->getDirection() == Direction::UP && newDirection == Direction::DOWN ||
 		this->head->getDirection() == Direction::DOWN && newDirection == Direction::UP ||
@@ -52,26 +52,28 @@ void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, Apple
 	Direction oldDirection = this->head->getDirection();
 
 	this->head->setDirection(newDirection);
+
+	float distance = this->speed * timeStep;
 	
 
 
 	switch (this->getHeadDirection())
 	{
 	case UP:
-		this->head->setY(this->head->getY() + this->speed);
+		this->head->setY(this->head->getY() + distance);
 		break;
 	case DOWN:
-		this->head->setY(this->head->getY() - this->speed);
+		this->head->setY(this->head->getY() - distance);
 		break;
 	case LEFT:
-		this->head->setX(this->head->getX() - this->speed);
+		this->head->setX(this->head->getX() - distance);
 		break;
 	case RIGHT:
-		this->head->setX(this->head->getX() + this->speed);
+		this->head->setX(this->head->getX() + distance);
 		break;
 	}
 
-	// Check if the worm is colliding with itself
+	// Checkea si el gusano choca con su propio cuerpo
 	for (int i = 1; i < body.size(); ++i) {
 		if (this->head->isColliding(*body[i])) {
 			this->head->setPosition(oldX, oldY, oldZ);
@@ -80,7 +82,7 @@ void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, Apple
 		}
 	}
 
-	// Check if the worm is colliding with a wall
+	// Checkea si el gusano choca con las paredes
 	for (auto wall : walls) {
 		if (this->head->isColliding(*wall)) {
 			this->head->setPosition(oldX, oldY, oldZ);
@@ -89,7 +91,7 @@ void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, Apple
 		}
 	}
 
-	// Check if the worm is colliding with an apple
+	// Checkea si el gusano choca con la manzana
 	if (apple != nullptr && this->head->isColliding(*apple)) {
 		//apple->setPosition(rand() % 20 * 0.05, rand() % 20 * 0.05, 0.0);
 		this->length++;

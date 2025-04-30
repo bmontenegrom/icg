@@ -20,7 +20,7 @@ public:
 	~Worm();
 	void render() override;
 
-	void move(Direction newDirection, const std::vector<Entity*> &walls, Apple* apple);
+	void move(Direction newDirection, const std::vector<Entity*> &walls, Apple* apple, float timeStep);
 
 	// Setters
 	void setSpeed(double speed);

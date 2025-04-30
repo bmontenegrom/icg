@@ -8,6 +8,7 @@ Game::Game()
 	this->worm = new Worm(0.5f, 0.5f, 0.0f);
 	this->apple = new Apple(0.8f, 0.2f, 0.0f, 0.05f, 0.05f, 0.05f);
 	this->entities = std::vector<Entity*>();
+	this->timer = new Timer();
 
 	for (int i = 0; i < 21; ++i) {
 		Wall* wall = new Wall(0.0 + i * 0.05, 0.025, 0.0, 0.05, 0.05, 0.05);
@@ -34,7 +35,8 @@ void Game::run()
 {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluOrtho2D(0.0, 1.0, 0.0, 1.0); // Define un sistema de coordenadas de 0 a 1 en X e Y
+	//gluOrtho2D(0.0, 1.0, 0.0, 1.0); // Define un sistema de coordenadas de 0 a 1 en X e Y
+	gluPerspective(35.0, 800.0 / 600.0, 0.1, 100.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	bool running = true;
@@ -42,6 +44,7 @@ void Game::run()
 	SDL_Event event;
 
 	while (running) {
+		float timeStep = timer->getTicks() / 1000.0f; // Obtener el tiempo transcurrido en segundos
 		if (apple != nullptr && apple->eaten()) {
 			delete apple;
 			apple = nullptr;
@@ -54,24 +57,29 @@ void Game::run()
 			else if (event.type == SDL_KEYDOWN) {
 				switch (event.key.keysym.sym) {
 				case SDLK_UP:
-					this->worm->move(UP, this->entities, this->apple);
+					this->worm->move(UP, this->entities, this->apple, timeStep);
 					break;
 				case SDLK_DOWN:
-					this->worm->move(DOWN, this->entities, this->apple);
+					this->worm->move(DOWN, this->entities, this->apple, timeStep);
 					break;
 				case SDLK_LEFT:
-					this->worm->move(LEFT, this->entities, this->apple);
+					this->worm->move(LEFT, this->entities, this->apple, timeStep);
 					break;
 				case SDLK_RIGHT:
-					this->worm->move(RIGHT, this->entities, this->apple);
+					this->worm->move(RIGHT, this->entities, this->apple, timeStep);
 					break;
 				}
 			}
 		}
+		
 		//FIN MANEJO DE EVENTOS
+
+		this->timer->start();
+
 		glEnable(GL_DEPTH_TEST);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
+		gluLookAt(0.0, 0.0, 1.5, 0.5f, 0.5f, 0.0f, 0.0, 1.0, 0.0);
 		this->worm->render();
 		this->renderMap();
 		if (this->apple != nullptr) {
