@@ -4,6 +4,7 @@
 #include "Display.h"
 #include "Apple.h"
 #include "Timer.h"
+#include "Camera.h"
 #include <vector>
 
 class Game {
@@ -13,6 +14,8 @@ private:
 	std::vector<Entity*> entities;
 	Display* display;
 	Timer* timer;
+	Camera* camera;
+
 
 
 

@@ -9,6 +9,8 @@ Game::Game()
 	this->apple = new Apple(0.8f, 0.2f, 0.0f, 0.05f, 0.05f, 0.05f);
 	this->entities = std::vector<Entity*>();
 	this->timer = new Timer();
+	this->camera = new Camera(0.0f, 0.0f, 1.5f, 0.5f,  0.5f, 0.0f);
+	camera->updateMouseMovement(0, 0); // Inicializa la cámara en la posición deseada
 
 	for (int i = 0; i < 21; ++i) {
 		Wall* wall = new Wall(0.0 + i * 0.05, 0.025, 0.0, 0.05, 0.05, 0.05);
@@ -39,11 +41,13 @@ void Game::run()
 	gluPerspective(35.0, 800.0 / 600.0, 0.1, 100.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+	
 	bool running = true;
 
 	SDL_Event event;
-
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 	while (running) {
+		
 		float timeStep = timer->getTicks() / 1000.0f; // Obtener el tiempo transcurrido en segundos
 		if (apple != nullptr && apple->eaten()) {
 			delete apple;
@@ -68,8 +72,21 @@ void Game::run()
 				case SDLK_RIGHT:
 					this->worm->move(RIGHT, this->entities, this->apple, timeStep);
 					break;
+
+				case SDLK_ESCAPE:
+					running = false;
+					break;
 				}
 			}
+			else if (event.type == SDL_MOUSEMOTION) {
+				//SDL_SetRelativeMouseMode(SDL_TRUE);
+				int mouseX, mouseY;
+				//SDL_GetMouseState(&mouseX, &mouseY);
+				SDL_GetRelativeMouseState(&mouseX, &mouseY);
+				std::cout << "Mouse X: " << mouseX << ", Mouse Y: " << mouseY << std::endl;
+				camera->updateMouseMovement(mouseX, mouseY);
+			}
+			
 		}
 		
 		//FIN MANEJO DE EVENTOS
@@ -79,7 +96,8 @@ void Game::run()
 		glEnable(GL_DEPTH_TEST);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
-		gluLookAt(0.0, 0.0, 1.5, 0.5f, 0.5f, 0.0f, 0.0, 1.0, 0.0);
+		//gluLookAt(0.0, 0.0, 1.5, 0.5f, 0.5f, 0.0f, 0.0, 1.0, 0.0);
+		camera->applyView();
 		this->worm->render();
 		this->renderMap();
 		if (this->apple != nullptr) {

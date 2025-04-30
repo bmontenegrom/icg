@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\Apple.h" />
+    <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\Constants.h" />
     <ClInclude Include="include\Display.h" />
     <ClInclude Include="include\Entity.h" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Apple.cpp" />
+    <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Display.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\Game.cpp" />
