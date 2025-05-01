@@ -1,7 +1,8 @@
 #include "Camera.h"
+#include <iostream>
 
 
-Camera::Camera(float x, float y, float z) : posX(x), posY(y), posZ(z), yaw(0.0f), pitch(0.0f), sensitivity(0.1f)
+Camera::Camera(float x, float y, float z) : posX(x), posY(y), posZ(z), yaw(0.0f), pitch(0.0f), sensitivity(0.1f), mode(CameraMode::ISOMETRIC)
 {
 	
 }
@@ -18,11 +19,17 @@ Camera::Camera(float x, float y, float z, float targetX, float targetY, float ta
 }
 
 
-void Camera::setPosition(float x, float y, float z)
+void Camera::setPositionAndDirection(float x, float y, float z, float targetX, float targetY, float targetZ)
 {
 	posX = x;
 	posY = y;
 	posZ = z;
+	float deltaX = targetX - x;
+	float deltaY = targetY - y;
+	float deltaZ = targetZ - z;
+
+	yaw = atan2(deltaZ, deltaX) * 180.0f / M_PI;
+	pitch = atan2(deltaY, sqrt(deltaX * deltaX + deltaZ * deltaZ)) * 180.0f / M_PI;
 }
 
 void Camera::updateMouseMovement(int mouseX, int mouseY)
@@ -48,6 +55,17 @@ void Camera::updateMouseMovement(int mouseX, int mouseY)
 
 void Camera::applyView()
 {
+	if (mode == CameraMode::ISOMETRIC) {
+		posX = 0.0f;
+		posY = 0.0f;
+		posZ = 1.5f;
+		float deltaX = 0.5f - posX ;
+		float deltaY = 0.5f - posY;
+		float deltaZ = 0- posZ;
+		yaw = atan2(deltaZ, deltaX) * 180.0f / M_PI;
+		pitch = atan2(deltaY, sqrt(deltaX * deltaX + deltaZ * deltaZ)) * 180.0f / M_PI;
+		
+	}
 	// Convertir los ángulos a radianes
 	float yawRad = yaw * M_PI / 180.0f;
 	float pitchRad = pitch * M_PI / 180.0f;
@@ -95,4 +113,23 @@ void Camera::moveRight(float speed)
 void Camera::setSensitivity(float newSensitivity)
 {
 	sensitivity = newSensitivity;
+}
+
+void Camera::switchCameraMode()
+{
+	mode = static_cast<CameraMode>((static_cast<unsigned int>(mode) + 4) % 3);
+	
+}
+
+CameraMode Camera::getCameraMode() const
+{
+	return this->mode;
+}
+
+void Camera::followTarget(float targetX, float targetY, float targetZ, float distance)
+{
+	this->setPositionAndDirection(targetX + distance, targetY + distance, targetZ, targetX, targetY, targetZ);
+
+
+
 }

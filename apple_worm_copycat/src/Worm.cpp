@@ -106,6 +106,7 @@ void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, Apple
 	for (int i = body.size() - 1; i > 0; --i) {
 		body[i]->setPosition(body[i - 1]->getX(), body[i - 1]->getY(), body[i - 1]->getZ());
 	}
+	this->setPosition(this->head->getX(), this->head->getY(), this->head->getZ());
 }
 
 

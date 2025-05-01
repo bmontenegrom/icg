@@ -11,6 +11,7 @@ Game::Game()
 	this->timer = new Timer();
 	this->camera = new Camera(0.0f, 0.0f, 1.5f, 0.5f,  0.5f, 0.0f);
 	camera->updateMouseMovement(0, 0); // Inicializa la cámara en la posición deseada
+	
 
 	for (int i = 0; i < 21; ++i) {
 		Wall* wall = new Wall(0.0 + i * 0.05, 0.025, 0.0, 0.05, 0.05, 0.05);
@@ -43,9 +44,10 @@ void Game::run()
 	glLoadIdentity();
 	
 	bool running = true;
+	bool mouseButtonPressed = false;
 
 	SDL_Event event;
-	SDL_SetRelativeMouseMode(SDL_TRUE);
+	
 	while (running) {
 		
 		float timeStep = timer->getTicks() / 1000.0f; // Obtener el tiempo transcurrido en segundos
@@ -72,23 +74,43 @@ void Game::run()
 				case SDLK_RIGHT:
 					this->worm->move(RIGHT, this->entities, this->apple, timeStep);
 					break;
-
+				case SDLK_v:
+					this->camera->switchCameraMode();
+					break;
 				case SDLK_ESCAPE:
 					running = false;
 					break;
 				}
 			}
-			else if (event.type == SDL_MOUSEMOTION) {
-				//SDL_SetRelativeMouseMode(SDL_TRUE);
+
+			//Manejo de cámara en free mode
+			else if (this->camera->getCameraMode() == CameraMode::FREE_CAMERA &&
+				event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
+				mouseButtonPressed = true; // Botón presionado
+			}
+			else if (this->camera->getCameraMode() == CameraMode::FREE_CAMERA &&
+				event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) {
+				mouseButtonPressed = false; // Botón liberado
+			}
+			else if (event.type == SDL_MOUSEMOTION && mouseButtonPressed &&
+				this->camera->getCameraMode() == CameraMode::FREE_CAMERA) {
+				SDL_SetRelativeMouseMode(SDL_TRUE);
+				// Obtener movimiento relativo del mouse
 				int mouseX, mouseY;
-				//SDL_GetMouseState(&mouseX, &mouseY);
 				SDL_GetRelativeMouseState(&mouseX, &mouseY);
-				std::cout << "Mouse X: " << mouseX << ", Mouse Y: " << mouseY << std::endl;
-				camera->updateMouseMovement(mouseX, mouseY);
+
+				// Actualizar la cámara con el movimiento del mouse
+				this->camera->updateMouseMovement(mouseX, mouseY);
+				SDL_SetRelativeMouseMode(SDL_FALSE);
 			}
 			
+			
+			
 		}
-		
+		if (camera->getCameraMode() == CameraMode::THIRD_PERSON) {
+			this->camera->followTarget(this->worm->getX(), this->worm->getY(), this->worm->getZ(), 0.4f);
+
+		}
 		//FIN MANEJO DE EVENTOS
 
 		this->timer->start();

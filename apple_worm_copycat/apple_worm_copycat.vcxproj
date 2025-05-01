@@ -153,6 +153,7 @@
     <ClInclude Include="include\Display.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\Hud.h" />
     <ClInclude Include="include\Timer.h" />
     <ClInclude Include="include\Wall.h" />
     <ClInclude Include="include\Worm.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="src\Display.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Hud.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Timer.cpp" />
     <ClCompile Include="src\Wall.cpp" />
