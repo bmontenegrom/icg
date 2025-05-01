@@ -79,12 +79,12 @@
     <LibraryPath>C:\Repositorio\icg\apple_worm_copycat\lib\SDL2-2.32.4\lib\x64;C:\Repositorio\icg\apple_worm_copycat\lib\Freeimage;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Repositorio\icg\apple_worm_copycat\include;C:\Repositorio\icg\apple_worm_copycat\lib\SDL2-2.32.4\include;C:\Repositorio\icg\apple_worm_copycat\lib\Freeimage;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Repositorio\icg\apple_worm_copycat\lib\SDL2-2.32.4\lib\x64;C:\Repositorio\icg\apple_worm_copycat\lib\Freeimage;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Repositorio\icg\apple_worm_copycat\include;C:\Repositorio\icg\apple_worm_copycat\lib\SDL2-2.32.4\include;C:\Repositorio\icg\apple_worm_copycat\lib\Freeimage;C:\Repositorio\icg\apple_worm_copycat\lib\SDL2_ttf-2.24.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Repositorio\icg\apple_worm_copycat\lib\SDL2-2.32.4\lib\x64;C:\Repositorio\icg\apple_worm_copycat\lib\Freeimage;C:\Repositorio\icg\apple_worm_copycat\lib\SDL2_ttf-2.24.0\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Repositorio\icg\apple_worm_copycat\include;C:\Repositorio\icg\apple_worm_copycat\lib\SDL2-2.32.4\include;C:\Repositorio\icg\apple_worm_copycat\lib\Freeimage;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Repositorio\icg\apple_worm_copycat\lib\SDL2-2.32.4\lib\x64;C:\Repositorio\icg\apple_worm_copycat\lib\Freeimage;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Repositorio\icg\apple_worm_copycat\include;C:\Repositorio\icg\apple_worm_copycat\lib\SDL2-2.32.4\include;C:\Repositorio\icg\apple_worm_copycat\lib\Freeimage;C:\Repositorio\icg\apple_worm_copycat\lib\SDL2_ttf-2.24.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Repositorio\icg\apple_worm_copycat\lib\SDL2-2.32.4\lib\x64;C:\Repositorio\icg\apple_worm_copycat\lib\Freeimage;C:\Repositorio\icg\apple_worm_copycat\lib\SDL2_ttf-2.24.0\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -126,7 +126,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>FreeImage.lib;opengl32.lib;glu32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>FreeImage.lib;opengl32.lib;glu32.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -143,7 +143,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>FreeImage.lib;opengl32.lib;glu32.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>FreeImage.lib;opengl32.lib;glu32.lib;SDL2.lib;SDL2main.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

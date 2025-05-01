@@ -56,15 +56,7 @@ void Camera::updateMouseMovement(int mouseX, int mouseY)
 void Camera::applyView()
 {
 	if (mode == CameraMode::ISOMETRIC) {
-		posX = 0.0f;
-		posY = 0.0f;
-		posZ = 1.5f;
-		float deltaX = 0.5f - posX ;
-		float deltaY = 0.5f - posY;
-		float deltaZ = 0- posZ;
-		yaw = atan2(deltaZ, deltaX) * 180.0f / M_PI;
-		pitch = atan2(deltaY, sqrt(deltaX * deltaX + deltaZ * deltaZ)) * 180.0f / M_PI;
-		
+		this->setPositionAndDirection(0.0, 0.0, 1.5, 0.5, 0.5, 0.0);
 	}
 	// Convertir los ángulos a radianes
 	float yawRad = yaw * M_PI / 180.0f;
@@ -117,7 +109,10 @@ void Camera::setSensitivity(float newSensitivity)
 
 void Camera::switchCameraMode()
 {
-	mode = static_cast<CameraMode>((static_cast<unsigned int>(mode) + 4) % 3);
+	this->mode = static_cast<CameraMode>((static_cast<unsigned int>(mode) + 4) % 3);
+	if (this->mode == CameraMode::FREE_CAMERA) {
+		this->setPositionAndDirection(0.0, 0.0, 1.5, 0.5, 0.5, 0.0);
+	}
 	
 }
 

@@ -10,8 +10,19 @@ Game::Game()
 	this->entities = std::vector<Entity*>();
 	this->timer = new Timer();
 	this->camera = new Camera(0.0f, 0.0f, 1.5f, 0.5f,  0.5f, 0.0f);
-	camera->updateMouseMovement(0, 0); // Inicializa la cámara en la posición deseada
-	
+	//camera->updateMouseMovement(0, 0); // Inicializa la cámara en la posición deseada
+
+	if (TTF_Init() != 0) {
+		std::cerr << "Error inicializando SDL_ttf: " << TTF_GetError() << std::endl;
+		exit(1);
+	}
+
+	TTF_Font* font = TTF_OpenFont("assets/font.ttf", 24);
+	if (font == nullptr) {
+		std::cerr << "Error al cargar la fuente: " << TTF_GetError() << std::endl;
+		exit(1);
+	}
+	this->hud = new Hud(display->getRenderer(), font);
 
 	for (int i = 0; i < 21; ++i) {
 		Wall* wall = new Wall(0.0 + i * 0.05, 0.025, 0.0, 0.05, 0.05, 0.05);
@@ -47,6 +58,10 @@ void Game::run()
 	bool mouseButtonPressed = false;
 
 	SDL_Event event;
+	this->hud->startTime();
+	int score = 10;
+
+
 	
 	while (running) {
 		
@@ -113,6 +128,8 @@ void Game::run()
 		}
 		//FIN MANEJO DE EVENTOS
 
+		
+
 		this->timer->start();
 
 		glEnable(GL_DEPTH_TEST);
@@ -125,7 +142,7 @@ void Game::run()
 		if (this->apple != nullptr) {
 			this->apple->render();
 		}
-		
+		hud->render(score, this->hud->getTime());
 		SDL_GL_SwapWindow(display->getWindow());
 	}
 

@@ -5,6 +5,7 @@
 #include "Apple.h"
 #include "Timer.h"
 #include "Camera.h"
+#include "Hud.h"
 #include <vector>
 
 class Game {
@@ -15,6 +16,7 @@ private:
 	Display* display;
 	Timer* timer;
 	Camera* camera;
+	Hud* hud;
 
 
 

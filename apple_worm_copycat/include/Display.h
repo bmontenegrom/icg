@@ -8,9 +8,12 @@ public:
 	Display();
 	~Display();
 	SDL_Window* getWindow();
+	SDL_GLContext getContext();
+	SDL_Renderer* getRenderer();
 private:
 	SDL_Window* window;
 	SDL_GLContext context;
+	SDL_Renderer* renderer;
 	int width;
 	int height;
 	void init();

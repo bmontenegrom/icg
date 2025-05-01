@@ -16,6 +16,12 @@ Display::Display(){
 		std::cerr << "No se pudo crear la ventana: " << SDL_GetError() << std::endl;
 		exit(1);
 	}
+	this->renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+	if (!renderer) {
+		std::cerr << "No se pudo crear el renderer: " << SDL_GetError() << std::endl;
+		exit(1);
+	}
 	context = SDL_GL_CreateContext(window);
 	if (!context) {
 		std::cerr << "No se pudo crear el contexto OpenGL: " << SDL_GetError() << std::endl;
@@ -33,6 +39,16 @@ Display::~Display(){
 SDL_Window* Display::getWindow()
 {
 	return this->window;
+}
+
+SDL_GLContext Display::getContext()
+{
+	return context;
+}
+
+SDL_Renderer* Display::getRenderer()
+{
+	return this->renderer;
 }
 
 void Display::init(){
