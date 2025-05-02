@@ -11,6 +11,16 @@ Entity::Entity(double x, double y, double z) : x(x), y(y), z(z), width(0.0f), he
 {
 }
 
+Entity::Entity(double x, double y, double z, double width, double height, double depth, std::string path) : x(x), y(y), z(z), width(width), height(height), depth(depth)
+{
+	// Cargar el modelo desde el archivo
+	ObjectLoader& loader = ObjectLoader::getInstance();
+	this->vertices = loader.loadOBJ(path);
+	if (this->vertices.empty()) {
+		std::cerr << "Error al cargar el modelo desde el archivo: " << path << std::endl;
+	}
+}
+
 Entity::~Entity()
 {
 }

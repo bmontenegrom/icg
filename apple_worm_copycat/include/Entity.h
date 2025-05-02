@@ -1,9 +1,12 @@
 #pragma once
+#include <string>
+#include "ObjLoader.h"
 
 class Entity {
 public:
 	Entity(double x, double y, double z, double width, double height, double depth);
 	Entity(double x, double y, double z);
+	Entity(double x, double y, double z, double width, double height, double depth, std::string path);
 	virtual ~Entity();
 	virtual void render() = 0;
 
@@ -40,5 +43,7 @@ private:
 	double height;
 	double depth;
 
+	// Model data
+	std::vector<ObjVertex> vertices;
 
 };

@@ -57,6 +57,7 @@ void Game::run()
 	bool running = true;
 	bool mouseButtonPressed = false;
 	bool wireframe = false;
+	bool texture = true;
 
 	SDL_Event event;
 	this->hud->startTime();
@@ -110,7 +111,12 @@ void Game::run()
 						glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // Modo sólido
 					}
 					break;
+				case SDLK_t:
+					texture = !texture; // Cambiar el modo de visualización
+					//todo implementar
+					break;
 				}
+				
 			}
 
 			//Manejo de cámara en free mode

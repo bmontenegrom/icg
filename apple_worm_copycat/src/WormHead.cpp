@@ -76,6 +76,19 @@ void WormHead::render()
 
     glPopMatrix();
 
+
+    //cuando este andando bien el objloader
+    /*
+        glBegin(GL_TRIANGLES);
+        for (const auto& v : vertices) {
+            glTexCoord2f(v.texCoord.x, v.texCoord.y);
+            glNormal3f(v.normal.x, v.normal.y, v.normal.z);
+            glVertex3f(v.position.x, v.position.y, v.position.z);
+        }
+        glEnd();
+    
+    */
+
 }
 
 
