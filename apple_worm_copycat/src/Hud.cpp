@@ -20,6 +20,13 @@ Hud::~Hud()
 
 void Hud::render(int score, int time)
 {
+    // Guardar el modo actual
+    GLint polygonMode[2];
+    glGetIntegerv(GL_POLYGON_MODE, polygonMode);
+
+    // Cambiar a modo relleno solo para el HUD
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
     std::string scoreText = "Score: " + std::to_string(score);
     std::string timeText = "Time: " + std::to_string(time) + "s";
 
@@ -33,6 +40,8 @@ void Hud::render(int score, int time)
     GLuint timeTex = createTextTexture(timeText, font, white, w, h);
     renderTexture2D(timeTex, 10, 40, w, h, SCREEN_WIDTH, SCREEN_HEIGHT);
     glDeleteTextures(1, &timeTex);
+    // Restaurar el modo anterior (por ejemplo, wireframe)
+    glPolygonMode(GL_FRONT_AND_BACK, polygonMode[0]);
 }
 
 void Hud::startTime()

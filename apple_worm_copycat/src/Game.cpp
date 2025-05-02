@@ -56,6 +56,7 @@ void Game::run()
 	
 	bool running = true;
 	bool mouseButtonPressed = false;
+	bool wireframe = false;
 
 	SDL_Event event;
 	this->hud->startTime();
@@ -99,6 +100,15 @@ void Game::run()
 					break;
 				case SDLK_ESCAPE:
 					running = false;
+					break;
+				case SDLK_w:
+					wireframe = !wireframe; // Cambiar el modo de visualización
+					if (wireframe) {
+						glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Modo wire
+					}
+					else {
+						glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // Modo sólido
+					}
 					break;
 				}
 			}
