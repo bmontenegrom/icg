@@ -22,7 +22,7 @@ Game::Game()
 		std::cerr << "Error al cargar la fuente: " << TTF_GetError() << std::endl;
 		exit(1);
 	}
-	this->hud = new Hud(display->getRenderer(), font);
+	this->hud = new Hud( font);
 
 	for (int i = 0; i < 21; ++i) {
 		Wall* wall = new Wall(0.0 + i * 0.05, 0.025, 0.0, 0.05, 0.05, 0.05);
@@ -64,6 +64,11 @@ void Game::run()
 
 	
 	while (running) {
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		gluPerspective(35.0, 800.0 / 600.0, 0.1, 100.0);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
 		
 		float timeStep = timer->getTicks() / 1000.0f; // Obtener el tiempo transcurrido en segundos
 		if (apple != nullptr && apple->eaten()) {
@@ -142,7 +147,9 @@ void Game::run()
 		if (this->apple != nullptr) {
 			this->apple->render();
 		}
+		
 		hud->render(score, this->hud->getTime());
+		
 		SDL_GL_SwapWindow(display->getWindow());
 	}
 

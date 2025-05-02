@@ -1,20 +1,34 @@
 #pragma once
+#include <SDL.h>
+#include "SDL_opengl.h"
+#include <GL/glu.h>
 #include <SDL_ttf.h>
 #include "Timer.h"
 #include <string>
+#include <unordered_map>
+
+//struct para almacenar la textura de texto
+struct TextTexture {
+	GLuint textureId;
+	int width;
+	int height;
+};
+
 
 class Hud {
 public:
-	Hud(SDL_Renderer* renderer, TTF_Font* font);
+	Hud(TTF_Font* font);
 	~Hud();
 	void render(int score, int time);
 	void startTime();
 	int getTime();
-
+	
 private:
-	SDL_Renderer* renderer;
 	TTF_Font* font;
 	Timer* timer;
-	void renderText(const std::string& text, int x, int y, SDL_Color color);
+
+	GLuint createTextTexture(const std::string& text, TTF_Font* font, SDL_Color color, int& outWidth, int& outHeight);
+	void renderTexture2D(GLuint texture, int x, int y, int width, int height, int screenWidth, int screenHeight);
+	
 
 };
