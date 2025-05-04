@@ -6,22 +6,24 @@
 #include <iostream>
 
 Worm::Worm(double x, double y, double z) : Entity(x, y, z) {
-	
 	double segment_size = 0.05f;
-	Direction initialDirection = Direction::RIGHT; // direcci�n inicial a la derecha
+	Direction initialDirection = Direction::RIGHT;
 	this->head = new WormHead(x, y, z, segment_size, segment_size, segment_size, initialDirection);
 	this->body = std::vector<Entity*>();
 	this->body.push_back(head);
 	this->length = 5;
+	this->isFalling = false;
+	this->verticalVelocity = 0.0f;
+	this->fallStartY = y;
 
 	for (int i = 1; i < length - 1; i++) {
-		double bodyX = x - (i * segment_size );
+		double bodyX = x - (i * segment_size);
 		double bodyY = y;
 		double bodyZ = z;
 		WormBody* segment = new WormBody(bodyX, bodyY, bodyZ, segment_size, segment_size, segment_size, initialDirection);
 		this->body.push_back(segment);
 	}
-	this->tail = new WormTail(x - (length - 1) * segment_size , y, z, segment_size,segment_size , segment_size, initialDirection);
+	this->tail = new WormTail(x - (length - 1) * segment_size, y, z, segment_size, segment_size, segment_size, initialDirection);
 	this->body.push_back(tail);
 	this->speed = 3.2f;
 }
@@ -44,7 +46,7 @@ void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, Apple
 		this->head->getDirection() == Direction::DOWN && newDirection == Direction::UP ||
 		this->head->getDirection() == Direction::LEFT && newDirection == Direction::RIGHT ||
 		this->head->getDirection() == Direction::RIGHT && newDirection == Direction::LEFT) {
-		return; // No se puede mover en la direcci�n opuesta
+		return; // No se puede mover en la dirección opuesta
 	}
 	double oldX = this->head->getX();
 	double oldY = this->head->getY();
@@ -131,5 +133,79 @@ double Worm::getSpeed() const
 Direction Worm::getHeadDirection() const
 {
 	return this->head->getDirection();
+}
+
+void Worm::updateGravity(const std::vector<Entity*> &walls, float timeStep) {
+    if (!isOnGround(walls)) {
+        if (!isFalling) {
+            isFalling = true;
+            fallStartY = head->getY();
+            verticalVelocity = 0.0f;
+        }
+        
+        verticalVelocity += GRAVITY * timeStep;
+        float newY = head->getY() - verticalVelocity * timeStep;
+        
+        for (Entity* segment : body) {
+            segment->setY(segment->getY() - verticalVelocity * timeStep);
+        }
+        
+        if (head->getY() < -1.0f) {
+            reset();
+        }
+    } else {
+        isFalling = false;
+        verticalVelocity = 0.0f;
+    }
+}
+
+bool Worm::isOnGround(const std::vector<Entity*> &walls) const {
+    // Recorre todos los segmentos del gusano
+    for (Entity* segment : body) {
+        // Para cada segmento, verifica si está sobre algún bloque
+        for (Entity* wall : walls) {
+            // Verifica si el segmento está justo encima de un bloque
+            // Comprueba la distancia vertical y la superposición horizontal
+            if (std::abs(segment->getY() - (wall->getY() + wall->getHeight())) < 0.01f &&
+                segment->getX() + segment->getWidth()/2 > wall->getX() - wall->getWidth()/2 &&
+                segment->getX() - segment->getWidth()/2 < wall->getX() + wall->getWidth()/2) {
+                // Si cualquier segmento está sobre un bloque, el gusano no cae
+                return true;
+            }
+        }
+    }
+    // Si ningún segmento está sobre un bloque, el gusano caerá
+    return false;
+}
+
+void Worm::reset() {
+    double segment_size = 0.05f;
+    Direction initialDirection = Direction::RIGHT;
+    
+    for (Entity* segment : body) {
+        delete segment;
+    }
+    body.clear();
+    
+    this->head = new WormHead(0.5f, 0.5f, 0.0f, segment_size, segment_size, segment_size, initialDirection);
+    this->body.push_back(head);
+    this->length = 5;
+    this->isFalling = false;
+    this->verticalVelocity = 0.0f;
+    this->fallStartY = 0.5f;
+
+    for (int i = 1; i < length - 1; i++) {
+        double bodyX = 0.5f - (i * segment_size);
+        double bodyY = 0.5f;
+        double bodyZ = 0.0f;
+        WormBody* segment = new WormBody(bodyX, bodyY, bodyZ, segment_size, segment_size, segment_size, initialDirection);
+        this->body.push_back(segment);
+    }
+    this->tail = new WormTail(0.5f - (length - 1) * segment_size, 0.5f, 0.0f, segment_size, segment_size, segment_size, initialDirection);
+    this->body.push_back(tail);
+}
+
+bool Worm::getIsFalling() const {
+    return isFalling;
 }
 

@@ -11,7 +11,7 @@ Game::Game()
 	this->entities = std::vector<Entity*>();
 	this->timer = new Timer();
 	this->camera = new Camera(0.0f, 0.0f, 1.5f, 0.5f,  0.5f, 0.0f);
-	//camera->updateMouseMovement(0, 0); // Inicializa la c醡ara en la posici髇 deseada
+	//camera->updateMouseMovement(0, 0); // Inicializa la c谩mara en la posici贸n deseada
 
 	if (TTF_Init() != 0) {
 		std::cerr << "Error inicializando SDL_ttf: " << TTF_GetError() << std::endl;
@@ -67,8 +67,6 @@ void Game::run()
 	this->hud->startTime();
 	int score = 10;
 
-
-	
 	while (running) {
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -81,6 +79,11 @@ void Game::run()
 			delete apple;
 			apple = nullptr;
 		}
+
+		// Actualiza la f铆sica de la gravedad para el gusano en cada frame
+		// Esto hace que el gusano caiga si no est谩 sobre un bloque
+		this->worm->updateGravity(this->entities, timeStep);
+
 		//MANEJO DE EVENTOS
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT) {
@@ -107,30 +110,30 @@ void Game::run()
 					running = false;
 					break;
 				case SDLK_w:
-					wireframe = !wireframe; // Cambiar el modo de visualizaci髇
+					wireframe = !wireframe; // Cambiar el modo de visualizaci贸n
 					if (wireframe) {
 						glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Modo wire
 					}
 					else {
-						glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // Modo s髄ido
+						glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // Modo s贸lido
 					}
 					break;
 				case SDLK_t:
-					texture = !texture; // Cambiar el modo de visualizaci髇
+					texture = !texture; // Cambiar el modo de visualizaci贸n
 					//todo implementar
 					break;
 				}
 				
 			}
 
-			//Manejo de c醡ara en free mode
+			//Manejo de c谩mara en free mode
 			else if (this->camera->getCameraMode() == CameraMode::FREE_CAMERA &&
 				event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
-				mouseButtonPressed = true; // Bot髇 presionado
+				mouseButtonPressed = true; // Bot贸n presionado
 			}
 			else if (this->camera->getCameraMode() == CameraMode::FREE_CAMERA &&
 				event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) {
-				mouseButtonPressed = false; // Bot髇 liberado
+				mouseButtonPressed = false; // Bot贸n liberado
 			}
 			else if (event.type == SDL_MOUSEMOTION && mouseButtonPressed &&
 				this->camera->getCameraMode() == CameraMode::FREE_CAMERA) {
@@ -139,7 +142,7 @@ void Game::run()
 				int mouseX, mouseY;
 				SDL_GetRelativeMouseState(&mouseX, &mouseY);
 
-				// Actualizar la c醡ara con el movimiento del mouse
+				// Actualizar la c谩mara con el movimiento del mouse
 				this->camera->updateMouseMovement(mouseX, mouseY);
 				SDL_SetRelativeMouseMode(SDL_FALSE);
 			}
