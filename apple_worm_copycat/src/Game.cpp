@@ -127,7 +127,7 @@ void Game::run()
 				case SDLK_v:
 					this->camera->switchCameraMode();
 					break;
-				case SDLK_ESCAPE:
+				case SDLK_q:
 					running = false;
 					break;
 				case SDLK_w:
