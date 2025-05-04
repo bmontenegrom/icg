@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "Camera.h"
 #include "Hud.h"
+#include "Menu.h"
 #include <vector>
 
 class Game {
@@ -17,7 +18,9 @@ private:
 	Timer* timer;
 	Camera* camera;
 	Hud* hud;
+	Menu* menu;
 	bool isPaused;
+	bool isRunning;
 
 public:
 	Game();

@@ -1,0 +1,35 @@
+﻿  Apple.cpp
+C:\Users\Usuario\source\repos\ValentinDutra\icg\apple_worm_copycat\src\Apple.cpp(1,10): error C1083: Cannot open include file: 'Apple.h': No such file or directory
+  Camera.cpp
+C:\Users\Usuario\source\repos\ValentinDutra\icg\apple_worm_copycat\src\Camera.cpp(1,10): error C1083: Cannot open include file: 'Camera.h': No such file or directory
+  Display.cpp
+C:\Users\Usuario\source\repos\ValentinDutra\icg\apple_worm_copycat\src\Display.cpp(1,10): error C1083: Cannot open include file: 'Display.h': No such file or directory
+  Entity.cpp
+C:\Users\Usuario\source\repos\ValentinDutra\icg\apple_worm_copycat\src\Entity.cpp(1,10): error C1083: Cannot open include file: 'Entity.h': No such file or directory
+  Game.cpp
+C:\Users\Usuario\source\repos\ValentinDutra\icg\apple_worm_copycat\src\Game.cpp(1,10): error C1083: Cannot open include file: 'Game.h': No such file or directory
+  Hud.cpp
+C:\Users\Usuario\source\repos\ValentinDutra\icg\apple_worm_copycat\src\Hud.cpp(1,10): error C1083: Cannot open include file: 'Hud.h': No such file or directory
+  main.cpp
+C:\Users\Usuario\source\repos\ValentinDutra\icg\apple_worm_copycat\src\main.cpp(1,10): error C1083: Cannot open include file: 'SDL.h': No such file or directory
+  Menu.cpp
+C:\Users\Usuario\source\repos\ValentinDutra\icg\apple_worm_copycat\src\Menu.cpp(1,10): error C1083: Cannot open include file: 'Menu.h': No such file or directory
+  Objective.cpp
+C:\Users\Usuario\source\repos\ValentinDutra\icg\apple_worm_copycat\src\Objective.cpp(1,10): error C1083: Cannot open include file: 'Objective.h': No such file or directory
+  ObjLoader.cpp
+C:\Users\Usuario\source\repos\ValentinDutra\icg\apple_worm_copycat\src\ObjLoader.cpp(1,10): error C1083: Cannot open include file: 'ObjLoader.h': No such file or directory
+  Particle.cpp
+C:\Users\Usuario\source\repos\ValentinDutra\icg\apple_worm_copycat\src\Particle.cpp(1,10): error C1083: Cannot open include file: 'Particle.h': No such file or directory
+  Timer.cpp
+C:\Users\Usuario\source\repos\ValentinDutra\icg\apple_worm_copycat\src\Timer.cpp(1,10): error C1083: Cannot open include file: 'Timer.h': No such file or directory
+  Wall.cpp
+C:\Users\Usuario\source\repos\ValentinDutra\icg\apple_worm_copycat\src\Wall.cpp(1,10): error C1083: Cannot open include file: 'Wall.h': No such file or directory
+  Worm.cpp
+C:\Users\Usuario\source\repos\ValentinDutra\icg\apple_worm_copycat\src\Worm.cpp(1,10): error C1083: Cannot open include file: 'Worm.h': No such file or directory
+  WormBody.cpp
+C:\Users\Usuario\source\repos\ValentinDutra\icg\apple_worm_copycat\src\WormBody.cpp(1,10): error C1083: Cannot open include file: 'WormBody.h': No such file or directory
+  WormHead.cpp
+C:\Users\Usuario\source\repos\ValentinDutra\icg\apple_worm_copycat\src\WormHead.cpp(1,10): error C1083: Cannot open include file: 'WormHead.h': No such file or directory
+  WormTail.cpp
+C:\Users\Usuario\source\repos\ValentinDutra\icg\apple_worm_copycat\src\WormTail.cpp(1,10): error C1083: Cannot open include file: 'WormTail.h': No such file or directory
+  Generating Code...

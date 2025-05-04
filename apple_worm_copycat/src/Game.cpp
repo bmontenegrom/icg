@@ -12,6 +12,7 @@ Game::Game()
 	this->timer = new Timer();
 	this->camera = new Camera(0.0f, 0.0f, 1.5f, 0.5f,  0.5f, 0.0f);
 	this->isPaused = false;
+	this->isRunning = true;  // Inicializar el estado de ejecución del juego
 	//camera->updateMouseMovement(0, 0); // Inicializa la cámara en la posición deseada
 
 	if (TTF_Init() != 0) {
@@ -24,7 +25,8 @@ Game::Game()
 		std::cerr << "Error al cargar la fuente: " << TTF_GetError() << std::endl;
 		exit(1);
 	}
-	this->hud = new Hud( font);
+	this->hud = new Hud(font);
+	this->menu = new Menu(font);  // Crear el menú con la misma fuente
 
 	for (int i = 0; i < 21; ++i) {
 		Wall* wall = new Wall(0.0 + i * 0.05, 0.025, 0.0, 0.05, 0.05, 0.05);
@@ -48,6 +50,7 @@ Game::~Game(){
 	delete worm;
 	delete apple;
 	delete display;
+	delete menu;  // Liberar la memoria del menú
 }
 
 void Game::run()
@@ -59,7 +62,6 @@ void Game::run()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	
-	bool running = true;
 	bool mouseButtonPressed = false;
 	bool wireframe = false;
 	bool texture = true;
@@ -68,7 +70,7 @@ void Game::run()
 	this->hud->startTime();
 	int score = 10;
 
-	while (running) {
+	while (isRunning) {  // Usar isRunning en lugar de running
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		gluPerspective(35.0, 800.0 / 600.0, 0.1, 100.0);
@@ -76,7 +78,15 @@ void Game::run()
 		glLoadIdentity();
 		
 		float timeStep = timer->getTicks() / 1000.0f; // Obtener el tiempo transcurrido en segundos
-		if (apple != nullptr && apple->eaten()) {
+		if (menu->isMenuActive()) {
+			menu->handleInput(event);
+			if (!menu->isMenuActive()) {
+				if (menu->getSelectedOption() == 1) { // Salir
+					isRunning = false;
+				}
+			}
+		}
+		else if (apple != nullptr && apple->eaten()) {
 			delete apple;
 			apple = nullptr;
 		}
@@ -90,7 +100,15 @@ void Game::run()
 		//MANEJO DE EVENTOS
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT) {
-				running = false;
+				isRunning = false;  // Usar isRunning en lugar de running
+			}
+			else if (menu->isMenuActive()) {  // Manejar entrada del menú
+				menu->handleInput(event);
+				if (!menu->isMenuActive()) {
+					if (menu->getSelectedOption() == 1) { // Salir
+						isRunning = false;
+					}
+				}
 			}
 			else if (event.type == SDL_KEYDOWN) {
 				switch (event.key.keysym.sym) {
@@ -128,7 +146,7 @@ void Game::run()
 					this->camera->switchCameraMode();
 					break;
 				case SDLK_q:
-					running = false;
+					isRunning = false;
 					break;
 				case SDLK_w:
 					wireframe = !wireframe; // Cambiar el modo de visualización
@@ -142,6 +160,9 @@ void Game::run()
 				case SDLK_t:
 					texture = !texture; // Cambiar el modo de visualización
 					//todo implementar
+					break;
+				case SDLK_ESCAPE:
+					menu->setActive(true);  // Activar el menú con ESC
 					break;
 				}
 				
@@ -186,13 +207,18 @@ void Game::run()
 		glLoadIdentity();
 		//gluLookAt(0.0, 0.0, 1.5, 0.5f, 0.5f, 0.0f, 0.0, 1.0, 0.0);
 		camera->applyView();
-		this->worm->render();
-		this->renderMap();
-		if (this->apple != nullptr) {
-			this->apple->render();
+
+		if (!menu->isMenuActive()) {  // Solo renderizar el juego si el menú no está activo
+			this->worm->render();
+			this->renderMap();
+			if (this->apple != nullptr) {
+				this->apple->render();
+			}
+			
+			hud->render(score, this->hud->getTime());
 		}
-		
-		hud->render(score, this->hud->getTime());
+
+		menu->render();  // Renderizar el menú
 		
 		SDL_GL_SwapWindow(display->getWindow());
 	}

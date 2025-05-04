@@ -1,134 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Repositorio\\icg\\apple_worm_copycat\\",
+  "WorkspaceRootPath": "C:\\Users\\Usuario\\source\\repos\\ValentinDutra\\icg\\apple_worm_copycat\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Entity.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\Entity.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Worm.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:include\\Worm.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\include\\WormBody.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:include\\WormBody.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Entity.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:include\\Entity.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Particle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:include\\Particle.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\src\\WormTail.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\WormTail.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\src\\WormHead.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\WormHead.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\src\\WormBody.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\WormBody.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Worm.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\Worm.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Wall.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\Wall.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Timer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:include\\Timer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Wall.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:include\\Wall.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\src\\ObjLoader.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\ObjLoader.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\include\\ObjLoader.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:include\\ObjLoader.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Hud.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:include\\Hud.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Display.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:include\\Display.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Constants.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:include\\Constants.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Users\\Usuario\\source\\repos\\ValentinDutra\\icg\\apple_worm_copycat\\include\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:include\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Objective.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\Objective.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Users\\Usuario\\source\\repos\\ValentinDutra\\icg\\apple_worm_copycat\\include\\Menu.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:include\\Menu.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Particle.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\Particle.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Users\\Usuario\\source\\repos\\ValentinDutra\\icg\\apple_worm_copycat\\src\\Menu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\Menu.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Apple.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\Apple.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Objective.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:include\\Objective.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\include\\WormTail.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:include\\WormTail.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:include\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Hud.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\Hud.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Display.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\Display.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\Camera.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Timer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\Timer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\include\\WormHead.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:include\\WormHead.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Apple.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:include\\Apple.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|C:\\Users\\Usuario\\source\\repos\\ValentinDutra\\icg\\apple_worm_copycat\\src\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{FE8A2F09-BACF-4E2F-A973-41DFF068DD0C}|apple_worm_copycat.vcxproj|solutionrelative:src\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -138,400 +26,59 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "WormHead.cpp",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\WormHead.cpp",
-              "RelativeDocumentMoniker": "src\\WormHead.cpp",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\WormHead.cpp",
-              "RelativeToolTip": "src\\WormHead.cpp",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAAAFYAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-26T11:37:54.8Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Wall.cpp",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Wall.cpp",
-              "RelativeDocumentMoniker": "src\\Wall.cpp",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Wall.cpp",
-              "RelativeToolTip": "src\\Wall.cpp",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-28T17:09:46.213Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Game.cpp",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Game.cpp",
-              "RelativeDocumentMoniker": "src\\Game.cpp",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Game.cpp",
-              "RelativeToolTip": "src\\Game.cpp",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAAADUAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-26T13:57:44.054Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "Game.h",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Game.h",
-              "RelativeDocumentMoniker": "include\\Game.h",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Game.h",
-              "RelativeToolTip": "include\\Game.h",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-26T11:35:36.987Z"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Entity.cpp",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Entity.cpp",
-              "RelativeDocumentMoniker": "src\\Entity.cpp",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Entity.cpp",
-              "RelativeToolTip": "src\\Entity.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-26T11:38:31.421Z",
+              "Title": "Game.h",
+              "DocumentMoniker": "C:\\Users\\Usuario\\source\\repos\\ValentinDutra\\icg\\apple_worm_copycat\\include\\Game.h",
+              "RelativeDocumentMoniker": "include\\Game.h",
+              "ToolTip": "C:\\Users\\Usuario\\source\\repos\\ValentinDutra\\icg\\apple_worm_copycat\\include\\Game.h",
+              "RelativeToolTip": "include\\Game.h",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-04-26T11:35:36.987Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "WormBody.cpp",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\WormBody.cpp",
-              "RelativeDocumentMoniker": "src\\WormBody.cpp",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\WormBody.cpp",
-              "RelativeToolTip": "src\\WormBody.cpp",
-              "ViewState": "AgIAAEgAAAAAAAAAAAAAAF4AAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-26T11:39:09.259Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Display.h",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Display.h",
-              "RelativeDocumentMoniker": "include\\Display.h",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Display.h",
-              "RelativeToolTip": "include\\Display.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "Menu.h",
+              "DocumentMoniker": "C:\\Users\\Usuario\\source\\repos\\ValentinDutra\\icg\\apple_worm_copycat\\include\\Menu.h",
+              "RelativeDocumentMoniker": "include\\Menu.h",
+              "ToolTip": "C:\\Users\\Usuario\\source\\repos\\ValentinDutra\\icg\\apple_worm_copycat\\include\\Menu.h",
+              "RelativeToolTip": "include\\Menu.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-26T11:34:28.799Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "Constants.h",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Constants.h",
-              "RelativeDocumentMoniker": "include\\Constants.h",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Constants.h",
-              "RelativeToolTip": "include\\Constants.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-26T13:45:01.906Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Hud.h",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Hud.h",
-              "RelativeDocumentMoniker": "include\\Hud.h",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Hud.h",
-              "RelativeToolTip": "include\\Hud.h",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAABcAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-01T12:54:25.192Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "ObjLoader.h",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\ObjLoader.h",
-              "RelativeDocumentMoniker": "include\\ObjLoader.h",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\ObjLoader.h",
-              "RelativeToolTip": "include\\ObjLoader.h",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABMAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-02T12:55:19.244Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Timer.h",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Timer.h",
-              "RelativeDocumentMoniker": "include\\Timer.h",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Timer.h",
-              "RelativeToolTip": "include\\Timer.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-30T09:28:29.968Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Worm.cpp",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Worm.cpp",
-              "RelativeDocumentMoniker": "src\\Worm.cpp",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Worm.cpp",
-              "RelativeToolTip": "src\\Worm.cpp",
-              "ViewState": "AgIAAHIAAAAAAAAAAAAAAGoAAABWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-26T13:37:58.967Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Particle.h",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Particle.h",
-              "RelativeDocumentMoniker": "include\\Particle.h",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Particle.h",
-              "RelativeToolTip": "include\\Particle.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-04T10:54:12.086Z"
+              "WhenOpened": "2025-05-04T22:09:24.3Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Entity.h",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Entity.h",
-              "RelativeDocumentMoniker": "include\\Entity.h",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Entity.h",
-              "RelativeToolTip": "include\\Entity.h",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAACEAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-26T11:33:45.061Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "WormTail.cpp",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\WormTail.cpp",
-              "RelativeDocumentMoniker": "src\\WormTail.cpp",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\WormTail.cpp",
-              "RelativeToolTip": "src\\WormTail.cpp",
-              "ViewState": "AgIAABgAAAAAAAAAAAAYwCIAAAAkAAAAAAAAAA==",
+              "Title": "Game.cpp",
+              "DocumentMoniker": "C:\\Users\\Usuario\\source\\repos\\ValentinDutra\\icg\\apple_worm_copycat\\src\\Game.cpp",
+              "RelativeDocumentMoniker": "src\\Game.cpp",
+              "ToolTip": "C:\\Users\\Usuario\\source\\repos\\ValentinDutra\\icg\\apple_worm_copycat\\src\\Game.cpp",
+              "RelativeToolTip": "src\\Game.cpp",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAlwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-26T13:43:25.636Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Wall.h",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Wall.h",
-              "RelativeDocumentMoniker": "include\\Wall.h",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Wall.h",
-              "RelativeToolTip": "include\\Wall.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-28T17:08:49.758Z"
+              "WhenOpened": "2025-05-04T22:09:13.915Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "WormBody.h",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\WormBody.h",
-              "RelativeDocumentMoniker": "include\\WormBody.h",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\WormBody.h",
-              "RelativeToolTip": "include\\WormBody.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-26T11:36:19.032Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Worm.h",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Worm.h",
-              "RelativeDocumentMoniker": "include\\Worm.h",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Worm.h",
-              "RelativeToolTip": "include\\Worm.h",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAABkAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-26T13:25:54.794Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "WormTail.h",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\WormTail.h",
-              "RelativeDocumentMoniker": "include\\WormTail.h",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\WormTail.h",
-              "RelativeToolTip": "include\\WormTail.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-26T11:37:26.771Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "ObjLoader.cpp",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\ObjLoader.cpp",
-              "RelativeDocumentMoniker": "src\\ObjLoader.cpp",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\ObjLoader.cpp",
-              "RelativeToolTip": "src\\ObjLoader.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAABSAAAAAAAAAA==",
+              "Title": "Menu.cpp",
+              "DocumentMoniker": "C:\\Users\\Usuario\\source\\repos\\ValentinDutra\\icg\\apple_worm_copycat\\src\\Menu.cpp",
+              "RelativeDocumentMoniker": "src\\Menu.cpp",
+              "ToolTip": "C:\\Users\\Usuario\\source\\repos\\ValentinDutra\\icg\\apple_worm_copycat\\src\\Menu.cpp",
+              "RelativeToolTip": "src\\Menu.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-02T12:59:42.181Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "main.cpp",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\main.cpp",
-              "RelativeDocumentMoniker": "src\\main.cpp",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\main.cpp",
-              "RelativeToolTip": "src\\main.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-26T11:28:46.009Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "Apple.cpp",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Apple.cpp",
-              "RelativeDocumentMoniker": "src\\Apple.cpp",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Apple.cpp",
-              "RelativeToolTip": "src\\Apple.cpp",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-28T14:39:07.602Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "Particle.cpp",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Particle.cpp",
-              "RelativeDocumentMoniker": "src\\Particle.cpp",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Particle.cpp",
-              "RelativeToolTip": "src\\Particle.cpp",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAAB8AAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-04T10:53:50.324Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "Objective.cpp",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Objective.cpp",
-              "RelativeDocumentMoniker": "src\\Objective.cpp",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Objective.cpp",
-              "RelativeToolTip": "src\\Objective.cpp",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAAAFAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-04T10:55:55.348Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "Objective.h",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Objective.h",
-              "RelativeDocumentMoniker": "include\\Objective.h",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Objective.h",
-              "RelativeToolTip": "include\\Objective.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAYAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-04T10:59:01.309Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "Timer.cpp",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Timer.cpp",
-              "RelativeDocumentMoniker": "src\\Timer.cpp",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Timer.cpp",
-              "RelativeToolTip": "src\\Timer.cpp",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-30T09:31:38.85Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "Camera.cpp",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Camera.cpp",
-              "RelativeDocumentMoniker": "src\\Camera.cpp",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Camera.cpp",
-              "RelativeToolTip": "src\\Camera.cpp",
-              "ViewState": "AgIAADMAAAAAAAAAAAAAAHcAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-30T11:06:47.273Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "Hud.cpp",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Hud.cpp",
-              "RelativeDocumentMoniker": "src\\Hud.cpp",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Hud.cpp",
-              "RelativeToolTip": "src\\Hud.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-01T13:02:09.006Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "Camera.h",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Camera.h",
-              "RelativeDocumentMoniker": "include\\Camera.h",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Camera.h",
-              "RelativeToolTip": "include\\Camera.h",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-30T10:59:55.699Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "Display.cpp",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Display.cpp",
-              "RelativeDocumentMoniker": "src\\Display.cpp",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\src\\Display.cpp",
-              "RelativeToolTip": "src\\Display.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-04-26T11:32:51.61Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "WormHead.h",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\WormHead.h",
-              "RelativeDocumentMoniker": "include\\WormHead.h",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\WormHead.h",
-              "RelativeToolTip": "include\\WormHead.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-26T11:36:55.34Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "Apple.h",
-              "DocumentMoniker": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Apple.h",
-              "RelativeDocumentMoniker": "include\\Apple.h",
-              "ToolTip": "C:\\Repositorio\\icg\\apple_worm_copycat\\include\\Apple.h",
-              "RelativeToolTip": "include\\Apple.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-04-28T14:37:53.454Z"
+              "WhenOpened": "2025-05-04T22:09:13.17Z",
+              "EditorCaption": ""
             }
           ]
         }
