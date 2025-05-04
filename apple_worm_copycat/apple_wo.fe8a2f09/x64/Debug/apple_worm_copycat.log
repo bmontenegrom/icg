@@ -1,8 +1,1 @@
-﻿  Objective.cpp
-C:\Repositorio\icg\apple_worm_copycat\src\Objective.cpp(9,21): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Objective.cpp(10,21): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Objective.cpp(11,21): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Objective.cpp(87,20): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Objective.cpp(88,20): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Objective.cpp(89,20): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-  apple_worm_copycat.vcxproj -> C:\Repositorio\icg\apple_worm_copycat\x64\Debug\apple_worm_copycat.exe
+﻿  apple_worm_copycat.vcxproj -> C:\Repositorio\icg\apple_worm_copycat\x64\Debug\apple_worm_copycat.exe

@@ -79,12 +79,12 @@
     <LibraryPath>C:\Repositorio\icg\apple_worm_copycat\lib\SDL2-2.32.4\lib\x64;C:\Repositorio\icg\apple_worm_copycat\lib\Freeimage;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Repositorio\icg\apple_worm_copycat\include;C:\Repositorio\icg\apple_worm_copycat\lib\SDL2-2.32.4\include;C:\Repositorio\icg\apple_worm_copycat\lib\Freeimage;C:\Repositorio\icg\apple_worm_copycat\lib\SDL2_ttf-2.24.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Repositorio\icg\apple_worm_copycat\lib\SDL2-2.32.4\lib\x64;C:\Repositorio\icg\apple_worm_copycat\lib\Freeimage;C:\Repositorio\icg\apple_worm_copycat\lib\SDL2_ttf-2.24.0\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>include;lib\SDL2-2.32.4\include;lib\Freeimage;lib\SDL2_ttf-2.24.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>lib\Freeimage;lib\SDL2-2.32.4\lib\x64;lib\SDL2_ttf-2.24.0\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Repositorio\icg\apple_worm_copycat\include;C:\Repositorio\icg\apple_worm_copycat\lib\SDL2-2.32.4\include;C:\Repositorio\icg\apple_worm_copycat\lib\Freeimage;C:\Repositorio\icg\apple_worm_copycat\lib\SDL2_ttf-2.24.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Repositorio\icg\apple_worm_copycat\lib\SDL2-2.32.4\lib\x64;C:\Repositorio\icg\apple_worm_copycat\lib\Freeimage;C:\Repositorio\icg\apple_worm_copycat\lib\SDL2_ttf-2.24.0\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>include;lib\SDL2-2.32.4\include;lib\Freeimage;lib\SDL2_ttf-2.24.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>lib\Freeimage;lib\SDL2-2.32.4\lib\x64;lib\SDL2_ttf-2.24.0\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

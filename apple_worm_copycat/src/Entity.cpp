@@ -86,6 +86,7 @@ double Entity::getDepth() const
 	return this->depth;
 }
 
+//todo poner cita
 bool Entity::isColliding(const Entity& other) const
 {
 	bool collisionX = std::abs(this->x - other.x) < (this->width + other.width) / 2;
