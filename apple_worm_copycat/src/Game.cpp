@@ -11,6 +11,7 @@ Game::Game()
 	this->entities = std::vector<Entity*>();
 	this->timer = new Timer();
 	this->camera = new Camera(0.0f, 0.0f, 1.5f, 0.5f,  0.5f, 0.0f);
+	this->isPaused = false;
 	//camera->updateMouseMovement(0, 0); // Inicializa la cámara en la posición deseada
 
 	if (TTF_Init() != 0) {
@@ -82,7 +83,9 @@ void Game::run()
 
 		// Actualiza la física de la gravedad para el gusano en cada frame
 		// Esto hace que el gusano caiga si no está sobre un bloque
-		this->worm->updateGravity(this->entities, timeStep);
+		if (!isPaused) {
+			this->worm->updateGravity(this->entities, timeStep);
+		}
 
 		//MANEJO DE EVENTOS
 		while (SDL_PollEvent(&event)) {
@@ -92,16 +95,34 @@ void Game::run()
 			else if (event.type == SDL_KEYDOWN) {
 				switch (event.key.keysym.sym) {
 				case SDLK_UP:
-					this->worm->move(UP, this->entities, this->apple, timeStep);
+					if (!isPaused) {
+						this->worm->move(UP, this->entities, this->apple, timeStep);
+					}
 					break;
 				case SDLK_DOWN:
-					this->worm->move(DOWN, this->entities, this->apple, timeStep);
+					if (!isPaused) {
+						this->worm->move(DOWN, this->entities, this->apple, timeStep);
+					}
 					break;
 				case SDLK_LEFT:
-					this->worm->move(LEFT, this->entities, this->apple, timeStep);
+					if (!isPaused) {
+						this->worm->move(LEFT, this->entities, this->apple, timeStep);
+					}
 					break;
 				case SDLK_RIGHT:
-					this->worm->move(RIGHT, this->entities, this->apple, timeStep);
+					if (!isPaused) {
+						this->worm->move(RIGHT, this->entities, this->apple, timeStep);
+					}
+					break;
+				case SDLK_p:
+					isPaused = !isPaused;
+					// Buscar el objetivo y pausar sus partículas
+					for (Entity* entity : entities) {
+						if (Objective* objective = dynamic_cast<Objective*>(entity)) {
+							objective->setPaused(isPaused);
+							break;
+						}
+					}
 					break;
 				case SDLK_v:
 					this->camera->switchCameraMode();

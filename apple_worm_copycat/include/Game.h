@@ -17,10 +17,7 @@ private:
 	Timer* timer;
 	Camera* camera;
 	Hud* hud;
-
-
-
-
+	bool isPaused;
 
 public:
 	Game();

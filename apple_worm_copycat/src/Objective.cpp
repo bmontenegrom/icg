@@ -9,6 +9,7 @@ Objective::Objective(double x, double y, double z, double width, double height, 
     float particleX = x; //- width / 2 + (rand()% 5)/100.f;
     float particleY = y; //- height / 2 + (rand() % 5) / 100.f;
     float particleZ = z; //- depth / 2 + (rand() % 5) / 100.f;
+	this->isPaused = false;
 	for (int i = 0; i < 100; ++i) {
 		Particle* particle = new Particle(particleX, particleY, particleZ);
 		particles.push_back(particle);
@@ -21,8 +22,8 @@ Objective::~Objective()
 void Objective::render()
 {
     glPushMatrix();
-    glTranslated(getX(), getY(), getZ()); // Trasladar a la posición
-    glScaled(getWidth(), getHeight(), getDepth()); // Escalar según las dimensiones
+    glTranslated(getX(), getY(), getZ()); // Trasladar a la posiciÃ³n
+    glScaled(getWidth(), getHeight(), getDepth()); // Escalar segÃºn las dimensiones
 
     glBegin(GL_QUADS);
 
@@ -72,11 +73,8 @@ void Objective::render()
 
     glPopMatrix();
 
-	//Actualizar y renderizar las partículas
-	for (Particle* particle : particles) {
-		particle->update();
-	}
-	renderParticles();
+    // Solo renderizar las partÃ­culas, la actualizaciÃ³n se hace en renderParticles
+    renderParticles();
 }
 
 void Objective::renderParticles()
@@ -92,6 +90,14 @@ void Objective::renderParticles()
 	}
 
 	for (Particle* particle : particles) {
+		if (!isPaused) {
+			particle->update();
+		}
 		particle->render();
 	}
+}
+
+void Objective::setPaused(bool paused)
+{
+	this->isPaused = paused;
 }

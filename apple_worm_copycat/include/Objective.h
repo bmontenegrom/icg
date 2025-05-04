@@ -11,6 +11,8 @@ public:
 	~Objective();
 	void render();
 	void renderParticles();
+	void setPaused(bool paused);
 private:
-	std::vector<Particle*> particles; 
+	std::vector<Particle*> particles;
+	bool isPaused;
 };
