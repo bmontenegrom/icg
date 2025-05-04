@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Wall.h"
+#include "Objective.h"
 #include <iostream>
 
 Game::Game()
@@ -32,6 +33,9 @@ Game::Game()
 		Wall* wall = new Wall(0.7, 0.0 + i* 0.05, 0.0, 0.05, 0.05, 0.05);
 		this->entities.push_back(wall);
 	}
+
+	Objective* objective = new Objective(0.8f, 0.8f, 0.0f, 0.05f, 0.05f, 0.05f);
+	this->entities.push_back(objective);
 
 
 }

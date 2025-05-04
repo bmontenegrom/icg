@@ -57,6 +57,12 @@
     <ClInclude Include="include\ObjLoader.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="include\Particle.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Objective.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Display.cpp">
@@ -99,6 +105,12 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="src\ObjLoader.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Objective.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Particle.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

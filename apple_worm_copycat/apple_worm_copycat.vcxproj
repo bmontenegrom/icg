@@ -154,7 +154,9 @@
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\Hud.h" />
+    <ClInclude Include="include\Objective.h" />
     <ClInclude Include="include\ObjLoader.h" />
+    <ClInclude Include="include\Particle.h" />
     <ClInclude Include="include\Timer.h" />
     <ClInclude Include="include\Wall.h" />
     <ClInclude Include="include\Worm.h" />
@@ -170,7 +172,9 @@
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Hud.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Objective.cpp" />
     <ClCompile Include="src\ObjLoader.cpp" />
+    <ClCompile Include="src\Particle.cpp" />
     <ClCompile Include="src\Timer.cpp" />
     <ClCompile Include="src\Wall.cpp" />
     <ClCompile Include="src\Worm.cpp" />
