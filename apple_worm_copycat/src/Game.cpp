@@ -10,7 +10,9 @@ Game::Game()
 	this->apple = new Apple(0.8f, 0.2f, 0.0f, 0.05f, 0.05f, 0.05f);
 	this->entities = std::vector<Entity*>();
 	this->timer = new Timer();
-	this->camera = new Camera(0.0f, 0.0f, 1.5f, 0.5f,  0.5f, 0.0f);
+	// Posición de la cámara: arriba y a la derecha
+	// Punto al que mira: centro del área de juego (aproximadamente 0.5, 0.25, 0.0)
+	this->camera = new Camera();
 	this->isPaused = false;
 	this->isRunning = true;  // Inicializar el estado de ejecución del juego
 	//camera->updateMouseMovement(0, 0); // Inicializa la cámara en la posición deseada
@@ -100,12 +102,12 @@ void Game::run()
 		//MANEJO DE EVENTOS
 		while (SDL_PollEvent(&event)) {
 			if (event.type == SDL_QUIT) {
-				isRunning = false;  // Usar isRunning en lugar de running
+				isRunning = false;
 			}
-			else if (menu->isMenuActive()) {  // Manejar entrada del menú
+			else if (menu->isMenuActive()) {
 				menu->handleInput(event);
 				if (!menu->isMenuActive()) {
-					if (menu->getSelectedOption() == 1) { // Salir
+					if (menu->getSelectedOption() == 1) {
 						isRunning = false;
 					}
 				}
@@ -134,7 +136,6 @@ void Game::run()
 					break;
 				case SDLK_p:
 					isPaused = !isPaused;
-					// Buscar el objetivo y pausar sus partículas
 					for (Entity* entity : entities) {
 						if (Objective* objective = dynamic_cast<Objective*>(entity)) {
 							objective->setPaused(isPaused);
@@ -144,57 +145,58 @@ void Game::run()
 					break;
 				case SDLK_v:
 					this->camera->switchCameraMode();
+					if (this->camera->getCameraMode() == CameraMode::FREE_CAMERA || this->camera->getCameraMode() == CameraMode::FIRST_PERSON) {
+						SDL_SetRelativeMouseMode(SDL_TRUE); // Activar modo relativo al entrar en free cam o first person
+					} else {
+						SDL_SetRelativeMouseMode(SDL_FALSE); // Desactivar modo relativo al salir
+					}
 					break;
 				case SDLK_q:
 					isRunning = false;
 					break;
 				case SDLK_w:
-					wireframe = !wireframe; // Cambiar el modo de visualización
+					wireframe = !wireframe;
 					if (wireframe) {
-						glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Modo wire
+						glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 					}
 					else {
-						glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // Modo sólido
+						glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 					}
 					break;
 				case SDLK_t:
-					texture = !texture; // Cambiar el modo de visualización
-					//todo implementar
+					texture = !texture;
 					break;
 				case SDLK_ESCAPE:
-					menu->setActive(true);  // Activar el menú con ESC
+					menu->setActive(true);
 					break;
 				}
-				
 			}
-
-			//Manejo de cámara en free mode
-			else if (this->camera->getCameraMode() == CameraMode::FREE_CAMERA &&
-				event.type == SDL_MOUSEBUTTONDOWN && event.button.button == SDL_BUTTON_LEFT) {
-				mouseButtonPressed = true; // Botón presionado
-			}
-			else if (this->camera->getCameraMode() == CameraMode::FREE_CAMERA &&
-				event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) {
-				mouseButtonPressed = false; // Botón liberado
-			}
-			else if (event.type == SDL_MOUSEMOTION && mouseButtonPressed &&
-				this->camera->getCameraMode() == CameraMode::FREE_CAMERA) {
-				SDL_SetRelativeMouseMode(SDL_TRUE);
+			else if (event.type == SDL_MOUSEMOTION && this->camera->getCameraMode() == CameraMode::FREE_CAMERA) {
 				// Obtener movimiento relativo del mouse
 				int mouseX, mouseY;
 				SDL_GetRelativeMouseState(&mouseX, &mouseY);
 
 				// Actualizar la cámara con el movimiento del mouse
 				this->camera->updateMouseMovement(mouseX, mouseY);
-				SDL_SetRelativeMouseMode(SDL_FALSE);
 			}
-			
-			
-			
 		}
-		if (camera->getCameraMode() == CameraMode::THIRD_PERSON) {
-			this->camera->followTarget(this->worm->getX(), this->worm->getY(), this->worm->getZ(), 0.4f);
-
+		if (camera->getCameraMode() == CameraMode::THIRD_PERSON || camera->getCameraMode() == CameraMode::FIRST_PERSON) {
+			// Obtener dirección del gusano
+			Direction dir = this->worm->getHeadDirection();
+			float dirX = 0.0f, dirY = 0.0f, dirZ = 0.0f;
+			switch (dir) {
+				case UP: dirY = 1.0f; break;
+				case DOWN: dirY = -1.0f; break;
+				case LEFT: dirX = -1.0f; break;
+				case RIGHT: dirX = 1.0f; break;
+			}
+			this->camera->followTarget(
+				this->worm->getX(),
+				this->worm->getY(),
+				this->worm->getZ(),
+				0.25f, // distancia para third person
+				dirX, dirY, dirZ
+			);
 		}
 		//FIN MANEJO DE EVENTOS
 

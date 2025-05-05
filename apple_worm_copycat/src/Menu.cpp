@@ -178,6 +178,9 @@ void Menu::renderTexture2D(const TextTextureMenu& textTex, int x, int y, int scr
 void Menu::render() {
     if (!isActive) return;  // No renderizar si el menú no está activo
 
+    // Desactivar iluminación para el menú
+    glDisable(GL_LIGHTING);
+
     // Guardar el modo actual de renderizado
     GLint polygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, polygonMode);
@@ -194,7 +197,7 @@ void Menu::render() {
     float panelX = (SCREEN_WIDTH - panelWidth) / 2;
     float panelY = (SCREEN_HEIGHT - panelHeight) / 2;
 
-    // Panel principal con transparencia
+    // Panel principal con transparencia (más claro)
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
@@ -208,16 +211,16 @@ void Menu::render() {
 
     // Panel principal
     glBegin(GL_QUADS);
-    glColor4f(0.3f, 0.3f, 0.3f, 0.8f);  // Gris oscuro con transparencia
+    glColor4f(0.7f, 0.7f, 0.7f, 0.85f);  // Gris claro con más opacidad
     glVertex2f(panelX, panelY);
     glVertex2f(panelX + panelWidth, panelY);
     glVertex2f(panelX + panelWidth, panelY + panelHeight);
     glVertex2f(panelX, panelY + panelHeight);
     glEnd();
 
-    // Borde brillante
+    // Borde brillante (naranja suave)
     glBegin(GL_QUADS);
-    glColor4f(0.8f, 0.8f, 1.0f, 0.3f);  // Borde azul claro
+    glColor4f(1.0f, 0.6f, 0.2f, 0.5f);  // Naranja suave con más opacidad
     glVertex2f(panelX - 2, panelY - 2);
     glVertex2f(panelX + panelWidth + 2, panelY - 2);
     glVertex2f(panelX + panelWidth + 2, panelY + panelHeight + 2);
@@ -227,32 +230,32 @@ void Menu::render() {
     glDisable(GL_BLEND);
 
     // Definir colores para el texto
-    SDL_Color white = { 255, 255, 255, 255 };  // Color blanco para texto normal
-    SDL_Color yellow = { 255, 255, 0, 255 };   // Color amarillo para opción seleccionada
-    SDL_Color cyan = { 0, 255, 255, 255 };     // Color cyan para controles
+    SDL_Color white = { 255, 255, 255, 255 };  // Blanco puro para texto normal
+    SDL_Color yellow = { 255, 255, 0, 255 };   // Amarillo puro para opción seleccionada
+    SDL_Color cyan = { 80, 160, 255, 255 };    // Azul suave para controles
 
-    // Renderizar el título del juego
+    // Renderizar el título del juego (sin sombra)
     TextTextureMenu titleTex = createTextTexture("Apple Worm", font, yellow);
     renderTexture2D(titleTex, SCREEN_WIDTH/2 - titleTex.width/2, panelY + 50, SCREEN_WIDTH, SCREEN_HEIGHT);
     glDeleteTextures(1, &titleTex.textureId);
 
-    // Renderizar la lista de controles
-    int yPos = panelY + 150;  // Posición vertical inicial para los controles
+    // Renderizar la lista de controles (sin sombra)
+    int yPos = panelY + 150;
     for (const auto& control : controls) {
         TextTextureMenu controlTex = createTextTexture(control, font, cyan);
         renderTexture2D(controlTex, SCREEN_WIDTH/2 - controlTex.width/2, yPos, SCREEN_WIDTH, SCREEN_HEIGHT);
         glDeleteTextures(1, &controlTex.textureId);
-        yPos += 30;  // Incrementar posición vertical para el siguiente control
+        yPos += 30;
     }
 
-    // Renderizar las opciones del menú
-    yPos = panelY + 350;  // Posición vertical inicial para las opciones
+    // Renderizar las opciones del menú (sin sombra)
+    yPos = panelY + 350;
     for (int i = 0; i < static_cast<int>(menuOptions.size()); i++) {
         SDL_Color color = (i == selectedOption) ? yellow : white;
         TextTextureMenu optionTex = createTextTexture(menuOptions[i], font, color);
         renderTexture2D(optionTex, SCREEN_WIDTH/2 - optionTex.width/2, yPos, SCREEN_WIDTH, SCREEN_HEIGHT);
         glDeleteTextures(1, &optionTex.textureId);
-        yPos += 40;  // Incrementar posición vertical para la siguiente opción
+        yPos += 40;
     }
 
     // Restaurar el modo de renderizado anterior
@@ -261,6 +264,9 @@ void Menu::render() {
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
     glPolygonMode(GL_FRONT_AND_BACK, polygonMode[0]);
+
+    // Volver a activar la iluminación
+    glEnable(GL_LIGHTING);
 }
 
 void Menu::handleInput(SDL_Event& event) {

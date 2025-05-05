@@ -56,6 +56,33 @@ void Display::init(){
 	glClearColor(0, 0, 0, 1);
 	gluPerspective(45, SCREEN_WIDTH / (double)SCREEN_HEIGHT, 0.1, 100);
 	glEnable(GL_DEPTH_TEST);
+	
+	// Habilitar iluminación
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_NORMALIZE);
+	
+	// Configurar luz ambiental
+	GLfloat ambientLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
+	
+	// Configurar luz difusa
+	GLfloat diffuseLight[] = { 0.8f, 0.8f, 0.8f, 1.0f };
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
+	
+	// Posicionar la luz
+	GLfloat lightPosition[] = { 5.0f, 5.0f, 5.0f, 1.0f };
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+	
 	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	
+	// Posicionar la cámara en diagonal desde arriba
+	gluLookAt(
+		12.0f, 15.0f, 12.0f,  // Posición de la cámara (más arriba)
+		0.0f, 0.0f, 0.0f,     // Punto al que mira (centro)
+		0.0f, 1.0f, 0.0f      // Vector "up" (hacia arriba)
+	);
 }
 

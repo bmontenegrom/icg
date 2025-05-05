@@ -9,13 +9,14 @@ Apple::Apple(double x, double y, double z, double width, double height, double d
 void Apple::render()
 {
 	glPushMatrix();
-    glTranslated(getX(), getY(), getZ()); // Trasladar a la posición
-    glScaled(getWidth(), getHeight(), getDepth()); // Escalar según las dimensiones
+    glTranslated(getX(), getY(), getZ()); // Trasladar a la posiciÃ³n
+    glScaled(getWidth(), getHeight(), getDepth()); // Escalar segÃºn las dimensiones
 
     glBegin(GL_QUADS);
 
     // Cara frontal
     glColor3f(1.0f, 0.0f, 0.0f); // Rojo
+    glNormal3f(0.0f, 0.0f, 1.0f); // Normal apuntando hacia afuera
     glVertex3f(-0.5, -0.5, 0.5);
     glVertex3f(0.5, -0.5, 0.5);
     glVertex3f(0.5, 0.5, 0.5);
@@ -23,6 +24,7 @@ void Apple::render()
 
     // Cara trasera
     //glColor3f(0.0f, 1.0f, 0.0f); // Verde
+    glNormal3f(0.0f, 0.0f, -1.0f); // Normal apuntando hacia afuera
     glVertex3f(-0.5, -0.5, -0.5);
     glVertex3f(-0.5, 0.5, -0.5);
     glVertex3f(0.5, 0.5, -0.5);
@@ -30,6 +32,7 @@ void Apple::render()
 
     // Cara izquierda
     //glColor3f(0.0f, 0.0f, 1.0f); // Azul
+    glNormal3f(-1.0f, 0.0f, 0.0f); // Normal apuntando hacia afuera
     glVertex3f(-0.5, -0.5, -0.5);
     glVertex3f(-0.5, -0.5, 0.5);
     glVertex3f(-0.5, 0.5, 0.5);
@@ -37,6 +40,7 @@ void Apple::render()
 
     // Cara derecha
     //glColor3f(1.0f, 1.0f, 0.0f); // Amarillo
+    glNormal3f(1.0f, 0.0f, 0.0f); // Normal apuntando hacia afuera
     glVertex3f(0.5, -0.5, -0.5);
     glVertex3f(0.5, 0.5, -0.5);
     glVertex3f(0.5, 0.5, 0.5);
@@ -44,6 +48,7 @@ void Apple::render()
     
     // Cara superior
    // glColor3f(0.0f, 1.0f, 1.0f); // Cian
+    glNormal3f(0.0f, 1.0f, 0.0f); // Normal apuntando hacia afuera
     glVertex3f(-0.5, 0.5, -0.5);
     glVertex3f(-0.5, 0.5, 0.5);
     glVertex3f(0.5, 0.5, 0.5);
@@ -51,6 +56,7 @@ void Apple::render()
 
     // Cara inferior
    // glColor3f(1.0f, 0.0f, 1.0f); // Magenta
+    glNormal3f(0.0f, -1.0f, 0.0f); // Normal apuntando hacia afuera
     glVertex3f(-0.5, -0.5, -0.5);
     glVertex3f(0.5, -0.5, -0.5);
     glVertex3f(0.5, -0.5, 0.5);
