@@ -166,6 +166,14 @@ void Game::run()
 				case SDLK_t:
 					texture = !texture;
 					break;
+				case SDLK_l:
+					// Cambiar la posición de la luz
+					this->display->changeLightPosition();
+					break;
+				case SDLK_k:
+					// Cambiar el color de la luz
+					this->display->changeLightColor();
+					break;
 				case SDLK_ESCAPE:
 					menu->setActive(true);
 					break;

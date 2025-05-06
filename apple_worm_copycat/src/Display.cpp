@@ -27,6 +27,11 @@ Display::Display(){
 		std::cerr << "No se pudo crear el contexto OpenGL: " << SDL_GetError() << std::endl;
 		exit(1);
 	}; 
+	
+	// Inicializar índices de luz
+	currentLightPosition = 0;
+	currentLightColor = 0;
+	
 	this->init();
 }
 
@@ -67,11 +72,11 @@ void Display::init(){
 	GLfloat ambientLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, ambientLight);
 	
-	// Configurar luz difusa
+	// Configurar luz difusa inicial
 	GLfloat diffuseLight[] = { 0.8f, 0.8f, 0.8f, 1.0f };
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
 	
-	// Posicionar la luz
+	// Posicionar la luz inicial
 	GLfloat lightPosition[] = { 5.0f, 5.0f, 5.0f, 1.0f };
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 	
@@ -84,5 +89,35 @@ void Display::init(){
 		0.0f, 0.0f, 0.0f,     // Punto al que mira (centro)
 		0.0f, 1.0f, 0.0f      // Vector "up" (hacia arriba)
 	);
+}
+
+void Display::changeLightPosition() {
+    // Definir 3 posiciones diferentes para la luz
+    GLfloat positions[3][4] = {
+        { 5.0f, 5.0f, 5.0f, 1.0f },  // Posición diagonal superior derecha
+        { -5.0f, 5.0f, -5.0f, 1.0f }, // Posición diagonal superior izquierda
+        { 0.0f, 10.0f, 0.0f, 1.0f }   // Posición superior central
+    };
+    
+    // Cambiar a la siguiente posición
+    currentLightPosition = (currentLightPosition + 1) % 3;
+    
+    // Aplicar la nueva posición
+    glLightfv(GL_LIGHT0, GL_POSITION, positions[currentLightPosition]);
+}
+
+void Display::changeLightColor() {
+    // Definir 3 colores diferentes para la luz
+    GLfloat colors[3][4] = {
+        { 0.8f, 0.8f, 0.8f, 1.0f },  // Blanco
+        { 0.8f, 0.4f, 0.4f, 1.0f },  // Rojo suave
+        { 0.4f, 0.8f, 0.4f, 1.0f }   // Verde suave
+    };
+    
+    // Cambiar al siguiente color
+    currentLightColor = (currentLightColor + 1) % 3;
+    
+    // Aplicar el nuevo color
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, colors[currentLightColor]);
 }
 

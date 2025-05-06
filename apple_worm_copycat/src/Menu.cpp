@@ -16,6 +16,8 @@ Menu::Menu(TTF_Font* font) : font(font), isActive(true), selectedOption(0), back
         "P: Pausar/Reanudar",
         "W: Activar/Desactivar wireframe",
         "V: Cambiar cámara",
+        "L: Cambiar posición de la luz",
+        "K: Cambiar color de la luz",
         "Q: Salir del juego"
     };
     

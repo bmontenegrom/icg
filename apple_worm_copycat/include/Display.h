@@ -10,6 +10,8 @@ public:
 	SDL_Window* getWindow();
 	SDL_GLContext getContext();
 	SDL_Renderer* getRenderer();
+	void changeLightPosition(); // Función para cambiar la posición de la luz
+	void changeLightColor(); // Función para cambiar el color de la luz
 private:
 	SDL_Window* window;
 	SDL_GLContext context;
@@ -17,5 +19,8 @@ private:
 	int width;
 	int height;
 	void init();
-
+	
+	// Variables para controlar la luz
+	int currentLightPosition; // Índice de la posición actual de la luz
+	int currentLightColor; // Índice del color actual de la luz
 };
