@@ -71,6 +71,9 @@ void Game::run()
 	bool mouseButtonPressed = false;
 	bool wireframe = false;
 	bool texture = true;
+	bool smooth = true; 
+
+	glShadeModel(GL_SMOOTH);
 
 	SDL_Event event;
 	this->hud->startTime();
@@ -177,6 +180,15 @@ void Game::run()
 				case SDLK_k:
 					// Cambiar el color de la luz
 					this->display->changeLightColor();
+					break;
+				case SDLK_s:
+					smooth = !smooth;
+					if (smooth) {
+						glShadeModel(GL_SMOOTH);
+					}
+					else {
+						glShadeModel(GL_FLAT);
+					}
 					break;
 				case SDLK_ESCAPE:
 					menu->setActive(true);

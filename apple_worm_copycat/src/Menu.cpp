@@ -18,7 +18,8 @@ Menu::Menu(TTF_Font* font) : font(font), isActive(true), selectedOption(0), back
         "V: Cambiar cámara",
         "L: Cambiar posición de la luz",
         "K: Cambiar color de la luz",
-        "Q: Salir del juego"
+        "Q: Salir del juego",
+        "S: Interpolado/Facetado",
     };
     
     // Cargar la textura de fondo
@@ -242,7 +243,7 @@ void Menu::render() {
     glDeleteTextures(1, &titleTex.textureId);
 
     // Renderizar la lista de controles (sin sombra)
-    int yPos = panelY + 150;
+    int yPos = panelY + 100;
     for (const auto& control : controls) {
         TextTextureMenu controlTex = createTextTexture(control, font, cyan);
         renderTexture2D(controlTex, SCREEN_WIDTH/2 - controlTex.width/2, yPos, SCREEN_WIDTH, SCREEN_HEIGHT);
