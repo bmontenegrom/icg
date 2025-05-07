@@ -20,7 +20,7 @@ struct ObjVertex {
 class ObjectLoader {
 public:
     static ObjectLoader& getInstance();
-    std::vector<ObjVertex> loadOBJ(const std::string& filename);
+    std::vector<ObjVertex> loadOBJ(const std::string& filename, float scale = 1.0f);
 
 private:
     ObjectLoader() {}

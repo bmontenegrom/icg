@@ -7,8 +7,6 @@
 
 Hud::Hud(TTF_Font* font) :  font(font)
 {
-    
-
 	this->timer = new Timer();
 }
 
@@ -93,7 +91,7 @@ void Hud::renderTexture2D(GLuint texture, int x, int y, int width, int height, i
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
-    gluOrtho2D(0, screenWidth, screenHeight, 0);  // Coordenadas en píxeles
+    gluOrtho2D(0, screenWidth, screenHeight, 0);  // Coordenadas en pï¿½xeles
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();

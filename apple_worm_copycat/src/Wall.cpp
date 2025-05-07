@@ -1,70 +1,95 @@
-#include "Wall.h"
-#include <SDL.h>
-#include <SDL_opengl.h>
+#include <windows.h>
+#include <GL/gl.h>
 #include <GL/glu.h>
+#include <SDL.h>
+#include <iostream>
+#include "Wall.h"
+#include "ObjLoader.h"
+#include "Constants.h"
 
-Wall::Wall(double x, double y, double z, double width, double height, double depth): Entity(x, y, z, width, height, depth)
-{
+Wall::Wall(double x, double y, double z, double width, double height, double depth)
+    : Entity(x, y, z, width, height, depth) {
+    ObjectLoader& loader = ObjectLoader::getInstance();
+    // Escalar el modelo a 1/10000 de su tamaño original
+    vertices = loader.loadOBJ("assets/cube/cube.obj", 0.0001f);
+    if (vertices.empty()) {
+        std::cerr << "Error al cargar el modelo del bloque" << std::endl;
+    }
 }
 
-void Wall::render()
-{
+void Wall::render() {
+    bool usarFallback = vertices.empty();
+    if (!usarFallback) {
+        // Verifica si todas las UVs son (0,0)
+        usarFallback = true;
+        for (const auto& v : vertices) {
+            if (v.texCoord.x != 0.0f || v.texCoord.y != 0.0f) {
+                usarFallback = false;
+                break;
+            }
+        }
+    }
+
     glPushMatrix();
-    glTranslated(getX(), getY(), getZ()); // Trasladar a la posición
-    glScaled(getWidth(), getHeight(), getDepth()); // Escalar según las dimensiones
+    glTranslated(getX(), getY(), getZ());
+    glScaled(getWidth(), getHeight(), getDepth());
 
-    glBegin(GL_QUADS);
+    glColor3f(1.0f, 1.0f, 1.0f); // Color blanco
 
-    // Cara frontal
-    glColor3f(0.3f, 0.0f, 0.0f); // Rojo oscuro
-    glNormal3f(0.0f, 0.0f, 1.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, -0.5, 0.5);
-    glVertex3f(0.5, -0.5, 0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
+    if (usarFallback) {
+        // Si no se pudo cargar el modelo, renderizar un cubo simple
+        glBegin(GL_QUADS);
+        // Cara frontal
+        glNormal3f(0.0f, 0.0f, 1.0f);
+        glVertex3f(-0.5f, -0.5f, 0.5f);
+        glVertex3f(0.5f, -0.5f, 0.5f);
+        glVertex3f(0.5f, 0.5f, 0.5f);
+        glVertex3f(-0.5f, 0.5f, 0.5f);
 
-    // Cara trasera
-    //glColor3f(0.0f, 1.0f, 0.0f); // Verde
-    glNormal3f(0.0f, 0.0f, -1.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(-0.5, 0.5, -0.5);
-    glVertex3f(0.5, 0.5, -0.5);
-    glVertex3f(0.5, -0.5, -0.5);
+        // Cara trasera
+        glNormal3f(0.0f, 0.0f, -1.0f);
+        glVertex3f(-0.5f, -0.5f, -0.5f);
+        glVertex3f(-0.5f, 0.5f, -0.5f);
+        glVertex3f(0.5f, 0.5f, -0.5f);
+        glVertex3f(0.5f, -0.5f, -0.5f);
 
-    // Cara izquierda
-    //glColor3f(0.0f, 0.0f, 1.0f); // Azul
-    glNormal3f(-1.0f, 0.0f, 0.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(-0.5, -0.5, 0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
-    glVertex3f(-0.5, 0.5, -0.5);
+        // Cara izquierda
+        glNormal3f(-1.0f, 0.0f, 0.0f);
+        glVertex3f(-0.5f, -0.5f, -0.5f);
+        glVertex3f(-0.5f, -0.5f, 0.5f);
+        glVertex3f(-0.5f, 0.5f, 0.5f);
+        glVertex3f(-0.5f, 0.5f, -0.5f);
 
-    // Cara derecha
-    //glColor3f(1.0f, 1.0f, 0.0f); // Amarillo
-    glNormal3f(1.0f, 0.0f, 0.0f); // Normal apuntando hacia afuera
-    glVertex3f(0.5, -0.5, -0.5);
-    glVertex3f(0.5, 0.5, -0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(0.5, -0.5, 0.5);
+        // Cara derecha
+        glNormal3f(1.0f, 0.0f, 0.0f);
+        glVertex3f(0.5f, -0.5f, -0.5f);
+        glVertex3f(0.5f, 0.5f, -0.5f);
+        glVertex3f(0.5f, 0.5f, 0.5f);
+        glVertex3f(0.5f, -0.5f, 0.5f);
 
-    // Cara superior
-   // glColor3f(0.0f, 1.0f, 1.0f); // Cian
-    glNormal3f(0.0f, 1.0f, 0.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, 0.5, -0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(0.5, 0.5, -0.5);
+        // Cara superior
+        glNormal3f(0.0f, 1.0f, 0.0f);
+        glVertex3f(-0.5f, 0.5f, -0.5f);
+        glVertex3f(-0.5f, 0.5f, 0.5f);
+        glVertex3f(0.5f, 0.5f, 0.5f);
+        glVertex3f(0.5f, 0.5f, -0.5f);
 
-    // Cara inferior
-   // glColor3f(1.0f, 0.0f, 1.0f); // Magenta
-    glNormal3f(0.0f, -1.0f, 0.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(0.5, -0.5, -0.5);
-    glVertex3f(0.5, -0.5, 0.5);
-    glVertex3f(-0.5, -0.5, 0.5);
-
-    glEnd();
+        // Cara inferior
+        glNormal3f(0.0f, -1.0f, 0.0f);
+        glVertex3f(-0.5f, -0.5f, -0.5f);
+        glVertex3f(0.5f, -0.5f, -0.5f);
+        glVertex3f(0.5f, -0.5f, 0.5f);
+        glVertex3f(-0.5f, -0.5f, 0.5f);
+        glEnd();
+    } else {
+        // Renderizar el modelo cargado
+        glBegin(GL_TRIANGLES);
+        for (const auto& v : vertices) {
+            glNormal3f(v.normal.x, v.normal.y, v.normal.z);
+            glVertex3f(v.position.x, v.position.y, v.position.z);
+        }
+        glEnd();
+    }
 
     glPopMatrix();
-
 }
