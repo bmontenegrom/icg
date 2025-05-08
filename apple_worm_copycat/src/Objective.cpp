@@ -22,58 +22,61 @@ Objective::~Objective()
 void Objective::render()
 {
     glPushMatrix();
-    glTranslated(getX(), getY(), getZ()); // Trasladar a la posición
-    glScaled(getWidth(), getHeight(), getDepth()); // Escalar según las dimensiones
+    glTranslated(getX(), getY(), getZ());
+    glScaled(0.05, 0.05, 0.05);  // Tamaño fijo de 0.05 x 0.05 x 0.05
 
     glBegin(GL_QUADS);
-
     // Cara frontal
-    glColor3f(1.0f, 0.0f, 0.0f); // Rojo
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glNormal3f(0.0f, 0.0f, 1.0f);
     glVertex3f(-0.5, -0.5, 0.5);
     glVertex3f(0.5, -0.5, 0.5);
     glVertex3f(0.5, 0.5, 0.5);
     glVertex3f(-0.5, 0.5, 0.5);
 
     // Cara trasera
-    //glColor3f(0.0f, 1.0f, 0.0f); // Verde
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glNormal3f(0.0f, 0.0f, -1.0f);
     glVertex3f(-0.5, -0.5, -0.5);
     glVertex3f(-0.5, 0.5, -0.5);
     glVertex3f(0.5, 0.5, -0.5);
     glVertex3f(0.5, -0.5, -0.5);
 
     // Cara izquierda
-    //glColor3f(0.0f, 0.0f, 1.0f); // Azul
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glNormal3f(-1.0f, 0.0f, 0.0f);
     glVertex3f(-0.5, -0.5, -0.5);
     glVertex3f(-0.5, -0.5, 0.5);
     glVertex3f(-0.5, 0.5, 0.5);
     glVertex3f(-0.5, 0.5, -0.5);
 
     // Cara derecha
-    //glColor3f(1.0f, 1.0f, 0.0f); // Amarillo
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glNormal3f(1.0f, 0.0f, 0.0f);
     glVertex3f(0.5, -0.5, -0.5);
     glVertex3f(0.5, 0.5, -0.5);
     glVertex3f(0.5, 0.5, 0.5);
     glVertex3f(0.5, -0.5, 0.5);
 
     // Cara superior
-   // glColor3f(0.0f, 1.0f, 1.0f); // Cian
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glNormal3f(0.0f, 1.0f, 0.0f);
     glVertex3f(-0.5, 0.5, -0.5);
     glVertex3f(-0.5, 0.5, 0.5);
     glVertex3f(0.5, 0.5, 0.5);
     glVertex3f(0.5, 0.5, -0.5);
 
     // Cara inferior
-   // glColor3f(1.0f, 0.0f, 1.0f); // Magenta
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glNormal3f(0.0f, -1.0f, 0.0f);
     glVertex3f(-0.5, -0.5, -0.5);
     glVertex3f(0.5, -0.5, -0.5);
     glVertex3f(0.5, -0.5, 0.5);
     glVertex3f(-0.5, -0.5, 0.5);
-
     glEnd();
 
     glPopMatrix();
 
-    // Solo renderizar las partículas, la actualización se hace en renderParticles
     renderParticles();
 }
 

@@ -6,250 +6,325 @@
 #include <GL/glu.h>
 #include <GL/gl.h>
 #include <iostream>
+#include <WormHead.h>
 
-Game::Game()
+// Constructor: inicializa todos los componentes del juego
+Game::Game() : score(0), currentLevel(0), isRunning(true), isPaused(false), 
+    hasStartedPlaying(false), currentState(GameState::MAIN_MENU)
 {
-	this->display = new Display();
-	this->worm = new Worm(0.5f, 0.5f, 0.0f);
-	this->apple = new Apple(0.8f, 0.2f, 0.0f, 0.05f, 0.05f, 0.05f);
-	this->entities = std::vector<Entity*>();
-	this->timer = new Timer();
-	// Posición de la cámara: arriba y a la derecha
-	// Punto al que mira: centro del área de juego (aproximadamente 0.5, 0.25, 0.0)
-	this->camera = new Camera();
-	this->isPaused = false;
-	this->isRunning = true;  // Inicializar el estado de ejecución del juego
-	//camera->updateMouseMovement(0, 0); // Inicializa la cámara en la posición deseada
+    // Inicialización de componentes principales
+    this->display = new Display();
+    this->timer = new Timer();
+    this->camera = new Camera();
+    
+    // Inicialización de SDL_ttf y fuentes
+    if (TTF_Init() != 0) {
+        exit(1);
+    }
 
-	if (TTF_Init() != 0) {
-		std::cerr << "Error inicializando SDL_ttf: " << TTF_GetError() << std::endl;
-		exit(1);
-	}
+    TTF_Font* font = TTF_OpenFont("assets/font.ttf", 24);
+    if (font == nullptr) {
+        exit(1);
+    }
 
-	TTF_Font* font = TTF_OpenFont("assets/font.ttf", 24);
-	if (font == nullptr) {
-		std::cerr << "Error al cargar la fuente: " << TTF_GetError() << std::endl;
-		exit(1);
-	}
-	this->hud = new Hud(font);
-	this->menu = new Menu(font);  // Crear el menú con la misma fuente
+    // Inicialización de interfaces
+    this->hud = new Hud(font);
+    this->mainMenu = new MainMenu(font);
+    this->gameOverMenu = new GameOverMenu(font);
 
-	for (int i = 0; i < 21; ++i) {
-		Wall* wall = new Wall(0.0 + i * 0.05, 0.025, 0.0, 0.05, 0.05, 0.05);
-		this->entities.push_back(wall);
-	}
-	for (int i = 0; i < 10; ++i) {
-		Wall* wall = new Wall(0.7, 0.0 + i* 0.05, 0.0, 0.05, 0.05, 0.05);
-		this->entities.push_back(wall);
-	}
+    // Inicializar niveles
+    levels.push_back(new Level(0)); // Nivel 1 (nivel actual)
+    levels.push_back(new Level(1)); // Nivel 2 (nuevo nivel)
 
-	Objective* objective = new Objective(0.8f, 0.8f, 0.0f, 0.05f, 0.05f, 0.05f);
-	this->entities.push_back(objective);
-
-
+    // Configurar estado inicial
+    mainMenu->setActive(true);
+    gameOverMenu->setActive(false);
 }
 
-Game::~Game(){
-	for (Entity* entity : entities) {
-		delete entity;
-	}
-	delete worm;
-	delete apple;
-	delete display;
-	delete menu;  // Liberar la memoria del menú
+// Destructor: libera todos los recursos
+Game::~Game() {
+    for (Level* level : levels) {
+        delete level;
+    }
+    delete display;
+    delete timer;
+    delete camera;
+    delete hud;
+    delete mainMenu;
+    delete gameOverMenu;
 }
 
-void Game::run()
-{
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	//gluOrtho2D(0.0, 1.0, 0.0, 1.0); // Define un sistema de coordenadas de 0 a 1 en X e Y
-	gluPerspective(35.0, 800.0 / 600.0, 0.1, 100.0);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	
-	bool mouseButtonPressed = false;
-	bool wireframe = false;
-	bool texture = true;
-
-	SDL_Event event;
-	this->hud->startTime();
-	int score = 10;
-
-	while (isRunning) {  // Usar isRunning en lugar de running
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		gluPerspective(35.0, 800.0 / 600.0, 0.1, 100.0);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		
-		float timeStep = timer->getTicks() / 1000.0f; // Obtener el tiempo transcurrido en segundos
-		if (menu->isMenuActive()) {
-			menu->handleInput(event);
-			if (!menu->isMenuActive()) {
-				if (menu->getSelectedOption() == 1) { // Salir
-					isRunning = false;
-				}
-			}
-		}
-		else if (apple != nullptr && apple->eaten()) {
-			delete apple;
-			apple = nullptr;
-		}
-
-		// Actualiza la física de la gravedad para el gusano en cada frame
-		// Esto hace que el gusano caiga si no está sobre un bloque
-		if (!isPaused) {
-			this->worm->updateGravity(this->entities, timeStep);
-		}
-
-		//MANEJO DE EVENTOS
-		while (SDL_PollEvent(&event)) {
-			if (event.type == SDL_QUIT) {
-				isRunning = false;
-			}
-			else if (menu->isMenuActive()) {
-				menu->handleInput(event);
-				if (!menu->isMenuActive()) {
-					if (menu->getSelectedOption() == 1) {
-						isRunning = false;
-					}
-				}
-			}
-			else if (event.type == SDL_KEYDOWN) {
-				switch (event.key.keysym.sym) {
-				case SDLK_UP:
-					if (!isPaused) {
-						this->worm->move(UP, this->entities, this->apple, timeStep);
-					}
-					break;
-				case SDLK_DOWN:
-					if (!isPaused) {
-						this->worm->move(DOWN, this->entities, this->apple, timeStep);
-					}
-					break;
-				case SDLK_LEFT:
-					if (!isPaused) {
-						this->worm->move(LEFT, this->entities, this->apple, timeStep);
-					}
-					break;
-				case SDLK_RIGHT:
-					if (!isPaused) {
-						this->worm->move(RIGHT, this->entities, this->apple, timeStep);
-					}
-					break;
-				case SDLK_p:
-					isPaused = !isPaused;
-					for (Entity* entity : entities) {
-						if (Objective* objective = dynamic_cast<Objective*>(entity)) {
-							objective->setPaused(isPaused);
-							break;
-						}
-					}
-					break;
-				case SDLK_v:
-					this->camera->switchCameraMode();
-					if (this->camera->getCameraMode() == CameraMode::FREE_CAMERA || this->camera->getCameraMode() == CameraMode::FIRST_PERSON) {
-						SDL_SetRelativeMouseMode(SDL_TRUE); // Activar modo relativo al entrar en free cam o first person
-					} else {
-						SDL_SetRelativeMouseMode(SDL_FALSE); // Desactivar modo relativo al salir
-					}
-					break;
-				case SDLK_q:
-					isRunning = false;
-					break;
-				case SDLK_w:
-					wireframe = !wireframe;
-					if (wireframe) {
-						glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-					}
-					else {
-						glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-					}
-					break;
-				case SDLK_t:
-					texture = !texture;
-					break;
-				case SDLK_l:
-					// Cambiar la posición de la luz
-					this->display->changeLightPosition();
-					break;
-				case SDLK_k:
-					// Cambiar el color de la luz
-					this->display->changeLightColor();
-					break;
-				case SDLK_ESCAPE:
-					menu->setActive(true);
-					break;
-				}
-			}
-			else if (event.type == SDL_MOUSEMOTION && this->camera->getCameraMode() == CameraMode::FREE_CAMERA) {
-				// Obtener movimiento relativo del mouse
-				int mouseX, mouseY;
-				SDL_GetRelativeMouseState(&mouseX, &mouseY);
-
-				// Actualizar la cámara con el movimiento del mouse
-				this->camera->updateMouseMovement(mouseX, mouseY);
-			}
-		}
-		if (camera->getCameraMode() == CameraMode::THIRD_PERSON || camera->getCameraMode() == CameraMode::FIRST_PERSON) {
-			// Obtener dirección del gusano
-			Direction dir = this->worm->getHeadDirection();
-			float dirX = 0.0f, dirY = 0.0f, dirZ = 0.0f;
-			switch (dir) {
-				case UP: dirY = 1.0f; break;
-				case DOWN: dirY = -1.0f; break;
-				case LEFT: dirX = -1.0f; break;
-				case RIGHT: dirX = 1.0f; break;
-			}
-			this->camera->followTarget(
-				this->worm->getX(),
-				this->worm->getY(),
-				this->worm->getZ(),
-				0.25f, // distancia para third person
-				dirX, dirY, dirZ
-			);
-		}
-		//FIN MANEJO DE EVENTOS
-
-		
-
-		this->timer->start();
-
-		glEnable(GL_DEPTH_TEST);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glLoadIdentity();
-		//gluLookAt(0.0, 0.0, 1.5, 0.5f, 0.5f, 0.0f, 0.0, 1.0, 0.0);
-		camera->applyView();
-
-		if (!menu->isMenuActive()) {  // Solo renderizar el juego si el menú no está activo
-			this->worm->render();
-			this->renderMap();
-			if (this->apple != nullptr) {
-				this->apple->render();
-			}
-			
-			hud->render(score, this->hud->getTime());
-		}
-
-		menu->render();  // Renderizar el menú
-		
-		SDL_GL_SwapWindow(display->getWindow());
-	}
-
+// Getter para el puntaje
+int Game::getScore() const {
+    return this->score;
 }
 
-void Game::init(){
-	//agregar carga de mapa etc
+// Setter para el puntaje
+void Game::setScore(int newScore) {
+    this->score = newScore;
 }
 
-void Game::renderMap(){
-	for (Entity* entity : entities) {
-		entity->render();
-	}
+// Método para cambiar el estado del juego
+void Game::changeState(GameState newState) {
+    currentState = newState;
+    
+    // Actualizar componentes según el nuevo estado
+    switch (currentState) {
+        case GameState::MAIN_MENU:
+            mainMenu->setActive(true);
+            gameOverMenu->setActive(false);
+            isPaused = false;
+            break;
+            
+        case GameState::PLAYING:
+            mainMenu->setActive(false);
+            gameOverMenu->setActive(false);
+            isPaused = false;
+            break;
+            
+        case GameState::GAME_OVER:
+            mainMenu->setActive(false);
+            gameOverMenu->setActive(true);
+            isPaused = true;
+            break;
+            
+        case GameState::PAUSED:
+            isPaused = true;
+            break;
+    }
 }
 
-void Game::addEntity(Entity* entity)
-{
-	this->entities.push_back(entity);
+// Método para reiniciar el juego
+void Game::resetGame() {
+    // Reiniciar solo las entidades principales del nivel actual
+    levels[currentLevel]->resetEntities();
+    setScore(0);
+    hasStartedPlaying = false;
+    isPaused = false;
+    hud->startTime();
+    gameOverMenu->setActive(false);
+    mainMenu->setActive(false);
+    SDL_Event dummy;
+    while (SDL_PollEvent(&dummy)) {}
+}
+
+// Bucle principal del juego
+void Game::run() {
+    // Configuración inicial de OpenGL
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(35.0, 800.0 / 600.0, 0.1, 100.0);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    
+    // Variables de control
+    bool wireframe = false;
+    bool texture = true;
+    SDL_Event event;
+    this->hud->startTime();
+    setScore(0);
+
+    // Bucle principal
+    while (isRunning) {
+        // Configuración de OpenGL por frame
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        gluPerspective(35.0, 800.0 / 600.0, 0.1, 100.0);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        
+        // Obtener componentes del nivel actual
+        float timeStep = timer->getTicks() / 1000.0f;
+        Level* currentLevelPtr = levels[currentLevel];
+        Worm* worm = currentLevelPtr->getWorm();
+        Apple* apple = currentLevelPtr->getApple();
+
+        // Manejar estados del juego
+        switch (currentState) {
+            case GameState::MAIN_MENU:
+                mainMenu->handleInput(event);
+                if (!mainMenu->isMenuActive()) {
+                    if (mainMenu->getSelectedOption() == 1) {
+                        isRunning = false;  // Salir del juego
+                    }
+                    else if (mainMenu->getSelectedOption() == 0) {
+                        setScore(0);
+                        hasStartedPlaying = false;
+                        changeState(GameState::PLAYING);  // Comenzar juego
+                    }
+                }
+                break;
+
+            case GameState::PLAYING:
+                if (!isPaused) {
+                    // Actualizar física del gusano
+                    worm->updateGravity(currentLevelPtr->getEntities(), timeStep);
+                    
+                    // Verificar condición de game over
+                    if (hasStartedPlaying && 
+                        worm->getIsFalling() && 
+                        worm->getVerticalVelocity() > 0.5f && 
+                        worm->getHead()->getY() < -1.0f &&    
+                        worm->getHead()->getY() < worm->getFallStartY() - 1.5f) {
+                        gameOverMenu->setFinalScore(getScore());
+                        changeState(GameState::GAME_OVER);
+                    }
+                }
+                break;
+
+            case GameState::GAME_OVER:
+                gameOverMenu->handleInput(event);
+                if (!gameOverMenu->isMenuActive()) {
+                    if (gameOverMenu->getSelectedOption() == 0) {
+                        // Jugar de nuevo
+                        resetGame();
+                        changeState(GameState::PLAYING);
+                        continue; // Salta el resto del ciclo para evitar usar punteros viejos
+                    } else {
+                        // Volver al menú principal
+                        resetGame(); // <-- Reinicia el gusano y entidades también al volver al menú
+                        changeState(GameState::MAIN_MENU);
+                        continue; // También aquí, por seguridad
+                    }
+                }
+                break;
+        }
+
+        // Manejo de eventos
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                isRunning = false;
+            }
+            else if (currentState == GameState::MAIN_MENU) {
+                mainMenu->handleInput(event);
+            }
+            else if (currentState == GameState::GAME_OVER) {
+                gameOverMenu->handleInput(event);
+            }
+            else if (event.type == SDL_KEYDOWN) {
+                handleKeyPress(event.key.keysym.sym, worm, apple, timeStep, wireframe, texture);
+            }
+            else if (event.type == SDL_MOUSEMOTION && this->camera->getCameraMode() == CameraMode::FREE_CAMERA) {
+                int mouseX, mouseY;
+                SDL_GetRelativeMouseState(&mouseX, &mouseY);
+                this->camera->updateMouseMovement(mouseX, mouseY);
+            }
+        }
+
+        // Actualizar cámara
+        updateCamera(worm);
+
+        // Iniciar timer para el siguiente frame
+        this->timer->start();
+
+        // Renderizado
+        glEnable(GL_DEPTH_TEST);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glLoadIdentity();
+        camera->applyView();
+
+        // Renderizar según el estado actual
+        switch (currentState) {
+            case GameState::MAIN_MENU:
+                mainMenu->render();
+                break;
+                
+            case GameState::GAME_OVER:
+                gameOverMenu->render();
+                break;
+                
+            case GameState::PLAYING:
+                currentLevelPtr->render();
+                hud->render(getScore(), this->hud->getTime());
+                break;
+        }
+
+        // Actualizar ventana
+        SDL_GL_SwapWindow(display->getWindow());
+
+        // Verificar si el nivel está completo
+        if (currentLevelPtr->isObjectiveReached()) {
+            nextLevel();
+        }
+    }
+}
+
+void Game::handleKeyPress(SDL_Keycode key, Worm* worm, Apple* apple, float timeStep, bool& wireframe, bool& texture) {
+    switch (key) {
+        case SDLK_UP:
+            if (!isPaused) { worm->move(UP, levels[currentLevel]->getEntities(), apple, timeStep); hasStartedPlaying = true; }
+            break;
+        case SDLK_DOWN:
+            if (!isPaused) { worm->move(DOWN, levels[currentLevel]->getEntities(), apple, timeStep); hasStartedPlaying = true; }
+            break;
+        case SDLK_LEFT:
+            if (!isPaused) { worm->move(LEFT, levels[currentLevel]->getEntities(), apple, timeStep); hasStartedPlaying = true; }
+            break;
+        case SDLK_RIGHT:
+            if (!isPaused) { worm->move(RIGHT, levels[currentLevel]->getEntities(), apple, timeStep); hasStartedPlaying = true; }
+            break;
+        case SDLK_p:
+            isPaused = !isPaused;
+            break;
+        case SDLK_v:
+            this->camera->switchCameraMode();
+            SDL_SetRelativeMouseMode(this->camera->getCameraMode() == CameraMode::FREE_CAMERA || 
+                                   this->camera->getCameraMode() == CameraMode::FIRST_PERSON ? SDL_TRUE : SDL_FALSE);
+            break;
+        case SDLK_q:
+            isRunning = false;
+            break;
+        case SDLK_w:
+            wireframe = !wireframe;
+            glPolygonMode(GL_FRONT_AND_BACK, wireframe ? GL_LINE : GL_FILL);
+            break;
+        case SDLK_t:
+            texture = !texture;
+            break;
+        case SDLK_l:
+            this->display->changeLightPosition();
+            break;
+        case SDLK_k:
+            this->display->changeLightColor();
+            break;
+        case SDLK_ESCAPE:
+            mainMenu->setActive(true);
+            break;
+    }
+}
+
+void Game::updateCamera(Worm* worm) {
+    if (camera->getCameraMode() == CameraMode::THIRD_PERSON || 
+        camera->getCameraMode() == CameraMode::FIRST_PERSON) {
+        Direction dir = worm->getHeadDirection();
+        float dirX = 0.0f, dirY = 0.0f, dirZ = 0.0f;
+        switch (dir) {
+            case UP: dirY = 1.0f; break;
+            case DOWN: dirY = -1.0f; break;
+            case LEFT: dirX = -1.0f; break;
+            case RIGHT: dirX = 1.0f; break;
+        }
+        this->camera->followTarget(
+            worm->getX(),
+            worm->getY(),
+            worm->getZ(),
+            0.25f,
+            dirX, dirY, dirZ
+        );
+    }
+}
+
+void Game::loadLevel(int levelNumber) {
+    if (levelNumber >= 0 && levelNumber < levels.size()) {
+        currentLevel = levelNumber;
+    }
+}
+
+void Game::nextLevel() {
+    if (currentLevel + 1 < levels.size()) {
+        currentLevel++;
+    } else {
+        gameOverMenu->setFinalScore(hud->getTime());
+        gameOverMenu->setActive(true);
+    }
 }

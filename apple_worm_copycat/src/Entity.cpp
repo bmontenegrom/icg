@@ -89,8 +89,20 @@ double Entity::getDepth() const
 //todo poner cita
 bool Entity::isColliding(const Entity& other) const
 {
-	bool collisionX = std::abs(this->x - other.x) < (this->width + other.width) / 2;
-	bool collisionY = std::abs(this->y - other.y) < (this->height + other.height) / 2;
-	bool collisionZ = std::abs(this->z - other.z) < (this->depth + other.depth) / 2;
-	return collisionX && collisionY && collisionZ;
+	// Calcular los límites de cada entidad
+	double thisLeft = this->x - this->width/2;
+	double thisRight = this->x + this->width/2;
+	double thisTop = this->y + this->height/2;
+	double thisBottom = this->y - this->height/2;
+	
+	double otherLeft = other.x - other.width/2;
+	double otherRight = other.x + other.width/2;
+	double otherTop = other.y + other.height/2;
+	double otherBottom = other.y - other.height/2;
+	
+	// Verificar si hay superposición en X e Y
+	bool collisionX = (thisRight >= otherLeft) && (thisLeft <= otherRight);
+	bool collisionY = (thisTop >= otherBottom) && (thisBottom <= otherTop);
+	
+	return collisionX && collisionY;
 }

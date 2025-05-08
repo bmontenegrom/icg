@@ -32,8 +32,8 @@ public:
 	void updateGravity(const std::vector<Entity*> &walls, float timeStep);
 	// Verifica si el gusano está sobre algún bloque del mapa
 	bool isOnGround(const std::vector<Entity*> &walls) const;
-	// Reinicia el gusano a su posición inicial cuando cae al vacío
-	void reset();
+	// Reincia el gusano a una posición específica
+	void reset(double x, double y, double z, int length);
 
 	// Setters
 	void setSpeed(double speed);
@@ -45,8 +45,11 @@ public:
 	Direction getHeadDirection() const;
 	// Retorna si el gusano está actualmente cayendo
 	bool getIsFalling() const;
-
-
+	// Retorna la velocidad vertical actual del gusano
+	float getVerticalVelocity() const;
+	// Retorna la posición Y desde donde comenzó la caída
+	float getFallStartY() const;
+	WormHead* getHead() const { return head; }
 };
 
 

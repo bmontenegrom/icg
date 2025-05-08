@@ -12,9 +12,6 @@ Wall::Wall(double x, double y, double z, double width, double height, double dep
     ObjectLoader& loader = ObjectLoader::getInstance();
     // Escalar el modelo a 1/10000 de su tamaño original
     vertices = loader.loadOBJ("assets/cube/cube.obj", 0.0001f);
-    if (vertices.empty()) {
-        std::cerr << "Error al cargar el modelo del bloque" << std::endl;
-    }
 }
 
 void Wall::render() {

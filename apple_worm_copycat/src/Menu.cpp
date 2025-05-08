@@ -8,22 +8,9 @@
 #include <FreeImage.h>
 
 Menu::Menu(TTF_Font* font) : font(font), isActive(true), selectedOption(0), backgroundTexture(0) {
-    // Inicializa las opciones del menú
-    menuOptions = {"Jugar", "Salir"};
-    // Inicializa la lista de controles a mostrar
-    controls = {
-        "Flechas: Mover el gusano",
-        "P: Pausar/Reanudar",
-        "W: Activar/Desactivar wireframe",
-        "V: Cambiar cámara",
-        "L: Cambiar posición de la luz",
-        "K: Cambiar color de la luz",
-        "Q: Salir del juego"
-    };
-    
     // Cargar la textura de fondo
     if (!loadBackgroundTexture("assets/menu_background.png")) {
-        std::cerr << "Error al cargar la textura de fondo" << std::endl;
+        // std::cerr << "Error al cargar la textura de fondo" << std::endl;
     }
 }
 
@@ -40,13 +27,13 @@ bool Menu::loadBackgroundTexture(const char* path) {
         fif = FreeImage_GetFIFFromFilename(path);
     }
     if (fif == FIF_UNKNOWN) {
-        std::cerr << "Formato de imagen desconocido" << std::endl;
+        // std::cerr << "Formato de imagen desconocido" << std::endl;
         return false;
     }
 
     FIBITMAP* dib = FreeImage_Load(fif, path);
     if (!dib) {
-        std::cerr << "Error al cargar la imagen" << std::endl;
+        // std::cerr << "Error al cargar la imagen" << std::endl;
         return false;
     }
 
@@ -54,7 +41,7 @@ bool Menu::loadBackgroundTexture(const char* path) {
     FIBITMAP* dib32 = FreeImage_ConvertTo32Bits(dib);
     FreeImage_Unload(dib);
     if (!dib32) {
-        std::cerr << "Error al convertir la imagen a 32 bits" << std::endl;
+        // std::cerr << "Error al convertir la imagen a 32 bits" << std::endl;
         return false;
     }
 
@@ -120,7 +107,7 @@ TextTextureMenu Menu::createTextTexture(const std::string& text, TTF_Font* font,
     TextTextureMenu result;
     SDL_Surface* surface = TTF_RenderUTF8_Blended(font, text.c_str(), color);
     if (!surface) {
-        std::cerr << "Error creando surface: " << TTF_GetError() << std::endl;
+        // std::cerr << "Error creando surface: " << TTF_GetError() << std::endl;
         result.textureId = 0;
         result.width = 0;
         result.height = 0;
@@ -129,7 +116,7 @@ TextTextureMenu Menu::createTextTexture(const std::string& text, TTF_Font* font,
     SDL_Surface* formatted = SDL_ConvertSurfaceFormat(surface, SDL_PIXELFORMAT_RGBA32, 0);
     SDL_FreeSurface(surface);
     if (!formatted) {
-        std::cerr << "Error al convertir superficie a RGBA32: " << SDL_GetError() << std::endl;
+        // std::cerr << "Error al convertir superficie a RGBA32: " << SDL_GetError() << std::endl;
         result.textureId = 0;
         result.width = 0;
         result.height = 0;
@@ -177,129 +164,29 @@ void Menu::renderTexture2D(const TextTextureMenu& textTex, int x, int y, int scr
     glPopMatrix();
 }
 
-void Menu::render() {
-    if (!isActive) return;  // No renderizar si el menú no está activo
-
-    // Desactivar iluminación para el menú
-    glDisable(GL_LIGHTING);
-
-    // Guardar el modo actual de renderizado
-    GLint polygonMode[2];
-    glGetIntegerv(GL_POLYGON_MODE, polygonMode);
-
-    // Cambiar a modo relleno para el menú
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-    // Renderizar el fondo
-    renderBackground();
-
-    // Panel central con efecto de brillo
-    float panelWidth = 400;
-    float panelHeight = 500;
-    float panelX = (SCREEN_WIDTH - panelWidth) / 2;
-    float panelY = (SCREEN_HEIGHT - panelHeight) / 2;
-
-    // Panel principal con transparencia (más claro)
-    glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
-    glLoadIdentity();
-    gluOrtho2D(0, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    glLoadIdentity();
-
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    // Panel principal
-    glBegin(GL_QUADS);
-    glColor4f(0.7f, 0.7f, 0.7f, 0.85f);  // Gris claro con más opacidad
-    glVertex2f(panelX, panelY);
-    glVertex2f(panelX + panelWidth, panelY);
-    glVertex2f(panelX + panelWidth, panelY + panelHeight);
-    glVertex2f(panelX, panelY + panelHeight);
-    glEnd();
-
-    // Borde brillante (naranja suave)
-    glBegin(GL_QUADS);
-    glColor4f(1.0f, 0.6f, 0.2f, 0.5f);  // Naranja suave con más opacidad
-    glVertex2f(panelX - 2, panelY - 2);
-    glVertex2f(panelX + panelWidth + 2, panelY - 2);
-    glVertex2f(panelX + panelWidth + 2, panelY + panelHeight + 2);
-    glVertex2f(panelX - 2, panelY + panelHeight + 2);
-    glEnd();
-
-    glDisable(GL_BLEND);
-
-    // Definir colores para el texto
-    SDL_Color white = { 255, 255, 255, 255 };  // Blanco puro para texto normal
-    SDL_Color yellow = { 255, 255, 0, 255 };   // Amarillo puro para opción seleccionada
-    SDL_Color cyan = { 80, 160, 255, 255 };    // Azul suave para controles
-
-    // Renderizar el título del juego (sin sombra)
-    TextTextureMenu titleTex = createTextTexture("Apple Worm", font, yellow);
-    renderTexture2D(titleTex, SCREEN_WIDTH/2 - titleTex.width/2, panelY + 50, SCREEN_WIDTH, SCREEN_HEIGHT);
-    glDeleteTextures(1, &titleTex.textureId);
-
-    // Renderizar la lista de controles (sin sombra)
-    int yPos = panelY + 150;
-    for (const auto& control : controls) {
-        TextTextureMenu controlTex = createTextTexture(control, font, cyan);
-        renderTexture2D(controlTex, SCREEN_WIDTH/2 - controlTex.width/2, yPos, SCREEN_WIDTH, SCREEN_HEIGHT);
-        glDeleteTextures(1, &controlTex.textureId);
-        yPos += 30;
-    }
-
-    // Renderizar las opciones del menú (sin sombra)
-    yPos = panelY + 350;
-    for (int i = 0; i < static_cast<int>(menuOptions.size()); i++) {
-        SDL_Color color = (i == selectedOption) ? yellow : white;
-        TextTextureMenu optionTex = createTextTexture(menuOptions[i], font, color);
-        renderTexture2D(optionTex, SCREEN_WIDTH/2 - optionTex.width/2, yPos, SCREEN_WIDTH, SCREEN_HEIGHT);
-        glDeleteTextures(1, &optionTex.textureId);
-        yPos += 40;
-    }
-
-    // Restaurar el modo de renderizado anterior
-    glMatrixMode(GL_MODELVIEW);
-    glPopMatrix();
-    glMatrixMode(GL_PROJECTION);
-    glPopMatrix();
-    glPolygonMode(GL_FRONT_AND_BACK, polygonMode[0]);
-
-    // Volver a activar la iluminación
-    glEnable(GL_LIGHTING);
-}
-
 void Menu::handleInput(SDL_Event& event) {
-    if (!isActive) return;  // No procesar entrada si el menú no está activo
+    if (!isActive) return;
 
     if (event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.sym) {
             case SDLK_UP:
-                // Mover selección hacia arriba (circular)
                 selectedOption = (selectedOption - 1 + menuOptions.size()) % menuOptions.size();
                 break;
             case SDLK_DOWN:
-                // Mover selección hacia abajo (circular)
                 selectedOption = (selectedOption + 1) % menuOptions.size();
-                break;
-            case SDLK_RETURN:
-                // Confirmar selección
-                isActive = false;
                 break;
         }
     }
 }
 
 bool Menu::isMenuActive() const {
-    return isActive;  // Retorna si el menú está activo
+    return isActive;
 }
 
 void Menu::setActive(bool active) {
-    isActive = active;  // Activa o desactiva el menú
+    isActive = active;
 }
 
 int Menu::getSelectedOption() const {
-    return selectedOption;  // Retorna la opción seleccionada actualmente
-} 
+    return selectedOption;
+}

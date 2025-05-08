@@ -1,32 +1,38 @@
 #pragma once
-#include "Entity.h"
-#include "Worm.h"
 #include "Display.h"
-#include "Apple.h"
 #include "Timer.h"
 #include "Camera.h"
 #include "Hud.h"
-#include "Menu.h"
+#include "MainMenu.h"
+#include "GameOverMenu.h"
+#include "Level.h"
 #include <vector>
 
 class Game {
 private:
-	Worm* worm;
-	Apple* apple;
-	std::vector<Entity*> entities;
 	Display* display;
 	Timer* timer;
 	Camera* camera;
 	Hud* hud;
-	Menu* menu;
+	MainMenu* mainMenu;
+	GameOverMenu* gameOverMenu;
+	std::vector<Level*> levels;
+	int currentLevel;
 	bool isPaused;
 	bool isRunning;
+	bool hasStartedPlaying;
+	
+	void updateCamera(Worm* worm);
+	void loadLevel(int levelNumber);
+	void nextLevel();
 
 public:
+	int score;
 	Game();
 	~Game();
 	void run();
-	void init();
-	void renderMap();
-	void addEntity(Entity* entity);
+	void handleKeyPress(SDL_Keycode key, Worm* worm, Apple* apple, float timeStep, bool& wireframe, bool& texture);
+	void resetGame();
+	void setScore(int newScore);
+	int getScore() const;
 };

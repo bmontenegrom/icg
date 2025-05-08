@@ -18,26 +18,26 @@ struct TextTextureMenu {
 };
 
 class Menu {
-private:
+protected:
     TTF_Font* font;        // Fuente para renderizar el texto del menú
     bool isActive;         // Indica si el menú está activo y visible
     int selectedOption;    // Índice de la opción seleccionada actualmente
-    std::vector<std::string> menuOptions;  // Lista de opciones del menú (Jugar, Salir)
-    std::vector<std::string> controls;     // Lista de controles a mostrar
+    std::vector<std::string> menuOptions;  // Lista de opciones del menú
     GLuint backgroundTexture;  // Textura de fondo
     bool loadBackgroundTexture(const char* path);  // Función para cargar la textura de fondo
 
+    // Funciones protegidas para renderizar texto
+    TextTextureMenu createTextTexture(const std::string& text, TTF_Font* font, SDL_Color color);
+    void renderTexture2D(const TextTextureMenu& textTex, int x, int y, int screenWidth, int screenHeight);
+    void renderBackground();  // Función para renderizar el fondo
+
 public:
     Menu(TTF_Font* font);  // Constructor que recibe la fuente para el texto
-    ~Menu();
-    void render();         // Renderiza el menú en pantalla
-    void handleInput(SDL_Event& event);  // Maneja la entrada del usuario
+    virtual ~Menu();
+    virtual void render() = 0;  // Función virtual pura para renderizar el menú
+    virtual void handleInput(SDL_Event& event);  // Función virtual para manejar la entrada
     bool isMenuActive() const;  // Retorna si el menú está activo
     void setActive(bool active);  // Activa/desactiva el menú
     int getSelectedOption() const;  // Retorna la opción seleccionada
-
-    // Declaraciones de funciones para renderizar texto
-    TextTextureMenu createTextTexture(const std::string& text, TTF_Font* font, SDL_Color color);
-    void renderTexture2D(const TextTextureMenu& textTex, int x, int y, int screenWidth, int screenHeight);
-    void renderBackground();  // Nueva función para renderizar el fondo
+    virtual void executeSelectedOption() = 0;  // Función virtual pura para ejecutar la opción seleccionada
 }; 

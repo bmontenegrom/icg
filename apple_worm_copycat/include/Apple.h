@@ -13,6 +13,7 @@ public:
 	void render() override;
 	bool eaten();
 	void setEaten(bool eaten);
+	void reset(double x, double y, double z);
 
 private:
 	bool isEaten;

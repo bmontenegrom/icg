@@ -7,33 +7,33 @@
 
 Particle::Particle(double x, double y, double z) : Entity(x, y, z)  
 {  
-   this->setWidth(0.001f);
-   this->setHeight(0.001f); 
-   this->setDepth(0.001f);
+   this->setWidth(0.002f);
+   this->setHeight(0.002f); 
+   this->setDepth(0.002f);
    if (rand() % 2 == 0) {
-       this->speedX = (rand() % 5) /1000.0;
+       this->speedX = (rand() % 10) /1000.0;
    }
    else {
-       this->speedX = -(rand() % 5)/1000.0;
+       this->speedX = -(rand() % 10)/1000.0;
    }
    if (rand() % 2 == 0) {
-       this->speedY = (rand() % 5)/1000.0;
+       this->speedY = (rand() % 10)/1000.0;
    }
    else {
-       this->speedY =  -(rand() % 5)/1000.0;
+       this->speedY =  -(rand() % 10)/1000.0;
    }
    if (rand() % 2 == 0) {
-       this->speedZ = (rand() % 5) / 1000.0;
+       this->speedZ = (rand() % 10) / 1000.0;
    }
    else {
-       this->speedZ =  -(rand() % 5) / 1000.0;
+       this->speedZ =  -(rand() % 10) / 1000.0;
    }
 
-   this->lifeTime = 50;
+   this->lifeTime = 100;
    this->isAlive = true;
-   this->red = rand() / 256;
-   this->green = rand() / 256;
-   this->blue = rand() / 256;
+   this->red = 0;
+   this->green = 255;
+   this->blue = 0;
 }  
 
 Particle::~Particle()  
@@ -43,49 +43,43 @@ Particle::~Particle()
 void Particle::render()  
 {  
     glPushMatrix();
-    glTranslated(getX(), getY(), getZ()); // Trasladar a la posición
-    glScaled(getWidth(), getHeight(), getDepth()); // Escalar según las dimensiones
+    glTranslated(getX(), getY(), getZ());
+    glScaled(getWidth(), getHeight(), getDepth());
 
     glBegin(GL_QUADS);
 
-    //todo mejorar colores
     // Cara frontal
-    glColor3f(1.0, 1.0f, 1.0f); // Rojo
+    glColor3f(1.0f, 1.0f, 1.0f); // Rojo
     glVertex3f(-0.5, -0.5, 0.5);
     glVertex3f(0.5, -0.5, 0.5);
     glVertex3f(0.5, 0.5, 0.5);
     glVertex3f(-0.5, 0.5, 0.5);
 
     // Cara trasera
-    //glColor3f(0.0f, 1.0f, 0.0f); // Verde
     glVertex3f(-0.5, -0.5, -0.5);
     glVertex3f(-0.5, 0.5, -0.5);
     glVertex3f(0.5, 0.5, -0.5);
     glVertex3f(0.5, -0.5, -0.5);
 
     // Cara izquierda
-    //glColor3f(0.0f, 0.0f, 1.0f); // Azul
     glVertex3f(-0.5, -0.5, -0.5);
     glVertex3f(-0.5, -0.5, 0.5);
     glVertex3f(-0.5, 0.5, 0.5);
     glVertex3f(-0.5, 0.5, -0.5);
 
     // Cara derecha
-    //glColor3f(1.0f, 1.0f, 0.0f); // Amarillo
     glVertex3f(0.5, -0.5, -0.5);
     glVertex3f(0.5, 0.5, -0.5);
     glVertex3f(0.5, 0.5, 0.5);
     glVertex3f(0.5, -0.5, 0.5);
 
     // Cara superior
-   // glColor3f(0.0f, 1.0f, 1.0f); // Cian
     glVertex3f(-0.5, 0.5, -0.5);
     glVertex3f(-0.5, 0.5, 0.5);
     glVertex3f(0.5, 0.5, 0.5);
     glVertex3f(0.5, 0.5, -0.5);
 
     // Cara inferior
-   // glColor3f(1.0f, 0.0f, 1.0f); // Magenta
     glVertex3f(-0.5, -0.5, -0.5);
     glVertex3f(0.5, -0.5, -0.5);
     glVertex3f(0.5, -0.5, 0.5);

@@ -3,7 +3,6 @@
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <GL/glu.h>
-#include <iostream>
 
 Hud::Hud(TTF_Font* font) :  font(font)
 {
@@ -13,7 +12,6 @@ Hud::Hud(TTF_Font* font) :  font(font)
 Hud::~Hud()
 {
     TTF_CloseFont(font);
-
 }
 
 void Hud::render(int score, int time)
@@ -56,7 +54,6 @@ GLuint Hud::createTextTexture(const std::string& text, TTF_Font* font, SDL_Color
 {
     SDL_Surface* surface = TTF_RenderUTF8_Blended(font, text.c_str(), color);
     if (!surface) {
-        std::cerr << "Error creando surface: " << TTF_GetError() << std::endl;
         return 0;
     }
 
@@ -64,7 +61,6 @@ GLuint Hud::createTextTexture(const std::string& text, TTF_Font* font, SDL_Color
     SDL_Surface* formatted = SDL_ConvertSurfaceFormat(surface, SDL_PIXELFORMAT_RGBA32, 0);
     SDL_FreeSurface(surface);
     if (!formatted) {
-        std::cerr << "Error al convertir superficie a RGBA32: " << SDL_GetError() << std::endl;
         return 0;
     }
 
@@ -91,7 +87,7 @@ void Hud::renderTexture2D(GLuint texture, int x, int y, int width, int height, i
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
-    gluOrtho2D(0, screenWidth, screenHeight, 0);  // Coordenadas en p�xeles
+    gluOrtho2D(0, screenWidth, screenHeight, 0);  // Coordenadas en píxeles
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();

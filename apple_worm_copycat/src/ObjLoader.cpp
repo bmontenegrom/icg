@@ -19,7 +19,7 @@ std::vector<ObjVertex> ObjectLoader::loadOBJ(const std::string& filename, float 
 {
     char cwd[1024];
     if (_getcwd(cwd, sizeof(cwd)) != NULL) {
-        std::cout << "Directorio actual: " << cwd << std::endl;
+        // std::cout << "Directorio actual: " << cwd << std::endl;
     }
 
     std::vector<Vec3> tempPositions;
@@ -29,7 +29,7 @@ std::vector<ObjVertex> ObjectLoader::loadOBJ(const std::string& filename, float 
 
     std::ifstream file(filename);
     if (!file.is_open()) {
-        std::cerr << "No se pudo abrir el archivo OBJ: " << filename << std::endl;
+        // std::cerr << "No se pudo abrir el archivo OBJ: " << filename << std::endl;
         return vertices;
     }
 
@@ -93,13 +93,13 @@ std::vector<ObjVertex> ObjectLoader::loadOBJ(const std::string& filename, float 
     file.close();
 
     // Debug: imprimir los primeros 10 vértices cargados
-    std::cout << "Primeros 10 vértices cargados:" << std::endl;
-    for (size_t i = 0; i < vertices.size() && i < 10; ++i) {
-        std::cout << "Vértice " << i << ": ("
-                  << vertices[i].position.x << ", "
-                  << vertices[i].position.y << ", "
-                  << vertices[i].position.z << ")" << std::endl;
-    }
-    std::cout << "Total vértices cargados: " << vertices.size() << std::endl;
+    // std::cout << "Primeros 10 vértices cargados:" << std::endl;
+    // for (size_t i = 0; i < vertices.size() && i < 10; ++i) {
+    //     std::cout << "Vértice " << i << ": ("
+    //               << vertices[i].position.x << ", "
+    //               << vertices[i].position.y << ", "
+    //               << vertices[i].position.z << ")" << std::endl;
+    // }
+    // std::cout << "Total vértices cargados: " << vertices.size() << std::endl;
     return vertices;
 }

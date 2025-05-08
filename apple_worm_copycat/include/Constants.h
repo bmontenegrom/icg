@@ -7,8 +7,15 @@ enum Direction
     RIGHT
 };
 
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+enum class GameState {
+    MAIN_MENU,   // Menú principal
+    PLAYING,     // Jugando activamente
+    GAME_OVER,   // Pantalla de game over
+    PAUSED       // Juego en pausa
+};
+
+const int SCREEN_WIDTH = 1440;
+const int SCREEN_HEIGHT = 900;
 
 // Constante que define la aceleración de la gravedad en unidades por segundo al cuadrado
 // Un valor más alto hará que el gusano caiga más rápido
