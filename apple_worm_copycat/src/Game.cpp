@@ -33,8 +33,8 @@ Game::Game() : score(0), currentLevel(0), isRunning(true), isPaused(false),
     this->gameOverMenu = new GameOverMenu(font);
 
     // Inicializar niveles
-    levels.push_back(new Level(0)); // Nivel 1 (nivel actual)
-    levels.push_back(new Level(1)); // Nivel 2 (nuevo nivel)
+    levels.push_back(new Level(0, this)); // Nivel 1 (nivel actual)
+    levels.push_back(new Level(1, this)); // Nivel 2 (nuevo nivel)
 
     // Configurar estado inicial
     mainMenu->setActive(true);

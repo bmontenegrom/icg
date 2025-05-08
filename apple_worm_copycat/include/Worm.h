@@ -7,6 +7,7 @@ class WormHead;
 class WormBody;
 class WormTail;
 class Apple;
+class Game;  // Forward declaration
 
 class Worm : public Entity {
 private:
@@ -21,9 +22,10 @@ private:
 	float verticalVelocity;
 	// Posición Y desde donde comenzó la caída
 	float fallStartY;
+	Game* game;  // Referencia al juego
 
 public:
-	Worm(double x, double y, double z);
+	Worm(double x, double y, double z, Game* game = nullptr);  // Constructor modificado
 	~Worm();
 	void render() override;
 
@@ -37,7 +39,7 @@ public:
 
 	// Setters
 	void setSpeed(double speed);
-	
+	void setGame(Game* game);  // Nuevo setter para game
 
 	// Getters
 	int getLength() const;

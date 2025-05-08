@@ -3,29 +3,35 @@
 #include "WormTail.h"
 #include "WormBody.h"
 #include "Apple.h"
+#include "Game.h"
 #include <iostream>
 
-Worm::Worm(double x, double y, double z) : Entity(x, y, z) {
-	double segment_size = 0.05f;
+Worm::Worm(double x, double y, double z, Game* game) : Entity(x, y, z), game(game) {
+	double segment_size = 0.095f;  // 5% más pequeño que los bloques
 	Direction initialDirection = Direction::RIGHT;
+	
+	// Inicializar la cabeza
 	this->head = new WormHead(x, y, z, segment_size, segment_size, segment_size, initialDirection);
 	this->body = std::vector<Entity*>();
 	this->body.push_back(head);
-	this->length = 5;
+	
+	// Inicializar el cuerpo
+	this->length = 3;  // Cabeza + cuerpo + cola
 	this->isFalling = false;
 	this->verticalVelocity = 0.0f;
 	this->fallStartY = y;
-
-	for (int i = 1; i < length - 1; i++) {
-		double bodyX = x - (i * segment_size);
-		double bodyY = y;
-		double bodyZ = z;
-		WormBody* segment = new WormBody(bodyX, bodyY, bodyZ, segment_size, segment_size, segment_size, initialDirection);
-		this->body.push_back(segment);
-	}
-	this->tail = new WormTail(x - (length - 1) * segment_size, y, z, segment_size, segment_size, segment_size, initialDirection);
+	this->speed = 0.095f;  // Velocidad ajustada al nuevo tamaño
+	
+	// Crear el segmento del cuerpo
+	double bodyX = x - segment_size;
+	double bodyY = y;
+	double bodyZ = z;
+	WormBody* segment = new WormBody(bodyX, bodyY, bodyZ, segment_size, segment_size, segment_size, initialDirection);
+	this->body.push_back(segment);
+	
+	// Crear la cola
+	this->tail = new WormTail(x - (2 * segment_size), y, z, segment_size, segment_size, segment_size, initialDirection);
 	this->body.push_back(tail);
-	this->speed = 3.2f;
 }
 
 Worm::~Worm() {
@@ -42,12 +48,14 @@ void Worm::render(){
 
 void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, Apple* apple, float timeStep)
 {
+	// No permitir movimiento en dirección opuesta
 	if (this->head->getDirection() == Direction::UP && newDirection == Direction::DOWN ||
 		this->head->getDirection() == Direction::DOWN && newDirection == Direction::UP ||
 		this->head->getDirection() == Direction::LEFT && newDirection == Direction::RIGHT ||
 		this->head->getDirection() == Direction::RIGHT && newDirection == Direction::LEFT) {
-		return; // No se puede mover en la dirección opuesta
+		return;
 	}
+
 	double oldX = this->head->getX();
 	double oldY = this->head->getY();
 	double oldZ = this->head->getZ();
@@ -55,10 +63,10 @@ void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, Apple
 
 	this->head->setDirection(newDirection);
 
-	float distance = this->speed * timeStep;
+	// Ajustar la velocidad para que coincida con el nuevo tamaño
+	float distance = 0.095f;  // Mismo tamaño que los segmentos del gusano
 	
-
-
+	// Intentar mover en la nueva dirección
 	switch (this->getHeadDirection())
 	{
 	case UP:
@@ -75,49 +83,71 @@ void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, Apple
 		break;
 	}
 
-	// Checkea si el gusano choca con su propio cuerpo
+	// Verificar colisiones con el cuerpo
+	bool bodyCollision = false;
 	for (int i = 1; i < body.size(); ++i) {
 		if (this->head->isColliding(*body[i])) {
-			this->head->setPosition(oldX, oldY, oldZ);
-			this->head->setDirection(oldDirection);
-			return;
+			bodyCollision = true;
+			break;
 		}
 	}
 
-	// Checkea si el gusano choca con las paredes
+	// Verificar colisiones con las paredes
+	bool wallCollision = false;
 	for (auto wall : walls) {
 		if (this->head->isColliding(*wall)) {
-			this->head->setPosition(oldX, oldY, oldZ);
-			this->head->setDirection(oldDirection);
-			return;
+			wallCollision = true;
+			break;
 		}
+	}
+
+	// Si hay colisión, revertir el movimiento
+	if (bodyCollision || wallCollision) {
+		this->head->setPosition(oldX, oldY, oldZ);
+		this->head->setDirection(oldDirection);
+		return;
 	}
 
 	// Checkea si el gusano choca con la manzana
 	if (apple != nullptr && !apple->eaten() && this->head->isColliding(*apple)) {
 		this->length++;
-		double bodyX = this->body[this->length - 2]->getX();
-		double bodyY = this->body[this->length - 2]->getY();
-		double bodyZ = this->body[this->length - 2]->getZ();
+		double bodyX = this->body[body.size() - 1]->getX();  // Usar el último segmento antes de la cola
+		double bodyY = this->body[body.size() - 1]->getY();
+		double bodyZ = this->body[body.size() - 1]->getZ();
 		WormBody* segment = new WormBody(bodyX, bodyY, bodyZ, this->head->getWidth(), this->head->getHeight(), this->head->getDepth(), this->head->getDirection());
 		this->body.insert(this->body.end() - 1, segment);
 		apple->setEaten(true);
+		
+		// Incrementar el puntaje
+		if (game != nullptr) {
+			game->setScore(game->getScore() + 10);  // Incrementar el puntaje en 10 puntos
+		}
 	}
 
-	for (int i = body.size() - 1; i > 0; --i) {
-		body[i]->setPosition(body[i - 1]->getX(), body[i - 1]->getY(), body[i - 1]->getZ());
+	// Actualizar las posiciones de los segmentos del cuerpo
+	double prevX = oldX;
+	double prevY = oldY;
+	double prevZ = oldZ;
+
+	for (int i = 1; i < body.size(); ++i) {
+		double currentX = body[i]->getX();
+		double currentY = body[i]->getY();
+		double currentZ = body[i]->getZ();
+		
+		body[i]->setPosition(prevX, prevY, prevZ);
+		
+		prevX = currentX;
+		prevY = currentY;
+		prevZ = currentZ;
 	}
+
 	this->setPosition(this->head->getX(), this->head->getY(), this->head->getZ());
 }
-
-
 
 void Worm::setSpeed(double speed)
 {
 	this->speed = speed;
 }
-
-
 
 int Worm::getLength() const
 {
@@ -143,6 +173,11 @@ void Worm::updateGravity(const std::vector<Entity*> &walls, float timeStep) {
         }
         
         verticalVelocity += GRAVITY * timeStep;
+        // Limitar la velocidad máxima de caída a 0.18f
+        const float MAX_FALL_SPEED = 0.9f;
+        if (verticalVelocity > MAX_FALL_SPEED) {
+            verticalVelocity = MAX_FALL_SPEED;
+        }
         float newY = head->getY() - verticalVelocity * timeStep;
         
         for (Entity* segment : body) {
@@ -157,40 +192,43 @@ void Worm::updateGravity(const std::vector<Entity*> &walls, float timeStep) {
 bool Worm::isOnGround(const std::vector<Entity*> &walls) const {
     // Recorre todos los segmentos del gusano
     for (Entity* segment : body) {
-        // Para cada segmento, verifica si está sobre algún bloque
         for (Entity* wall : walls) {
-            // Verifica si el segmento está justo encima de un bloque
-            // Comprueba la distancia vertical y la superposición horizontal
-            if (std::abs(segment->getY() - (wall->getY() + wall->getHeight())) < 0.01f &&
-                segment->getX() + segment->getWidth()/2 > wall->getX() - wall->getWidth()/2 &&
-                segment->getX() - segment->getWidth()/2 < wall->getX() + wall->getWidth()/2) {
-                // Si cualquier segmento está sobre un bloque, el gusano no cae
+            // Condición más estricta: el centro del segmento debe estar dentro del ancho del bloque
+            if (std::abs(segment->getY() - (wall->getY() + wall->getHeight())) < 0.005f &&
+                segment->getX() > wall->getX() - wall->getWidth()/2 &&
+                segment->getX() < wall->getX() + wall->getWidth()/2) {
                 return true;
             }
         }
     }
-    // Si ningún segmento está sobre un bloque, el gusano caerá
     return false;
 }
 
 void Worm::reset(double x, double y, double z, int length) {
     std::cout << "Resetting worm to position: " << x << ", " << y << ", " << z << " with length: " << length << std::endl;
+    
     // Borra el cuerpo anterior
     for (Entity* segment : body) {
         delete segment;
     }
     body.clear();
 
-    // Reconstruye el cuerpo igual que en el constructor
-    double segment_size = 0.05f;
+    // Reconstruye el cuerpo
+    double segment_size = 0.095f;  // 5% más pequeño que los bloques
     Direction initialDirection = Direction::RIGHT;
+    
+    // Crear la cabeza
     this->head = new WormHead(x, y, z, segment_size, segment_size, segment_size, initialDirection);
     this->body.push_back(head);
+    
+    // Actualizar propiedades
     this->length = length;
     this->isFalling = false;
     this->verticalVelocity = 0.0f;
     this->fallStartY = y;
-
+    this->speed = 0.095f;  // Velocidad ajustada al nuevo tamaño
+    
+    // Crear los segmentos del cuerpo
     for (int i = 1; i < length - 1; i++) {
         double bodyX = x - (i * segment_size);
         double bodyY = y;
@@ -198,9 +236,10 @@ void Worm::reset(double x, double y, double z, int length) {
         WormBody* segment = new WormBody(bodyX, bodyY, bodyZ, segment_size, segment_size, segment_size, initialDirection);
         this->body.push_back(segment);
     }
-    this->tail = new WormTail(x - (length - 1) * segment_size, y, z, segment_size, segment_size, segment_size, initialDirection);
+    
+    // Crear la cola
+    this->tail = new WormTail(x - ((length - 1) * segment_size), y, z, segment_size, segment_size, segment_size, initialDirection);
     this->body.push_back(tail);
-    this->speed = 3.2f;
 }
 
 bool Worm::getIsFalling() const {
@@ -213,5 +252,9 @@ float Worm::getVerticalVelocity() const {
 
 float Worm::getFallStartY() const {
     return fallStartY;
+}
+
+void Worm::setGame(Game* newGame) {
+    game = newGame;
 }
 

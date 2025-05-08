@@ -10,8 +10,8 @@
 Wall::Wall(double x, double y, double z, double width, double height, double depth)
     : Entity(x, y, z, width, height, depth) {
     ObjectLoader& loader = ObjectLoader::getInstance();
-    // Escalar el modelo a 1/10000 de su tamaño original
-    vertices = loader.loadOBJ("assets/cube/cube.obj", 0.0001f);
+    // Escalar el modelo a 0.095f para que coincida con el tamaño del gusano
+    vertices = loader.loadOBJ("assets/cube/cube.obj", 0.00007f);
 }
 
 void Wall::render() {

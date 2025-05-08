@@ -5,26 +5,30 @@
 #include "Apple.h"
 #include "Objective.h"
 #include "Entity.h"
+#include "Game.h"
 
 #include <iostream>
 
-Level::Level(int levelNumber) : levelNumber(levelNumber), worm(nullptr), apple(nullptr), objective(nullptr) {
+Level::Level(int levelNumber, Game* game) : levelNumber(levelNumber), worm(nullptr), apple(nullptr), objective(nullptr), game(game) {
     // Define posiciones iniciales según el nivel
     switch(levelNumber) {
         case 0:
             wormStartX = 0.1f; wormStartY = 0.125f; wormStartZ = 0.0f;
             appleStartX = 0.5f; appleStartY = 0.2f; appleStartZ = 0.0f;
-            objectiveStartX = 1.1f; objectiveStartY = -0.1f; objectiveStartZ = 0.0f;
+            objectiveStartX = 0.95f + 0.095f; objectiveStartY = -0.095f; objectiveStartZ = 0.0f;
+            initialWormLength = 3; 
             break;
         case 1:
             wormStartX = 0.2f; wormStartY = 0.125f; wormStartZ = 0.0f;
             appleStartX = 0.7f; appleStartY = 0.3f; appleStartZ = 0.0f;
             objectiveStartX = 1.5f; objectiveStartY = 0.0f; objectiveStartZ = 0.0f;
+            initialWormLength = 3;  
             break;
         default:
             wormStartX = 0.1f; wormStartY = 0.125f; wormStartZ = 0.0f;
             appleStartX = 0.5f; appleStartY = 0.2f; appleStartZ = 0.0f;
             objectiveStartX = 1.1f; objectiveStartY = -0.1f; objectiveStartZ = 0.0f;
+            initialWormLength = 3;  
             break;
     }
     initialize();
@@ -43,13 +47,14 @@ Level::~Level() {
 
 void Level::initialize() {
     // Crear el gusano en la posición inicial del nivel (sobre el suelo)
-    worm = new Worm(wormStartX, wormStartY, wormStartZ);
+    worm = new Worm(wormStartX, wormStartY, wormStartZ, game);
+    worm->reset(wormStartX, wormStartY, wormStartZ, initialWormLength);  // Usar la longitud inicial
     
-    // Crear la manzana con dimensiones más pequeñas
-    apple = new Apple(appleStartX, appleStartY, appleStartZ, 0.05f, 0.05f, 0.05f);
+    // Crear la manzana con el mismo tamaño que el gusano
+    apple = new Apple(appleStartX, appleStartY, appleStartZ, 0.095f, 0.095f, 0.095f);
     
-    // Crear el objetivo
-    objective = new Objective(objectiveStartX, objectiveStartY, objectiveStartZ, 1.0f, 1.0f, 1.0f);
+    // Crear el objetivo con tamaño pequeño para evitar colisiones invisibles
+    objective = new Objective(objectiveStartX, objectiveStartY, objectiveStartZ, 0.095f, 0.095f, 0.095f);
     entities.push_back(objective);
     
     // Crear las paredes según el nivel
@@ -132,25 +137,25 @@ void Level::createWalls() {
 
 void Level::createWallRow(int start, int end, float y, float z) {
     for(int i = start; i < end; i++) {
-        Wall* wall = new Wall(0.1f * i, y, z, 0.1f, 0.1f, 0.1f);
+        Wall* wall = new Wall(0.095f * i, y, z, 0.095f, 0.095f, 0.095f);
         entities.push_back(wall);
     }
 }
 
 void Level::createWallColumn(float x, float startY, int height) {
     for(int i = 0; i < height; i++) {
-        Wall* wall = new Wall(x, startY + (0.1f * i), 0.0f, 0.1f, 0.1f, 0.1f);
+        Wall* wall = new Wall(x, startY + (0.095f * i), 0.0f, 0.095f, 0.095f, 0.095f);
         entities.push_back(wall);
     }
 }
 
 void Level::createSingleWall(float x, float y) {
-    Wall* wall = new Wall(x, y, 0.0f, 0.1f, 0.1f, 0.1f);
+    Wall* wall = new Wall(x, y, 0.0f, 0.095f, 0.095f, 0.095f);
     entities.push_back(wall);
 }
 
 void Level::resetEntities() {
-    if (worm) worm->reset(wormStartX, wormStartY, wormStartZ, worm->getLength());
+    if (worm) worm->reset(wormStartX, wormStartY, wormStartZ, initialWormLength);  // Usar la longitud inicial
     if (apple) apple->reset(appleStartX, appleStartY, appleStartZ);
     if (objective) objective->setPosition(objectiveStartX, objectiveStartY, objectiveStartZ);
 } 

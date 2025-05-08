@@ -89,20 +89,31 @@ double Entity::getDepth() const
 //todo poner cita
 bool Entity::isColliding(const Entity& other) const
 {
-	// Calcular los límites de cada entidad
-	double thisLeft = this->x - this->width/2;
-	double thisRight = this->x + this->width/2;
-	double thisTop = this->y + this->height/2;
-	double thisBottom = this->y - this->height/2;
+	// Calcular los límites de cada entidad con un margen más grande para evitar colisiones falsas
+	const double MARGIN = 0.01f;  // Margen aún más grande para eliminar colisiones por contacto mínimo
 	
-	double otherLeft = other.x - other.width/2;
-	double otherRight = other.x + other.width/2;
-	double otherTop = other.y + other.height/2;
-	double otherBottom = other.y - other.height/2;
+	// Calcular los límites considerando el centro de cada entidad
+	double thisLeft = this->x - this->width/2 + MARGIN;
+	double thisRight = this->x + this->width/2 - MARGIN;
+	double thisTop = this->y + this->height/2 - MARGIN;
+	double thisBottom = this->y - this->height/2 + MARGIN;
 	
-	// Verificar si hay superposición en X e Y
-	bool collisionX = (thisRight >= otherLeft) && (thisLeft <= otherRight);
-	bool collisionY = (thisTop >= otherBottom) && (thisBottom <= otherTop);
+	double otherLeft = other.x - other.width/2 + MARGIN;
+	double otherRight = other.x + other.width/2 - MARGIN;
+	double otherTop = other.y + other.height/2 - MARGIN;
+	double otherBottom = other.y - other.height/2 + MARGIN;
 	
+	// Verificar si hay superposición en X e Y usando > y < para evitar colisiones por contacto mínimo
+	bool collisionX = (thisRight > otherLeft) && (thisLeft < otherRight);
+	bool collisionY = (thisTop > otherBottom) && (thisBottom < otherTop);
+	
+	// Debug: imprimir información si hay colisión
+	if (collisionX && collisionY) {
+		std::cout << "Colisión entre: "
+				  << "Entidad1 (" << this->x << ", " << this->y << ", " << this->z << ", " << this->width << ", " << this->height << ", " << this->depth << ") y "
+				  << "Entidad2 (" << other.x << ", " << other.y << ", " << other.z << ", " << other.width << ", " << other.height << ", " << other.depth << ")" << std::endl;
+	}
+	
+	// Solo hay colisión si hay superposición en ambos ejes
 	return collisionX && collisionY;
 }

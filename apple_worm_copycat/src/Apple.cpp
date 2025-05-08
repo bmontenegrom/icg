@@ -15,7 +15,10 @@ Apple::Apple(double x, double y, double z, double width, double height, double d
     if (vertices.empty()) {
         std::cerr << "Error al cargar el modelo de la manzana" << std::endl;
     }
-    texturaManzana = cargarTextura("assets/apple/apple.png");
+    texturaManzana = cargarTextura("assets/apple/Tex_Manzana.png");
+    if (texturaManzana == 0) {
+        texturaManzana = cargarTextura("assets/apple/apple.png");
+    }
 }
 
 Apple::~Apple() {
