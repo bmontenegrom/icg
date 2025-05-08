@@ -6,6 +6,7 @@
 #include "MainMenu.h"
 #include "GameOverMenu.h"
 #include "Level.h"
+
 #include <vector>
 
 class Game {
@@ -21,6 +22,7 @@ private:
 	bool isPaused;
 	bool isRunning;
 	bool hasStartedPlaying;
+	GameState currentState;
 	
 	void updateCamera(Worm* worm);
 	void loadLevel(int levelNumber);
@@ -35,4 +37,5 @@ public:
 	void resetGame();
 	void setScore(int newScore);
 	int getScore() const;
+	void changeState(GameState newState);
 };

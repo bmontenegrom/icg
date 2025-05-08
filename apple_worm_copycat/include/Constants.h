@@ -1,4 +1,5 @@
 #pragma once
+
 enum Direction
 {
     UP,
@@ -7,12 +8,7 @@ enum Direction
     RIGHT
 };
 
-enum class GameState {
-    MAIN_MENU,   // Menú principal
-    PLAYING,     // Jugando activamente
-    GAME_OVER,   // Pantalla de game over
-    PAUSED       // Juego en pausa
-};
+enum GameState { MENU, PLAYING, GAME_OVER, PAUSED };
 
 const int SCREEN_WIDTH = 1440;
 const int SCREEN_HEIGHT = 900;

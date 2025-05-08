@@ -1,4 +1,4 @@
-#include "Game.h"
+
 #include "Wall.h"
 #include "Objective.h"
 #include <SDL.h>
@@ -7,10 +7,13 @@
 #include <GL/gl.h>
 #include <iostream>
 #include <WormHead.h>
+#include "Constants.h"
+#include <Game.h>
+
 
 // Constructor: inicializa todos los componentes del juego
 Game::Game() : score(0), currentLevel(0), isRunning(true), isPaused(false), 
-    hasStartedPlaying(false), currentState(GameState::MAIN_MENU)
+    hasStartedPlaying(false), currentState(MENU)
 {
     // Inicialización de componentes principales
     this->display = new Display();
@@ -70,25 +73,25 @@ void Game::changeState(GameState newState) {
     
     // Actualizar componentes según el nuevo estado
     switch (currentState) {
-        case GameState::MAIN_MENU:
+        case MENU:
             mainMenu->setActive(true);
             gameOverMenu->setActive(false);
             isPaused = false;
             break;
             
-        case GameState::PLAYING:
+        case PLAYING:
             mainMenu->setActive(false);
             gameOverMenu->setActive(false);
             isPaused = false;
             break;
             
-        case GameState::GAME_OVER:
+        case GAME_OVER:
             mainMenu->setActive(false);
             gameOverMenu->setActive(true);
             isPaused = true;
             break;
             
-        case GameState::PAUSED:
+        case PAUSED:
             isPaused = true;
             break;
     }
@@ -141,7 +144,7 @@ void Game::run() {
 
         // Manejar estados del juego
         switch (currentState) {
-            case GameState::MAIN_MENU:
+            case MENU:
                 mainMenu->handleInput(event);
                 if (!mainMenu->isMenuActive()) {
                     if (mainMenu->getSelectedOption() == 1) {
@@ -150,12 +153,12 @@ void Game::run() {
                     else if (mainMenu->getSelectedOption() == 0) {
                         setScore(0);
                         hasStartedPlaying = false;
-                        changeState(GameState::PLAYING);  // Comenzar juego
+                        changeState(PLAYING);  // Comenzar juego
                     }
                 }
                 break;
 
-            case GameState::PLAYING:
+            case PLAYING:
                 if (!isPaused) {
                     // Actualizar física del gusano
                     worm->updateGravity(currentLevelPtr->getEntities(), timeStep);
@@ -167,23 +170,23 @@ void Game::run() {
                         worm->getHead()->getY() < -1.0f &&    
                         worm->getHead()->getY() < worm->getFallStartY() - 1.5f) {
                         gameOverMenu->setFinalScore(getScore());
-                        changeState(GameState::GAME_OVER);
+                        changeState(GAME_OVER);
                     }
                 }
                 break;
 
-            case GameState::GAME_OVER:
+            case GAME_OVER:
                 gameOverMenu->handleInput(event);
                 if (!gameOverMenu->isMenuActive()) {
                     if (gameOverMenu->getSelectedOption() == 0) {
                         // Jugar de nuevo
                         resetGame();
-                        changeState(GameState::PLAYING);
+                        changeState(PLAYING);
                         continue; // Salta el resto del ciclo para evitar usar punteros viejos
                     } else {
                         // Volver al menú principal
                         resetGame(); // <-- Reinicia el gusano y entidades también al volver al menú
-                        changeState(GameState::MAIN_MENU);
+                        changeState(MENU);
                         continue; // También aquí, por seguridad
                     }
                 }
@@ -195,10 +198,10 @@ void Game::run() {
             if (event.type == SDL_QUIT) {
                 isRunning = false;
             }
-            else if (currentState == GameState::MAIN_MENU) {
+            else if (currentState == MENU) {
                 mainMenu->handleInput(event);
             }
-            else if (currentState == GameState::GAME_OVER) {
+            else if (currentState == GAME_OVER) {
                 gameOverMenu->handleInput(event);
             }
             else if (event.type == SDL_KEYDOWN) {
@@ -225,15 +228,15 @@ void Game::run() {
 
         // Renderizar según el estado actual
         switch (currentState) {
-            case GameState::MAIN_MENU:
+            case MENU:
                 mainMenu->render();
                 break;
                 
-            case GameState::GAME_OVER:
+            case GAME_OVER:
                 gameOverMenu->render();
                 break;
                 
-            case GameState::PLAYING:
+            case PLAYING:
                 currentLevelPtr->render();
                 hud->render(getScore(), this->hud->getTime());
                 break;
