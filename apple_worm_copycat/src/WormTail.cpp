@@ -26,7 +26,11 @@ void WormTail::render()
 	*/
 
     glPushMatrix();
-    glTranslated(getX(), getY(), getZ()); // Trasladar a la posición
+    double interp = Entity::globalInterpolation;
+    double drawX = getPrevX() + (getX() - getPrevX()) * interp;
+    double drawY = getPrevY() + (getY() - getPrevY()) * interp;
+    double drawZ = getPrevZ() + (getZ() - getPrevZ()) * interp;
+    glTranslated(drawX, drawY, drawZ);
     glScaled(getWidth(), getHeight(), getDepth()); // Escalar según las dimensiones
 
     glBegin(GL_QUADS);

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cmath>
 
+float Entity::globalInterpolation = 0.0f;
 
 Entity::Entity(double x, double y, double z, double width, double height, double depth): x(x), y(y), z(z), width(width), height(height), depth(depth){
 	
@@ -117,3 +118,17 @@ bool Entity::isColliding(const Entity& other) const
 	// Solo hay colisión si hay superposición en ambos ejes
 	return collisionX && collisionY;
 }
+
+void Entity::setInterpolation(float interp) {
+	globalInterpolation = interp;
+}
+
+void Entity::updatePreviousPosition() {
+	prevX = x;
+	prevY = y;
+	prevZ = z;
+}
+
+double Entity::getPrevX() const { return prevX; }
+double Entity::getPrevY() const { return prevY; }
+double Entity::getPrevZ() const { return prevZ; }
