@@ -23,6 +23,7 @@ private:
 	bool isRunning;
 	bool hasStartedPlaying;
 	GameState currentState;
+	float gameSpeedMultiplier;
 	
 	void updateCamera(Worm* worm);
 	void loadLevel(int levelNumber);
@@ -38,4 +39,6 @@ public:
 	void setScore(int newScore);
 	int getScore() const;
 	void changeState(GameState newState);
+	void setGameSpeed(float speed);
+	float getGameSpeed() const;
 };

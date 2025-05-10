@@ -10,7 +10,7 @@ public:
 	Particle(double x, double y, double z);
 	~Particle();
 	void render() override;
-	void update();
+	void update(float speedMultiplier);
 	bool isDead() const;
 private:
 	float speedX;

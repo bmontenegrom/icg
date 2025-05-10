@@ -19,7 +19,7 @@ class Hud {
 public:
 	Hud(TTF_Font* font);
 	~Hud();
-	void render(int score, int time);
+	void render(int score, int time, float gameSpeed);
 	void startTime();
 	int getTime();
 	

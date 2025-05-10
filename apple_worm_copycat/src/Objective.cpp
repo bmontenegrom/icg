@@ -3,8 +3,10 @@
 #include <SDL_opengl.h>
 #include <GL/glu.h>
 #include <iostream>
+#include <Game.h>
 
-Objective::Objective(double x, double y, double z, double width, double height, double depth) : Entity(x, y, z, width, height, depth)
+Objective::Objective(double x, double y, double z, double width, double height, double depth, Game* game) 
+    : Entity(x, y, z, width, height, depth), game(game)
 {
     float particleX = x; //- width / 2 + (rand()% 5)/100.f;
     float particleY = y; //- height / 2 + (rand() % 5) / 100.f;
@@ -77,27 +79,42 @@ void Objective::render()
 
     glPopMatrix();
 
-    renderParticles();
+    // Obtener el multiplicador de velocidad del juego
+    float speedMultiplier = 1.0f;
+    if (game != nullptr) {
+        speedMultiplier = game->getGameSpeed();
+        // Debug: imprimir el multiplicador de velocidad
+        std::cout << "Game Speed Multiplier: " << speedMultiplier << std::endl;
+        // Aseguramos que el multiplicador sea válido
+        speedMultiplier = std::max(0.25f, std::min(4.0f, speedMultiplier));
+    }
+    
+    // Llamamos a renderParticles con el multiplicador de velocidad
+    renderParticles(speedMultiplier);
 }
 
-void Objective::renderParticles()
+void Objective::renderParticles(float speedMultiplier)
 {
-	for (int i = 0; i < particles.size(); ++i) {
-		if (particles[i]->isDead()){
-			delete particles[i];
-			float particleX = getX();
-			float particleY = getY();
-			float particleZ = getZ();
-			particles[i] = new Particle(particleX, particleY, particleZ);
-		}
-	}
+    // Aseguramos que el multiplicador sea al menos 0.25
+    speedMultiplier = std::max(0.25f, speedMultiplier);
+    
+    for (int i = 0; i < particles.size(); ++i) {
+        if (particles[i]->isDead()){
+            delete particles[i];
+            float particleX = getX();
+            float particleY = getY();
+            float particleZ = getZ();
+            particles[i] = new Particle(particleX, particleY, particleZ);
+        }
+    }
 
-	for (Particle* particle : particles) {
-		if (!isPaused) {
-			particle->update();
-		}
-		particle->render();
-	}
+    for (Particle* particle : particles) {
+        if (!isPaused) {
+            // Aplicamos el multiplicador de velocidad directamente
+            particle->update(speedMultiplier);
+        }
+        particle->render();
+    }
 }
 
 void Objective::setPaused(bool paused)

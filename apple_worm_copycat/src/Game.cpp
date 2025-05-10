@@ -1,4 +1,3 @@
-
 #include "Wall.h"
 #include "Objective.h"
 #include <SDL.h>
@@ -13,7 +12,7 @@
 
 // Constructor: inicializa todos los componentes del juego
 Game::Game() : score(0), currentLevel(0), isRunning(true), isPaused(false), 
-    hasStartedPlaying(false), currentState(MENU)
+    hasStartedPlaying(false), currentState(MENU), gameSpeedMultiplier(1.0f) // Inicializamos la velocidad a 1.0 (normal)
 {
     // Inicialización de componentes principales
     this->display = new Display();
@@ -111,6 +110,19 @@ void Game::resetGame() {
     while (SDL_PollEvent(&dummy)) {}
 }
 
+// Nuevo método para establecer la velocidad del juego
+void Game::setGameSpeed(float speed) {
+    // Limitamos la velocidad entre 0.25x y 4x para mantener el juego jugable
+    if (speed >= 0.25f && speed <= 4.0f) {
+        gameSpeedMultiplier = speed;
+    }
+}
+
+// Nuevo método para obtener la velocidad actual
+float Game::getGameSpeed() const {
+    return gameSpeedMultiplier;
+}
+
 // Bucle principal del juego
 void Game::run() {
     // Configuración inicial de OpenGL
@@ -137,7 +149,7 @@ void Game::run() {
         glLoadIdentity();
         
         // Obtener componentes del nivel actual
-        float timeStep = timer->getTicks() / 1000.0f;
+        float timeStep = (timer->getTicks() / 1000.0f) * gameSpeedMultiplier;
         Level* currentLevelPtr = levels[currentLevel];
         Worm* worm = currentLevelPtr->getWorm();
         Apple* apple = currentLevelPtr->getApple();
@@ -238,7 +250,7 @@ void Game::run() {
                 
             case PLAYING:
                 currentLevelPtr->render();
-                hud->render(getScore(), this->hud->getTime());
+                hud->render(getScore(), this->hud->getTime(), getGameSpeed()); // Agregamos la velocidad al HUD
                 break;
         }
 
@@ -292,6 +304,21 @@ void Game::handleKeyPress(SDL_Keycode key, Worm* worm, Apple* apple, float timeS
             break;
         case SDLK_ESCAPE:
             mainMenu->setActive(true);
+            break;
+        case SDLK_1: // Tecla 1: velocidad 0.25x (muy lento)
+            setGameSpeed(0.25f);
+            break;
+        case SDLK_2: // Tecla 2: velocidad 0.5x (lento)
+            setGameSpeed(0.5f);
+            break;
+        case SDLK_3: // Tecla 3: velocidad normal (1x)
+            setGameSpeed(1.0f);
+            break;
+        case SDLK_4: // Tecla 4: velocidad 2x (rápido)
+            setGameSpeed(2.0f);
+            break;
+        case SDLK_5: // Tecla 5: velocidad 4x (muy rápido)
+            setGameSpeed(4.0f);
             break;
     }
 }

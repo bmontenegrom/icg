@@ -10,23 +10,25 @@ Particle::Particle(double x, double y, double z) : Entity(x, y, z)
    this->setWidth(0.002f);
    this->setHeight(0.002f); 
    this->setDepth(0.002f);
+   
+   // Aumentamos significativamente la velocidad base de las partículas
    if (rand() % 2 == 0) {
-       this->speedX = (rand() % 10) /1000.0;
+       this->speedX = (rand() % 10) / 100.0; // Aumentamos 10 veces la velocidad base
    }
    else {
-       this->speedX = -(rand() % 10)/1000.0;
+       this->speedX = -(rand() % 10) / 100.0;
    }
    if (rand() % 2 == 0) {
-       this->speedY = (rand() % 10)/1000.0;
+       this->speedY = (rand() % 10) / 100.0;
    }
    else {
-       this->speedY =  -(rand() % 10)/1000.0;
+       this->speedY = -(rand() % 10) / 100.0;
    }
    if (rand() % 2 == 0) {
-       this->speedZ = (rand() % 10) / 1000.0;
+       this->speedZ = (rand() % 10) / 100.0;
    }
    else {
-       this->speedZ =  -(rand() % 10) / 1000.0;
+       this->speedZ = -(rand() % 10) / 100.0;
    }
 
    this->lifeTime = 100;
@@ -90,17 +92,32 @@ void Particle::render()
     glPopMatrix();
 }
 
-void Particle::update()
+void Particle::update(float speedMultiplier)
 {
-	if (this->isAlive) {
-		this->setX(this->getX() + this->speedX);
-		this->setY(this->getY() + this->speedY);
-		this->setZ(this->getZ() + this->speedZ);
-		this->lifeTime--;
-		if (this->lifeTime <= 0) {
-			this->isAlive = false;
-		}
-	}
+    if (this->isAlive) {
+        // Debug: imprimir la velocidad actual
+        static int frameCount = 0;
+        if (frameCount++ % 60 == 0) { // Imprimir cada 60 frames
+            std::cout << "Particle Speed Multiplier: " << speedMultiplier 
+                      << " Base Speed: " << this->speedX 
+                      << " Adjusted Speed: " << (this->speedX * speedMultiplier) << std::endl;
+        }
+
+        // Aplicamos el multiplicador de velocidad al movimiento
+        float adjustedSpeedX = this->speedX * speedMultiplier;
+        float adjustedSpeedY = this->speedY * speedMultiplier;
+        float adjustedSpeedZ = this->speedZ * speedMultiplier;
+        
+        this->setX(this->getX() + adjustedSpeedX);
+        this->setY(this->getY() + adjustedSpeedY);
+        this->setZ(this->getZ() + adjustedSpeedZ);
+        
+        // Ajustamos el tiempo de vida según la velocidad
+        this->lifeTime -= speedMultiplier;
+        if (this->lifeTime <= 0) {
+            this->isAlive = false;
+        }
+    }
 }
 
 bool Particle::isDead() const

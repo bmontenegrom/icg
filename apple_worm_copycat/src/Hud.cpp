@@ -14,7 +14,7 @@ Hud::~Hud()
     TTF_CloseFont(font);
 }
 
-void Hud::render(int score, int time)
+void Hud::render(int score, int time, float gameSpeed)
 {
     // Guardar el modo actual
     GLint polygonMode[2];
@@ -25,6 +25,7 @@ void Hud::render(int score, int time)
 
     std::string scoreText = "Score: " + std::to_string(score);
     std::string timeText = "Time: " + std::to_string(time) + "s";
+    std::string speedText = "Speed: " + std::to_string(gameSpeed) + "x";
 
     SDL_Color white = { 255, 255, 255, 255 };
     int w, h;
@@ -36,6 +37,11 @@ void Hud::render(int score, int time)
     GLuint timeTex = createTextTexture(timeText, font, white, w, h);
     renderTexture2D(timeTex, 10, 40, w, h, SCREEN_WIDTH, SCREEN_HEIGHT);
     glDeleteTextures(1, &timeTex);
+
+    GLuint speedTex = createTextTexture(speedText, font, white, w, h);
+    renderTexture2D(speedTex, 10, 70, w, h, SCREEN_WIDTH, SCREEN_HEIGHT);
+    glDeleteTextures(1, &speedTex);
+
     // Restaurar el modo anterior (por ejemplo, wireframe)
     glPolygonMode(GL_FRONT_AND_BACK, polygonMode[0]);
 }
