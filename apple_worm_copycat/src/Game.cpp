@@ -128,13 +128,15 @@ void Game::run() {
     // Configuración inicial de OpenGL
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective(35.0, 800.0 / 600.0, 0.1, 100.0);
+    gluPerspective(35.0, SCREEN_WIDTH / (double)SCREEN_HEIGHT, 0.1, 100.0);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     
     // Variables de control
     bool wireframe = false;
     bool texture = true;
+	bool smooth = true;
+
     SDL_Event event;
     this->hud->startTime();
     setScore(0);
@@ -144,7 +146,7 @@ void Game::run() {
         // Configuración de OpenGL por frame
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        gluPerspective(35.0, 800.0 / 600.0, 0.1, 100.0);
+        gluPerspective(35.0, SCREEN_WIDTH / (double)SCREEN_HEIGHT, 0.1, 100.0);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
         
@@ -217,7 +219,7 @@ void Game::run() {
                 gameOverMenu->handleInput(event);
             }
             else if (event.type == SDL_KEYDOWN) {
-                handleKeyPress(event.key.keysym.sym, worm, apple, timeStep, wireframe, texture);
+                handleKeyPress(event.key.keysym.sym, worm, apple, timeStep, wireframe, texture, smooth);
             }
             else if (event.type == SDL_MOUSEMOTION && this->camera->getCameraMode() == CameraMode::FREE_CAMERA) {
                 int mouseX, mouseY;
@@ -249,7 +251,7 @@ void Game::run() {
                 break;
                 
             case PLAYING:
-                currentLevelPtr->render();
+                currentLevelPtr->render(texture);
                 hud->render(getScore(), this->hud->getTime(), getGameSpeed()); // Agregamos la velocidad al HUD
                 break;
         }
@@ -264,7 +266,7 @@ void Game::run() {
     }
 }
 
-void Game::handleKeyPress(SDL_Keycode key, Worm* worm, Apple* apple, float timeStep, bool& wireframe, bool& texture) {
+void Game::handleKeyPress(SDL_Keycode key, Worm* worm, Apple* apple, float timeStep, bool& wireframe, bool& texture, bool& smooth) {
     switch (key) {
         case SDLK_UP:
             if (!isPaused) { worm->move(UP, levels[currentLevel]->getEntities(), apple, timeStep); hasStartedPlaying = true; }
@@ -295,6 +297,15 @@ void Game::handleKeyPress(SDL_Keycode key, Worm* worm, Apple* apple, float timeS
             break;
         case SDLK_t:
             texture = !texture;
+            break;
+		case SDLK_s:
+			smooth = !smooth;
+            if (smooth) {
+                glShadeModel(GL_SMOOTH);
+            }
+            else {
+				glShadeModel(GL_FLAT);
+            }
             break;
         case SDLK_l:
             this->display->changeLightPosition();

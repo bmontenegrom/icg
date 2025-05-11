@@ -40,9 +40,9 @@ Worm::~Worm() {
 	}
 }
 
-void Worm::render(){
+void Worm::render(bool texture){
 	for (Entity* segment : body) {
-		segment->render();
+		segment->render(texture);
 	}
 }
 

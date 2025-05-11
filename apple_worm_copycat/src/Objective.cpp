@@ -21,7 +21,7 @@ Objective::~Objective()
 {
 }
 
-void Objective::render()
+void Objective::render(bool texture)
 {
     glPushMatrix();
     glTranslated(getX(), getY(), getZ());
@@ -90,10 +90,10 @@ void Objective::render()
     }
     
     // Llamamos a renderParticles con el multiplicador de velocidad
-    renderParticles(speedMultiplier);
+    renderParticles(speedMultiplier, texture);
 }
 
-void Objective::renderParticles(float speedMultiplier)
+void Objective::renderParticles(float speedMultiplier, bool texture)
 {
     // Aseguramos que el multiplicador sea al menos 0.25
     speedMultiplier = std::max(0.25f, speedMultiplier);
@@ -113,7 +113,7 @@ void Objective::renderParticles(float speedMultiplier)
             // Aplicamos el multiplicador de velocidad directamente
             particle->update(speedMultiplier);
         }
-        particle->render();
+        particle->render(texture);
     }
 }
 

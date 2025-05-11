@@ -10,7 +10,7 @@ class Apple : public Entity {
 public:
 	Apple(double x, double y, double z, double width, double height, double depth);
 	~Apple();
-	void render() override;
+	void render(bool texture) override;
 	bool eaten();
 	void setEaten(bool eaten);
 	void reset(double x, double y, double z);
