@@ -1,22 +1,15 @@
-﻿  Objective.cpp
-C:\Repositorio\icg\apple_worm_copycat\src\Objective.cpp(11,21): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Objective.cpp(12,21): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Objective.cpp(13,21): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Objective.cpp(104,29): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Objective.cpp(105,29): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Objective.cpp(106,29): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-  Particle.cpp
-C:\Repositorio\icg\apple_worm_copycat\src\Particle.cpp(16,37): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Particle.cpp(19,38): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Particle.cpp(22,37): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Particle.cpp(25,38): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Particle.cpp(28,37): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Particle.cpp(31,38): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Particle.cpp(116,27): warning C4244: '-=': conversión de 'float' a 'unsigned int'; posible pérdida de datos
-  Worm.cpp
-C:\Repositorio\icg\apple_worm_copycat\src\Worm.cpp(22,21): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Worm.cpp(171,36): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Worm.cpp(181,20): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Repositorio\icg\apple_worm_copycat\src\Worm.cpp(228,24): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
-  Generando código...
+﻿  Camera.cpp
+C:\Repositorio\icg\apple_worm_copycat\src\Camera.cpp(45,16): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Repositorio\icg\apple_worm_copycat\src\Camera.cpp(46,18): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Repositorio\icg\apple_worm_copycat\src\Camera.cpp(74,16): warning C4244: '+=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Repositorio\icg\apple_worm_copycat\src\Camera.cpp(75,16): warning C4244: '+=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Repositorio\icg\apple_worm_copycat\src\Camera.cpp(79,16): warning C4244: '-=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Repositorio\icg\apple_worm_copycat\src\Camera.cpp(80,16): warning C4244: '-=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Repositorio\icg\apple_worm_copycat\src\Camera.cpp(84,16): warning C4244: '-=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Repositorio\icg\apple_worm_copycat\src\Camera.cpp(85,16): warning C4244: '+=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Repositorio\icg\apple_worm_copycat\src\Camera.cpp(89,16): warning C4244: '+=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Repositorio\icg\apple_worm_copycat\src\Camera.cpp(90,16): warning C4244: '-=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Repositorio\icg\apple_worm_copycat\src\Camera.cpp(120,13): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Repositorio\icg\apple_worm_copycat\src\Camera.cpp(121,13): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Repositorio\icg\apple_worm_copycat\src\Camera.cpp(122,13): warning C4244: '=': conversión de 'double' a 'float'; posible pérdida de datos
   apple_worm_copycat.vcxproj -> C:\Repositorio\icg\apple_worm_copycat\x64\Debug\apple_worm_copycat.exe

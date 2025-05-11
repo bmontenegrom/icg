@@ -248,6 +248,7 @@ void Game::run() {
                 
             case GAME_OVER:
                 gameOverMenu->render();
+				camera->resetToDefault();
                 break;
                 
             case PLAYING:
@@ -285,8 +286,7 @@ void Game::handleKeyPress(SDL_Keycode key, Worm* worm, Apple* apple, float timeS
             break;
         case SDLK_v:
             this->camera->switchCameraMode();
-            SDL_SetRelativeMouseMode(this->camera->getCameraMode() == CameraMode::FREE_CAMERA || 
-                                   this->camera->getCameraMode() == CameraMode::FIRST_PERSON ? SDL_TRUE : SDL_FALSE);
+            SDL_SetRelativeMouseMode(this->camera->getCameraMode() == CameraMode::FREE_CAMERA ? SDL_TRUE : SDL_FALSE);
             break;
         case SDLK_q:
             isRunning = false;
@@ -335,8 +335,7 @@ void Game::handleKeyPress(SDL_Keycode key, Worm* worm, Apple* apple, float timeS
 }
 
 void Game::updateCamera(Worm* worm) {
-    if (camera->getCameraMode() == CameraMode::THIRD_PERSON || 
-        camera->getCameraMode() == CameraMode::FIRST_PERSON) {
+    if (camera->getCameraMode() == CameraMode::THIRD_PERSON) {
         Direction dir = worm->getHeadDirection();
         float dirX = 0.0f, dirY = 0.0f, dirZ = 0.0f;
         switch (dir) {
@@ -348,10 +347,7 @@ void Game::updateCamera(Worm* worm) {
         this->camera->followTarget(
             worm->getX(),
             worm->getY(),
-            worm->getZ(),
-            0.25f,
-            dirX, dirY, dirZ
-        );
+            worm->getZ());
     }
 }
 
