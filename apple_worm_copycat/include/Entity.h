@@ -38,9 +38,13 @@ public:
 	double getPrevX() const;
 	double getPrevY() const;
 	double getPrevZ() const;
+	float getInterpolation();
+	double getInterpolatedX() const;
+	double getInterpolatedY() const;
+	double getInterpolatedZ() const;
 
 protected:
-	static float globalInterpolation;
+	static float interpolation;
 
 private:
 	//center position

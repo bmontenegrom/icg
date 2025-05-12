@@ -2,18 +2,26 @@
 #include <iostream>
 #include <cmath>
 
-float Entity::globalInterpolation = 0.0f;
+float Entity::interpolation = 1.0f;
 
 Entity::Entity(double x, double y, double z, double width, double height, double depth): x(x), y(y), z(z), width(width), height(height), depth(depth){
-	
+	this->prevX = x;
+	this->prevY = y;
+	this->prevZ = z;
 }
 
 Entity::Entity(double x, double y, double z) : x(x), y(y), z(z), width(0.0f), height(0.0f), depth(0.0f)
 {
+	this->prevX = x;
+	this->prevY = y;
+	this->prevZ = z;
 }
 
 Entity::Entity(double x, double y, double z, double width, double height, double depth, std::string path) : x(x), y(y), z(z), width(width), height(height), depth(depth)
 {
+	this->prevX = x;
+	this->prevY = y;
+	this->prevZ = z;
 	// Cargar el modelo desde el archivo
 	ObjectLoader& loader = ObjectLoader::getInstance();
 	this->vertices = loader.loadOBJ(path);
@@ -120,7 +128,11 @@ bool Entity::isColliding(const Entity& other) const
 }
 
 void Entity::setInterpolation(float interp) {
-	globalInterpolation = interp;
+	interpolation = interp;
+}
+
+float Entity::getInterpolation() {
+	return interpolation;
 }
 
 void Entity::updatePreviousPosition() {
@@ -132,3 +144,15 @@ void Entity::updatePreviousPosition() {
 double Entity::getPrevX() const { return prevX; }
 double Entity::getPrevY() const { return prevY; }
 double Entity::getPrevZ() const { return prevZ; }
+
+double Entity::getInterpolatedX() const {
+	return prevX + (x - prevX) * interpolation;
+}
+
+double Entity::getInterpolatedY() const {
+	return prevY + (y - prevY) * interpolation;
+}
+
+double Entity::getInterpolatedZ() const {
+	return prevZ + (z - prevZ) * interpolation;
+}

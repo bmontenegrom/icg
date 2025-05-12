@@ -43,11 +43,10 @@ void WormBody::render(bool texture)
 	*/
 
     glPushMatrix();
-    double interp = Entity::globalInterpolation;
-    double drawX = getPrevX() + (getX() - getPrevX()) * interp;
-    double drawY = getPrevY() + (getY() - getPrevY()) * interp;
-    double drawZ = getPrevZ() + (getZ() - getPrevZ()) * interp;
-    glTranslated(drawX, drawY, drawZ);
+    double x = getInterpolatedX();
+    double y = getInterpolatedY();
+    double z = getInterpolatedZ();
+    glTranslated(x, y, z);
     glScaled(getWidth(), getHeight(), getDepth()); // Escalar según las dimensiones
 
     glBegin(GL_QUADS);
