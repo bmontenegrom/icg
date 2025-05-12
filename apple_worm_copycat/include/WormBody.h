@@ -14,7 +14,7 @@ public:
 	Direction getDirection() const;
 
 
-	void render() override;
+	void render(bool texture) override;
 
 private:
 	Direction direction;

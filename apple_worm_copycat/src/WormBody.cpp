@@ -28,7 +28,7 @@ Direction WormBody::getDirection() const
 
 
 
-void WormBody::render()
+void WormBody::render(bool texture)
 {
 	/*glPushMatrix();
 	//glTranslatef(this->getX(), this->getY(), this->getZ());

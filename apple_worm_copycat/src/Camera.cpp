@@ -23,10 +23,15 @@ Camera::Camera() {
 	targetX = defaultTargetX;
 	targetY = defaultTargetY;
 	targetZ = defaultTargetZ;
+
+	// Inicializar dirección
+	dirX = 0.0f;
+	dirY = 0.0f;
+	dirZ = 1.0f;
 }
 
 void Camera::updateMouseMovement(int x, int y) {
-	if (mode == CameraMode::FREE_CAMERA || mode == CameraMode::FIRST_PERSON) {
+	if (mode == CameraMode::FREE_CAMERA) {
 		// Convertir el movimiento del mouse a ángulos
 		yaw += x * sensitivity;
 		pitch -= y * sensitivity;
@@ -46,14 +51,6 @@ void Camera::updateMouseMovement(int x, int y) {
 }
 
 void Camera::applyView() {
-	if (mode == CameraMode::FIRST_PERSON) {
-		// FOV normal para first person
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		gluPerspective(35.0, 800.0 / 600.0, 0.1, 100.0);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-	}
 	switch (mode) {
 		case CameraMode::DEFAULT:
 			gluLookAt(defaultPosX, defaultPosY, defaultPosZ,
@@ -61,11 +58,6 @@ void Camera::applyView() {
 					 0.0f, 1.0f, 0.0f);
 			break;
 		case CameraMode::THIRD_PERSON:
-			gluLookAt(posX, posY, posZ,
-					 targetX, targetY, targetZ,
-					 0.0f, 1.0f, 0.0f);
-			break;
-		case CameraMode::FIRST_PERSON:
 			gluLookAt(posX, posY, posZ,
 					 targetX, targetY, targetZ,
 					 0.0f, 1.0f, 0.0f);
@@ -123,36 +115,16 @@ CameraMode Camera::getCameraMode() const {
 	return mode;
 }
 
-void Camera::followTarget(float tx, float ty, float tz, float distance, float dirX, float dirY, float dirZ) {
+void Camera::followTarget(float tx, float ty, float tz) {
 	if (mode == CameraMode::THIRD_PERSON) {
-		float upOffset = 0.15f;
-		float backOffset = distance;
-		float len = sqrt(dirX*dirX + dirY*dirY + dirZ*dirZ);
-		float nx = (len > 0) ? dirX / len : 0.0f;
-		float ny = (len > 0) ? dirY / len : 0.0f;
-		float nz = (len > 0) ? dirZ / len : 1.0f;
-		posX = tx - nx * backOffset;
-		posY = ty + upOffset;
-		posZ = tz - nz * backOffset;
+		posX = tx - 0.3;
+		posY = ty + 0.3;
+		posZ = tz + 0.3;
 		targetX = tx;
-		targetY = ty + upOffset * 0.5f;
+		targetY = ty;
 		targetZ = tz;
 	}
-	else if (mode == CameraMode::FIRST_PERSON) {
-		// Cámara exactamente en la cabeza mirando hacia adelante, sin offset
-		posX = tx;
-		posY = ty;
-		posZ = tz;
-		float baseYaw = atan2(dirZ, dirX);
-		float totalYaw = baseYaw + yaw * M_PI / 180.0f;
-		float totalPitch = pitch * M_PI / 180.0f;
-		float lookX = cos(totalPitch) * cos(totalYaw);
-		float lookY = sin(totalPitch);
-		float lookZ = cos(totalPitch) * sin(totalYaw);
-		targetX = posX + lookX * 0.5f;
-		targetY = posY + lookY * 0.5f;
-		targetZ = posZ + lookZ * 0.5f;
-	}
+	
 }
 
 void Camera::updatePosition(float x, float y, float z) {
@@ -176,4 +148,5 @@ void Camera::resetToDefault() {
 	targetZ = defaultTargetZ;
 	yaw = 0.0f;
 	pitch = 0.0f;
+	mode = CameraMode::DEFAULT;
 }

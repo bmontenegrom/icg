@@ -61,13 +61,13 @@ void Level::initialize() {
     createWalls();
 }
 
-void Level::render() {
+void Level::render(bool texture) {
     for (Entity* entity : entities) {
-        entity->render();
+        entity->render(texture);
     }
-    worm->render();
+    worm->render(texture);
     if (apple != nullptr && !apple->eaten()) {
-        apple->render();
+        apple->render(texture);
     }
 }
 

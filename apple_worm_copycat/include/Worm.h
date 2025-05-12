@@ -27,7 +27,7 @@ private:
 public:
 	Worm(double x, double y, double z, Game* game = nullptr);  // Constructor modificado
 	~Worm();
-	void render() override;
+	void render(bool texture) override;
 
 	void move(Direction newDirection, const std::vector<Entity*> &walls, Apple* apple, float timeStep);
 	// Actualiza la posición del gusano según la gravedad y verifica colisiones con el suelo
