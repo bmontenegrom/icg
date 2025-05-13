@@ -99,8 +99,8 @@ void Level::createWalls() {
             // Nivel actual (nivel 1)
             createWallRow(0, 5, 0.0f, 0.0f);
             createWallRow(8, 12, 0.0f, 0.0f);
-            createWallColumn(0.3f, 0.2f, 3);
-            createSingleWall(0.7f, 0.3f);
+            createWallColumn(0.286f, 0.2f, 3);
+            createSingleWall(0.760f, 0.3f);
             createWallRow(6, 8, 0.5f, 0.0f);
             break;
         case 1:
