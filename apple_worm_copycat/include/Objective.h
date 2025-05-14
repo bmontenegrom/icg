@@ -14,6 +14,7 @@ public:
 	void render(bool texture);
 	void renderParticles(float speedMultiplier, bool texture);
 	void setPaused(bool paused);
+	EntityType getType() const override { return EntityType::OBJECTIVE; }
 private:
 	std::vector<Particle*> particles;
 	bool isPaused;
