@@ -49,52 +49,14 @@ void WormBody::render(bool texture)
     glTranslated(x, y, z);
     glScaled(getWidth(), getHeight(), getDepth()); // Escalar según las dimensiones
 
-    glBegin(GL_QUADS);
+	// Dibujar el cuerpo: círculo mediano, verde claro
+	GLUquadric* quad = gluNewQuadric();
 
-    // Cara frontal
-    glColor3f(1.0f, 1.0f, 0.0f); // Amarillo
-    glNormal3f(0.0f, 0.0f, 1.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, -0.5, 0.5);
-    glVertex3f(0.5, -0.5, 0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
+	glColor3ub(173, 255, 47); // verde claro
+	glTranslated(0.0, 0.0, 0.0);
+	gluSphere(quad, 0.5, 16, 16);
 
-    // Cara trasera
-    glNormal3f(0.0f, 0.0f, -1.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(-0.5, 0.5, -0.5);
-    glVertex3f(0.5, 0.5, -0.5);
-    glVertex3f(0.5, -0.5, -0.5);
-
-    // Cara izquierda
-    glNormal3f(-1.0f, 0.0f, 0.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(-0.5, -0.5, 0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
-    glVertex3f(-0.5, 0.5, -0.5);
-
-    // Cara derecha
-    glNormal3f(1.0f, 0.0f, 0.0f); // Normal apuntando hacia afuera
-    glVertex3f(0.5, -0.5, -0.5);
-    glVertex3f(0.5, 0.5, -0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(0.5, -0.5, 0.5);
-
-    // Cara superior
-    glNormal3f(0.0f, 1.0f, 0.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, 0.5, -0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(0.5, 0.5, -0.5);
-
-    // Cara inferior
-    glNormal3f(0.0f, -1.0f, 0.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(0.5, -0.5, -0.5);
-    glVertex3f(0.5, -0.5, 0.5);
-    glVertex3f(-0.5, -0.5, 0.5);
-
-    glEnd();
+	gluDeleteQuadric(quad);
 
     glPopMatrix();
 }

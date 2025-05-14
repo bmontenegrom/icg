@@ -31,53 +31,11 @@ void WormTail::render(bool texture)
     double z = getInterpolatedZ();
     glTranslated(x, y, z);
     glScaled(getWidth(), getHeight(), getDepth()); // Escalar según las dimensiones
-
-    glBegin(GL_QUADS);
-
-    // Cara frontal
-    glColor3f(0.0f, 1.0f, 0.0f); // Verde
-    glNormal3f(0.0f, 0.0f, 1.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, -0.5, 0.5);
-    glVertex3f(0.5, -0.5, 0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
-
-    // Cara trasera
-    glNormal3f(0.0f, 0.0f, -1.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(-0.5, 0.5, -0.5);
-    glVertex3f(0.5, 0.5, -0.5);
-    glVertex3f(0.5, -0.5, -0.5);
-
-    // Cara izquierda
-    glNormal3f(-1.0f, 0.0f, 0.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(-0.5, -0.5, 0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
-    glVertex3f(-0.5, 0.5, -0.5);
-
-    // Cara derecha
-    glNormal3f(1.0f, 0.0f, 0.0f); // Normal apuntando hacia afuera
-    glVertex3f(0.5, -0.5, -0.5);
-    glVertex3f(0.5, 0.5, -0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(0.5, -0.5, 0.5);
-
-    // Cara superior
-    glNormal3f(0.0f, 1.0f, 0.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, 0.5, -0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(0.5, 0.5, -0.5);
-
-    // Cara inferior
-    glNormal3f(0.0f, -1.0f, 0.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(0.5, -0.5, -0.5);
-    glVertex3f(0.5, -0.5, 0.5);
-    glVertex3f(-0.5, -0.5, 0.5);
-
-    glEnd();
+	GLUquadric* quad = gluNewQuadric();
+	glColor3ub(0, 128, 0);
+	glTranslated(0.06, 0.0, 0.0);
+	gluSphere(quad, 0.5, 16, 16);
+	gluDeleteQuadric(quad);
 
     glPopMatrix();
 }

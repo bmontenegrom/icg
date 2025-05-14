@@ -24,62 +24,72 @@ void WormHead::render(bool texture)
 	glPopMatrix();
 	*/
 
-    glPushMatrix();
+    GLUquadric* quad = gluNewQuadric();
+
+    glPushMatrix();  // Cabeza y ojo: misma matriz
     double x = getInterpolatedX();
     double y = getInterpolatedY();
     double z = getInterpolatedZ();
     glTranslated(x, y, z);
-    glScaled(getWidth(), getHeight(), getDepth()); // Escalar según las dimensiones
+    glScaled(getWidth(), getHeight(), getDepth()); // Escala local del objeto
 
-    glBegin(GL_QUADS);
-
-    // Cara frontal
-    glColor3f(1.0f, 0.0f, 0.0f); // Rojo
-    glNormal3f(0.0f, 0.0f, 1.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, -0.5, 0.5);
-    glVertex3f(0.5, -0.5, 0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
-
-    // Cara trasera
-    glNormal3f(0.0f, 0.0f, -1.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(-0.5, 0.5, -0.5);
-    glVertex3f(0.5, 0.5, -0.5);
-    glVertex3f(0.5, -0.5, -0.5);
-
-    // Cara izquierda
-    glNormal3f(-1.0f, 0.0f, 0.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(-0.5, -0.5, 0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
-    glVertex3f(-0.5, 0.5, -0.5);
-
-    // Cara derecha
-    glNormal3f(1.0f, 0.0f, 0.0f); // Normal apuntando hacia afuera
-    glVertex3f(0.5, -0.5, -0.5);
-    glVertex3f(0.5, 0.5, -0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(0.5, -0.5, 0.5);
-
-    // Cara superior
-    glNormal3f(0.0f, 1.0f, 0.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, 0.5, -0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(0.5, 0.5, -0.5);
-
-    // Cara inferior
-    glNormal3f(0.0f, -1.0f, 0.0f); // Normal apuntando hacia afuera
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(0.5, -0.5, -0.5);
-    glVertex3f(0.5, -0.5, 0.5);
-    glVertex3f(-0.5, -0.5, 0.5);
-
-    glEnd();
-
+    // 👉 Cabeza (esfera grande verde)
+    glColor3ub(0, 128, 0);
+    glPushMatrix();
+    glTranslated(-0.06, 0.0, 0.0);
+    gluSphere(quad, 0.5, 16, 16);
     glPopMatrix();
 
+    // 👉 Ojo izquierdo (esfera blanca)
+    glColor3ub(255, 255, 255);
+    glPushMatrix();
+    // Coordenadas relativas a la cabeza en su sistema escalado
+    glTranslated(-0.03, 0.25, 0.45);
+    gluSphere(quad, 0.09, 16, 16);
+    glPopMatrix();
+
+    // 👉 Pupila (esfera negra)
+    glColor3ub(0, 0, 0);
+    glPushMatrix();
+    glTranslated(-0.03, 0.25, 0.52);  // Levemente más al frente
+    gluSphere(quad, 0.04, 16, 16);
+    glPopMatrix();
+
+    // 👉 Ojo derecho (esfera blanca)
+    glColor3ub(255, 255, 255);
+    glPushMatrix();
+    glTranslated(+0.2, 0.25, 0.45);  // simétrico en X respecto al ojo izquierdo
+    gluSphere(quad, 0.09, 16, 16);
+    glPopMatrix();
+
+    // 👉 Pupila derecha (esfera negra)
+    glColor3ub(0, 0, 0);
+    glPushMatrix();
+    glTranslated(+0.2, 0.25, 0.52);  // más al frente, igual que la izquierda
+    gluSphere(quad, 0.04, 16, 16);
+    glPopMatrix();
+
+    glPopMatrix();  // Fin cabeza + ojo
+
+
+
+    gluDeleteQuadric(quad);
+
+    /*// Ojo derecho (blanco)
+    glPushMatrix();
+    glColor3ub(255, 255, 255);
+    glTranslated(0.15, 0.1, 0.45);
+    gluSphere(quadEye, 0.009, 16, 16);
+    glPopMatrix();
+
+    // Pupila derecha (negra)
+    glPushMatrix();
+    glColor3ub(0, 0, 0);
+    glTranslated(0.15, 0.1, 0.5);
+    gluSphere(quadEye, 0.005,16, 16);
+    glPopMatrix();
+
+    gluDeleteQuadric(quadEye);
 
     //cuando este andando bien el objloader
     /*
