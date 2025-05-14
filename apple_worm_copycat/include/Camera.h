@@ -8,7 +8,6 @@
 enum CameraMode {
 	DEFAULT,        // Vista inicial configurada
 	THIRD_PERSON,   // Sigue al gusano
-	FIRST_PERSON,   // Primera persona
 	FREE_CAMERA     // Cámara libre controlable
 };
 
@@ -27,7 +26,7 @@ public:
 	void moveLeft(float speed);
 	void moveRight(float speed);
 	void setSensitivity(float newSensitivity);
-	void followTarget(float targetX, float targetY, float targetZ, float distance, float dirX, float dirY, float dirZ);
+	void followTarget(float targetX, float targetY, float targetZ);
 
 private:
 	CameraMode mode;

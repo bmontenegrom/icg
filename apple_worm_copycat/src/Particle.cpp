@@ -42,7 +42,7 @@ Particle::~Particle()
 {  
 }  
 
-void Particle::render()  
+void Particle::render(bool texture)  
 {  
     glPushMatrix();
     glTranslated(getX(), getY(), getZ());

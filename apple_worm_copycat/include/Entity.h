@@ -12,7 +12,7 @@ public:
 	Entity(double x, double y, double z);
 	Entity(double x, double y, double z, double width, double height, double depth, std::string path);
 	virtual ~Entity();
-	virtual void render() = 0;
+	virtual void render(bool texture) = 0;
 
 	// Setters
 	void setPosition(double x, double y, double z);

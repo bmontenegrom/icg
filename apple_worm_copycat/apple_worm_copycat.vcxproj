@@ -153,7 +153,10 @@
     <ClInclude Include="include\Display.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\GameOverMenu.h" />
     <ClInclude Include="include\Hud.h" />
+    <ClInclude Include="include\Level.h" />
+    <ClInclude Include="include\MainMenu.h" />
     <ClInclude Include="include\Menu.h" />
     <ClInclude Include="include\Objective.h" />
     <ClInclude Include="include\ObjLoader.h" />
@@ -171,8 +174,11 @@
     <ClCompile Include="src\Display.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameOverMenu.cpp" />
     <ClCompile Include="src\Hud.cpp" />
+    <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\Objective.cpp" />
     <ClCompile Include="src\ObjLoader.cpp" />

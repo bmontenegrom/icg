@@ -10,7 +10,7 @@ WormHead::~WormHead()
 {
 }
 
-void WormHead::render()
+void WormHead::render(bool texture)
 {
 	/*glPushMatrix();
 	//glTranslatef(this->getX(), this->getY(), this->getZ());

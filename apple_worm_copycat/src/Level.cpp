@@ -160,9 +160,9 @@ void Level::parseBlocksNode(XMLNode* blocksNode) {
     }
 }
 
-void Level::render() {
+void Level::render(bool texture) {
     for (Entity* entity : entities) {
-        entity->render();
+        entity->render(texture);
     }
     worm->render();
     for (Apple* apple : apples) {

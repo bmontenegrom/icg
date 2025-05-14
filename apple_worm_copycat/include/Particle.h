@@ -10,7 +10,7 @@ class Particle : public Entity
 public:
 	Particle(double x, double y, double z);
 	~Particle();
-	void render() override;
+	void render(bool texture) override;
 	void update(float speedMultiplier);
 	bool isDead() const;
 	EntityType getType() const override { return EntityType::WORM; }

@@ -10,7 +10,7 @@ WormTail::~WormTail()
 {
 }
 
-void WormTail::render()
+void WormTail::render(bool texture)
 {
 	//double size = 0.3f;
 	/*glPushMatrix();

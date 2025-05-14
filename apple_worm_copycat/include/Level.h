@@ -40,7 +40,7 @@ public:
     Level(int levelNumber, Game* game = nullptr);
     ~Level();
     
-    void render();
+    void render(bool texture);
     void resetEntities();
     
     std::vector<Entity*>& getEntities();

@@ -12,4 +12,6 @@ public:
 	EntityType getType() const override { return EntityType::WALL; }
 private:
 	std::vector<ObjVertex> vertices;
+	GLuint texturaMuro;
+	GLuint cargarTextura(const char* path);
 };

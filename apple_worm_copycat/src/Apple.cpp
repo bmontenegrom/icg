@@ -53,33 +53,15 @@ GLuint Apple::cargarTextura(const char* path) {
     return texID;
 }
 
-void Apple::render() {
-    if (vertices.empty()) {
-        // Si no se pudo cargar el modelo, renderizar un cubo simple
-        glPushMatrix();
-        glTranslated(getX(), getY(), getZ());
-        glScaled(0.05, 0.05, 0.05);  // Tamaño fijo de 0.05 x 0.05 x 0.05
-
-        glBegin(GL_QUADS);
-        // Cara frontal
-        glColor3f(1.0f, 0.0f, 0.0f);  // Rojo
-        glNormal3f(0.0f, 0.0f, 1.0f);
-        glVertex3f(-0.5, -0.5, 0.5);
-        glVertex3f(0.5, -0.5, 0.5);
-        glVertex3f(0.5, 0.5, 0.5);
-        glVertex3f(-0.5, 0.5, 0.5);
-        glEnd();
-
-        glPopMatrix();
-        return;
-    }
+void Apple::render(bool texture) {
+    
 
     // Renderizar el modelo 3D
     glPushMatrix();
     glTranslated(getX(), getY(), getZ());
     glScaled(0.05, 0.05, 0.05);  // Tamaño fijo de 0.05 x 0.05 x 0.05
 
-    if (texturaManzana != 0) {
+    if (texturaManzana != 0 && texture) {
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, texturaManzana);
     } else {
@@ -88,7 +70,7 @@ void Apple::render() {
 
     glBegin(GL_TRIANGLES);
     for (const auto& v : vertices) {
-        if (texturaManzana != 0) {
+        if (texturaManzana != 0 && texture) {
             glTexCoord2f(v.texCoord.x, v.texCoord.y);
         }
         glNormal3f(v.normal.x, v.normal.y, v.normal.z);
@@ -96,7 +78,7 @@ void Apple::render() {
     }
     glEnd();
 
-    if (texturaManzana != 0) {
+    if (texturaManzana != 0 && texture) {
         glDisable(GL_TEXTURE_2D);
     }
 
