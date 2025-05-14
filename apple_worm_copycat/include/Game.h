@@ -34,7 +34,7 @@ public:
 	Game();
 	~Game();
 	void run();
-	void handleKeyPress(SDL_Keycode key, Worm* worm, std::vector<Apple*>& apples, float timeStep, bool& wireframe, bool& texture);
+	void handleKeyPress(SDL_Keycode key, Worm* worm, Apple* apple, float timeStep, bool& wireframe, bool& texture, bool& smooth);
 	void resetGame();
 	void setScore(int newScore);
 	int getScore() const;

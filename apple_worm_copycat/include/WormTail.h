@@ -8,8 +8,7 @@ class WormTail : public Entity
 public:
     WormTail(double x, double y, double z, double width, double height, double depth, Direction direction);
     ~WormTail();
-	void render() override;
-	EntityType getType() const override { return EntityType::WORM; }
+	void render(bool texture) override;
 	// Setters
 	void setDirection(Direction direction);
 	// Getters

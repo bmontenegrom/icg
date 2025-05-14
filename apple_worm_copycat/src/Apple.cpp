@@ -85,9 +85,17 @@ void Apple::render(bool texture) {
     glPopMatrix();
 }
 
+bool Apple::eaten() {
+    return this->isEaten;
+}
+
+void Apple::setEaten(bool eaten) {
+    this->isEaten = eaten;
+}
+
 void Apple::reset(double x, double y, double z) {
     setPosition(x, y, z);
-    isEaten = false;
+    setEaten(false);
 }
 
 
