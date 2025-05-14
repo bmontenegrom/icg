@@ -95,14 +95,6 @@ void Particle::render()
 void Particle::update(float speedMultiplier)
 {
     if (this->isAlive) {
-        // Debug: imprimir la velocidad actual
-        static int frameCount = 0;
-        if (frameCount++ % 60 == 0) { // Imprimir cada 60 frames
-            std::cout << "Particle Speed Multiplier: " << speedMultiplier 
-                      << " Base Speed: " << this->speedX 
-                      << " Adjusted Speed: " << (this->speedX * speedMultiplier) << std::endl;
-        }
-
         // Aplicamos el multiplicador de velocidad al movimiento
         float adjustedSpeedX = this->speedX * speedMultiplier;
         float adjustedSpeedY = this->speedY * speedMultiplier;

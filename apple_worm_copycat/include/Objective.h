@@ -14,6 +14,7 @@ public:
 	void render();
 	void renderParticles(float speedMultiplier);
 	void setPaused(bool paused);
+	EntityType getType() const override { return EntityType::OBJECTIVE; }
 private:
 	std::vector<Particle*> particles;
 	bool isPaused;

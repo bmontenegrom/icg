@@ -1,7 +1,7 @@
 #include "Entity.h"
 #include <iostream>
 #include <cmath>
-
+#include "Constants.h"
 
 Entity::Entity(double x, double y, double z, double width, double height, double depth): x(x), y(y), z(z), width(width), height(height), depth(depth){
 	
@@ -87,33 +87,33 @@ double Entity::getDepth() const
 }
 
 //todo poner cita
-bool Entity::isColliding(const Entity& other) const
+bool Entity::isColliding(const Entity* other) const
 {
-	// Calcular los límites de cada entidad con un margen más grande para evitar colisiones falsas
-	const double MARGIN = 0.01f;  // Margen aún más grande para eliminar colisiones por contacto mínimo
+	if (!other) return false;
 	
-	// Calcular los límites considerando el centro de cada entidad
-	double thisLeft = this->x - this->width/2 + MARGIN;
-	double thisRight = this->x + this->width/2 - MARGIN;
-	double thisTop = this->y + this->height/2 - MARGIN;
-	double thisBottom = this->y - this->height/2 + MARGIN;
+	// Márgenes diferentes para paredes y objetivo
+	const double WALL_MARGIN = 0.01f;
+	const double OBJECTIVE_MARGIN = 0.1f;
 	
-	double otherLeft = other.x - other.width/2 + MARGIN;
-	double otherRight = other.x + other.width/2 - MARGIN;
-	double otherTop = other.y + other.height/2 - MARGIN;
-	double otherBottom = other.y - other.height/2 + MARGIN;
-	
-	// Verificar si hay superposición en X e Y usando > y < para evitar colisiones por contacto mínimo
-	bool collisionX = (thisRight > otherLeft) && (thisLeft < otherRight);
-	bool collisionY = (thisTop > otherBottom) && (thisBottom < otherTop);
-	
-	// Debug: imprimir información si hay colisión
-	if (collisionX && collisionY) {
-		std::cout << "Colisión entre: "
-				  << "Entidad1 (" << this->x << ", " << this->y << ", " << this->z << ", " << this->width << ", " << this->height << ", " << this->depth << ") y "
-				  << "Entidad2 (" << other.x << ", " << other.y << ", " << other.z << ", " << other.width << ", " << other.height << ", " << other.depth << ")" << std::endl;
+	// Determinar qué margen usar
+	double margin = WALL_MARGIN;
+	if (this->getType() == EntityType::OBJECTIVE || other->getType() == EntityType::OBJECTIVE) {
+		margin = OBJECTIVE_MARGIN;
 	}
 	
+	// Calcular los límites considerando el centro de cada entidad
+	double thisLeft = this->x - this->width/2 + margin;
+	double thisRight = this->x + this->width/2 - margin;
+	double thisTop = this->y + this->height/2 - margin;
+	double thisBottom = this->y - this->height/2 + margin;
+	
+	double otherLeft = other->x - other->width/2 + margin;
+	double otherRight = other->x + other->width/2 - margin;
+	double otherTop = other->y + other->height/2 - margin;
+	double otherBottom = other->y - other->height/2 + margin;
+	// Verificar si hay superposición en X e Y
+	bool collisionX = (thisRight > otherLeft) && (thisLeft < otherRight);
+	bool collisionY = (thisTop > otherBottom) && (thisBottom < otherTop);
 	// Solo hay colisión si hay superposición en ambos ejes
 	return collisionX && collisionY;
 }

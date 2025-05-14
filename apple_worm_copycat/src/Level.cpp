@@ -6,30 +6,18 @@
 #include "Objective.h"
 #include "Entity.h"
 #include "Game.h"
-
 #include <iostream>
 
-Level::Level(int levelNumber, Game* game) : levelNumber(levelNumber), worm(nullptr), apple(nullptr), objective(nullptr), game(game) {
-    // Define posiciones iniciales según el nivel
-    switch(levelNumber) {
-        case 0:
-            wormStartX = 0.1f; wormStartY = 0.125f; wormStartZ = 0.0f;
-            appleStartX = 0.5f; appleStartY = 0.2f; appleStartZ = 0.0f;
-            objectiveStartX = 0.95f + 0.095f; objectiveStartY = -0.095f; objectiveStartZ = 0.0f;
-            initialWormLength = 3; 
-            break;
-        case 1:
-            wormStartX = 0.2f; wormStartY = 0.125f; wormStartZ = 0.0f;
-            appleStartX = 0.7f; appleStartY = 0.3f; appleStartZ = 0.0f;
-            objectiveStartX = 1.5f; objectiveStartY = 0.0f; objectiveStartZ = 0.0f;
-            initialWormLength = 3;  
-            break;
-        default:
-            wormStartX = 0.1f; wormStartY = 0.125f; wormStartZ = 0.0f;
-            appleStartX = 0.5f; appleStartY = 0.2f; appleStartZ = 0.0f;
-            objectiveStartX = 1.1f; objectiveStartY = -0.1f; objectiveStartZ = 0.0f;
-            initialWormLength = 3;  
-            break;
+Level::Level(int levelNumber, Game* game) : levelNumber(levelNumber), worm(nullptr), objective(nullptr), game(game) {
+    // Cargar el nivel desde XML
+    std::string filename = "assets/levels/level" + std::to_string(levelNumber) + ".xml";
+    if (!loadFromXML(filename)) {
+        std::cerr << "Error al cargar el nivel " << levelNumber << " desde XML" << std::endl;
+        // Usar valores por defecto si falla la carga
+        wormStartX = 0.1f; wormStartY = 0.125f; wormStartZ = 0.0f;
+        // appleStartX = 0.5f; appleStartY = 0.2f; appleStartZ = 0.0f;
+        objectiveStartX = 1.045f; objectiveStartY = -0.097f; objectiveStartZ = 0.0f;
+        initialWormLength = 3;
     }
     initialize();
 }
@@ -40,25 +28,136 @@ Level::~Level() {
     }
     entities.clear();
     if (worm) { delete worm; worm = nullptr; }
-    if (apple) { delete apple; apple = nullptr; }
-    
+    for (Apple* apple : apples) { delete apple; }
+    apples.clear();
     objective = nullptr;
 }
 
 void Level::initialize() {
     // Crear el gusano en la posición inicial del nivel (sobre el suelo)
     worm = new Worm(wormStartX, wormStartY, wormStartZ, game);
-    worm->reset(wormStartX, wormStartY, wormStartZ, initialWormLength);  // Usar la longitud inicial
+    worm->reset(wormStartX, wormStartY, wormStartZ, initialWormLength);
     
-    // Crear la manzana con el mismo tamaño que el gusano
-    apple = new Apple(appleStartX, appleStartY, appleStartZ, 0.095f, 0.095f, 0.095f);
+    // Crear todas las manzanas
+    for (Apple* apple : apples) {
+        // Si quieres que las manzanas sean entidades, puedes agregarlas a entities
+        entities.push_back(apple);
+    }
     
     // Crear el objetivo con tamaño pequeño para evitar colisiones invisibles
     objective = new Objective(objectiveStartX, objectiveStartY, objectiveStartZ, 0.095f, 0.095f, 0.095f);
     entities.push_back(objective);
+}
+
+bool Level::loadFromXML(const std::string& filename) {
+    XMLNode* root = XMLParser::parseFile(filename);
+    if (!root) {
+        return false;
+    }
+
+    XMLNode* levelsNode = root->getChild("levels");
+    if (!levelsNode) {
+        delete root;
+        return false;
+    }
+
+    XMLNode* levelNode = levelsNode->getChild("level");
+    if (!levelNode) {
+        delete root;
+        return false;
+    }
+
+    // Parsear cada sección del nivel
+    parseWormNode(levelNode->getChild("worm"));
+    parseAppleNode(levelNode);
+    parseObjectiveNode(levelNode->getChild("objective"));
+    parseBlocksNode(levelNode->getChild("blocks"));
+
+    delete root;
+    return true;
+}
+
+void Level::parseWormNode(XMLNode* wormNode) {
+    if (!wormNode) return;
     
-    // Crear las paredes según el nivel
-    createWalls();
+    XMLNode* posNode = wormNode->getChild("position");
+    if (posNode) {
+        wormStartX = std::stof(posNode->getAttribute("x"));
+        wormStartY = std::stof(posNode->getAttribute("y"));
+        wormStartZ = std::stof(posNode->getAttribute("z"));
+    }
+    
+    XMLNode* lengthNode = wormNode->getChild("initialLength");
+    if (lengthNode) {
+        initialWormLength = std::stoi(lengthNode->value);
+    }
+}
+
+void Level::parseAppleNode(XMLNode* levelNode) {
+    apples.clear();
+    if (!levelNode) return;
+    for (XMLNode* child : levelNode->children) {
+        if (child->name == "apple") {
+            XMLNode* posNode = child->getChild("position");
+            if (posNode) {
+                float x = std::stof(posNode->getAttribute("x"));
+                float y = std::stof(posNode->getAttribute("y"));
+                float z = std::stof(posNode->getAttribute("z"));
+                apples.push_back(new Apple(x, y, z, 0.095f, 0.095f, 0.095f));
+            }
+        }
+    }
+}
+
+void Level::parseObjectiveNode(XMLNode* objectiveNode) {
+    if (!objectiveNode) return;
+    
+    XMLNode* posNode = objectiveNode->getChild("position");
+    if (posNode) {
+        objectiveStartX = std::stof(posNode->getAttribute("x"));
+        objectiveStartY = std::stof(posNode->getAttribute("y"));
+        objectiveStartZ = std::stof(posNode->getAttribute("z"));
+    }
+}
+
+void Level::parseBlocksNode(XMLNode* blocksNode) {
+    if (!blocksNode) return;
+    
+    // Limpiar bloques existentes
+    for (Entity* entity : entities) {
+        delete entity;
+    }
+    entities.clear();
+    
+    // Parsear filas
+    for (auto rowNode : blocksNode->children) {
+        if (rowNode->name == "row") {
+            int start = std::stoi(rowNode->getAttribute("start"));
+            int end = std::stoi(rowNode->getAttribute("end"));
+            float y = std::stof(rowNode->getAttribute("y"));
+            float z = std::stof(rowNode->getAttribute("z"));
+            createWallRow(start, end, y, z);
+        }
+    }
+    
+    // Parsear columnas
+    for (auto colNode : blocksNode->children) {
+        if (colNode->name == "column") {
+            float x = std::stof(colNode->getAttribute("x"));
+            float startY = std::stof(colNode->getAttribute("startY"));
+            int height = std::stoi(colNode->getAttribute("height"));
+            createWallColumn(x, startY, height);
+        }
+    }
+    
+    // Parsear bloques individuales
+    for (auto singleNode : blocksNode->children) {
+        if (singleNode->name == "single") {
+            float x = std::stof(singleNode->getAttribute("x"));
+            float y = std::stof(singleNode->getAttribute("y"));
+            createSingleWall(x, y);
+        }
+    }
 }
 
 void Level::render() {
@@ -66,9 +165,19 @@ void Level::render() {
         entity->render();
     }
     worm->render();
-    if (apple != nullptr && !apple->eaten()) {
-        apple->render();
+    for (Apple* apple : apples) {
+        if (!apple->eaten()) {
+            apple->render();
+        }
     }
+}
+
+void Level::resetEntities() {
+    if (worm) worm->reset(wormStartX, wormStartY, wormStartZ, initialWormLength);
+    for (Apple* apple : apples) {
+        apple->reset(apple->getX(), apple->getY(), apple->getZ());
+    }
+    if (objective) objective->setPosition(objectiveStartX, objectiveStartY, objectiveStartZ);
 }
 
 std::vector<Entity*>& Level::getEntities() {
@@ -79,60 +188,20 @@ Worm* Level::getWorm() const {
     return worm;
 }
 
-Apple* Level::getApple() const {
-    return apple;
-}
-
 Objective* Level::getObjective() const {
     return objective;
 }
 
 bool Level::isObjectiveReached() const {
     if (!worm || !objective) return false;
-    // Suponiendo que el primer segmento del gusano es la cabeza
-    return worm->getHead()->isColliding(*objective);
-}
-
-void Level::createWalls() {
-    switch(levelNumber) {
-        case 0:
-            // Nivel actual (nivel 1)
-            createWallRow(0, 5, 0.0f, 0.0f);
-            createWallRow(8, 12, 0.0f, 0.0f);
-            createWallColumn(0.3f, 0.2f, 3);
-            createSingleWall(0.7f, 0.3f);
-            createWallRow(6, 8, 0.5f, 0.0f);
-            break;
-        case 1:
-            // Nuevo nivel (nivel 2)
-            // Plataforma inicial
-            createWallRow(0, 4, 0.0f, 0.0f);
-            
-            // Plataforma elevada
-            createWallRow(6, 10, 0.3f, 0.0f);
-            
-            // Plataforma final
-            createWallRow(12, 16, 0.0f, 0.0f);
-            
-            // Columnas de obstáculos
-            createWallColumn(0.5f, 0.1f, 2);
-            createWallColumn(0.8f, 0.2f, 3);
-            
-            // Plataforma intermedia
-            createWallRow(4, 6, 0.2f, 0.0f);
-            
-            // Obstáculos adicionales
-            createSingleWall(0.7f, 0.4f);
-            createSingleWall(1.1f, 0.3f);
-            createSingleWall(1.3f, 0.2f);
-            
-            // Actualizar posición del objetivo para el nuevo nivel
-            objective->setPosition(1.5f, 0.0f, 0.0f);
-            break;
-        default:
-            // Línea eliminada: std::cerr << "Nivel no definido: " << levelNumber << std::endl;
-            break;
-    }
+    
+    WormHead* head = worm->getHead();
+    if (!head) return false;
+    
+    float distanceX = std::abs(head->getX() - objective->getX());
+    float distanceY = std::abs(head->getY() - objective->getY());
+    
+    return distanceX < 0.1f && distanceY < 0.1f;
 }
 
 void Level::createWallRow(int start, int end, float y, float z) {
@@ -154,8 +223,6 @@ void Level::createSingleWall(float x, float y) {
     entities.push_back(wall);
 }
 
-void Level::resetEntities() {
-    if (worm) worm->reset(wormStartX, wormStartY, wormStartZ, initialWormLength);  // Usar la longitud inicial
-    if (apple) apple->reset(appleStartX, appleStartY, appleStartZ);
-    if (objective) objective->setPosition(objectiveStartX, objectiveStartY, objectiveStartZ);
+std::vector<Apple*>& Level::getApples() {
+    return apples;
 } 

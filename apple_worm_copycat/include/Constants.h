@@ -8,6 +8,13 @@ enum Direction
     RIGHT
 };
 
+enum class EntityType {
+	WALL,
+	OBJECTIVE,
+	WORM,
+	APPLE
+}; 
+
 enum GameState { MENU, PLAYING, GAME_OVER, PAUSED };
 
 const int SCREEN_WIDTH = 1440;

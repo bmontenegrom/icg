@@ -46,7 +46,7 @@ void Worm::render(){
 	}
 }
 
-void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, Apple* apple, float timeStep)
+void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, std::vector<Apple*>& apples, float timeStep)
 {
 	// No permitir movimiento en dirección opuesta
 	if (this->head->getDirection() == Direction::UP && newDirection == Direction::DOWN ||
@@ -86,7 +86,7 @@ void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, Apple
 	// Verificar colisiones con el cuerpo
 	bool bodyCollision = false;
 	for (int i = 1; i < body.size(); ++i) {
-		if (this->head->isColliding(*body[i])) {
+		if (this->head->isColliding(body[i])) {
 			bodyCollision = true;
 			break;
 		}
@@ -95,7 +95,7 @@ void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, Apple
 	// Verificar colisiones con las paredes
 	bool wallCollision = false;
 	for (auto wall : walls) {
-		if (this->head->isColliding(*wall)) {
+		if (this->head->isColliding(wall)) {
 			wallCollision = true;
 			break;
 		}
@@ -109,18 +109,39 @@ void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, Apple
 	}
 
 	// Checkea si el gusano choca con la manzana
-	if (apple != nullptr && !apple->eaten() && this->head->isColliding(*apple)) {
-		this->length++;
-		double bodyX = this->body[body.size() - 1]->getX();  // Usar el último segmento antes de la cola
-		double bodyY = this->body[body.size() - 1]->getY();
-		double bodyZ = this->body[body.size() - 1]->getZ();
-		WormBody* segment = new WormBody(bodyX, bodyY, bodyZ, this->head->getWidth(), this->head->getHeight(), this->head->getDepth(), this->head->getDirection());
-		this->body.insert(this->body.end() - 1, segment);
-		apple->setEaten(true);
-		
-		// Incrementar el puntaje
-		if (game != nullptr) {
-			game->setScore(game->getScore() + 10);  // Incrementar el puntaje en 10 puntos
+	for (Apple* apple : apples) {
+		if (apple != nullptr && !apple->eaten()) {
+			WormHead* head = this->head;
+			double headX = head->getX();
+			double headY = head->getY();
+			double appleX = apple->getX();
+			double appleY = apple->getY();
+
+			// Calcular la distancia entre la cabeza y la manzana
+			double distanceX = std::abs(headX - appleX);
+			double distanceY = std::abs(headY - appleY);
+			std::cout << "[DEBUG] Distancia a manzana: X=" << distanceX << ", Y=" << distanceY << std::endl;
+
+			// Usar un margen más permisivo para la colisión
+			const double COLLISION_MARGIN = 0.1f;
+
+			// Verificar si la cabeza está lo suficientemente cerca de la manzana
+			if (distanceX < COLLISION_MARGIN && distanceY < COLLISION_MARGIN) {
+				std::cout << "[DEBUG] ¡Colisión con manzana detectada!" << std::endl;
+				this->length++;
+				double bodyX = this->body[body.size() - 1]->getX();  // Usar el último segmento antes de la cola
+				double bodyY = this->body[body.size() - 1]->getY();
+				double bodyZ = this->body[body.size() - 1]->getZ();
+				WormBody* segment = new WormBody(bodyX, bodyY, bodyZ, this->head->getWidth(), this->head->getHeight(), this->head->getDepth(), this->head->getDirection());
+				this->body.insert(this->body.end() - 1, segment);
+				apple->setEaten(true);
+				std::cout << "[DEBUG] Manzana marcada como comida." << std::endl;
+
+				// Incrementar el puntaje
+				if (game != nullptr) {
+					game->setScore(game->getScore() + 10);  // Incrementar el puntaje en 10 puntos
+				}
+			}
 		}
 	}
 

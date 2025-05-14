@@ -11,9 +11,10 @@ public:
 	Apple(double x, double y, double z, double width, double height, double depth);
 	~Apple();
 	void render() override;
-	bool eaten();
-	void setEaten(bool eaten);
+	EntityType getType() const override { return EntityType::APPLE; }
 	void reset(double x, double y, double z);
+	bool eaten() const { return isEaten; }
+	void setEaten(bool eaten) { isEaten = eaten; }
 
 private:
 	bool isEaten;

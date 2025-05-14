@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entity.h"
+#include "Constants.h"
 
 
 //https://lazyfoo.net/tutorials/SDL/38_particle_engines/index.php
@@ -12,6 +13,7 @@ public:
 	void render() override;
 	void update(float speedMultiplier);
 	bool isDead() const;
+	EntityType getType() const override { return EntityType::WORM; }
 private:
 	float speedX;
 	float speedY;
