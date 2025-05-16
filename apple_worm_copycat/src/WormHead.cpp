@@ -107,11 +107,30 @@ void WormHead::render(bool texture)
     gluSphere(quad, 0.08, 16, 16);
     glPopMatrix();
 
-    
+    // 👉 Boca: semicírculo negro (curva estilo sonrisa)
+glColor3ub(0, 0, 0);
+glBegin(GL_TRIANGLE_FAN);
+glVertex3f(0.13f, -0.05f, 0.48f);  // centro base de la boca
+
+int segments = 20;
+float radius = 0.10f;
+for (int i = 0; i <= segments; ++i) {
+    float angle = M_PI + (M_PI * i / segments);
+    float x = cos(angle) * radius;
+    float y = sin(angle) * radius;
+    glVertex3f(0.13f + x, -0.05f + y, 0.48f);
+}
+glEnd();
+
+
+
+
 
     
 
-    glPopMatrix();  // Fin cabeza + ojo
+    
+
+ glPopMatrix();  // Fin cabeza + ojo
 
 
 
