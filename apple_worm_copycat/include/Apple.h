@@ -13,6 +13,8 @@ public:
 	void render(bool texture) override;
 	EntityType getType() const override { return EntityType::APPLE; }
 	void reset(double x, double y, double z);
+	bool eaten() const { return isEaten; }
+	void setEaten(bool eaten) { isEaten = eaten; }
 
 private:
 	bool isEaten;

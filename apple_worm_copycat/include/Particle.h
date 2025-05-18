@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <GL/gl.h>
 #include "Entity.h"
+#include "Constants.h"
 
 
 //https://lazyfoo.net/tutorials/SDL/38_particle_engines/index.php
@@ -13,6 +14,7 @@ public:
 	void render(bool texture) override;
 	void update();
 	bool isDead() const;
+	EntityType getType() const override { return EntityType::WORM; }
 private:
 	float speedX;
 	float speedY;

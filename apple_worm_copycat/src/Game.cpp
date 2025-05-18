@@ -185,6 +185,15 @@ void Game::run() {
                     // Actualizar física del gusano
                     worm->updateGravity(currentLevelPtr->getEntities(), timeStep);
                     
+                    // Colision con el objetivo
+                    if(currentLevelPtr->isObjectiveReached()){
+                        std::cout << "¡Nivel completado! Cambiando al siguiente nivel..." << std::endl;
+                        nextLevel();
+                        // Reiniciar el timer para el nuevo nivel
+                        this->hud->startTime();
+                        continue;
+                    }
+
                     // Verificar condición de game over
                     if (hasStartedPlaying && 
                         worm->getIsFalling() && 
@@ -267,27 +276,22 @@ void Game::run() {
 
         // Actualizar ventana
         SDL_GL_SwapWindow(display->getWindow());
-
-        // Verificar si el nivel está completo
-        if (currentLevelPtr->isObjectiveReached()) {
-            nextLevel();
-        }
     }
 }
 
 void Game::handleKeyPress(SDL_Keycode key, Worm* worm, std::vector<Apple*>& apples, float timeStep, bool& wireframe, bool& texture, bool &smooth) {
     switch (key) {
         case SDLK_UP:
-            if (!isPaused) { worm->move(UP, levels[currentLevel]->getEntities(), apple, timeStep); hasStartedPlaying = true; }
+            if (!isPaused) { worm->move(UP, levels[currentLevel]->getEntities(), apples, timeStep); hasStartedPlaying = true; }
             break;
         case SDLK_DOWN:
-            if (!isPaused) { worm->move(DOWN, levels[currentLevel]->getEntities(), apple, timeStep); hasStartedPlaying = true; }
+            if (!isPaused) { worm->move(DOWN, levels[currentLevel]->getEntities(), apples, timeStep); hasStartedPlaying = true; }
             break;
         case SDLK_LEFT:
-            if (!isPaused) { worm->move(LEFT, levels[currentLevel]->getEntities(), apple, timeStep); hasStartedPlaying = true; }
+            if (!isPaused) { worm->move(LEFT, levels[currentLevel]->getEntities(), apples, timeStep); hasStartedPlaying = true; }
             break;
         case SDLK_RIGHT:
-            if (!isPaused) { worm->move(RIGHT, levels[currentLevel]->getEntities(), apple, timeStep); hasStartedPlaying = true; }
+            if (!isPaused) { worm->move(RIGHT, levels[currentLevel]->getEntities(), apples, timeStep); hasStartedPlaying = true; }
             break;
         case SDLK_p:
             isPaused = !isPaused;
