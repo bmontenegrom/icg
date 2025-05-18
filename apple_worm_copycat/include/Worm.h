@@ -27,7 +27,7 @@ private:
 public:
 	Worm(double x, double y, double z, Game* game = nullptr);  // Constructor modificado
 	~Worm();
-	void render() override;
+	void render(bool texture) override;
 	EntityType getType() const override { return EntityType::WORM; }
 
 	void move(Direction newDirection, const std::vector<Entity*> &walls, std::vector<Apple*>& apples, float timeStep);

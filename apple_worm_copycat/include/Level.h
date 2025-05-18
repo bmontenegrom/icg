@@ -29,6 +29,8 @@ private:
     void createSingleWall(float x, float y);
     void initialize();
     
+
+    
     // Nuevos métodos para cargar XML
     bool loadFromXML(const std::string& filename);
     void parseWormNode(XMLNode* wormNode);
@@ -42,6 +44,9 @@ public:
     
     void render(bool texture);
     void resetEntities();
+
+    void pauseObjective(bool paused);
+    void manzanaComida(bool comida);
     
     std::vector<Entity*>& getEntities();
     Worm* getWorm() const;

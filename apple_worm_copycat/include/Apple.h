@@ -10,7 +10,7 @@ class Apple : public Entity {
 public:
 	Apple(double x, double y, double z, double width, double height, double depth);
 	~Apple();
-	void render() override;
+	void render(bool texture) override;
 	EntityType getType() const override { return EntityType::APPLE; }
 	void reset(double x, double y, double z);
 	bool eaten() const { return isEaten; }

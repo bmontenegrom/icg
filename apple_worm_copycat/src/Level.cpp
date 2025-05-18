@@ -49,6 +49,16 @@ void Level::initialize() {
     entities.push_back(objective);
 }
 
+void Level::pauseObjective(bool paused)
+{
+	this->objective->setPaused(paused);
+}
+
+void Level::manzanaComida(bool comida)
+{
+	this->objective->SetManzanaComida(comida);
+}
+
 bool Level::loadFromXML(const std::string& filename) {
     XMLNode* root = XMLParser::parseFile(filename);
     if (!root) {
@@ -164,10 +174,10 @@ void Level::render(bool texture) {
     for (Entity* entity : entities) {
         entity->render(texture);
     }
-    worm->render();
+    worm->render(texture);
     for (Apple* apple : apples) {
         if (!apple->eaten()) {
-            apple->render();
+            apple->render(texture);
         }
     }
 }

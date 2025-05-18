@@ -167,6 +167,7 @@
     <ClInclude Include="include\WormBody.h" />
     <ClInclude Include="include\WormHead.h" />
     <ClInclude Include="include\WormTail.h" />
+    <ClInclude Include="include\XMLParser.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Apple.cpp" />
@@ -189,6 +190,7 @@
     <ClCompile Include="src\WormBody.cpp" />
     <ClCompile Include="src\WormHead.cpp" />
     <ClCompile Include="src\WormTail.cpp" />
+    <ClCompile Include="src\XMLParser.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

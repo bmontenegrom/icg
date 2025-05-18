@@ -1,7 +1,7 @@
 #include "Particle.h" 
 #include <SDL.h>
 #include <SDL_opengl.h>
-#include <GL/glu.h>
+#include <FreeImage.h>
 
 #include <iostream>
 
@@ -31,81 +31,107 @@ Particle::Particle(double x, double y, double z) : Entity(x, y, z)
        this->speedZ = -(rand() % 10) / 100.0;
    }
 
-   this->lifeTime = 100;
+   this->lifeTime = 60;
    this->isAlive = true;
-   this->red = 0;
-   this->green = 255;
-   this->blue = 0;
+   this->texturaParticulaBlue = cargarTextura("assets/particle_texture/blue.bmp");
+   this->texturaParticulaRed = cargarTextura("assets/particle_texture/red.bmp");
+   this->texturaParticulaGreen = cargarTextura("assets/particle_texture/green.bmp");
 }  
 
 Particle::~Particle()  
 {  
 }  
 
-void Particle::render(bool texture)  
-{  
+void Particle::render(bool texture)
+{
     glPushMatrix();
     glTranslated(getX(), getY(), getZ());
     glScaled(getWidth(), getHeight(), getDepth());
 
+    if (texture && lifeTime % 2 == 0) {
+        glEnable(GL_TEXTURE_2D);
+
+		int randomTexture = rand() % 3; // Selecciona una textura aleatoria
+        if (randomTexture == 0) {
+            glBindTexture(GL_TEXTURE_2D, texturaParticulaRed);
+        }
+        else if (randomTexture == 1) {
+            glBindTexture(GL_TEXTURE_2D, texturaParticulaGreen); 
+        }			
+        else {
+            glBindTexture(GL_TEXTURE_2D, texturaParticulaBlue);
+        }
+         
+    }
+
     glBegin(GL_QUADS);
 
     // Cara frontal
-    glColor3f(1.0f, 1.0f, 1.0f); // Rojo
-    glVertex3f(-0.5, -0.5, 0.5);
-    glVertex3f(0.5, -0.5, 0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glNormal3f(0.0f, 0.0f, 1.0f);
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-0.5, -0.5, 0.5);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(0.5, -0.5, 0.5);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(0.5, 0.5, 0.5);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-0.5, 0.5, 0.5);
 
     // Cara trasera
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(-0.5, 0.5, -0.5);
-    glVertex3f(0.5, 0.5, -0.5);
-    glVertex3f(0.5, -0.5, -0.5);
+    glNormal3f(0.0f, 0.0f, -1.0f);
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-0.5, -0.5, -0.5);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-0.5, 0.5, -0.5);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(0.5, 0.5, -0.5);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(0.5, -0.5, -0.5);
 
     // Cara izquierda
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(-0.5, -0.5, 0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
-    glVertex3f(-0.5, 0.5, -0.5);
+    glNormal3f(-1.0f, 0.0f, 0.0f);
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-0.5, -0.5, -0.5);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-0.5, -0.5, 0.5);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(-0.5, 0.5, 0.5);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-0.5, 0.5, -0.5);
 
     // Cara derecha
-    glVertex3f(0.5, -0.5, -0.5);
-    glVertex3f(0.5, 0.5, -0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(0.5, -0.5, 0.5);
+    glNormal3f(1.0f, 0.0f, 0.0f);
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(0.5, -0.5, -0.5);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(0.5, 0.5, -0.5);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(0.5, 0.5, 0.5);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(0.5, -0.5, 0.5);
 
     // Cara superior
-    glVertex3f(-0.5, 0.5, -0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(0.5, 0.5, -0.5);
+    glNormal3f(0.0f, 1.0f, 0.0f);
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-0.5, 0.5, -0.5);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(-0.5, 0.5, 0.5);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(0.5, 0.5, 0.5);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(0.5, 0.5, -0.5);
 
     // Cara inferior
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(0.5, -0.5, -0.5);
-    glVertex3f(0.5, -0.5, 0.5);
-    glVertex3f(-0.5, -0.5, 0.5);
+    glNormal3f(0.0f, -1.0f, 0.0f);
+    glTexCoord2f(0.0f, 0.0f); glVertex3f(-0.5, -0.5, -0.5);
+    glTexCoord2f(1.0f, 0.0f); glVertex3f(0.5, -0.5, -0.5);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f(0.5, -0.5, 0.5);
+    glTexCoord2f(0.0f, 1.0f); glVertex3f(-0.5, -0.5, 0.5);
 
     glEnd();
+
+    if (texture) {
+        glDisable(GL_TEXTURE_2D);
+    }
 
     glPopMatrix();
 }
 
-void Particle::update(float speedMultiplier)
+
+
+void Particle::update()
 {
     if (this->isAlive) {
         // Aplicamos el multiplicador de velocidad al movimiento
-        float adjustedSpeedX = this->speedX * speedMultiplier;
-        float adjustedSpeedY = this->speedY * speedMultiplier;
-        float adjustedSpeedZ = this->speedZ * speedMultiplier;
         
-        this->setX(this->getX() + adjustedSpeedX);
-        this->setY(this->getY() + adjustedSpeedY);
-        this->setZ(this->getZ() + adjustedSpeedZ);
+        
+        this->setX(this->getX() + speedX);
+        this->setY(this->getY() + speedY);
+        this->setZ(this->getZ() + speedZ);
         
         // Ajustamos el tiempo de vida según la velocidad
-        this->lifeTime -= speedMultiplier;
+        this->lifeTime -= 1;
         if (this->lifeTime <= 0) {
             this->isAlive = false;
         }
@@ -115,6 +141,38 @@ void Particle::update(float speedMultiplier)
 bool Particle::isDead() const
 {
 	return !this->isAlive;
+}
+
+GLuint Particle::cargarTextura(const char* path)
+{
+    {
+        FREE_IMAGE_FORMAT fif = FreeImage_GetFileType(path, 0);
+        if (fif == FIF_UNKNOWN) fif = FreeImage_GetFIFFromFilename(path);
+        if (fif == FIF_UNKNOWN) return 0;
+
+        FIBITMAP* dib = FreeImage_Load(fif, path);
+        if (!dib) return 0;
+
+        FIBITMAP* dib32 = FreeImage_ConvertTo32Bits(dib);
+        FreeImage_Unload(dib);
+        if (!dib32) return 0;
+
+        int width = FreeImage_GetWidth(dib32);
+        int height = FreeImage_GetHeight(dib32);
+        FreeImage_FlipVertical(dib32);
+
+        BYTE* bits = FreeImage_GetBits(dib32);
+
+        GLuint texID;
+        glGenTextures(1, &texID);
+        glBindTexture(GL_TEXTURE_2D, texID);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_BGRA, GL_UNSIGNED_BYTE, bits);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        FreeImage_Unload(dib32);
+        return texID;;
+    }
 }
 
 

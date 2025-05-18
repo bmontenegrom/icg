@@ -1,5 +1,6 @@
 #pragma once
-
+#include <windows.h>
+#include <GL/gl.h>
 #include "Entity.h"
 #include "Constants.h"
 
@@ -11,7 +12,7 @@ public:
 	Particle(double x, double y, double z);
 	~Particle();
 	void render(bool texture) override;
-	void update(float speedMultiplier);
+	void update();
 	bool isDead() const;
 	EntityType getType() const override { return EntityType::WORM; }
 private:
@@ -20,8 +21,9 @@ private:
 	float speedZ;
 	unsigned int lifeTime;
 	bool isAlive;
-	unsigned int red;
-	unsigned int green;
-	unsigned int blue;
+	GLuint texturaParticulaRed;
+	GLuint texturaParticulaGreen;
+	GLuint texturaParticulaBlue;
+	GLuint cargarTextura(const char* path);
 
 };

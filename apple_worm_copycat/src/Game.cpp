@@ -155,6 +155,14 @@ void Game::run() {
         Level* currentLevelPtr = levels[currentLevel];
         Worm* worm = currentLevelPtr->getWorm();
         std::vector<Apple*>& apples = currentLevelPtr->getApples();
+        /* Descomentar cuando este andando la manzana
+		 bool appleEaten = false;
+		 for (Apple* apple : apples) {
+			appleEaten = appleEaten && apple->eaten();
+         }
+		 this->levels[currentLevel]->manzanaComida(appleEaten);
+        
+        */
 
         // Manejar estados del juego
         switch (currentState) {
@@ -228,7 +236,7 @@ void Game::run() {
                 gameOverMenu->handleInput(event);
             }
             else if (event.type == SDL_KEYDOWN) {
-                handleKeyPress(event.key.keysym.sym, worm, apples, timeStep, wireframe, texture);
+                handleKeyPress(event.key.keysym.sym, worm, apples, timeStep, wireframe, texture, smooth);
             }
             else if (event.type == SDL_MOUSEMOTION && this->camera->getCameraMode() == CameraMode::FREE_CAMERA) {
                 int mouseX, mouseY;
@@ -271,7 +279,7 @@ void Game::run() {
     }
 }
 
-void Game::handleKeyPress(SDL_Keycode key, Worm* worm, std::vector<Apple*>& apples, float timeStep, bool& wireframe, bool& texture) {
+void Game::handleKeyPress(SDL_Keycode key, Worm* worm, std::vector<Apple*>& apples, float timeStep, bool& wireframe, bool& texture, bool &smooth) {
     switch (key) {
         case SDLK_UP:
             if (!isPaused) { worm->move(UP, levels[currentLevel]->getEntities(), apples, timeStep); hasStartedPlaying = true; }
@@ -287,6 +295,7 @@ void Game::handleKeyPress(SDL_Keycode key, Worm* worm, std::vector<Apple*>& appl
             break;
         case SDLK_p:
             isPaused = !isPaused;
+			this->levels[currentLevel]->pauseObjective(isPaused);
             break;
         case SDLK_v:
             this->camera->switchCameraMode();

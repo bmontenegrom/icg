@@ -3,6 +3,7 @@
 #include <SDL_opengl.h>
 #include <GL/glu.h>
 #include <iostream>
+
 #include <Game.h>
 
 Objective::Objective(double x, double y, double z, double width, double height, double depth, Game* game) 
@@ -12,7 +13,8 @@ Objective::Objective(double x, double y, double z, double width, double height, 
     float particleY = y; //- height / 2 + (rand() % 5) / 100.f;
     float particleZ = z; //- depth / 2 + (rand() % 5) / 100.f;
 	this->isPaused = false;
-	for (int i = 0; i < 100; ++i) {
+	this->manzanaComida = false;
+	for (int i = 0; i < 50; ++i) {
 		Particle* particle = new Particle(particleX, particleY, particleZ);
 		particles.push_back(particle);
 	}
@@ -79,24 +81,16 @@ void Objective::render(bool texture)
 
     glPopMatrix();
 
-    // Obtener el multiplicador de velocidad del juego
-    float speedMultiplier = 1.0f;
-    if (game != nullptr) {
-        speedMultiplier = game->getGameSpeed();
-        // Debug: imprimir el multiplicador de velocidad
-        std::cout << "Game Speed Multiplier: " << speedMultiplier << std::endl;
-        // Aseguramos que el multiplicador sea válido
-        speedMultiplier = std::max(0.25f, std::min(4.0f, speedMultiplier));
-    }
-    
-    // Llamamos a renderParticles con el multiplicador de velocidad
-    renderParticles(speedMultiplier, texture);
+
+    renderParticles( texture);
 }
 
-void Objective::renderParticles(float speedMultiplier, bool texture)
+void Objective::renderParticles( bool texture)
 {
-    // Aseguramos que el multiplicador sea al menos 0.25
-    speedMultiplier = std::max(0.25f, speedMultiplier);
+    
+    
+
+    
     
     for (int i = 0; i < particles.size(); ++i) {
         if (particles[i]->isDead()){
@@ -110,8 +104,7 @@ void Objective::renderParticles(float speedMultiplier, bool texture)
 
     for (Particle* particle : particles) {
         if (!isPaused) {
-            // Aplicamos el multiplicador de velocidad directamente
-            particle->update(speedMultiplier);
+			particle->update();
         }
         particle->render(texture);
     }
@@ -120,4 +113,9 @@ void Objective::renderParticles(float speedMultiplier, bool texture)
 void Objective::setPaused(bool paused)
 {
 	this->isPaused = paused;
+}
+
+void Objective::SetManzanaComida(bool comida)
+{
+	this->manzanaComida = comida;
 }
