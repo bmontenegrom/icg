@@ -7,6 +7,7 @@
 #include "GameOverMenu.h"
 #include "Level.h"
 #include "Background.h"
+#include "WinnerMenu.h"
 
 #include <vector>
 
@@ -18,6 +19,7 @@ private:
 	Hud* hud;
 	MainMenu* mainMenu;
 	GameOverMenu* gameOverMenu;
+	WinnerMenu* winnerMenu;
 	std::vector<Level*> levels;
 	int currentLevel;
 	bool isPaused;
@@ -43,4 +45,5 @@ public:
 	void changeState(GameState newState);
 	void setGameSpeed(float speed);
 	float getGameSpeed() const;
+	void renderWinnerScreen();
 };

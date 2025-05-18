@@ -30,7 +30,7 @@ public:
 	void render(bool texture) override;
 	EntityType getType() const override { return EntityType::WORM; }
 
-	void move(Direction newDirection, const std::vector<Entity*> &walls, std::vector<Apple*>& apples, float timeStep);
+	void move(Direction newDirection, std::vector<Entity*>& entities, std::vector<Apple*>& apples, float timeStep);
 	// Actualiza la posición del gusano según la gravedad y verifica colisiones con el suelo
 	void updateGravity(const std::vector<Entity*> &walls, float timeStep);
 	// Verifica si el gusano está sobre algún bloque del mapa

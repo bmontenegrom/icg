@@ -131,29 +131,48 @@ bool Entity::isColliding(const Entity* other) const
 {
 	if (!other) return false;
 	
-	// Márgenes diferentes para paredes y objetivo
-	const double WALL_MARGIN = 0.01f;
-	const double OBJECTIVE_MARGIN = 0.1f;
+	// Márgenes específicos para cada tipo de entidad
+	const double WALL_MARGIN = 0.005f;     // Margen de colisión para paredes
+	const double OBJECTIVE_MARGIN = 0.05f; // Unificado con el tamaño de renderizado
+	const double APPLE_MARGIN = 0.07f;     // Más pequeño que el bloque
+	const double WORM_MARGIN = 0.09f;      // Tamaño del gusano
 	
-	// Determinar qué margen usar
-	double margin = WALL_MARGIN;
-	if (this->getType() == EntityType::OBJECTIVE || other->getType() == EntityType::OBJECTIVE) {
-		margin = OBJECTIVE_MARGIN;
+	// Determinar qué margen usar basado en los tipos de entidades
+	double thisMargin = WALL_MARGIN;
+	double otherMargin = WALL_MARGIN;
+	
+	// Ajustar márgenes según el tipo de entidad
+	if (this->getType() == EntityType::WORM) {
+		thisMargin = WORM_MARGIN;
+	} else if (this->getType() == EntityType::APPLE) {
+		thisMargin = APPLE_MARGIN;
+	} else if (this->getType() == EntityType::OBJECTIVE) {
+		thisMargin = OBJECTIVE_MARGIN;
+	}
+	if (other->getType() == EntityType::WORM) {
+		otherMargin = WORM_MARGIN;
+	} else if (other->getType() == EntityType::APPLE) {
+		otherMargin = APPLE_MARGIN;
+	} else if (other->getType() == EntityType::OBJECTIVE) {
+		otherMargin = OBJECTIVE_MARGIN;
 	}
 	
-	// Calcular los límites considerando el centro de cada entidad
-	double thisLeft = this->x - this->width/2 + margin;
-	double thisRight = this->x + this->width/2 - margin;
-	double thisTop = this->y + this->height/2 - margin;
-	double thisBottom = this->y - this->height/2 + margin;
+	// Calcular los límites considerando el centro de cada entidad y sus márgenes
+	double thisLeft = this->x - thisMargin/2;
+	double thisRight = this->x + thisMargin/2;
+	double thisTop = this->y + thisMargin/2;
+	double thisBottom = this->y - thisMargin/2;
 	
-	double otherLeft = other->x - other->width/2 + margin;
-	double otherRight = other->x + other->width/2 - margin;
-	double otherTop = other->y + other->height/2 - margin;
-	double otherBottom = other->y - other->height/2 + margin;
-	// Verificar si hay superposición en X e Y
-	bool collisionX = (thisRight > otherLeft) && (thisLeft < otherRight);
-	bool collisionY = (thisTop > otherBottom) && (thisBottom < otherTop);
+	double otherLeft = other->x - otherMargin/2;
+	double otherRight = other->x + otherMargin/2;
+	double otherTop = other->y + otherMargin/2;
+	double otherBottom = other->y - otherMargin/2;
+	
+	// Verificar si hay superposición en X e Y con un pequeño margen de error
+	const double COLLISION_MARGIN = 0.005f;  // Margen de error para colisiones
+	bool collisionX = (thisRight + COLLISION_MARGIN > otherLeft) && (thisLeft - COLLISION_MARGIN < otherRight);
+	bool collisionY = (thisTop + COLLISION_MARGIN > otherBottom) && (thisBottom - COLLISION_MARGIN < otherTop);
+	
 	// Solo hay colisión si hay superposición en ambos ejes
 	return collisionX && collisionY;
 }

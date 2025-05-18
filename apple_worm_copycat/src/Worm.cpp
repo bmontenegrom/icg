@@ -7,7 +7,7 @@
 #include <iostream>
 
 Worm::Worm(double x, double y, double z, Game* game) : Entity(x, y, z), game(game) {
-	double segment_size = 0.095f;  // 5% más pequeño que los bloques
+	double segment_size = 0.095f;  // Tamaño exacto del bloque
 	Direction initialDirection = Direction::RIGHT;
 	
 	// Inicializar la cabeza
@@ -21,7 +21,7 @@ Worm::Worm(double x, double y, double z, Game* game) : Entity(x, y, z), game(gam
 	this->isFalling = false;
 	this->verticalVelocity = 0.0f;
 	this->fallStartY = y;
-	this->speed = 0.095f;  // Velocidad ajustada al nuevo tamaño
+	this->speed = 0.095f;  // Velocidad igual al tamaño del bloque
 	
 	// Crear el segmento del cuerpo
 	double bodyX = x - segment_size;
@@ -49,7 +49,7 @@ void Worm::render(bool texture){
 	}
 }
 
-void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, std::vector<Apple*>& apples, float timeStep)
+void Worm::move(Direction newDirection, std::vector<Entity*>& entities, std::vector<Apple*>& apples, float timeStep)
 {
 	for (Entity* segment : body) {
 		segment->updatePreviousPosition();
@@ -69,8 +69,8 @@ void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, std::
 
 	this->head->setDirection(newDirection);
 
-	// Ajustar la velocidad para que coincida con el nuevo tamaño
-	float distance = 0.095f;  // Mismo tamaño que los segmentos del gusano
+	// Usar una velocidad fija igual al tamaño del bloque
+	float distance = 0.095f;  // Tamaño del bloque
 	
 	// Intentar mover en la nueva dirección
 	switch (this->getHeadDirection())
@@ -89,10 +89,53 @@ void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, std::
 		break;
 	}
 
+	// Checkea si el gusano choca con la manzana ANTES de comprobar colisión con paredes
+	for (auto it = apples.begin(); it != apples.end();) {
+		Apple* apple = *it;
+		if (apple != nullptr && !apple->eaten()) {
+			if (this->head->isColliding(apple)) {
+				// Comer manzana desde cualquier posición
+				this->length++;
+				double bodyX = this->tail->getX();
+				double bodyY = this->tail->getY();
+				double bodyZ = this->tail->getZ();
+				WormBody* segment = new WormBody(bodyX, bodyY, bodyZ, this->head->getWidth(), this->head->getHeight(), this->head->getDepth(), this->head->getDirection());
+				segment->updatePreviousPosition();
+				this->body.insert(this->body.end() - 1, segment);
+				Entity* penultimo = this->body[this->body.size() - 2];
+				double tailPrevX = penultimo->getPrevX();
+				double tailPrevY = penultimo->getPrevY();
+				double tailPrevZ = penultimo->getPrevZ();
+				this->tail->setPosition(tailPrevX, tailPrevY, tailPrevZ);
+				this->tail->updatePreviousPosition();
+				apple->setEaten(true);
+				if (game != nullptr) {
+					game->setScore(game->getScore() + 10);
+				}
+				it = apples.erase(it);
+				auto entIt = std::find(entities.begin(), entities.end(), apple);
+				if (entIt != entities.end()) {
+					entities.erase(entIt);
+				}
+				delete apple;
+				return;
+			} else {
+				++it;
+			}
+		} else {
+			++it;
+		}
+	}
+
 	// Verificar colisiones con el cuerpo
 	bool bodyCollision = false;
 	for (int i = 1; i < body.size(); ++i) {
-		if (this->head->isColliding(body[i])) {
+		double dx = this->head->getX() - body[i]->getX();
+		double dy = this->head->getY() - body[i]->getY();
+		double dist = std::sqrt(dx*dx + dy*dy);
+		double minDist = (this->head->getWidth() + body[i]->getWidth()) / 2.0;
+		if (dist < minDist) {
+			std::cout << "[DEBUG] Colisión euclidiana con el cuerpo en segmento " << i << ". Distancia: " << dist << " < minDist: " << minDist << std::endl;
 			bodyCollision = true;
 			break;
 		}
@@ -100,8 +143,10 @@ void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, std::
 
 	// Verificar colisiones con las paredes
 	bool wallCollision = false;
-	for (auto wall : walls) {
+	for (auto wall : entities) {
+		if (wall->getType() != EntityType::WALL) continue;
 		if (this->head->isColliding(wall)) {
+			std::cout << "[DEBUG] Colisión con pared en posición: x=" << wall->getX() << ", y=" << wall->getY() << std::endl;
 			wallCollision = true;
 			break;
 		}
@@ -109,47 +154,10 @@ void Worm::move(Direction newDirection, const std::vector<Entity*> &walls, std::
 
 	// Si hay colisión, revertir el movimiento
 	if (bodyCollision || wallCollision) {
+		std::cout << "[DEBUG] Movimiento revertido. bodyCollision=" << bodyCollision << ", wallCollision=" << wallCollision << std::endl;
 		this->head->setPosition(oldX, oldY, oldZ);
 		this->head->setDirection(oldDirection);
 		return;
-	}
-
-	// Checkea si el gusano choca con la manzana
-	for (Apple* apple : apples) {
-		if (apple != nullptr && !apple->eaten()) {
-			WormHead* head = this->head;
-			double headX = head->getX();
-			double headY = head->getY();
-			double appleX = apple->getX();
-			double appleY = apple->getY();
-
-			// Calcular la distancia entre la cabeza y la manzana
-			double distanceX = std::abs(headX - appleX);
-			double distanceY = std::abs(headY - appleY);
-			std::cout << "[DEBUG] Distancia a manzana: X=" << distanceX << ", Y=" << distanceY << std::endl;
-
-			// Usar un margen más permisivo para la colisión
-			const double COLLISION_MARGIN = 0.1f;
-
-			// Verificar si la cabeza está lo suficientemente cerca de la manzana
-			if (distanceX < COLLISION_MARGIN && distanceY < COLLISION_MARGIN) {
-				std::cout << "[DEBUG] ¡Colisión con manzana detectada!" << std::endl;
-				this->length++;
-				double bodyX = this->body[body.size() - 2]->getPrevX();
-				double bodyY = this->body[body.size() - 2]->getPrevY();
-				double bodyZ = this->body[body.size() - 2]->getPrevZ();
-				WormBody* segment = new WormBody(bodyX, bodyY, bodyZ, this->head->getWidth(), this->head->getHeight(), this->head->getDepth(), this->head->getDirection());
-				segment->updatePreviousPosition();
-				this->body.insert(this->body.end() - 1, segment);
-				apple->setEaten(true);
-				std::cout << "[DEBUG] Manzana marcada como comida." << std::endl;
-
-				// Incrementar el puntaje
-				if (game != nullptr) {
-					game->setScore(game->getScore() + 10);  // Incrementar el puntaje en 10 puntos
-				}
-			}
-		}
 	}
 
 	// Actualizar las posiciones de los segmentos del cuerpo
@@ -217,15 +225,20 @@ void Worm::updateGravity(const std::vector<Entity*> &walls, float timeStep) {
     }
 }
 
-bool Worm::isOnGround(const std::vector<Entity*> &walls) const {
-    // Recorre todos los segmentos del gusano
+bool Worm::isOnGround(const std::vector<Entity*> &entities) const {
+    // Revisar todos los segmentos del cuerpo
     for (Entity* segment : body) {
-        for (Entity* wall : walls) {
-            // Condición más estricta: el centro del segmento debe estar dentro del ancho del bloque
-            if (std::abs(segment->getY() - (wall->getY() + wall->getHeight())) < 0.005f &&
-                segment->getX() > wall->getX() - wall->getWidth()/2 &&
-                segment->getX() < wall->getX() + wall->getWidth()/2) {
-                return true;
+        for (Entity* entity : entities) {
+            // Considerar tanto WALL como APPLE no comida
+            if (entity->getType() == EntityType::WALL ||
+                (entity->getType() == EntityType::APPLE && !static_cast<Apple*>(entity)->eaten())) {
+                const double GROUND_MARGIN = 0.02f;
+                bool isOnGround = std::abs(segment->getY() - (entity->getY() + entity->getHeight())) < GROUND_MARGIN &&
+                                  segment->getX() > entity->getX() - entity->getWidth()/2 &&
+                                  segment->getX() < entity->getX() + entity->getWidth()/2;
+                if (isOnGround) {
+                    return true;
+                }
             }
         }
     }
@@ -242,7 +255,7 @@ void Worm::reset(double x, double y, double z, int length) {
     body.clear();
 
     // Reconstruye el cuerpo
-    double segment_size = 0.095f;  // 5% más pequeño que los bloques
+    double segment_size = 0.095f;  // Tamaño exacto del bloque
     Direction initialDirection = Direction::RIGHT;
     
     // Crear la cabeza
@@ -254,7 +267,7 @@ void Worm::reset(double x, double y, double z, int length) {
     this->isFalling = false;
     this->verticalVelocity = 0.0f;
     this->fallStartY = y;
-    this->speed = 0.095f;  // Velocidad ajustada al nuevo tamaño
+    this->speed = 0.095f;  // Velocidad igual al tamaño del bloque
     
     // Crear los segmentos del cuerpo
     for (int i = 1; i < length - 1; i++) {

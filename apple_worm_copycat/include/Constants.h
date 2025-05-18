@@ -15,7 +15,7 @@ enum class EntityType {
 	APPLE
 }; 
 
-enum GameState { MENU, PLAYING, GAME_OVER, PAUSED };
+enum GameState { MENU, PLAYING, GAME_OVER, PAUSED, WINNER };
 
 const int SCREEN_WIDTH = 1440;
 const int SCREEN_HEIGHT = 900;

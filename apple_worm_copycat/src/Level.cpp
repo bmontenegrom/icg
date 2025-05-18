@@ -44,8 +44,8 @@ void Level::initialize() {
         entities.push_back(apple);
     }
     
-    // Crear el objetivo con tamaño pequeño para evitar colisiones invisibles
-    objective = new Objective(objectiveStartX, objectiveStartY, objectiveStartZ, 0.095f, 0.095f, 0.095f);
+    // Crear el objetivo con tamaño consistente
+    objective = new Objective(objectiveStartX, objectiveStartY, objectiveStartZ, 0.05f, 0.05f, 0.05f);
     entities.push_back(objective);
 }
 
@@ -183,11 +183,21 @@ void Level::render(bool texture) {
 }
 
 void Level::resetEntities() {
-    if (worm) worm->reset(wormStartX, wormStartY, wormStartZ, initialWormLength);
-    for (Apple* apple : apples) {
-        apple->reset(apple->getX(), apple->getY(), apple->getZ());
+    // Limpiar entidades y manzanas actuales
+    for (Entity* entity : entities) {
+        delete entity;
     }
-    if (objective) objective->setPosition(objectiveStartX, objectiveStartY, objectiveStartZ);
+    entities.clear();
+    for (Apple* apple : apples) {
+        delete apple;
+    }
+    apples.clear();
+    if (worm) { delete worm; worm = nullptr; }
+    objective = nullptr;
+    // Volver a cargar el XML del nivel para regenerar bloques y entidades
+    std::string filename = "assets/levels/level" + std::to_string(levelNumber) + ".xml";
+    loadFromXML(filename);
+    initialize();
 }
 
 std::vector<Entity*>& Level::getEntities() {
@@ -211,7 +221,9 @@ bool Level::isObjectiveReached() const {
     float distanceX = std::abs(head->getX() - objective->getX());
     float distanceY = std::abs(head->getY() - objective->getY());
     
-    return distanceX < 0.1f && distanceY < 0.1f;
+    // Usar el mismo margen que en las colisiones con el objetivo
+    const float OBJECTIVE_MARGIN = 0.05f;
+    return distanceX < OBJECTIVE_MARGIN && distanceY < OBJECTIVE_MARGIN;
 }
 
 void Level::createWallRow(int start, int end, float y, float z) {

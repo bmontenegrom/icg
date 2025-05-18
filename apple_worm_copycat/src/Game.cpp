@@ -9,6 +9,7 @@
 #include "Constants.h"
 #include <Game.h>
 #include "Background.h"
+#include "WinnerMenu.h"
 
 
 // Constructor: inicializa todos los componentes del juego
@@ -34,6 +35,7 @@ Game::Game() : score(0), currentLevel(0), isRunning(true), isPaused(false),
     this->hud = new Hud(font);
     this->mainMenu = new MainMenu(font);
     this->gameOverMenu = new GameOverMenu(font);
+    this->winnerMenu = new WinnerMenu(font);
 
     // Inicializar niveles
     levels.push_back(new Level(0, this)); // Nivel 1 (nivel actual)
@@ -57,6 +59,7 @@ Game::~Game() {
     delete hud;
     delete mainMenu;
     delete gameOverMenu;
+    delete winnerMenu;
     delete background;
 }
 
@@ -97,6 +100,13 @@ void Game::changeState(GameState newState) {
         case PAUSED:
             isPaused = true;
             break;
+            
+        case WINNER:
+            mainMenu->setActive(false);
+            gameOverMenu->setActive(false);
+            winnerMenu->setActive(true);
+            isPaused = true;
+            break;
     }
 }
 
@@ -110,6 +120,7 @@ void Game::resetGame() {
     hud->startTime();
     gameOverMenu->setActive(false);
     mainMenu->setActive(false);
+    winnerMenu->setActive(false);
     SDL_Event dummy;
     while (SDL_PollEvent(&dummy)) {}
 }
@@ -191,10 +202,15 @@ void Game::run() {
                     
                     // Colision con el objetivo
                     if(currentLevelPtr->isObjectiveReached()){
-                        std::cout << "¡Nivel completado! Cambiando al siguiente nivel..." << std::endl;
-                        nextLevel();
-                        // Reiniciar el timer para el nuevo nivel
-                        this->hud->startTime();
+                        if (currentLevel + 1 < levels.size()) {
+                            nextLevel();
+                            this->hud->startTime();
+                        } else {
+                            winnerMenu->setFinalScore(getScore());
+                            winnerMenu->setFinalTime(hud->getTime());
+                            winnerMenu->setActive(true);
+                            changeState(WINNER);
+                        }
                         continue;
                     }
 
@@ -226,6 +242,10 @@ void Game::run() {
                     }
                 }
                 break;
+
+            case WINNER:
+                winnerMenu->render();
+                break;
         }
 
         // Manejo de eventos
@@ -238,6 +258,9 @@ void Game::run() {
             }
             else if (currentState == GAME_OVER) {
                 gameOverMenu->handleInput(event);
+            }
+            else if (currentState == WINNER) {
+                winnerMenu->handleInput(event);
             }
             else if (event.type == SDL_KEYDOWN) {
                 handleKeyPress(event.key.keysym.sym, worm, apples, timeStep, wireframe, texture, smooth);
@@ -287,10 +310,32 @@ void Game::run() {
                 currentLevelPtr->render(texture);
                 hud->render(getScore(), this->hud->getTime(), getGameSpeed());
                 break;
+            case WINNER:
+                winnerMenu->render();
+                break;
         }
 
         // Actualizar ventana
         SDL_GL_SwapWindow(display->getWindow());
+
+        // Después de winnerMenu->handleInput(event):
+        if (currentState == WINNER && !winnerMenu->isMenuActive()) {
+            if (winnerMenu->getSelectedOption() == 0) {
+                setScore(0);
+                hud->startTime();
+                currentLevel = 0;
+                resetGame();
+                changeState(PLAYING);
+                continue;
+            } else {
+                setScore(0);
+                hud->startTime();
+                currentLevel = 0;
+                resetGame();
+                changeState(MENU);
+                continue;
+            }
+        }
     }
 }
 
@@ -389,7 +434,10 @@ void Game::nextLevel() {
     if (currentLevel + 1 < levels.size()) {
         currentLevel++;
     } else {
-        gameOverMenu->setFinalScore(hud->getTime());
-        gameOverMenu->setActive(true);
+        // Mostrar WinnerMenu al terminar el último nivel
+        winnerMenu->setFinalScore(getScore());
+        winnerMenu->setFinalTime(hud->getTime());
+        winnerMenu->setActive(true);
+        changeState(WINNER);
     }
 }
