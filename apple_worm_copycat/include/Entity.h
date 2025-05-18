@@ -22,6 +22,7 @@ public:
 	void setWidth(double width);
 	void setHeight(double height);
 	void setDepth(double depth);
+	static void setInterpolation(float interp);
 
 	// Getters
 	double getX() const;
@@ -31,9 +32,20 @@ public:
 	double getHeight() const;
 	double getDepth() const;
 	virtual EntityType getType() const = 0;
+	void updatePreviousPosition();
+	double getPrevX() const;
+	double getPrevY() const;
+	double getPrevZ() const;
+	float getInterpolation();
+	double getInterpolatedX() const;
+	double getInterpolatedY() const;
+	double getInterpolatedZ() const;
 
 	// Check if the entity is colliding with another entity
 	bool isColliding(const Entity* other) const;
+
+protected:
+	static float interpolation;
 
 private:
 	//center position
@@ -44,6 +56,7 @@ private:
 	double width;
 	double height;
 	double depth;
+	double prevX, prevY, prevZ;
 
 	// Model data
 	std::vector<ObjVertex> vertices;
