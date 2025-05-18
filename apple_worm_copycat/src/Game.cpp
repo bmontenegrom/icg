@@ -8,6 +8,7 @@
 #include <WormHead.h>
 #include "Constants.h"
 #include <Game.h>
+#include "Background.h"
 
 
 // Constructor: inicializa todos los componentes del juego
@@ -41,6 +42,8 @@ Game::Game() : score(0), currentLevel(0), isRunning(true), isPaused(false),
     // Configurar estado inicial
     mainMenu->setActive(true);
     gameOverMenu->setActive(false);
+
+    background = new Background();
 }
 
 // Destructor: libera todos los recursos
@@ -54,6 +57,7 @@ Game::~Game() {
     delete hud;
     delete mainMenu;
     delete gameOverMenu;
+    delete background;
 }
 
 // Getter para el puntaje
@@ -252,25 +256,36 @@ void Game::run() {
         this->timer->start();
 
         // Renderizado
-        glEnable(GL_DEPTH_TEST);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        // 1. Desactiva el depth test y dibuja el fondo
+        glDisable(GL_DEPTH_TEST);
+        background->render();
+
+        // 2. Limpia el depth buffer y reactiva el depth test
+        glClear(GL_DEPTH_BUFFER_BIT);
+        glEnable(GL_DEPTH_TEST);
+
+        // 3. Restaura la proyección en perspectiva y la vista de la cámara
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        gluPerspective(35.0, SCREEN_WIDTH / (double)SCREEN_HEIGHT, 0.1, 100.0);
+        glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
         camera->applyView();
 
-        // Renderizar según el estado actual
+        // 4. Renderizar según el estado actual
         switch (currentState) {
             case MENU:
                 mainMenu->render();
                 break;
-                
             case GAME_OVER:
                 gameOverMenu->render();
-				camera->resetToDefault();
+                camera->resetToDefault();
                 break;
-                
             case PLAYING:
                 currentLevelPtr->render(texture);
-                hud->render(getScore(), this->hud->getTime(), getGameSpeed()); // Agregamos la velocidad al HUD
+                hud->render(getScore(), this->hud->getTime(), getGameSpeed());
                 break;
         }
 

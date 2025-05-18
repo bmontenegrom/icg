@@ -26,9 +26,6 @@ void GameOverMenu::render() {
     // Cambiar a modo relleno para el menú
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-    // Renderizar el fondo
-    renderBackground();
-
     // Panel central con efecto de brillo
     float panelWidth = 400;
     float panelHeight = 400;

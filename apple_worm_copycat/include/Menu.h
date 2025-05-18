@@ -23,16 +23,13 @@ protected:
     bool isActive;         // Indica si el menú está activo y visible
     int selectedOption;    // Índice de la opción seleccionada actualmente
     std::vector<std::string> menuOptions;  // Lista de opciones del menú
-    GLuint backgroundTexture;  // Textura de fondo
-    bool loadBackgroundTexture(const char* path);  // Función para cargar la textura de fondo
 
     // Funciones protegidas para renderizar texto
     TextTextureMenu createTextTexture(const std::string& text, TTF_Font* font, SDL_Color color);
     void renderTexture2D(const TextTextureMenu& textTex, int x, int y, int screenWidth, int screenHeight);
-    void renderBackground();  // Función para renderizar el fondo
-
+    
 public:
-    Menu(TTF_Font* font);  // Constructor que recibe la fuente para el texto
+    Menu(TTF_Font* font);
     virtual ~Menu();
     virtual void render() = 0;  // Función virtual pura para renderizar el menú
     virtual void handleInput(SDL_Event& event);  // Función virtual para manejar la entrada

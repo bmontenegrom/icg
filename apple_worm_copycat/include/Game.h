@@ -6,6 +6,7 @@
 #include "MainMenu.h"
 #include "GameOverMenu.h"
 #include "Level.h"
+#include "Background.h"
 
 #include <vector>
 
@@ -24,6 +25,7 @@ private:
 	bool hasStartedPlaying;
 	GameState currentState;
 	float gameSpeedMultiplier;
+	Background* background;
 	
 	void updateCamera(Worm* worm);
 	void loadLevel(int levelNumber);
