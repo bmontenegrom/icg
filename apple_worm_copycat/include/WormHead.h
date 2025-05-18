@@ -19,4 +19,12 @@ public:
 
 private:
 	Direction direction;
+	float currentOffsetX = 0.0f;
+	float currentOffsetY = 0.0f;
+	float targetOffsetX = 0.0f;
+	float targetOffsetY = 0.0f;
+	float blinkTimer = 0.0f;
+	float blinkProgress = 0.0f;
+	bool isBlinking = false;
+	
 };

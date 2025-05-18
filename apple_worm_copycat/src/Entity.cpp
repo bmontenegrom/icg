@@ -1,18 +1,27 @@
 #include "Entity.h"
 #include <iostream>
 #include <cmath>
-#include "Constants.h"
+
+float Entity::interpolation = 1.0f;
 
 Entity::Entity(double x, double y, double z, double width, double height, double depth): x(x), y(y), z(z), width(width), height(height), depth(depth){
-	
+	this->prevX = x;
+	this->prevY = y;
+	this->prevZ = z;
 }
 
 Entity::Entity(double x, double y, double z) : x(x), y(y), z(z), width(0.0f), height(0.0f), depth(0.0f)
 {
+	this->prevX = x;
+	this->prevY = y;
+	this->prevZ = z;
 }
 
 Entity::Entity(double x, double y, double z, double width, double height, double depth, std::string path) : x(x), y(y), z(z), width(width), height(height), depth(depth)
 {
+	this->prevX = x;
+	this->prevY = y;
+	this->prevZ = z;
 	// Cargar el modelo desde el archivo
 	ObjectLoader& loader = ObjectLoader::getInstance();
 	this->vertices = loader.loadOBJ(path);
@@ -87,33 +96,63 @@ double Entity::getDepth() const
 }
 
 //todo poner cita
-bool Entity::isColliding(const Entity* other) const
+bool Entity::isColliding(const Entity& other) const
 {
-	if (!other) return false;
-	
-	// Márgenes diferentes para paredes y objetivo
-	const double WALL_MARGIN = 0.01f;
-	const double OBJECTIVE_MARGIN = 0.1f;
-	
-	// Determinar qué margen usar
-	double margin = WALL_MARGIN;
-	if (this->getType() == EntityType::OBJECTIVE || other->getType() == EntityType::OBJECTIVE) {
-		margin = OBJECTIVE_MARGIN;
-	}
+	// Calcular los límites de cada entidad con un margen más grande para evitar colisiones falsas
+	const double MARGIN = 0.01f;  // Margen aún más grande para eliminar colisiones por contacto mínimo
 	
 	// Calcular los límites considerando el centro de cada entidad
-	double thisLeft = this->x - this->width/2 + margin;
-	double thisRight = this->x + this->width/2 - margin;
-	double thisTop = this->y + this->height/2 - margin;
-	double thisBottom = this->y - this->height/2 + margin;
+	double thisLeft = this->x - this->width/2 + MARGIN;
+	double thisRight = this->x + this->width/2 - MARGIN;
+	double thisTop = this->y + this->height/2 - MARGIN;
+	double thisBottom = this->y - this->height/2 + MARGIN;
 	
-	double otherLeft = other->x - other->width/2 + margin;
-	double otherRight = other->x + other->width/2 - margin;
-	double otherTop = other->y + other->height/2 - margin;
-	double otherBottom = other->y - other->height/2 + margin;
-	// Verificar si hay superposición en X e Y
+	double otherLeft = other.x - other.width/2 + MARGIN;
+	double otherRight = other.x + other.width/2 - MARGIN;
+	double otherTop = other.y + other.height/2 - MARGIN;
+	double otherBottom = other.y - other.height/2 + MARGIN;
+	
+	// Verificar si hay superposición en X e Y usando > y < para evitar colisiones por contacto mínimo
 	bool collisionX = (thisRight > otherLeft) && (thisLeft < otherRight);
 	bool collisionY = (thisTop > otherBottom) && (thisBottom < otherTop);
+	
+	// Debug: imprimir información si hay colisión
+	if (collisionX && collisionY) {
+		std::cout << "Colisión entre: "
+				  << "Entidad1 (" << this->x << ", " << this->y << ", " << this->z << ", " << this->width << ", " << this->height << ", " << this->depth << ") y "
+				  << "Entidad2 (" << other.x << ", " << other.y << ", " << other.z << ", " << other.width << ", " << other.height << ", " << other.depth << ")" << std::endl;
+	}
+	
 	// Solo hay colisión si hay superposición en ambos ejes
 	return collisionX && collisionY;
+}
+
+void Entity::setInterpolation(float interp) {
+	interpolation = interp;
+}
+
+float Entity::getInterpolation() {
+	return interpolation;
+}
+
+void Entity::updatePreviousPosition() {
+	prevX = x;
+	prevY = y;
+	prevZ = z;
+}
+
+double Entity::getPrevX() const { return prevX; }
+double Entity::getPrevY() const { return prevY; }
+double Entity::getPrevZ() const { return prevZ; }
+
+double Entity::getInterpolatedX() const {
+	return prevX + (x - prevX) * interpolation;
+}
+
+double Entity::getInterpolatedY() const {
+	return prevY + (y - prevY) * interpolation;
+}
+
+double Entity::getInterpolatedZ() const {
+	return prevZ + (z - prevZ) * interpolation;
 }
