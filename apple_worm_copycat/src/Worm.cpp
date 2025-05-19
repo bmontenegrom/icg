@@ -94,20 +94,19 @@ void Worm::move(Direction newDirection, std::vector<Entity*>& entities, std::vec
 		Apple* apple = *it;
 		if (apple != nullptr && !apple->eaten()) {
 			if (this->head->isColliding(apple)) {
-				// Comer manzana desde cualquier posición
-				this->length++;
-				double bodyX = this->tail->getX();
-				double bodyY = this->tail->getY();
-				double bodyZ = this->tail->getZ();
-				WormBody* segment = new WormBody(bodyX, bodyY, bodyZ, this->head->getWidth(), this->head->getHeight(), this->head->getDepth(), this->head->getDirection());
-				segment->updatePreviousPosition();
-				this->body.insert(this->body.end() - 1, segment);
-				Entity* penultimo = this->body[this->body.size() - 2];
-				double tailPrevX = penultimo->getPrevX();
-				double tailPrevY = penultimo->getPrevY();
-				double tailPrevZ = penultimo->getPrevZ();
-				this->tail->setPosition(tailPrevX, tailPrevY, tailPrevZ);
-				this->tail->updatePreviousPosition();
+				WormBody* newSeg = new WormBody(
+					oldX, oldY, oldZ,
+					head->getWidth(), head->getHeight(), head->getDepth(),
+					head->getDirection()
+				);
+				// Alineamos prev y current para evitar gaps
+				newSeg->setPosition(oldX, oldY, oldZ);
+				newSeg->updatePreviousPosition();
+
+				// Insertamos justo después de la cabeza
+				body.insert(body.begin() + 1, newSeg);
+				length++;
+
 				apple->setEaten(true);
 				if (game != nullptr) {
 					game->setScore(game->getScore() + 10);
