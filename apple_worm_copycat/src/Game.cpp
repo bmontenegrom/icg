@@ -340,6 +340,9 @@ void Game::run() {
 }
 
 void Game::handleKeyPress(SDL_Keycode key, Worm* worm, std::vector<Apple*>& apples, float timeStep, bool& wireframe, bool& texture, bool &smooth) {
+    if (worm->getIsFalling()) {
+        return;
+    }
     switch (key) {
         case SDLK_UP:
             if (!isPaused) { worm->move(UP, levels[currentLevel]->getEntities(), apples, timeStep); hasStartedPlaying = true; }
