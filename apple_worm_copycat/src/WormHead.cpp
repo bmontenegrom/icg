@@ -44,12 +44,20 @@ void WormHead::render(bool texture)
     glTranslated(x, y, z); // Trasladar a la posición
     glScaled(getWidth(), getHeight(), getDepth()); // Escalar según las dimensiones
 
+    double dx = 0.0, dy = 0.0;
+    switch (direction) {
+    case UP:    dy = 0.06; break;
+    case DOWN:  dy = -0.06; break;
+    case LEFT:  dx = -0.06; break;
+    case RIGHT: dx = 0.06; break;
+    }
+
 
 
     //Cabeza (esfera grande verde)
     glColor3ub(0, 128, 0);
     glPushMatrix();
-    glTranslated(-0.06, 0.0, 0.0);
+    glTranslated(-dx, -dy, 0.0);
     gluSphere(quad, 0.5, 16, 16);
     glPopMatrix();
 

@@ -30,17 +30,7 @@ Direction WormBody::getDirection() const
 
 void WormBody::render(bool texture)
 {
-	/*glPushMatrix();
-	//glTranslatef(this->getX(), this->getY(), this->getZ());
-	glBegin(GL_QUADS);
-	glColor3f(1.0, 1.0, 0.0);
-	glVertex3f(this->getX() - this->getWidth() / 2, this->getY() - this->getHeight() / 2, 0.);
-	glVertex3f(this->getX() + this->getWidth() / 2, this->getY() - this->getHeight() / 2, 0.);
-	glVertex3f(this->getX() + this->getWidth() / 2, this->getY() + this->getHeight() / 2, 0.);
-	glVertex3f(this->getX() - this->getWidth() / 2, this->getY() + this->getHeight() / 2, 0.);
-	glEnd();
-	glPopMatrix();
-	*/
+	
 
     glPushMatrix();
     double x = getInterpolatedX();
@@ -49,11 +39,15 @@ void WormBody::render(bool texture)
     glTranslated(x, y, z); // Trasladar a la posición
     glScaled(getWidth(), getHeight(), getDepth()); // Escalar según las dimensiones
 
+    
+
 	GLUquadric* quad = gluNewQuadric();
+
+
 
 	glColor3ub(173, 255, 47); // verde claro
 	glTranslated(0.0, 0.0, 0.0);
-	gluSphere(quad, 0.5, 16, 16);
+	gluSphere(quad, 0.53, 16, 16);
 
 	gluDeleteQuadric(quad);
 
