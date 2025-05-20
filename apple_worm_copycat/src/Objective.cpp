@@ -9,9 +9,9 @@
 Objective::Objective(double x, double y, double z, double width, double height, double depth, Game* game) 
     : Entity(x, y, z, width, height, depth), game(game)
 {
-    float particleX = x; //- width / 2 + (rand()% 5)/100.f;
-    float particleY = y; //- height / 2 + (rand() % 5) / 100.f;
-    float particleZ = z; //- depth / 2 + (rand() % 5) / 100.f;
+    float particleX = x; 
+    float particleY = y; 
+    float particleZ = z;
 	this->isPaused = false;
 	this->manzanaComida = false;
 	for (int i = 0; i < 50; ++i) {
@@ -21,6 +21,10 @@ Objective::Objective(double x, double y, double z, double width, double height, 
 }
 Objective::~Objective()
 {
+	for (Particle* particle : particles) {
+		delete particle;
+	}
+	particles.clear();
 }
 
 void Objective::render(bool texture)
@@ -31,7 +35,7 @@ void Objective::render(bool texture)
 
     glBegin(GL_QUADS);
     // Cara frontal
-    glColor3f(1.0f, 0.0f, 0.0f);
+    glColor3f(0.0f, 0.0f, 1.0f);
     glNormal3f(0.0f, 0.0f, 1.0f);
     glVertex3f(-0.5, -0.5, 0.5);
     glVertex3f(0.5, -0.5, 0.5);
@@ -39,7 +43,7 @@ void Objective::render(bool texture)
     glVertex3f(-0.5, 0.5, 0.5);
 
     // Cara trasera
-    glColor3f(1.0f, 0.0f, 0.0f);
+    glColor3f(0.0f, 0.0f, 1.0f);
     glNormal3f(0.0f, 0.0f, -1.0f);
     glVertex3f(-0.5, -0.5, -0.5);
     glVertex3f(-0.5, 0.5, -0.5);
@@ -47,7 +51,7 @@ void Objective::render(bool texture)
     glVertex3f(0.5, -0.5, -0.5);
 
     // Cara izquierda
-    glColor3f(1.0f, 0.0f, 0.0f);
+    glColor3f(0.0f, 0.0f, 1.0f);
     glNormal3f(-1.0f, 0.0f, 0.0f);
     glVertex3f(-0.5, -0.5, -0.5);
     glVertex3f(-0.5, -0.5, 0.5);
@@ -55,7 +59,7 @@ void Objective::render(bool texture)
     glVertex3f(-0.5, 0.5, -0.5);
 
     // Cara derecha
-    glColor3f(1.0f, 0.0f, 0.0f);
+    glColor3f(0.0f, 0.0f, 1.0f);
     glNormal3f(1.0f, 0.0f, 0.0f);
     glVertex3f(0.5, -0.5, -0.5);
     glVertex3f(0.5, 0.5, -0.5);
@@ -63,7 +67,7 @@ void Objective::render(bool texture)
     glVertex3f(0.5, -0.5, 0.5);
 
     // Cara superior
-    glColor3f(1.0f, 0.0f, 0.0f);
+    glColor3f(0.0f, 0.0f, 1.0f);
     glNormal3f(0.0f, 1.0f, 0.0f);
     glVertex3f(-0.5, 0.5, -0.5);
     glVertex3f(-0.5, 0.5, 0.5);
@@ -71,7 +75,7 @@ void Objective::render(bool texture)
     glVertex3f(0.5, 0.5, -0.5);
 
     // Cara inferior
-    glColor3f(1.0f, 0.0f, 0.0f);
+    glColor3f(0.0f, 0.0f, 1.0f);
     glNormal3f(0.0f, -1.0f, 0.0f);
     glVertex3f(-0.5, -0.5, -0.5);
     glVertex3f(0.5, -0.5, -0.5);
@@ -101,13 +105,15 @@ void Objective::renderParticles( bool texture)
             particles[i] = new Particle(particleX, particleY, particleZ);
         }
     }
-
-    for (Particle* particle : particles) {
-        if (!isPaused) {
-			particle->update();
+	if (manzanaComida) {
+        for (Particle* particle : particles) {
+            if (!isPaused) {
+                particle->update();
+            }
+            particle->render(texture);
         }
-        particle->render(texture);
-    }
+	}
+    
 }
 
 void Objective::setPaused(bool paused)

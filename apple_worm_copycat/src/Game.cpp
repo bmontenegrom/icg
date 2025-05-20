@@ -170,14 +170,10 @@ void Game::run() {
         Level* currentLevelPtr = levels[currentLevel];
         Worm* worm = currentLevelPtr->getWorm();
         std::vector<Apple*>& apples = currentLevelPtr->getApples();
-        /* Descomentar cuando este andando la manzana
-		 bool appleEaten = false;
-		 for (Apple* apple : apples) {
-			appleEaten = appleEaten && apple->eaten();
-         }
-		 this->levels[currentLevel]->manzanaComida(appleEaten);
         
-        */
+        if (apples.empty()) {
+			levels[currentLevel]->manzanaComida(true);
+        }
 
         // Manejar estados del juego
         switch (currentState) {
@@ -231,6 +227,7 @@ void Game::run() {
                 if (!gameOverMenu->isMenuActive()) {
                     if (gameOverMenu->getSelectedOption() == 0) {
                         // Jugar de nuevo
+						this->currentLevel = 0; // Reiniciar al nivel 1
                         resetGame();
                         changeState(PLAYING);
                         continue; // Salta el resto del ciclo para evitar usar punteros viejos
@@ -270,6 +267,7 @@ void Game::run() {
                 SDL_GetRelativeMouseState(&mouseX, &mouseY);
                 this->camera->updateMouseMovement(mouseX, mouseY);
             }
+
         }
 
         // Actualizar cámara
@@ -318,6 +316,11 @@ void Game::run() {
         // Actualizar ventana
         SDL_GL_SwapWindow(display->getWindow());
 
+
+        //se topean las frames
+        if (timeStep * 1000 < 17) {
+			SDL_Delay(17 - timeStep * 1000);
+        }
         // Después de winnerMenu->handleInput(event):
         if (currentState == WINNER && !winnerMenu->isMenuActive()) {
             if (winnerMenu->getSelectedOption() == 0) {

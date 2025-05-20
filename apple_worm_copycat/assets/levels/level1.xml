@@ -12,7 +12,7 @@
             <position x="0.38" y="0.095" z="0.0"/>
         </apple>
         <objective>
-            <position x="0.0" y="0.76" z="0.0"/>
+            <position x="0.0" y="0.66" z="0.0"/>
         </objective>
         <blocks>
             <row start="0" end="4" y="0" z="0.0"/>

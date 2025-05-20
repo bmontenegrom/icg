@@ -189,7 +189,10 @@ void Level::resetEntities() {
     }
     entities.clear();
     for (Apple* apple : apples) {
-        delete apple;
+        if (apple != nullptr) {			
+            //delete apple; arreglar
+        }
+        
     }
     apples.clear();
     if (worm) { delete worm; worm = nullptr; }

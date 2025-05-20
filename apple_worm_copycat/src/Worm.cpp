@@ -117,6 +117,7 @@ void Worm::move(Direction newDirection, std::vector<Entity*>& entities, std::vec
 					entities.erase(entIt);
 				}
 				delete apple;
+				
 				return;
 			} else {
 				++it;

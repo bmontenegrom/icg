@@ -13,33 +13,47 @@ Particle::Particle(double x, double y, double z) : Entity(x, y, z)
    
    // Aumentamos significativamente la velocidad base de las partículas
    if (rand() % 2 == 0) {
-       this->speedX = (rand() % 10) / 100.0; // Aumentamos 10 veces la velocidad base
+       this->speedX = (rand() % 10) / 1000.0; // Aumentamos 10 veces la velocidad base
    }
    else {
-       this->speedX = -(rand() % 10) / 100.0;
+       this->speedX = -(rand() % 10) / 1000.0;
    }
    if (rand() % 2 == 0) {
-       this->speedY = (rand() % 10) / 100.0;
+       this->speedY = (rand() % 10) / 1000.0;
    }
    else {
-       this->speedY = -(rand() % 10) / 100.0;
+       this->speedY = -(rand() % 10) / 1000.0;
    }
    if (rand() % 2 == 0) {
-       this->speedZ = (rand() % 10) / 100.0;
+       this->speedZ = (rand() % 10) / 1000.0;
    }
    else {
-       this->speedZ = -(rand() % 10) / 100.0;
+       this->speedZ = -(rand() % 10) / 1000.0;
    }
 
    this->lifeTime = 60;
    this->isAlive = true;
-   this->texturaParticulaBlue = cargarTextura("assets/particle_texture/blue.bmp");
-   this->texturaParticulaRed = cargarTextura("assets/particle_texture/red.bmp");
-   this->texturaParticulaGreen = cargarTextura("assets/particle_texture/green.bmp");
+
+   int textura = rand() % 3; // Selecciona una textura aleatoria
+   switch (textura)
+   {
+   case 0:
+	   this->texturaParticula = cargarTextura("assets/particle_texture/red.bmp");
+	   break;
+   case 1:
+	   this->texturaParticula = cargarTextura("assets/particle_texture/green.bmp");
+	   break;
+   case 2:
+	   this->texturaParticula = cargarTextura("assets/particle_texture/blue.bmp");
+	   break;
+   }
 }  
 
 Particle::~Particle()  
 {  
+	if (texturaParticula) {
+		glDeleteTextures(1, &texturaParticula);
+	}
 }  
 
 void Particle::render(bool texture)
@@ -50,17 +64,7 @@ void Particle::render(bool texture)
 
     if (texture && lifeTime % 2 == 0) {
         glEnable(GL_TEXTURE_2D);
-
-		int randomTexture = rand() % 3; // Selecciona una textura aleatoria
-        if (randomTexture == 0) {
-            glBindTexture(GL_TEXTURE_2D, texturaParticulaRed);
-        }
-        else if (randomTexture == 1) {
-            glBindTexture(GL_TEXTURE_2D, texturaParticulaGreen); 
-        }			
-        else {
-            glBindTexture(GL_TEXTURE_2D, texturaParticulaBlue);
-        }
+        glBindTexture(GL_TEXTURE_2D, texturaParticula);
          
     }
 

@@ -21,9 +21,7 @@ private:
 	float speedZ;
 	unsigned int lifeTime;
 	bool isAlive;
-	GLuint texturaParticulaRed;
-	GLuint texturaParticulaGreen;
-	GLuint texturaParticulaBlue;
+	GLuint texturaParticula;
 	GLuint cargarTextura(const char* path);
 
 };

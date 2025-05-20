@@ -11,7 +11,9 @@ MainMenu::MainMenu(TTF_Font* font) : Menu(font) {
         "V: Cambiar cámara",
         "L: Cambiar posición de la luz",
         "K: Cambiar color de la luz",
-        "S: Facetado Interpolado",
+        "S: Facetado/Interpolado",
+		"T: Textura On/OFF",
+		"Numeros: 1 a 4: Cambiar velocidad del juego",
         "Q: Salir del juego"
     };
 }
@@ -73,7 +75,7 @@ void MainMenu::render() {
     // Definir colores para el texto
     SDL_Color white = { 255, 255, 255, 255 };
     SDL_Color yellow = { 255, 255, 0, 255 };
-    SDL_Color cyan = { 80, 160, 255, 255 };
+    SDL_Color cyan = { 100, 180, 255, 255 };
 
     // Renderizar el título del juego
     TextTextureMenu titleTex = createTextTexture("Apple Worm", font, yellow);
@@ -90,7 +92,7 @@ void MainMenu::render() {
     }
 
     // Renderizar las opciones del menú
-    yPos = panelY + 350;
+    yPos = panelY + 400;
     for (size_t i = 0; i < menuOptions.size(); ++i) {
         SDL_Color color = (i == selectedOption) ? yellow : white;
         TextTextureMenu optionTex = createTextTexture(menuOptions[i], font, color);
