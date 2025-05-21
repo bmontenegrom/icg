@@ -121,3 +121,17 @@ void Display::changeLightColor() {
     glLightfv(GL_LIGHT0, GL_DIFFUSE, colors[currentLightColor]);
 }
 
+void Display::resetPerspective()
+{
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(35.0, SCREEN_WIDTH / (double)SCREEN_HEIGHT, 0.1, 100.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
+
+void Display::swapWindow()
+{
+	SDL_GL_SwapWindow(window);
+}
+

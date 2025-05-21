@@ -21,10 +21,6 @@ public:
 	void updatePosition(float x, float y, float z);
 	void updateTarget(float x, float y, float z);
 	void resetToDefault();
-	void moveForward(float speed);
-	void moveBackward(float speed);
-	void moveLeft(float speed);
-	void moveRight(float speed);
 	void setSensitivity(float newSensitivity);
 	void followTarget(float targetX, float targetY, float targetZ);
 

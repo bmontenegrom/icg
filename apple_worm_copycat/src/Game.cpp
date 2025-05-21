@@ -141,11 +141,7 @@ float Game::getGameSpeed() const {
 // Bucle principal del juego
 void Game::run() {
     // Configuración inicial de OpenGL
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(35.0, SCREEN_WIDTH / (double)SCREEN_HEIGHT, 0.1, 100.0);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+	display->resetPerspective();
     
     // Variables de control
     bool wireframe = false;
@@ -159,11 +155,7 @@ void Game::run() {
     // Bucle principal
     while (isRunning) {
         // Configuración de OpenGL por frame
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        gluPerspective(35.0, SCREEN_WIDTH / (double)SCREEN_HEIGHT, 0.1, 100.0);
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
+		display->resetPerspective();
         
         // Obtener componentes del nivel actual
         float timeStep = (timer->getTicks() / 1000.0f) * gameSpeedMultiplier;
@@ -277,25 +269,14 @@ void Game::run() {
         this->timer->start();
 
         // Renderizado
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // 1. Desactiva el depth test y dibuja el fondo
-        glDisable(GL_DEPTH_TEST);
         background->render();
 
-        // 2. Limpia el depth buffer y reactiva el depth test
-        glClear(GL_DEPTH_BUFFER_BIT);
-        glEnable(GL_DEPTH_TEST);
-
-        // 3. Restaura la proyección en perspectiva y la vista de la cámara
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        gluPerspective(35.0, SCREEN_WIDTH / (double)SCREEN_HEIGHT, 0.1, 100.0);
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
+        display->resetPerspective();
         camera->applyView();
 
-        // 4. Renderizar según el estado actual
+        //  Renderizar según el estado actual
         switch (currentState) {
             case MENU:
                 mainMenu->render();
@@ -314,7 +295,7 @@ void Game::run() {
         }
 
         // Actualizar ventana
-        SDL_GL_SwapWindow(display->getWindow());
+		display->swapWindow();
 
 
         //se topean las frames

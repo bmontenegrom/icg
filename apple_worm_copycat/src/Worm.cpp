@@ -159,7 +159,7 @@ void Worm::move(Direction newDirection, std::vector<Entity*>& entities, std::vec
 
 	// Si hay colisión, revertir el movimiento
 	if (bodyCollision || wallCollision) {
-		std::cout << "[DEBUG] Movimiento revertido. bodyCollision=" << bodyCollision << ", wallCollision=" << wallCollision << std::endl;
+		//std::cout << "[DEBUG] Movimiento revertido. bodyCollision=" << bodyCollision << ", wallCollision=" << wallCollision << std::endl;
 		this->head->setPosition(oldX, oldY, oldZ);
 		this->head->setDirection(oldDirection);
 		return;

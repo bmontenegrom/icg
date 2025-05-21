@@ -12,6 +12,8 @@ public:
 	SDL_Renderer* getRenderer();
 	void changeLightPosition(); // Función para cambiar la posición de la luz
 	void changeLightColor(); // Función para cambiar el color de la luz
+	void resetPerspective(); 
+	void swapWindow();
 private:
 	SDL_Window* window;
 	SDL_GLContext context;

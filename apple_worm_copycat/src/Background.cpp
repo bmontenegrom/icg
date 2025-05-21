@@ -52,7 +52,12 @@ bool Background::loadBackgroundTexture(const char* path) {
 }
 
 void Background::render() {
-    if (backgroundTexture == 0) return;
+
+    if (backgroundTexture == 0) { 
+        return;
+    }
+    // 1. Desactiva el depth test y dibuja el fondo
+    glDisable(GL_DEPTH_TEST);
 
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
@@ -84,4 +89,8 @@ void Background::render() {
     glPopMatrix();
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
+
+    // 2. Limpia el depth buffer y reactiva el depth test
+    glClear(GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
 }

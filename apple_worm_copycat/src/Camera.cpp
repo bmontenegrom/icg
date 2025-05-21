@@ -70,25 +70,6 @@ void Camera::applyView() {
 	}
 }
 
-void Camera::moveForward(float speed) {
-	posX += speed * cos(yaw * M_PI / 180.0f);
-	posZ += speed * sin(yaw * M_PI / 180.0f);
-}
-
-void Camera::moveBackward(float speed) {
-	posX -= speed * cos(yaw * M_PI / 180.0f);
-	posZ -= speed * sin(yaw * M_PI / 180.0f);
-}
-
-void Camera::moveLeft(float speed) {
-	posX -= speed * sin(yaw * M_PI / 180.0f);
-	posZ += speed * cos(yaw * M_PI / 180.0f);
-}
-
-void Camera::moveRight(float speed) {
-	posX += speed * sin(yaw * M_PI / 180.0f);
-	posZ -= speed * cos(yaw * M_PI / 180.0f);
-}
 
 void Camera::setSensitivity(float newSensitivity) {
 	sensitivity = newSensitivity;
