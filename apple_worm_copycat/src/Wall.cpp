@@ -49,6 +49,11 @@ void Wall::render( bool texture) {
     glPopMatrix();
 }
 
+EntityType Wall::getType() const
+{
+    return EntityType::WALL;
+}
+
 GLuint Wall::cargarTextura(const char* path)
 {
     FREE_IMAGE_FORMAT fif = FreeImage_GetFileType(path, 0);

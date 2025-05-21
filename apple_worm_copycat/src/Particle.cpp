@@ -147,6 +147,11 @@ bool Particle::isDead() const
 	return !this->isAlive;
 }
 
+EntityType Particle::getType() const
+{
+    return EntityType::WORM;
+}
+
 GLuint Particle::cargarTextura(const char* path)
 {
     {

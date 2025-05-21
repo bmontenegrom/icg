@@ -28,7 +28,7 @@ public:
 	Worm(double x, double y, double z, Game* game = nullptr);  // Constructor modificado
 	~Worm();
 	void render(bool texture) override;
-	EntityType getType() const override { return EntityType::WORM; }
+	EntityType getType() const override;
 
 	void move(Direction newDirection, std::vector<Entity*>& entities, std::vector<Apple*>& apples, float timeStep);
 	// Actualiza la posición del gusano según la gravedad y verifica colisiones con el suelo

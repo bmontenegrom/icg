@@ -16,7 +16,7 @@ public:
 	void setPaused(bool paused);
 	void SetManzanaComida(bool comida);
 	
-	EntityType getType() const override { return EntityType::OBJECTIVE; }
+	EntityType getType() const override;
 private:
 	std::vector<Particle*> particles;
 	bool isPaused;

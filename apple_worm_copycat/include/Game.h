@@ -45,5 +45,4 @@ public:
 	void changeState(GameState newState);
 	void setGameSpeed(float speed);
 	float getGameSpeed() const;
-	void renderWinnerScreen();
 };

@@ -11,6 +11,11 @@ WormBody::~WormBody()
 {
 }
 
+EntityType WormBody::getType() const
+{
+    return EntityType::WORM;
+}
+
 
 
 void WormBody::setDirection(Direction direction)

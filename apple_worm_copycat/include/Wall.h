@@ -9,7 +9,7 @@ class Wall : public Entity {
 public:
 	Wall(double x, double y, double z, double width, double height, double depth);
 	void render(bool texture) override;
-	EntityType getType() const override { return EntityType::WALL; }
+	EntityType getType() const override;
 private:
 	std::vector<ObjVertex> vertices;
 	GLuint texturaMuro;

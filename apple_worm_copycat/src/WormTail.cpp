@@ -41,6 +41,11 @@ void WormTail::render(bool texture)
     glPopMatrix();
 }
 
+EntityType WormTail::getType() const
+{
+	return EntityType::WORM;
+}
+
 
 
 void WormTail::setDirection(Direction direction)

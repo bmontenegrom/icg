@@ -125,3 +125,8 @@ void Objective::SetManzanaComida(bool comida)
 {
 	this->manzanaComida = comida;
 }
+
+EntityType Objective::getType() const
+{
+    return EntityType::OBJECTIVE;
+}

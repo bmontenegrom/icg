@@ -14,7 +14,7 @@ public:
 	void render(bool texture) override;
 	void update();
 	bool isDead() const;
-	EntityType getType() const override { return EntityType::WORM; }
+	EntityType getType() const override;
 private:
 	float speedX;
 	float speedY;

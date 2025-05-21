@@ -87,9 +87,24 @@ void Apple::render(bool texture) {
     glPopMatrix();
 }
 
+EntityType Apple::getType() const
+{
+    return EntityType::APPLE;
+}
+
 void Apple::reset(double x, double y, double z) {
     setPosition(x, y, z);
     isEaten = false;
+}
+
+bool Apple::eaten() const
+{
+    return isEaten;
+}
+
+void Apple::setEaten(bool eaten)
+{
+    isEaten = eaten;
 }
 
 

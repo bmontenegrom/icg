@@ -126,6 +126,11 @@ void WormHead::render(bool texture)
 
 }
 
+EntityType WormHead::getType() const
+{
+    return EntityType::WORM;
+}
+
 
 
 void WormHead::setDirection(Direction direction)

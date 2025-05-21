@@ -49,6 +49,11 @@ void Worm::render(bool texture){
 	}
 }
 
+EntityType Worm::getType() const
+{
+	return EntityType::WORM;
+}
+
 void Worm::move(Direction newDirection, std::vector<Entity*>& entities, std::vector<Apple*>& apples, float timeStep)
 {
 	for (Entity* segment : body) {
