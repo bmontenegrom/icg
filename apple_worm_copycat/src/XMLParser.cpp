@@ -4,13 +4,13 @@
 #include <iostream>
 
 XMLNode* XMLParser::parseFile(const std::string& filename) {
-    std::cout << "[XMLParser] Intentando abrir: " << filename << std::endl;
+    //std::cout << "[XMLParser] Intentando abrir: " << filename << std::endl;
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "[XMLParser] Error al abrir el archivo: " << filename << std::endl;
         return nullptr;
     }
-    std::cout << "[XMLParser] Archivo abierto correctamente." << std::endl;
+    //std::cout << "[XMLParser] Archivo abierto correctamente." << std::endl;
     
     std::stringstream buffer;
     buffer << file.rdbuf();
@@ -38,7 +38,7 @@ XMLNode* XMLParser::parseNode(const std::string& content, size_t& pos) {
     while (pos < content.length() && content[pos] != '>' && content[pos] != ' ' && content[pos] != '/') {
         name += content[pos++];
     }
-    std::cout << "[XMLParser] Nodo encontrado: <" << name << ">" << std::endl;
+    //std::cout << "[XMLParser] Nodo encontrado: <" << name << ">" << std::endl;
     
     XMLNode* node = new XMLNode(name);
     

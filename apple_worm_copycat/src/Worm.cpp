@@ -140,7 +140,7 @@ void Worm::move(Direction newDirection, std::vector<Entity*>& entities, std::vec
 		double dist = std::sqrt(dx*dx + dy*dy);
 		double minDist = (this->head->getWidth() + body[i]->getWidth()) / 2.0;
 		if (dist < minDist) {
-			std::cout << "[DEBUG] Colisión euclidiana con el cuerpo en segmento " << i << ". Distancia: " << dist << " < minDist: " << minDist << std::endl;
+			//std::cout << "[DEBUG] Colisión euclidiana con el cuerpo en segmento " << i << ". Distancia: " << dist << " < minDist: " << minDist << std::endl;
 			bodyCollision = true;
 			break;
 		}
@@ -151,7 +151,7 @@ void Worm::move(Direction newDirection, std::vector<Entity*>& entities, std::vec
 	for (auto wall : entities) {
 		if (wall->getType() != EntityType::WALL) continue;
 		if (this->head->isColliding(wall)) {
-			std::cout << "[DEBUG] Colisión con pared en posición: x=" << wall->getX() << ", y=" << wall->getY() << std::endl;
+			//std::cout << "[DEBUG] Colisión con pared en posición: x=" << wall->getX() << ", y=" << wall->getY() << std::endl;
 			wallCollision = true;
 			break;
 		}
@@ -251,7 +251,7 @@ bool Worm::isOnGround(const std::vector<Entity*> &entities) const {
 }
 
 void Worm::reset(double x, double y, double z, int length) {
-    std::cout << "Resetting worm to position: " << x << ", " << y << ", " << z << " with length: " << length << std::endl;
+    //std::cout << "Resetting worm to position: " << x << ", " << y << ", " << z << " with length: " << length << std::endl;
     
     // Borra el cuerpo anterior
     for (Entity* segment : body) {

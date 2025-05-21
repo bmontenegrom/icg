@@ -40,7 +40,7 @@ void Level::initialize() {
     
     // Crear todas las manzanas
     for (Apple* apple : apples) {
-        // Si quieres que las manzanas sean entidades, puedes agregarlas a entities
+        
         entities.push_back(apple);
     }
     
