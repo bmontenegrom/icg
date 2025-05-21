@@ -7,9 +7,6 @@ class Display {
 public:
 	Display();
 	~Display();
-	SDL_Window* getWindow();
-	SDL_GLContext getContext();
-	SDL_Renderer* getRenderer();
 	void changeLightPosition(); // Función para cambiar la posición de la luz
 	void changeLightColor(); // Función para cambiar el color de la luz
 	void resetPerspective(); 
@@ -17,7 +14,6 @@ public:
 private:
 	SDL_Window* window;
 	SDL_GLContext context;
-	SDL_Renderer* renderer;
 	int width;
 	int height;
 	void init();
