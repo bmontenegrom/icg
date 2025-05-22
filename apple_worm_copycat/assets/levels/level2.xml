@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<levels>
+	<level id="2">
+		<worm>
+			<position x="0.0" y="0.475" z="0.0" />
+			<initialLength>3</initialLength>
+		</worm>
+
+		<apple>
+			<position x="0.19" y="0.19" z="0.0" />
+		</apple>
+
+		<objective>
+			<position x="0.76" y="0.285" z="0.0" />
+		</objective>
+
+		<blocks>
+			<row start="0" end="2" y="0.38" z="0.0"/>
+			<row start="3" end="5" y="0.38" z="0.0"/>
+			<column x="0.0" startY="0.095" height="3"/>
+			<row start="0" end="5" y="0.095" z="0.0"/>
+			<column x="0.38" startY="0.095" height="3"/>
+			<single x="0.76" y="0.38"/>
+		</blocks>
+	</level>
+</levels>
