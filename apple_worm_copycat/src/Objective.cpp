@@ -29,60 +29,42 @@ Objective::~Objective()
 
 void Objective::render(bool texture)
 {
+    
+    spinAngle += 1.5f;  
+    if (spinAngle >= 360.0f) spinAngle -= 360.0f;
+
     glPushMatrix();
     glTranslated(getX(), getY(), getZ());
-    glScaled(0.05, 0.05, 0.05);  // Tamaño fijo de 0.05 x 0.05 x 0.05
+    glScaled(0.08, 0.08, 0.08);  
 
-    glBegin(GL_QUADS);
-    // Cara frontal
-    glColor3f(0.0f, 0.0f, 1.0f);
-    glNormal3f(0.0f, 0.0f, 1.0f);
-    glVertex3f(-0.5, -0.5, 0.5);
-    glVertex3f(0.5, -0.5, 0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
+    
+    GLUquadric* quad = gluNewQuadric();
+    glColor3ub(0, 0, 0);  
+    gluDisk(quad, 0.0, 0.4, 32, 1);
 
-    // Cara trasera
-    glColor3f(0.0f, 0.0f, 1.0f);
-    glNormal3f(0.0f, 0.0f, -1.0f);
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(-0.5, 0.5, -0.5);
-    glVertex3f(0.5, 0.5, -0.5);
-    glVertex3f(0.5, -0.5, -0.5);
 
-    // Cara izquierda
-    glColor3f(0.0f, 0.0f, 1.0f);
-    glNormal3f(-1.0f, 0.0f, 0.0f);
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(-0.5, -0.5, 0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
-    glVertex3f(-0.5, 0.5, -0.5);
+    glColor3ub(30, 30, 30);  
+    gluDisk(quad, 0.4, 0.5, 32, 1);
 
-    // Cara derecha
-    glColor3f(0.0f, 0.0f, 1.0f);
-    glNormal3f(1.0f, 0.0f, 0.0f);
-    glVertex3f(0.5, -0.5, -0.5);
-    glVertex3f(0.5, 0.5, -0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(0.5, -0.5, 0.5);
 
-    // Cara superior
-    glColor3f(0.0f, 0.0f, 1.0f);
-    glNormal3f(0.0f, 1.0f, 0.0f);
-    glVertex3f(-0.5, 0.5, -0.5);
-    glVertex3f(-0.5, 0.5, 0.5);
-    glVertex3f(0.5, 0.5, 0.5);
-    glVertex3f(0.5, 0.5, -0.5);
+    glPushMatrix();
+    glRotated(spinAngle, 0.0, 0.0, 1.0);  
+    glBegin(GL_LINES);
+    glColor3ub(255, 255, 255);  
 
-    // Cara inferior
-    glColor3f(0.0f, 0.0f, 1.0f);
-    glNormal3f(0.0f, -1.0f, 0.0f);
-    glVertex3f(-0.5, -0.5, -0.5);
-    glVertex3f(0.5, -0.5, -0.5);
-    glVertex3f(0.5, -0.5, 0.5);
-    glVertex3f(-0.5, -0.5, 0.5);
+    int lineCount = 6;
+    for (int i = 0; i < lineCount; ++i) {
+        float angle = 2 * M_PI * i / lineCount;
+        float x = cos(angle) * 0.5;
+        float y = sin(angle) * 0.5;
+        glVertex2f(0.0f, 0.0f);  
+        glVertex2f(x, y);       
+    }
     glEnd();
+    glPopMatrix();
 
+
+    gluDeleteQuadric(quad);
     glPopMatrix();
 
 

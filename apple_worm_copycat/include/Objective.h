@@ -22,4 +22,5 @@ private:
 	bool isPaused;
 	bool manzanaComida;
 	Game* game; // Referencia al juego
+	float spinAngle;
 };
