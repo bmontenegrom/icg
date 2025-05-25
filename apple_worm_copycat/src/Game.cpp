@@ -12,16 +12,16 @@
 #include "WinnerMenu.h"
 
 
-// Constructor: inicializa todos los componentes del juego
+
 Game::Game() : score(0), currentLevel(0), isRunning(true), isPaused(false), 
-    hasStartedPlaying(false), currentState(MENU), gameSpeedMultiplier(1.0f) // Inicializamos la velocidad a 1.0 (normal)
+    hasStartedPlaying(false), currentState(MENU), gameSpeedMultiplier(1.0f) 
 {
-    // Inicialización de componentes principales
+    
     this->display = new Display();
     this->timer = new Timer();
     this->camera = new Camera();
     
-    // Inicialización de SDL_ttf y fuentes
+    
     if (TTF_Init() != 0) {
         exit(1);
     }
@@ -31,25 +31,25 @@ Game::Game() : score(0), currentLevel(0), isRunning(true), isPaused(false),
         exit(1);
     }
 
-    // Inicialización de interfaces
+    
     this->hud = new Hud(font);
     this->mainMenu = new MainMenu(font);
     this->gameOverMenu = new GameOverMenu(font);
     this->winnerMenu = new WinnerMenu(font);
 
-    // Inicializar niveles
-    levels.push_back(new Level(0, this)); // Nivel 1 (nivel actual)
-    levels.push_back(new Level(1, this)); // Nivel 2 (nuevo nivel)
+    
+    levels.push_back(new Level(0, this)); 
+    levels.push_back(new Level(1, this)); 
     levels.push_back(new Level(2, this));
 
-    // Configurar estado inicial
+    
     mainMenu->setActive(true);
     gameOverMenu->setActive(false);
 
     background = new Background();
 }
 
-// Destructor: libera todos los recursos
+
 Game::~Game() {
     for (Level* level : levels) {
         delete level;
@@ -64,21 +64,21 @@ Game::~Game() {
     delete background;
 }
 
-// Getter para el puntaje
+
 int Game::getScore() const {
     return this->score;
 }
 
-// Setter para el puntaje
+
 void Game::setScore(int newScore) {
     this->score = newScore;
 }
 
-// Método para cambiar el estado del juego
+
 void Game::changeState(GameState newState) {
     currentState = newState;
     
-    // Actualizar componentes según el nuevo estado
+    
     switch (currentState) {
         case MENU:
             mainMenu->setActive(true);
@@ -111,13 +111,13 @@ void Game::changeState(GameState newState) {
     }
 }
 
-// Método para reiniciar el juego
+
 void Game::resetGame() {
-    // Reiniciar solo las entidades principales del nivel actual
+    
     for (int i = 0; i < levels.size(); i++) {
 		levels[i]->resetEntities();
     }
-    //levels[currentLevel]->resetEntities();
+    
     setScore(0);
     hasStartedPlaying = false;
     isPaused = false;
@@ -129,25 +129,25 @@ void Game::resetGame() {
     while (SDL_PollEvent(&dummy)) {}
 }
 
-// Nuevo método para establecer la velocidad del juego
+
 void Game::setGameSpeed(float speed) {
-    // Limitamos la velocidad entre 0.25x y 4x para mantener el juego jugable
+    
     if (speed >= 0.25f && speed <= 4.0f) {
         gameSpeedMultiplier = speed;
     }
 }
 
-// Nuevo método para obtener la velocidad actual
+
 float Game::getGameSpeed() const {
     return gameSpeedMultiplier;
 }
 
-// Bucle principal del juego
+
 void Game::run() {
-    // Configuración inicial de OpenGL
+    
 	display->resetPerspective();
     
-    // Variables de control
+    
     bool wireframe = false;
     bool texture = true;
 	bool smooth = true;
@@ -156,12 +156,12 @@ void Game::run() {
     this->hud->startTime();
     setScore(0);
 
-    // Bucle principal
+   
     while (isRunning) {
-        // Configuración de OpenGL por frame
+        
 		display->resetPerspective();
         
-        // Obtener componentes del nivel actual
+        
         float timeStep = (timer->getTicks() / 1000.0f) * gameSpeedMultiplier;
         Level* currentLevelPtr = levels[currentLevel];
         Worm* worm = currentLevelPtr->getWorm();
@@ -171,28 +171,28 @@ void Game::run() {
 			levels[currentLevel]->manzanaComida(true);
         }
 
-        // Manejar estados del juego
+        
         switch (currentState) {
             case MENU:
                 mainMenu->handleInput(event);
                 if (!mainMenu->isMenuActive()) {
                     if (mainMenu->getSelectedOption() == 1) {
-                        isRunning = false;  // Salir del juego
+                        isRunning = false;  
                     }
                     else if (mainMenu->getSelectedOption() == 0) {
                         setScore(0);
                         hasStartedPlaying = false;
-                        changeState(PLAYING);  // Comenzar juego
+                        changeState(PLAYING);  
                     }
                 }
                 break;
 
             case PLAYING:
                 if (!isPaused) {
-                    // Actualizar física del gusano
+                    
                     worm->updateGravity(currentLevelPtr->getEntities(), timeStep);
                     
-                    // Colision con el objetivo
+                    
                     if(currentLevelPtr->isObjectiveReached()){
                         if (currentLevel + 1 < levels.size()) {
                             nextLevel();
@@ -206,7 +206,7 @@ void Game::run() {
                         continue;
                     }
 
-                    // Verificar condición de game over
+                    
                     if (hasStartedPlaying && 
                         worm->getIsFalling() && 
                         worm->getVerticalVelocity() > 0.5f && 
@@ -222,16 +222,16 @@ void Game::run() {
                 gameOverMenu->handleInput(event);
                 if (!gameOverMenu->isMenuActive()) {
                     if (gameOverMenu->getSelectedOption() == 0) {
-                        // Jugar de nuevo
-						this->currentLevel = 0; // Reiniciar al nivel 1
+                        
+						this->currentLevel = 0; 
                         resetGame();
                         changeState(PLAYING);
-                        continue; // Salta el resto del ciclo para evitar usar punteros viejos
+                        continue; 
                     } else {
-                        // Volver al menú principal
-                        resetGame(); // <-- Reinicia el gusano y entidades también al volver al menú
+                        
+                        resetGame(); 
                         changeState(MENU);
-                        continue; // También aquí, por seguridad
+                        continue; 
                     }
                 }
                 break;
@@ -241,7 +241,7 @@ void Game::run() {
                 break;
         }
 
-        // Manejo de eventos
+        
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 isRunning = false;
@@ -266,21 +266,20 @@ void Game::run() {
 
         }
 
-        // Actualizar cámara
+       
         updateCamera(worm);
 
-        // Iniciar timer para el siguiente frame
+       
         this->timer->start();
 
-        // Renderizado
-        //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        
 
         background->render();
 
         display->resetPerspective();
         camera->applyView();
 
-        //  Renderizar según el estado actual
+        
         switch (currentState) {
             case MENU:
                 mainMenu->render();
@@ -298,15 +297,15 @@ void Game::run() {
                 break;
         }
 
-        // Actualizar ventana
+        
 		display->swapWindow();
 
 
-        //se topean las frames
+        
         if (timeStep * 1000 < 17) {
 			SDL_Delay(17 - timeStep * 1000);
         }
-        // Después de winnerMenu->handleInput(event):
+        
         if (currentState == WINNER && !winnerMenu->isMenuActive()) {
             if (winnerMenu->getSelectedOption() == 0) {
                 setScore(0);
@@ -380,19 +379,19 @@ void Game::handleKeyPress(SDL_Keycode key, Worm* worm, std::vector<Apple*>& appl
         case SDLK_ESCAPE:
             mainMenu->setActive(true);
             break;
-        case SDLK_1: // Tecla 1: velocidad 0.25x (muy lento)
+        case SDLK_1: 
             setGameSpeed(0.25f);
             break;
-        case SDLK_2: // Tecla 2: velocidad 0.5x (lento)
+        case SDLK_2: 
             setGameSpeed(0.5f);
             break;
-        case SDLK_3: // Tecla 3: velocidad normal (1x)
+        case SDLK_3: 
             setGameSpeed(1.0f);
             break;
-        case SDLK_4: // Tecla 4: velocidad 2x (rápido)
+        case SDLK_4: 
             setGameSpeed(2.0f);
             break;
-        case SDLK_5: // Tecla 5: velocidad 4x (muy rápido)
+        case SDLK_5: 
             setGameSpeed(4.0f);
             break;
     }
@@ -425,7 +424,7 @@ void Game::nextLevel() {
     if (currentLevel + 1 < levels.size()) {
         currentLevel++;
     } else {
-        // Mostrar WinnerMenu al terminar el último nivel
+       
         winnerMenu->setFinalScore(getScore());
         winnerMenu->setFinalTime(hud->getTime());
         winnerMenu->setActive(true);

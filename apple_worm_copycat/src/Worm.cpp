@@ -75,7 +75,7 @@ void Worm::move(Direction newDirection, std::vector<Entity*>& entities, std::vec
 	this->head->setDirection(newDirection);
 
 	// Usar una velocidad fija igual al tamaño del bloque
-	float distance = 0.095f;  // Tamaño del bloque
+	float distance = 0.095f;  
 	
 	// Intentar mover en la nueva dirección
 	switch (this->getHeadDirection())
@@ -104,11 +104,11 @@ void Worm::move(Direction newDirection, std::vector<Entity*>& entities, std::vec
 					head->getWidth(), head->getHeight(), head->getDepth(),
 					head->getDirection()
 				);
-				// Alineamos prev y current para evitar gaps
+				
 				newSeg->setPosition(oldX, oldY, oldZ);
 				newSeg->updatePreviousPosition();
 
-				// Insertamos justo después de la cabeza
+				
 				body.insert(body.begin() + 1, newSeg);
 				length++;
 

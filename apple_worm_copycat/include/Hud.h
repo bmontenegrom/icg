@@ -7,7 +7,7 @@
 #include <string>
 #include <unordered_map>
 
-//struct para almacenar la textura de texto
+
 struct TextTexture {
 	GLuint textureId;
 	int width;

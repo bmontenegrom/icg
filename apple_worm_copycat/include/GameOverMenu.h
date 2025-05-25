@@ -4,13 +4,13 @@
 
 class GameOverMenu : public Menu {
 private:
-    int finalScore;  // Puntuación final del juego
+    int finalScore;  
 
 public:
     GameOverMenu(TTF_Font* font);
     ~GameOverMenu() override;
     void render() override;
     void handleInput(SDL_Event& event) override;
-    void setFinalScore(int score);  // Establece la puntuación final
+    void setFinalScore(int score);  
     void executeSelectedOption() override;
 }; 

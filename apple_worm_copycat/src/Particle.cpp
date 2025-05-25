@@ -11,9 +11,9 @@ Particle::Particle(double x, double y, double z) : Entity(x, y, z)
    this->setHeight(0.002f); 
    this->setDepth(0.002f);
    
-   // Aumentamos significativamente la velocidad base de las partículas
+   
    if (rand() % 2 == 0) {
-       this->speedX = (rand() % 10) / 1000.0; // Aumentamos 10 veces la velocidad base
+       this->speedX = (rand() % 10) / 1000.0; 
    }
    else {
        this->speedX = -(rand() % 10) / 1000.0;
@@ -34,7 +34,7 @@ Particle::Particle(double x, double y, double z) : Entity(x, y, z)
    this->lifeTime = 60;
    this->isAlive = true;
 
-   int textura = rand() % 3; // Selecciona una textura aleatoria
+   int textura = rand() % 3; 
    switch (textura)
    {
    case 0:
@@ -127,14 +127,14 @@ void Particle::render(bool texture)
 void Particle::update()
 {
     if (this->isAlive) {
-        // Aplicamos el multiplicador de velocidad al movimiento
+        
         
         
         this->setX(this->getX() + speedX);
         this->setY(this->getY() + speedY);
         this->setZ(this->getZ() + speedZ);
         
-        // Ajustamos el tiempo de vida según la velocidad
+      
         this->lifeTime -= 1;
         if (this->lifeTime <= 0) {
             this->isAlive = false;

@@ -8,7 +8,7 @@ Camera::Camera() {
 	yaw = 0.0f;
 	pitch = 0.0f;
 
-	// Posición y objetivo por defecto
+	
 	defaultPosX = 0.5f;
 	defaultPosY = 1.0f;
 	defaultPosZ = 1.5f;
@@ -16,7 +16,7 @@ Camera::Camera() {
 	defaultTargetY = 0.25f;
 	defaultTargetZ = 0.0f;
 
-	// Inicializar posición y objetivo actual
+	
 	posX = defaultPosX;
 	posY = defaultPosY;
 	posZ = defaultPosZ;
@@ -24,7 +24,7 @@ Camera::Camera() {
 	targetY = defaultTargetY;
 	targetZ = defaultTargetZ;
 
-	// Inicializar dirección
+	
 	dirX = 0.0f;
 	dirY = 0.0f;
 	dirZ = 1.0f;
@@ -32,16 +32,15 @@ Camera::Camera() {
 
 void Camera::updateMouseMovement(int x, int y) {
 	if (mode == CameraMode::FREE_CAMERA) {
-		// Convertir el movimiento del mouse a ángulos
 		yaw += x * sensitivity;
 		pitch -= y * sensitivity;
 
-		// Limitar el pitch para evitar volteos
+		
 		if (pitch > 89.0f) pitch = 89.0f;
 		if (pitch < -89.0f) pitch = -89.0f;
 	}
 	if (mode == CameraMode::FREE_CAMERA) {
-		// Calcular la nueva posición de la cámara
+		
 		float yawRad = yaw * M_PI / 180.0f;
 		float pitchRad = pitch * M_PI / 180.0f;
 		posX = targetX + radius * cos(pitchRad) * sin(yawRad);

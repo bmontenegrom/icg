@@ -4,7 +4,7 @@
 #include "Particle.h"
 #include <vector>
 
-class Game; // Forward declaration
+class Game;
 
 class Objective : public Entity
 {
@@ -21,6 +21,6 @@ private:
 	std::vector<Particle*> particles;
 	bool isPaused;
 	bool manzanaComida;
-	Game* game; // Referencia al juego
+	Game* game; 
 	float spinAngle;
 };

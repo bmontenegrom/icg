@@ -16,11 +16,11 @@ Hud::~Hud()
 
 void Hud::render(int score, int time, float gameSpeed)
 {
-    // Guardar el modo actual
+    
     GLint polygonMode[2];
     glGetIntegerv(GL_POLYGON_MODE, polygonMode);
 
-    // Cambiar a modo relleno solo para el HUD
+    
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     std::string scoreText = "Score: " + std::to_string(score);
@@ -42,7 +42,7 @@ void Hud::render(int score, int time, float gameSpeed)
     renderTexture2D(speedTex, 10, 70, w, h, SCREEN_WIDTH, SCREEN_HEIGHT);
     glDeleteTextures(1, &speedTex);
 
-    // Restaurar el modo anterior (por ejemplo, wireframe)
+    
     glPolygonMode(GL_FRONT_AND_BACK, polygonMode[0]);
 }
 
@@ -63,7 +63,7 @@ GLuint Hud::createTextTexture(const std::string& text, TTF_Font* font, SDL_Color
         return 0;
     }
 
-    // Convertimos a formato compatible con OpenGL (RGBA8888)
+    
     SDL_Surface* formatted = SDL_ConvertSurfaceFormat(surface, SDL_PIXELFORMAT_RGBA32, 0);
     SDL_FreeSurface(surface);
     if (!formatted) {
@@ -93,7 +93,7 @@ void Hud::renderTexture2D(GLuint texture, int x, int y, int width, int height, i
     glMatrixMode(GL_PROJECTION);
     glPushMatrix();
     glLoadIdentity();
-    gluOrtho2D(0, screenWidth, screenHeight, 0);  // Coordenadas en píxeles
+    gluOrtho2D(0, screenWidth, screenHeight, 0);  
 
     glMatrixMode(GL_MODELVIEW);
     glPushMatrix();
@@ -106,7 +106,7 @@ void Hud::renderTexture2D(GLuint texture, int x, int y, int width, int height, i
 
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture);
-    glColor4f(1, 1, 1, 1);  // No modificar color
+    glColor4f(1, 1, 1, 1); 
 
     glBegin(GL_QUADS);
     glTexCoord2f(0, 0); glVertex2i(x, y);
