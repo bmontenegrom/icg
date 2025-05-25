@@ -4,7 +4,7 @@
 
 class MainMenu : public Menu {
 private:
-    std::vector<std::string> controls;     // Lista de controles a mostrar
+    std::vector<std::string> controls; 
 
 public:
     MainMenu(TTF_Font* font);

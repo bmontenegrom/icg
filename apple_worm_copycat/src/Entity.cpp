@@ -23,7 +23,6 @@ Entity::Entity(double x, double y, double z, double width, double height, double
 	this->prevX = x;
 	this->prevY = y;
 	this->prevZ = z;
-	// Cargar el modelo desde el archivo
 	ObjectLoader& loader = ObjectLoader::getInstance();
 	this->vertices = loader.loadOBJ(path);
 	if (this->vertices.empty()) {
@@ -131,17 +130,17 @@ bool Entity::isColliding(const Entity* other) const
 {
 	if (!other) return false;
 	
-	// Márgenes específicos para cada tipo de entidad
-	const double WALL_MARGIN = 0.005f;     // Margen de colisión para paredes
-	const double OBJECTIVE_MARGIN = 0.05f; // Unificado con el tamaño de renderizado
-	const double APPLE_MARGIN = 0.07f;     // Más pequeño que el bloque
-	const double WORM_MARGIN = 0.09f;      // Tamaño del gusano
 	
-	// Determinar qué margen usar basado en los tipos de entidades
+	const double WALL_MARGIN = 0.005f;     
+	const double OBJECTIVE_MARGIN = 0.05f; 
+	const double APPLE_MARGIN = 0.07f;     
+	const double WORM_MARGIN = 0.09f;     
+	
+	
 	double thisMargin = WALL_MARGIN;
 	double otherMargin = WALL_MARGIN;
 	
-	// Ajustar márgenes según el tipo de entidad
+	
 	if (this->getType() == EntityType::WORM) {
 		thisMargin = WORM_MARGIN;
 	} else if (this->getType() == EntityType::APPLE) {
@@ -157,7 +156,7 @@ bool Entity::isColliding(const Entity* other) const
 		otherMargin = OBJECTIVE_MARGIN;
 	}
 	
-	// Calcular los límites considerando el centro de cada entidad y sus márgenes
+	
 	double thisLeft = this->x - thisMargin/2;
 	double thisRight = this->x + thisMargin/2;
 	double thisTop = this->y + thisMargin/2;
@@ -168,11 +167,11 @@ bool Entity::isColliding(const Entity* other) const
 	double otherTop = other->y + otherMargin/2;
 	double otherBottom = other->y - otherMargin/2;
 	
-	// Verificar si hay superposición en X e Y con un pequeño margen de error
-	const double COLLISION_MARGIN = 0.005f;  // Margen de error para colisiones
+	
+	const double COLLISION_MARGIN = 0.005f;  
 	bool collisionX = (thisRight + COLLISION_MARGIN > otherLeft) && (thisLeft - COLLISION_MARGIN < otherRight);
 	bool collisionY = (thisTop + COLLISION_MARGIN > otherBottom) && (thisBottom - COLLISION_MARGIN < otherTop);
 	
-	// Solo hay colisión si hay superposición en ambos ejes
+	
 	return collisionX && collisionY;
 }

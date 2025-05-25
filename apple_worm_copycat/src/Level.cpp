@@ -9,13 +9,12 @@
 #include <iostream>
 
 Level::Level(int levelNumber, Game* game) : levelNumber(levelNumber), worm(nullptr), objective(nullptr), game(game) {
-    // Cargar el nivel desde XML
+    
     std::string filename = "assets/levels/level" + std::to_string(levelNumber) + ".xml";
     if (!loadFromXML(filename)) {
         std::cerr << "Error al cargar el nivel " << levelNumber << " desde XML" << std::endl;
-        // Usar valores por defecto si falla la carga
         wormStartX = 0.1f; wormStartY = 0.125f; wormStartZ = 0.0f;
-        // appleStartX = 0.5f; appleStartY = 0.2f; appleStartZ = 0.0f;
+        
         objectiveStartX = 1.045f; objectiveStartY = -0.097f; objectiveStartZ = 0.0f;
         initialWormLength = 3;
     }
@@ -34,17 +33,17 @@ Level::~Level() {
 }
 
 void Level::initialize() {
-    // Crear el gusano en la posición inicial del nivel (sobre el suelo)
+    
     worm = new Worm(wormStartX, wormStartY, wormStartZ, game);
     worm->reset(wormStartX, wormStartY, wormStartZ, initialWormLength);
     
-    // Crear todas las manzanas
+    
     for (Apple* apple : apples) {
         
         entities.push_back(apple);
     }
     
-    // Crear el objetivo con tamaño consistente
+    
     objective = new Objective(objectiveStartX, objectiveStartY, objectiveStartZ, 0.05f, 0.05f, 0.05f);
     entities.push_back(objective);
 }
@@ -77,7 +76,7 @@ bool Level::loadFromXML(const std::string& filename) {
         return false;
     }
 
-    // Parsear cada sección del nivel
+    
     parseWormNode(levelNode->getChild("worm"));
     parseAppleNode(levelNode);
     parseObjectiveNode(levelNode->getChild("objective"));
@@ -190,7 +189,7 @@ void Level::resetEntities() {
     entities.clear();
     for (Apple* apple : apples) {
         if (apple != nullptr) {			
-            //delete apple; arreglar
+            
         }
         
     }
@@ -224,7 +223,7 @@ bool Level::isObjectiveReached() const {
     float distanceX = std::abs(head->getX() - objective->getX());
     float distanceY = std::abs(head->getY() - objective->getY());
     
-    // Usar el mismo margen que en las colisiones con el objetivo
+    
     const float OBJECTIVE_MARGIN = 0.05f;
     return distanceX < OBJECTIVE_MARGIN && distanceY < OBJECTIVE_MARGIN;
 }

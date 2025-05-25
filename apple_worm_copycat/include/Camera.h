@@ -34,6 +34,6 @@ private:
 	float sensitivity;
 	float radius;
 	
-	// Vectores de dirección
+	
 	float dirX, dirY, dirZ;
 };

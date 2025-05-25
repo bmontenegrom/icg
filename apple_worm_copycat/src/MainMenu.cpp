@@ -119,8 +119,7 @@ void MainMenu::executeSelectedOption() {
             setActive(false); // Iniciar juego
             break;
         case 1: // Salir
-            setActive(false); // Aquí deberías marcar el juego para salir, por ejemplo con un callback o bandera externa
-            // Ejemplo: if (onExit) onExit();
+            setActive(false); 
             break;
     }
 } 

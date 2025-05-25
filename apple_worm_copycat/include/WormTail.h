@@ -10,9 +10,9 @@ public:
     ~WormTail();
 	void render(bool texture) override;
 	EntityType getType() const override;
-	// Setters
+
 	void setDirection(Direction direction);
-	// Getters
+	
 
 	Direction getDirection() const;
 

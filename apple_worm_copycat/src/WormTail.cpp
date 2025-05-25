@@ -17,8 +17,8 @@ void WormTail::render(bool texture)
     double x = getInterpolatedX();
     double y = getInterpolatedY();
     double z = getInterpolatedZ();
-    glTranslated(x, y, z); // Trasladar a la posición
-    glScaled(getWidth(), getHeight(), getDepth()); // Escalar según las dimensiones
+    glTranslated(x, y, z); 
+    glScaled(getWidth(), getHeight(), getDepth()); 
 
 	double dx = 0.0, dy = 0.0;
 	switch (direction) {

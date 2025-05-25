@@ -8,10 +8,8 @@ public:
 	~WormBody();
 	EntityType getType() const override;
 
-	// Setters
 	void setDirection(Direction direction);
-	
-	// Getters
+
 	Direction getDirection() const;
 
 	void render(bool texture) override;

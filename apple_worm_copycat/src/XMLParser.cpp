@@ -33,7 +33,7 @@ XMLNode* XMLParser::parseNode(const std::string& content, size_t& pos) {
     pos++; // Skip '<'
     skipWhitespace(content, pos);
     
-    // Get node name
+    
     std::string name;
     while (pos < content.length() && content[pos] != '>' && content[pos] != ' ' && content[pos] != '/') {
         name += content[pos++];
@@ -45,9 +45,9 @@ XMLNode* XMLParser::parseNode(const std::string& content, size_t& pos) {
     // Parse attributes
     parseAttributes(content, pos, node);
     
-    // Check if it's a self-closing tag
+    
     if (content[pos] == '/') {
-        pos += 2; // Skip '/>'
+        pos += 2; 
         return node;
     }
     
@@ -64,7 +64,7 @@ XMLNode* XMLParser::parseNode(const std::string& content, size_t& pos) {
         skipWhitespace(content, pos);
         if (content[pos] == '<') {
             if (content[pos + 1] == '/') {
-                // End of current node
+                
                 pos += name.length() + 3; // Skip </name>
                 break;
             }

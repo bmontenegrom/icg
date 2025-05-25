@@ -9,7 +9,6 @@
 
 Apple::Apple(double x, double y, double z, double width, double height, double depth) 
     : Entity(x, y, z, width, height, depth), isEaten(false) {
-    // Cargar el modelo usando ObjectLoader
     ObjectLoader& loader = ObjectLoader::getInstance();
     vertices = loader.loadOBJ("assets/apple/apple.obj");
     if (vertices.empty()) {
@@ -22,7 +21,6 @@ Apple::~Apple() {
 	if (texturaManzana) {
 		glDeleteTextures(1, &texturaManzana);
 	}
-	// Limpiar los vértices si es necesario
 	vertices.clear();
 }
 
@@ -58,16 +56,16 @@ GLuint Apple::cargarTextura(const char* path) {
 void Apple::render(bool texture) {
     
 
-    // Renderizar el modelo 3D
+    
     glPushMatrix();
     glTranslated(getX(), getY(), getZ());
-    glScaled(0.05, 0.05, 0.05);  // Tamaño fijo de 0.05 x 0.05 x 0.05
+    glScaled(0.05, 0.05, 0.05); 
 
     if (texturaManzana != 0 && texture) {
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, texturaManzana);
     } else {
-        glColor3f(1.0f, 0.0f, 0.0f);  // Rojo si no hay textura
+        glColor3f(1.0f, 0.0f, 0.0f);  
     }
 
     glBegin(GL_TRIANGLES);

@@ -41,8 +41,8 @@ void WormHead::render(bool texture)
     double x = getInterpolatedX();
     double y = getInterpolatedY();
     double z = getInterpolatedZ();
-    glTranslated(x, y, z); // Trasladar a la posición
-    glScaled(getWidth(), getHeight(), getDepth()); // Escalar según las dimensiones
+    glTranslated(x, y, z); 
+    glScaled(getWidth(), getHeight(), getDepth()); 
 
     double dx = 0.0, dy = 0.0;
     switch (direction) {
@@ -65,17 +65,17 @@ void WormHead::render(bool texture)
     if (isBlinking) {
         // fase de cierre (0-0.5) y apertura (0.5-1.0)
         if (blinkProgress < 0.5f) {
-            eyeOpenRatio = 1.0f - (blinkProgress / 0.5f);  // 1.0 → 0.0
+            eyeOpenRatio = 1.0f - (blinkProgress / 0.5f);  
         }
         else {
-            eyeOpenRatio = (blinkProgress - 0.5f) / 0.5f;  // 0.0 → 1.0
+            eyeOpenRatio = (blinkProgress - 0.5f) / 0.5f;  
         }
     }
 
     // Ojo izquierdo (esfera blanca)
     glColor3ub(255, 255, 255);
     glPushMatrix();
-    // Coordenadas relativas a la cabeza en su sistema escalado
+  
     glTranslated(0.03, 0.25, 0.45);
     glScalef(1.0f, eyeOpenRatio, 1.0f);
     gluSphere(quad, 0.15, 16, 16);
@@ -84,14 +84,14 @@ void WormHead::render(bool texture)
     // Pupila (esfera negra)
     glColor3ub(0, 0, 0);
     glPushMatrix();
-    glTranslated(0.04 + currentOffsetX, 0.3 + currentOffsetY, 0.52);  // Levemente más al frente
+    glTranslated(0.04 + currentOffsetX, 0.3 + currentOffsetY, 0.52);  
     gluSphere(quad, 0.08, 16, 16);
     glPopMatrix();
 
     // Ojo derecho (esfera blanca)
     glColor3ub(255, 255, 255);
     glPushMatrix();
-    glTranslated(+0.25, 0.25, 0.45);  // simétrico en X respecto al ojo izquierdo
+    glTranslated(+0.25, 0.25, 0.45);  
     glScalef(1.0f, eyeOpenRatio, 1.0f);
     gluSphere(quad, 0.15, 16, 16);
     glPopMatrix();
@@ -99,7 +99,7 @@ void WormHead::render(bool texture)
     // Pupila derecha (esfera negra)
     glColor3ub(0, 0, 0);
     glPushMatrix();
-    glTranslated(+0.26 + currentOffsetX, 0.3 + currentOffsetY, 0.52);  // más al frente, igual que la izquierda
+    glTranslated(+0.26 + currentOffsetX, 0.3 + currentOffsetY, 0.52);  
     gluSphere(quad, 0.08, 16, 16);
     glPopMatrix();
 
@@ -117,7 +117,7 @@ void WormHead::render(bool texture)
     }
     glEnd();
 
-    glPopMatrix();  // Fin cabeza + ojo
+    glPopMatrix();  
 
 
 
