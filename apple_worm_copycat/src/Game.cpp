@@ -114,7 +114,10 @@ void Game::changeState(GameState newState) {
 // Método para reiniciar el juego
 void Game::resetGame() {
     // Reiniciar solo las entidades principales del nivel actual
-    levels[currentLevel]->resetEntities();
+    for (int i = 0; i < levels.size(); i++) {
+		levels[i]->resetEntities();
+    }
+    //levels[currentLevel]->resetEntities();
     setScore(0);
     hasStartedPlaying = false;
     isPaused = false;
