@@ -61,3 +61,11 @@ Color operator+(const Color& a, const Color& b) {
 Color operator-(const Color& a, const Color& b) {
 	return Color(a.getR() - b.getR(), a.getG() - b.getG(), a.getB() - b.getB());
 }
+
+Color operator*(const Color& a, double t) {
+	return Color(a.getR() * t, a.getG() * t, a.getB() * t);
+}
+
+Color operator*(double t, const Color& a) {
+	return Color(a.getR() * t, a.getG() * t, a.getB() * t);
+}

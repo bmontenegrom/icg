@@ -8,12 +8,12 @@ void EntityList::clear() {
 	entities.clear();
 }
 
-bool EntityList::hit(const Ray& ray, double tMin, double tMax, HitRecord& rec) const {
+bool EntityList::hit(const Ray& ray, Interval ray_t, HitRecord& rec) const {
 	HitRecord tempRec;
 	bool hitAnything = false;
-	double closestSoFar = tMax;
+	double closestSoFar = ray_t.getMax();
 	for (const auto& entity : entities) {
-		if (entity->hit(ray, tMin, closestSoFar, tempRec)) {
+		if (entity->hit(ray, Interval(ray_t.getMin(), closestSoFar), tempRec)) {
 			hitAnything = true;
 			closestSoFar = tempRec.t;
 			rec = tempRec; // Update the record with the closest hit

@@ -39,6 +39,12 @@
     <ClInclude Include="include\EntityList.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="include\Camera.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Interval.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Color.cpp">
@@ -63,6 +69,12 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="source\EntityList.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Camera.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Interval.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

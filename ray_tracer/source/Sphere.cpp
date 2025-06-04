@@ -3,7 +3,7 @@
 Sphere::Sphere(const Vec3& center, double radius) : center(center), radius(radius) {}
 
 //version más eficiente para la esfera
-bool Sphere::hit(const Ray& ray, double tMin, double tMax, HitRecord& rec) const {
+bool Sphere::hit(const Ray& ray, Interval ray_t, HitRecord& rec) const {
 	Vec3 oc = center - ray.getOrigin();
 	double a = ray.getDirection().lengthSquared();
 	double h = dotProduct(ray.getDirection(), oc);
@@ -16,9 +16,9 @@ bool Sphere::hit(const Ray& ray, double tMin, double tMax, HitRecord& rec) const
 	double sqrtDiscriminant = std::sqrt(discriminant);
 
 	double root = (h - sqrtDiscriminant) / a;
-	if (root <= tMin || tMax <= root) {
+	if (!ray_t.surrounds(root)) {
 		root = (h + sqrtDiscriminant) / a;
-		if (root <= tMin || tMax <= root) {
+		if (!ray_t.surrounds(root)) {
 			return false; // No valid intersection
 		}
 	}

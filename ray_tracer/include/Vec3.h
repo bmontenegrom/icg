@@ -38,3 +38,5 @@ Vec3 operator/(const Vec3& a, double t);
 
 double dotProduct(const Vec3& a, const Vec3& b);
 Vec3 crossProduct(const Vec3& a, const Vec3& b);
+
+Vec3 unitVector(const Vec3& v);

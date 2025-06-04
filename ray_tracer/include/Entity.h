@@ -1,10 +1,11 @@
 #pragma once  
 #include "Ray.h"  
-#include "HitRecord.h"  
+#include "HitRecord.h"
+#include "Interval.h"
 
 class Entity {  
 public:  
 virtual ~Entity() = default;  
 
-virtual bool hit(const Ray& ray, double tMin, double tMax, HitRecord& rec) const = 0;  
+virtual bool hit(const Ray& ray, Interval ray_t, HitRecord& rec) const = 0;  
 };

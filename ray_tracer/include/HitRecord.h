@@ -5,7 +5,7 @@
 class HitRecord {
 public:
 	Vec3 point;        // Point of intersection
-	Vec3 normal;      // Normal at the intersection point
+	Vec3 normal;      // normal debe ser de largo 1
 	double t;         // Parameter t for the ray equation
 	bool frontFace;   // True if the ray hits the front face of the surface
 	// Constructor

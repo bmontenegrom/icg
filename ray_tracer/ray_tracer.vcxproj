@@ -137,20 +137,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\Color.h" />
     <ClInclude Include="include\Constants.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\EntityList.h" />
     <ClInclude Include="include\HitRecord.h" />
+    <ClInclude Include="include\Interval.h" />
     <ClInclude Include="include\Ray.h" />
     <ClInclude Include="include\Sphere.h" />
     <ClInclude Include="include\Vec3.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Camera.cpp" />
     <ClCompile Include="source\Color.cpp" />
     <ClCompile Include="source\Entity.cpp" />
     <ClCompile Include="source\EntityList.cpp" />
     <ClCompile Include="source\HitRecord.cpp" />
+    <ClCompile Include="source\Interval.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Ray.cpp" />
     <ClCompile Include="source\Sphere.cpp" />

@@ -123,3 +123,8 @@ Vec3 crossProduct(const Vec3& a, const Vec3& b)
 		a.getX() * b.getY() - a.getY() * b.getX()
 	);
 }
+
+Vec3 unitVector(const Vec3& v)
+{
+	return v / v.length();
+}

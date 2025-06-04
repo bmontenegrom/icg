@@ -15,7 +15,7 @@ public:
 	
 	void clear();
 
-	bool hit(const Ray& ray, double tMin, double tMax, HitRecord& rec) const override;
+	bool hit(const Ray& ray, Interval ray_t, HitRecord& rec) const override;
 
 private:
 	std::vector<std::shared_ptr<Entity>> entities; // List of entities

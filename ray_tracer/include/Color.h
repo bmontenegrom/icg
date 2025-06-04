@@ -28,3 +28,5 @@ std::ostream& operator<<(std::ostream& os, const Color& color);
 
 Color operator+(const Color& a, const Color& b);
 Color operator-(const Color& a, const Color& b);
+Color operator*(const Color& a, double t);
+Color operator*(double t, const Color& a);
