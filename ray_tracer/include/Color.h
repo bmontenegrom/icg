@@ -1,5 +1,5 @@
 #pragma once
-
+#include <iostream>
 
 class Color {
 public:
@@ -17,6 +17,14 @@ public:
 	int getGbyte() const;
 	int getBbyte() const;
 
+
+	Color& operator+=(const Color& other);
+
 private:
 	double r, g, b;
 };
+
+std::ostream& operator<<(std::ostream& os, const Color& color);
+
+Color operator+(const Color& a, const Color& b);
+Color operator-(const Color& a, const Color& b);

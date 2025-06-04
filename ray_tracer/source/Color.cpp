@@ -40,3 +40,24 @@ int Color::getBbyte() const {
 	return static_cast<int>(255.999 * b);
 }
 
+Color& Color::operator+=(const Color& other) {
+	r += other.r;
+	g += other.g;
+	b += other.b;
+	return *this;
+}
+
+std::ostream& operator<<(std::ostream& os, const Color& color) {
+	os << color.getRbyte() << " "
+		<< color.getBbyte() << " "
+		<< color.getGbyte();
+	return os;
+}
+
+Color operator+(const Color& a, const Color& b) {
+	return Color(a.getR() + b.getR(), a.getG() + b.getG(), a.getB() + b.getB());
+}
+
+Color operator-(const Color& a, const Color& b) {
+	return Color(a.getR() - b.getR(), a.getG() - b.getG(), a.getB() - b.getB());
+}
