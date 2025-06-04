@@ -26,7 +26,7 @@ int main() {
 	double aspect_ratio = 16.0 / 9.0; // Aspect ratio of the image
 	int image_width = 800; // Width of the image in pixels
     
-    std::unique_ptr<Camera>cam = std::make_unique<Camera>(aspect_ratio, image_width);
+    std::unique_ptr<Camera>cam = std::make_unique<Camera>(aspect_ratio, image_width, 10);
 
 
 	cam->render(*world);

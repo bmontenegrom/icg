@@ -17,7 +17,8 @@ public:
 	double size() const;
 	bool contains(double value) const;
 	bool surrounds(double value) const;
-
+	
+	double clamp(double value) const;
 	
 private:
 	double min;

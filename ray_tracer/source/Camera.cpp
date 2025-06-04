@@ -6,15 +6,15 @@
 #include <sstream>
 #include <iomanip>
 
-Camera::Camera(double aspect_ratio, int image_width)
-	: aspect_ratio(aspect_ratio), image_width(image_width) {
+Camera::Camera(double aspect_ratio, int image_width, int samples_per_pixel)
+	: aspect_ratio(aspect_ratio), image_width(image_width), samples_per_pixel(samples_per_pixel) {
 	initialize();
 }
 
 void Camera::initialize() {
 	image_height = static_cast<int>(image_width / aspect_ratio);
 	image_height = image_height < 1 ? 1 : image_height; // Asegurarse de que la altura sea al menos 1
-
+	pixel_sample_scale = 1.0 / static_cast<double>(samples_per_pixel);
 
 	double focal_length = 1.0;
 	double viewport_height = 2.0;
@@ -45,10 +45,16 @@ void Camera::render(const Entity& world) const {
 	}
 	for (int j = 0; j < image_height; ++j) { // Invertir el orden de las filas
 		for (int i = 0; i < image_width; ++i) {
-			Vec3 pixel_loc = pixel00_loc + i * pixel_delta_u + j * pixel_delta_v;
-			Ray r(center, pixel_loc - center);
-			Color pixel_color = ray_color(r, world);
+			//Vec3 pixel_loc = pixel00_loc + i * pixel_delta_u + j * pixel_delta_v;
+			//Ray r(center, pixel_loc - center);
+			//Color pixel_color = ray_color(r, world);
 			// Set the pixel color in the bitmap
+			Color pixel_color(0, 0, 0); // Initialize pixel color
+			for (int s = 0; s < samples_per_pixel; ++s) {
+				Ray r = getRay(i, j);
+				pixel_color += ray_color(r, world);
+			}
+			pixel_color = pixel_color * pixel_sample_scale; // Scale the color by the number of samples
 			RGBQUAD color;
 			color.rgbRed = static_cast<BYTE>(pixel_color.getRbyte());
 			color.rgbGreen = static_cast<BYTE>(pixel_color.getGbyte());
@@ -94,4 +100,19 @@ Color Camera::ray_color(const Ray& r, const Entity& world) const {
 	Vec3 unit_direction = unitVector(r.getDirection());
 	double t = 0.5 * (unit_direction.getY() + 1.0);
 	return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
+}
+
+Ray Camera::getRay(int i, int j) const {
+	Vec3 offset = this->sample_square();
+
+	Vec3 pixel_sample = pixel00_loc + ((i + offset.getX()) * pixel_delta_u) + ((j + offset.getY()) * pixel_delta_v);
+	
+	Vec3 ray_origin = center;
+	Vec3 ray_direction = pixel_sample - ray_origin;
+	return Ray(ray_origin, ray_direction);
+
+}
+
+Vec3 Camera::sample_square() const{
+	return Vec3(random_double() - 0.5, random_double() - 0.5, 0.0);
 }

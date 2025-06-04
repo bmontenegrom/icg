@@ -31,3 +31,14 @@ bool Interval::contains(double value) const {
 bool Interval::surrounds(double value) const {
 	return value > min && value < max;
 }
+
+double Interval::clamp(double value) const {
+	if (value < min) {
+		return min;
+	}
+	if (value > max) {
+		return max;
+	}
+	return value;
+	
+}
