@@ -1,3 +1,14 @@
+/**
+ * @file Camera.cpp
+ * @brief Implementación de la clase Camera para el sistema de ray tracing
+ * 
+ * Esta clase representa una cámara en el espacio 3D y proporciona métodos para
+ * renderizar la escena utilizando el algoritmo de ray tracing.
+ * 
+ * @author Benjamin Montenegro
+ * @date 07/06/2025
+ */
+
 #include "Camera.h"
 #include "FreeImage.h"
 #include "Constants.h"
@@ -6,11 +17,20 @@
 #include <sstream>
 #include <iomanip>
 
+/**
+ * @brief Constructor que inicializa la cámara con un aspect ratio, ancho de imagen y muestras por píxel
+ * @param aspect_ratio Relación de aspecto de la imagen
+ * @param image_width Ancho de la imagen en píxeles
+ * @param samples_per_pixel Número de muestras por píxel
+ */
 Camera::Camera(double aspect_ratio, int image_width, int samples_per_pixel)
 	: aspect_ratio(aspect_ratio), image_width(image_width), samples_per_pixel(samples_per_pixel) {
 	initialize();
 }
 
+/**
+ * @brief Inicializa la cámara con los parámetros necesarios para el renderizado
+ */
 void Camera::initialize() {
 	image_height = static_cast<int>(image_width / aspect_ratio);
 	image_height = image_height < 1 ? 1 : image_height; // Asegurarse de que la altura sea al menos 1
@@ -35,6 +55,10 @@ void Camera::initialize() {
 	pixel00_loc = viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
 }
 
+/**
+ * @brief Renderiza la escena utilizando el algoritmo de ray tracing
+ * @param world Entidad que representa la escena
+ */
 void Camera::render(const Entity& world) const {
 	FreeImage_Initialise();
 	FIBITMAP* bitmap = FreeImage_Allocate(image_width, image_height, 24);
@@ -74,6 +98,10 @@ void Camera::render(const Entity& world) const {
 	
 }
 
+/**
+ * @brief Genera un nombre de archivo con timestamp
+ * @return Nombre de archivo con timestamp
+ */
 std::string Camera::getTimestampedFilename() const {
 	std::time_t now = std::time(nullptr);
 	std::tm tm_info{};
@@ -92,6 +120,12 @@ std::string Camera::getTimestampedFilename() const {
 	return oss.str();
 }
 
+/**
+ * @brief Calcula el color de un rayo en la escena
+ * @param r El rayo a calcular
+ * @param world Entidad que representa la escena
+ * @return Color resultante
+ */
 Color Camera::ray_color(const Ray& r, const Entity& world) const {
 	HitRecord rec;
 	if (world.hit(r, Interval(0, infinity), rec)) {
@@ -102,6 +136,12 @@ Color Camera::ray_color(const Ray& r, const Entity& world) const {
 	return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
 }
 
+/**
+ * @brief Obtiene un rayo para un píxel específico
+ * @param i Coordenada x del píxel
+ * @param j Coordenada y del píxel
+ * @return Rayo generado
+ */
 Ray Camera::getRay(int i, int j) const {
 	Vec3 offset = this->sample_square();
 
@@ -113,6 +153,10 @@ Ray Camera::getRay(int i, int j) const {
 
 }
 
+/**
+ * @brief Muestra un cuadrado para el muestreo
+ * @return Vector de muestreo
+ */
 Vec3 Camera::sample_square() const{
 	return Vec3(random_double() - 0.5, random_double() - 0.5, 0.0);
 }

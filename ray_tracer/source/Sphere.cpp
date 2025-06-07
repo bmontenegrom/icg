@@ -1,8 +1,31 @@
+/**
+ * @file Sphere.cpp
+ * @brief Implementaci贸n de la clase Sphere para el sistema de ray tracing
+ * 
+ * Esta clase implementa la geometr铆a de una esfera y proporciona m茅todos para
+ * calcular intersecciones de rayos con la esfera.
+ * 
+ * @author Benjamin Montenegro
+ * @date 07/06/2025
+ */
+
 #include "Sphere.h"
 
+/**
+ * @brief Constructor que inicializa la esfera con un centro y un radio
+ * @param center Centro de la esfera
+ * @param radius Radio de la esfera
+ */
 Sphere::Sphere(const Vec3& center, double radius) : center(center), radius(radius) {}
 
-//version m醩 eficiente para la esfera
+//version ms eficiente para la esfera
+/**
+ * @brief Verifica si un rayo intersecta con la esfera
+ * @param ray El rayo a verificar
+ * @param ray_t El intervalo de par谩metros del rayo
+ * @param rec Registro de intersecci贸n
+ * @return true si hay intersecci贸n, false en caso contrario
+ */
 bool Sphere::hit(const Ray& ray, Interval ray_t, HitRecord& rec) const {
 	Vec3 oc = center - ray.getOrigin();
 	double a = ray.getDirection().lengthSquared();
@@ -10,7 +33,7 @@ bool Sphere::hit(const Ray& ray, Interval ray_t, HitRecord& rec) const {
 	double c = oc.lengthSquared() - radius * radius;
 	double discriminant = h * h - a * c;
 	if (discriminant < 0) {
-		return false; // No intersection
+		return false; // No hay intersecci贸n
 	}
 
 	double sqrtDiscriminant = std::sqrt(discriminant);
@@ -19,14 +42,14 @@ bool Sphere::hit(const Ray& ray, Interval ray_t, HitRecord& rec) const {
 	if (!ray_t.surrounds(root)) {
 		root = (h + sqrtDiscriminant) / a;
 		if (!ray_t.surrounds(root)) {
-			return false; // No valid intersection
+			return false; // No hay intersecci贸n
 		}
 	}
 
 	rec.t = root;
 	rec.point = ray.pointAtParameter(rec.t);
-	Vec3 normal = (rec.point - center) / radius; // Normal at the intersection point
-	rec.setFaceNormal(ray, normal); //tambien setea el valor de la normal
+	Vec3 normal = (rec.point - center) / radius; // Normal en el punto de intersecci贸n
+	rec.setFaceNormal(ray, normal); //tambien setea el valor de la normal	
 	
 	
 	return true;
