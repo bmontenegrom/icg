@@ -53,48 +53,17 @@ public:
      * @param depth Profundidad actual de recursión
      * @return Color resultante de la interacción
      */
-    virtual Color scatter(const Ray& incident_ray, const HitRecord& hit_record, int depth) const = 0;
+    virtual Color shade(const Ray& incident_ray, const HitRecord& hit_record, int depth) const = 0;
 
     /**
      * @brief Obtiene el coeficiente de reflexión del material
      * @return Valor entre 0.0 (no reflectante) y 1.0 (totalmente reflectante)
      */
-    virtual double getReflectionCoefficient() const = 0;
+    virtual double reflectivity() const { return 0.0; }
 
     /**
      * @brief Obtiene el coeficiente de transmisión del material
      * @return Valor entre 0.0 (opaco) y 1.0 (totalmente transparente)
      */
-    virtual double getTransmissionCoefficient() const = 0;
-
-    /**
-     * @brief Indica si el material emite luz propia
-     * @return true si es emisivo, false en caso contrario
-     */
-    virtual bool isEmissive() const { return false; }
-
-    /**
-     * @brief Obtiene el color emisivo del material (si aplica)
-     * @return Color de emisión
-     */
-    virtual Color getEmission() const { return Color(0, 0, 0); }
-
-protected:
-    /**
-     * @brief Calcula el vector de refracción
-     * @param incident Vector incidente normalizado
-     * @param normal Vector normal normalizado
-     * @param eta_ratio Ratio de índices de refracción (eta_i / eta_t)
-     * @param refracted Vector de salida donde se almacena la refracción
-     * @return true si hay refracción, false si hay reflexión total interna
-     */
-    bool refract(const Vec3& incident, const Vec3& normal, double eta_ratio, Vec3& refracted) const;
-
-    /**
-     * @brief Calcula la reflectancia de Fresnel
-     * @param cosine Coseno del ángulo entre el vector incidente y la normal
-     * @param ref_idx Índice de refracción del material
-     * @return Coeficiente de reflectancia de Fresnel
-     */
-    double schlickApproximation(double cosine, double ref_idx) const;
+    virtual double transparency() const { return 0.0; }
 }; 

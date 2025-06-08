@@ -108,8 +108,6 @@ public:
 
 private:
 	double x, y, z; ///< Coordenadas x, y, z
-
-
 };
 
 
