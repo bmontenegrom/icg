@@ -46,6 +46,12 @@ public:
 	 */
 	bool hit(const Ray& ray, Interval ray_t, HitRecord& rec) const override;
 
+	/**
+	 * @brief Establece el material para todas las entidades en la lista
+	 * @param material Puntero compartido al material
+	 */
+	void setMaterial(std::shared_ptr<Material> material) override;
+
 private:
 	std::vector<std::shared_ptr<Entity>> entities; ///< Lista de entidades
 };

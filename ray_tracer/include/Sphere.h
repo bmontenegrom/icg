@@ -13,6 +13,10 @@
 
 #include "Entity.h"
 #include "Vec3.h"
+#include <memory>
+
+// Forward declaration
+class Material;
 
 class Sphere : public Entity {
 public:
@@ -36,7 +40,15 @@ public:
 	 * @return true si hay intersección, false en caso contrario
 	 */
 	bool hit(const Ray& ray, Interval ray_t, HitRecord& rec) const override;
+	
+	/**
+	 * @brief Establece el material de la esfera
+	 * @param material Puntero compartido al material
+	 */
+	void setMaterial(std::shared_ptr<Material> material) override;
+	
 private:
 	Vec3 center;  ///< Centro de la esfera
 	double radius; ///< Radio de la esfera
+	std::shared_ptr<Material> material_ptr; ///< Material de la esfera
 };

@@ -37,6 +37,29 @@ public:
     Vec3 reflect(const Vec3& incident, const Vec3& normal) const;
 
     /**
+     * @brief Calcula el vector de refracción usando la ley de Snell
+     * 
+     * No es virtual porque la refracción sigue la ley de Snell que es igual
+     * para todos los materiales. Los materiales específicos pueden variar
+     * cómo usan esta refracción pero el cálculo del vector refractado es
+     * siempre el mismo.
+     * 
+     * @param incident Vector incidente (debe estar normalizado)
+     * @param normal Vector normal a la superficie (debe estar normalizado)
+     * @param ref_idx Índice de refracción del material
+     * @return Vector de refracción normalizado
+     */
+    Vec3 refract(const Vec3& incident, const Vec3& normal, double ref_idx) const;
+
+    /**
+     * @brief Calcula la reflectancia de Fresnel usando la aproximación de Schlick
+     * @param cosine Coseno del ángulo entre el vector incidente y la normal
+     * @param ref_idx Índice de refracción del material
+     * @return Coeficiente de reflectancia de Fresnel
+     */
+    double schlickApproximation(double cosine, double ref_idx) const;
+
+    /**
      * @brief Destructor virtual por defecto
      */
     virtual ~Material() = default;
@@ -50,10 +73,11 @@ public:
      * 
      * @param incident_ray Rayo incidente que golpea la superficie
      * @param hit_record Información de la intersección
+     * @param scene Escena con objetos y luces
      * @param depth Profundidad actual de recursión
      * @return Color resultante de la interacción
      */
-    virtual Color shade(const Ray& incident_ray, const HitRecord& hit_record, int depth) const = 0;
+    virtual Color shade(const Ray& incident_ray, const HitRecord& hit_record, const class Scene& scene, int depth) const = 0;
 
     /**
      * @brief Obtiene el coeficiente de reflexión del material

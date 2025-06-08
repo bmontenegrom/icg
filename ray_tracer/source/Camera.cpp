@@ -2,8 +2,17 @@
  * @file Camera.cpp
  * @brief Implementación de la clase Camera para el sistema de ray tracing
  * 
- * Esta clase representa una cámara en el espacio 3D y proporciona métodos para
- * renderizar la escena utilizando el algoritmo de ray tracing.
+ * Este archivo implementa la cámara virtual que:
+ * - Define el viewport y la resolución de la imagen
+ * - Genera rayos primarios para cada píxel
+ * - Maneja el muestreo antialiasing
+ * - Proporciona funcionalidad de renderizado
+ * 
+ * La cámara se encarga de:
+ * - Configurar el viewport y los parámetros de renderizado
+ * - Generar rayos para cada píxel con antialiasing
+ * - Renderizar la escena y guardar la imagen resultante
+ * - Manejar la transformación de coordenadas de viewport a mundo
  * 
  * @author Benjamin Montenegro
  * @date 07/06/2025
@@ -19,9 +28,9 @@
 
 /**
  * @brief Constructor que inicializa la cámara con un aspect ratio, ancho de imagen y muestras por píxel
- * @param aspect_ratio Relación de aspecto de la imagen
+ * @param aspect_ratio Relación de aspecto de la imagen (ancho/alto)
  * @param image_width Ancho de la imagen en píxeles
- * @param samples_per_pixel Número de muestras por píxel
+ * @param samples_per_pixel Número de muestras por píxel para antialiasing
  */
 Camera::Camera(double aspect_ratio, int image_width, int samples_per_pixel)
 	: aspect_ratio(aspect_ratio), image_width(image_width), samples_per_pixel(samples_per_pixel) {
@@ -30,6 +39,13 @@ Camera::Camera(double aspect_ratio, int image_width, int samples_per_pixel)
 
 /**
  * @brief Inicializa la cámara con los parámetros necesarios para el renderizado
+ * 
+ * Configura:
+ * - Dimensiones de la imagen
+ * - Escala de muestreo para antialiasing
+ * - Geometría del viewport
+ * - Vectores delta para el movimiento entre píxeles
+ * - Posición inicial del primer píxel
  */
 void Camera::initialize() {
 	image_height = static_cast<int>(image_width / aspect_ratio);
@@ -57,7 +73,13 @@ void Camera::initialize() {
 
 /**
  * @brief Renderiza la escena utilizando el algoritmo de ray tracing
- * @param world Entidad que representa la escena
+ * 
+ * Para cada píxel:
+ * - Genera múltiples rayos con antialiasing
+ * - Calcula el color promedio de las muestras
+ * - Almacena el resultado en un archivo PNG
+ * 
+ * @param world Entidad que representa la escena a renderizar
  */
 void Camera::render(const Entity& world) const {
 	FreeImage_Initialise();
@@ -100,7 +122,11 @@ void Camera::render(const Entity& world) const {
 
 /**
  * @brief Genera un nombre de archivo con timestamp
- * @return Nombre de archivo con timestamp
+ * 
+ * El formato del timestamp es: YYYY-MM-DD_HH-MM-SS
+ * El archivo se guarda en el directorio 'images/'
+ * 
+ * @return String con el nombre del archivo incluyendo la ruta y extensión .png
  */
 std::string Camera::getTimestampedFilename() const {
 	std::time_t now = std::time(nullptr);
@@ -122,9 +148,15 @@ std::string Camera::getTimestampedFilename() const {
 
 /**
  * @brief Calcula el color de un rayo en la escena
+ * 
+ * Si el rayo golpea un objeto:
+ * - Calcula el color basado en la normal del punto de impacto
+ * Si no golpea nada:
+ * - Genera un gradiente de cielo basado en la dirección del rayo
+ * 
  * @param r El rayo a calcular
  * @param world Entidad que representa la escena
- * @return Color resultante
+ * @return Color resultante del cálculo
  */
 Color Camera::ray_color(const Ray& r, const Entity& world) const {
 	HitRecord rec;
@@ -137,10 +169,14 @@ Color Camera::ray_color(const Ray& r, const Entity& world) const {
 }
 
 /**
- * @brief Obtiene un rayo para un píxel específico
- * @param i Coordenada x del píxel
- * @param j Coordenada y del píxel
- * @return Rayo generado
+ * @brief Obtiene un rayo para un píxel específico con antialiasing
+ * 
+ * Genera un rayo desde el origen de la cámara hasta un punto aleatorio
+ * dentro del píxel especificado para crear el efecto de antialiasing
+ * 
+ * @param i Coordenada x del píxel en la imagen
+ * @param j Coordenada y del píxel en la imagen
+ * @return Rayo generado con origen en la cámara y dirección hacia el píxel
  */
 Ray Camera::getRay(int i, int j) const {
 	Vec3 offset = this->sample_square();
@@ -154,9 +190,37 @@ Ray Camera::getRay(int i, int j) const {
 }
 
 /**
- * @brief Muestra un cuadrado para el muestreo
- * @return Vector de muestreo
+ * @brief Genera un punto de muestreo aleatorio dentro de un cuadrado unitario
+ * 
+ * Utilizado para antialiasing, genera un offset aleatorio dentro del píxel
+ * para distribuir las muestras y suavizar los bordes
+ * 
+ * @return Vector con coordenadas aleatorias en el rango [-0.5, 0.5] para x e y, y 0 para z
  */
 Vec3 Camera::sample_square() const{
 	return Vec3(random_double() - 0.5, random_double() - 0.5, 0.0);
+}
+
+/**
+ * @brief Obtiene el ancho de la imagen en píxeles
+ * @return Ancho de la imagen
+ */
+int Camera::getImageWidth() const {
+	return image_width;
+}
+
+/**
+ * @brief Obtiene el alto de la imagen en píxeles
+ * @return Alto de la imagen
+ */
+int Camera::getImageHeight() const {
+	return image_height;
+}
+
+/**
+ * @brief Obtiene el número de muestras por píxel para antialiasing
+ * @return Número de muestras por píxel
+ */
+int Camera::getSamplesPerPixel() const {
+	return samples_per_pixel;
 }

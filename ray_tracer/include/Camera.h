@@ -36,7 +36,25 @@ public:
 	 * @param j Coordenada y del píxel
 	 * @return Rayo generado
 	 */
-	Ray getRay(int i, int j) const; 
+	Ray getRay(int i, int j) const;
+	
+	/**
+	 * @brief Obtiene el ancho de la imagen
+	 * @return Ancho de la imagen en píxeles
+	 */
+	int getImageWidth() const;
+	
+	/**
+	 * @brief Obtiene la altura de la imagen
+	 * @return Altura de la imagen en píxeles
+	 */
+	int getImageHeight() const;
+	
+	/**
+	 * @brief Obtiene el número de muestras por píxel
+	 * @return Número de muestras por píxel
+	 */
+	int getSamplesPerPixel() const; 
 
 private:
 	int image_height; ///< Altura de la imagen en píxeles
