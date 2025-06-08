@@ -36,8 +36,14 @@
 #include "Sphere.h"
 #include "EntityList.h"
 
+// Materiales
+#include "LambertianMaterial.h"
 
-// Ray tracer de Whitted
+// Luces
+#include "PointLight.h"
+
+// Escena y Ray tracer de Whitted
+#include "Scene.h"
 #include "WhittedTracer.h"
 
 /**
@@ -50,18 +56,44 @@
  * 
  * @return Puntero a la lista de entidades que componen la escena
  */
-std::shared_ptr<EntityList> createScene() {
+std::shared_ptr<Scene> createScene() {
     auto world = std::make_shared<EntityList>();
     
     // === CONSTRUCCIÓN DE LA ESCENA BÁSICA ===
     
+    // Crear materiales
+    auto ground_material = std::make_shared<LambertianMaterial>(
+        Color(0.1, 0.1, 0.1),  // Ambiente
+        Color(0.5, 0.5, 0.5),  // Difuso
+        Color(0.1, 0.1, 0.1),  // Especular
+        10.0                   // Brillo
+    );
+    
+    auto sphere_material = std::make_shared<LambertianMaterial>(
+        Color(0.1, 0.0, 0.0),  // Ambiente
+        Color(0.7, 0.3, 0.3),  // Difuso
+        Color(0.5, 0.5, 0.5),  // Especular
+        32.0                   // Brillo
+    );
+    
     // Suelo (esfera grande que actúa como plano)
-    world->addEntity(std::make_shared<Sphere>(Vec3(0, -100.5, -1), 100));
+    auto ground = std::make_shared<Sphere>(Vec3(0, -100.5, -1), 100);
+    ground->setMaterial(ground_material);
+    world->addEntity(ground);
     
     // Esfera central
-    world->addEntity(std::make_shared<Sphere>(Vec3(0, 0, -1), 0.5));
+    auto sphere = std::make_shared<Sphere>(Vec3(0, 0, -1), 0.5);
+    sphere->setMaterial(sphere_material);
+    world->addEntity(sphere);
     
-    return world;
+    // Crear escena
+    auto scene = std::make_shared<Scene>(world);
+    
+    // Agregar luces
+    scene->addLight(std::make_shared<PointLight>(Vec3(-2, 2, 1), Color(0.9, 0.9, 0.9)));
+    scene->addLight(std::make_shared<PointLight>(Vec3(2, 2, 1), Color(0.6, 0.6, 0.8)));
+    
+    return scene;
 }
 
 
@@ -88,18 +120,81 @@ std::unique_ptr<Camera> createCamera() {
 }
 
 /**
- * @brief Renderiza la imagen principal usando el ray tracer básico
+ * @brief Renderiza la imagen principal usando el WhittedTracer
  * 
- * Utiliza la cámara para renderizar la escena con el sistema básico de ray tracing.
- * Esta función se puede extender para usar el WhittedTracer una vez que esté
- * completamente integrado con el sistema.
+ * Utiliza el WhittedTracer para renderizar la escena con iluminación avanzada,
+ * reflexiones y refracciones.
  * 
- * @param world Escena a renderizar
+ * @param scene Escena a renderizar
  * @param camera Cámara para la renderización
  */
-void renderBasicScene(const EntityList& world, Camera& camera) {
-    // Renderizar imagen principal
-    camera.render(world);
+void renderWhittedScene(const Scene& scene, Camera& camera) {
+    // Crear el ray tracer de Whitted
+    WhittedTracer tracer(10, 0.001); // 10 niveles de recursión, bias de 0.001
+    
+    // Obtener dimensiones de la imagen
+    int width = camera.getImageWidth();
+    int height = camera.getImageHeight();
+    
+    // Renderizar usando el WhittedTracer
+    FreeImage_Initialise();
+    FIBITMAP* bitmap = FreeImage_Allocate(width, height, 24);
+    
+    if (!bitmap) {
+        std::cerr << "Error creando imagen.\n";
+        FreeImage_DeInitialise();
+        return;
+    }
+    
+    for (int j = 0; j < height; ++j) {
+        for (int i = 0; i < width; ++i) {
+            Color pixel_color(0, 0, 0);
+            
+            // Muestreo múltiple para antialiasing
+            int samples = camera.getSamplesPerPixel();
+            for (int s = 0; s < samples; ++s) {
+                Ray ray = camera.getRay(i, j);
+                pixel_color += tracer.trace(ray, scene);
+            }
+            
+            // Promedio de las muestras
+            pixel_color = pixel_color / static_cast<double>(samples);
+            
+            RGBQUAD color;
+            color.rgbRed = pixel_color.getRbyte();
+            color.rgbGreen = pixel_color.getGbyte();
+            color.rgbBlue = pixel_color.getBbyte();
+            
+            FreeImage_SetPixelColor(bitmap, i, height - 1 - j, &color);
+        }
+        
+        // Mostrar progreso
+        if (j % 50 == 0) {
+            std::cout << "Progreso: " << (100 * j / height) << "%\n";
+        }
+    }
+    
+    // Guardar imagen
+    std::time_t now = std::time(nullptr);
+    std::tm tm_info{};
+    if (localtime_s(&tm_info, &now) != 0) {
+        std::cerr << "Error al obtener la hora local.\n";
+        return;
+    }
+
+    std::ostringstream oss;
+    oss << "images/output_"
+        << std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S")
+        << ".png";
+
+    if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
+        std::cout << "Imagen guardada: " << oss.str() << std::endl;
+    } else {
+        std::cerr << "Error guardando imagen.\n";
+    }
+    
+    FreeImage_Unload(bitmap);
+    FreeImage_DeInitialise();
 }
 
 /**
@@ -121,13 +216,13 @@ int main() {
         FreeImage_Initialise();
         
         // Crear escena con geometría variada
-        auto world = createScene();
+        auto scene = createScene();
         
         // Configurar cámara
         auto camera = createCamera();
         
-        // === RENDERIZACIÓN BÁSICA ===
-        renderBasicScene(*world, *camera);
+        // === RENDERIZACIÓN CON WHITTED RAY TRACING ===
+        renderWhittedScene(*scene, *camera);
         
         // Finalizar FreeImage
         FreeImage_DeInitialise();
