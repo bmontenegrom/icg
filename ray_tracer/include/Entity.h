@@ -2,6 +2,10 @@
 #include "Ray.h"  
 #include "HitRecord.h"
 #include "Interval.h"
+#include <memory>
+
+// Forward declaration
+class Material;
 
 /**
  * @brief Clase base abstracta para todas las entidades geométricas en el ray tracer
@@ -32,5 +36,11 @@ public:
      * @param rec Registro donde se almacena información de la intersección
      * @return true si hay intersección, false en caso contrario
      */
-    virtual bool hit(const Ray& ray, Interval ray_t, HitRecord& rec) const = 0;  
+    virtual bool hit(const Ray& ray, Interval ray_t, HitRecord& rec) const = 0;
+    
+    /**
+     * @brief Establece el material de la entidad
+     * @param material Puntero compartido al material
+     */
+    virtual void setMaterial(std::shared_ptr<Material> material) = 0;
 };
