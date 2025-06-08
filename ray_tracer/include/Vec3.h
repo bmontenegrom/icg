@@ -124,3 +124,6 @@ double dotProduct(const Vec3& a, const Vec3& b); ///< Producto punto
 Vec3 crossProduct(const Vec3& a, const Vec3& b); ///< Producto cruz
 
 Vec3 unitVector(const Vec3& v); ///< Vector unitario
+
+Vec3 reflect(const Vec3& v, const Vec3& n); ///< Reflexión de un vector
+Vec3 refract(const Vec3& uv, const Vec3& n, double etai_over_etat); ///< Refracción de un vector
