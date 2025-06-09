@@ -26,14 +26,21 @@ class Material;
  * 
  * @author Benjamin Montenegro
  * @date 07/06/2025
+ * @version 1.0
+ * @author Valentin Dutra
+ * @date 08/06/2025
+ * @version 1.1
  */
 class HitRecord {
 public:
+	Vec3 p;                                  ///< Punto de intersección en el espacio 3D (alias point)
 	Vec3 point;                              ///< Punto de intersección en el espacio 3D
 	Vec3 normal;                             ///< Vector normal unitario en el punto de intersección
 	double t;                                ///< Valor del parámetro t en la ecuación del rayo
+	double u, v;                             ///< Coordenadas de textura (u,v)
 	bool frontFace;                          ///< true si el rayo golpea la cara frontal, false si es la trasera
 	std::shared_ptr<Material> material_ptr;  ///< Puntero al material del objeto intersectado
+	std::shared_ptr<Material> mat;           ///< Alias para material_ptr
 	
 	/**
 	 * @brief Constructor parametrizado
@@ -46,7 +53,7 @@ public:
 	/**
 	 * @brief Constructor por defecto
 	 */
-	HitRecord() : point(Vec3()), normal(Vec3()), t(0), frontFace(true) {}
+	HitRecord() : p(Vec3()), point(Vec3()), normal(Vec3()), t(0), u(0), v(0), frontFace(true) {}
 
 	/**
 	 * @brief Determina si la intersección es en la cara frontal o trasera
