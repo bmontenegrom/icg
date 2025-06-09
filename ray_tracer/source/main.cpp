@@ -53,6 +53,8 @@
 #include "Scene.h"
 #include "WhittedTracer.h"
 
+#include "MaterialGlass.h"
+
 /**
  * @brief Crea y configura la escena de demostración
  * 
@@ -114,7 +116,7 @@ std::shared_ptr<Scene> createScene() {
  * 
  * @return Puntero a la escena Cornell Box
  */
-std::shared_ptr<Scene> createCornellBoxScene() {
+std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
     auto world = std::make_shared<EntityList>();
 
     // === MATERIALES DE LA CORNELL BOX ===
@@ -209,8 +211,18 @@ std::shared_ptr<Scene> createCornellBoxScene() {
         Color(3.0, 3.0, 3.0)  // Luz más intensa
     ));
 
+    // === ESFERA DE VIDRIO ===
+    auto glass_color = Color(0.8, 0.9, 1.0); // Leve tinte azul
+    double glass_ior = 1.5;
+    auto glass_material = std::make_shared<MaterialGlass>(glass_color, glass_ior, tracer);
+
+    auto glass_sphere = std::make_shared<Sphere>(Vec3(1.0, 0.5, 1.0), 0.3);
+    glass_sphere->setMaterial(glass_material);
+    world->addEntity(glass_sphere);
+
     return scene;
 }
+
 
 /**
  * @brief Configura la cámara específicamente para la Cornell Box
@@ -328,8 +340,10 @@ int main() {
         // Inicializar FreeImage para manejo de imágenes
         FreeImage_Initialise();
         
-        // Crear escena Cornell Box
-        auto scene = createCornellBoxScene();
+        WhittedTracer tracer(10, 0.001);
+        auto scene = createCornellBoxScene(tracer);
+   
+
         
         // Configurar cámara para Cornell Box
         auto camera = createCornellBoxCamera();
