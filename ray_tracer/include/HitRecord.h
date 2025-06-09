@@ -40,7 +40,7 @@ public:
 	double u, v;                             ///< Coordenadas de textura (u,v)
 	bool frontFace;                          ///< true si el rayo golpea la cara frontal, false si es la trasera
 	std::shared_ptr<Material> material_ptr;  ///< Puntero al material del objeto intersectado
-	std::shared_ptr<Material> mat;           ///< Alias para material_ptr
+	//std::shared_ptr<Material> mat;           ///< Alias para material_ptr
 	
 	/**
 	 * @brief Constructor parametrizado

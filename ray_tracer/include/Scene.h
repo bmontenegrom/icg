@@ -48,4 +48,7 @@ public:
      * @return true si hay intersección
      */
     bool hit(const Ray& ray, const Interval& ray_t, HitRecord& rec) const;
+
+
+    Color transmissionAlong(const Ray& shadow_ray, double distance) const;
 }; 

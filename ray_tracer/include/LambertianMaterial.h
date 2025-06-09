@@ -64,4 +64,5 @@ public:
      * @return Color resultante
      */
     Color shade(const Ray& r_in, const HitRecord& rec, const class Scene& scene, int depth) const override;
+    //double transparency() const;
 }; 

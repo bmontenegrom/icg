@@ -108,6 +108,23 @@ Color& Color::operator+=(const Color& other) {
 	return *this;
 }
 
+Color& Color::operator*=(double t)
+{
+	return *this = Color(r * t, g * t, b * t);
+}
+
+Color& Color::operator*=(const Color& other)
+{
+	r *= other.r;
+	g *= other.g;
+	b *= other.b;
+	return *this;
+}
+
+bool Color::nearZero() const {
+	return (r < 1e-8 && g < 1e-8 && b < 1e-8);
+}
+
 /**
  * @brief Operador de salida para imprimir el color
  * @param os Flujo de salida

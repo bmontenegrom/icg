@@ -14,7 +14,11 @@
 
 #include "Scene.h"
 #include "Interval.h"
+#include "EntityList.h"
+#include "Material.h"
+#include "MaterialGlass.h"
 #include <algorithm>
+#include <LambertianMaterial.h>
 
 /**
  * @brief Constructor de la escena
@@ -67,4 +71,41 @@ bool Scene::is_in_shadow(const Ray& shadow_ray, const Vec3& light_position) cons
  */
 bool Scene::hit(const Ray& ray, const Interval& ray_t, HitRecord& rec) const {
     return world->hit(ray, ray_t, rec);
-} 
+}
+
+Color Scene::transmissionAlong(const Ray& shadow_ray, double distance) const
+{
+    Color transmission(1.0, 1.0, 1.0);
+    HitRecord rec;
+    std::shared_ptr<EntityList> entities = std::dynamic_pointer_cast<EntityList>(world);
+ 
+ 
+    
+    
+    if (entities) {
+        
+        for (const auto& entity : entities->getEntities()) {
+			
+            if (entity->hit(shadow_ray, Interval(0.001, distance + 0.001), rec)) {
+			
+                if (rec.material_ptr->transparency() == 0.0) {
+					
+                    return Color(0.0, 0.0, 0.0);
+                }
+
+                //es un vidrio!!
+				auto glass = std::dynamic_pointer_cast<MaterialGlass >(rec.material_ptr);
+                if (glass) {
+					
+					transmission *= glass->albedo * glass->transparency();
+                }
+            }
+
+        }
+   
+    }
+
+    return transmission;
+}
+
+

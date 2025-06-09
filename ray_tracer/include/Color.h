@@ -96,6 +96,10 @@ public:
 	 */
 	Color& operator*=(double t);
 
+	Color& operator *=(const Color& other);
+
+	bool nearZero() const;
+
 private:
 	double r, g, b; ///< Componentes RGB del color
 };
@@ -155,3 +159,5 @@ Color operator*(const Color& a, const Color& b);
  * @return Color resultante
  */
 Color operator/(const Color& a, double t);
+
+

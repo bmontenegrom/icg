@@ -100,7 +100,7 @@ std::shared_ptr<Scene> createScene() {
     
     // Agregar luces
     scene->addLight(std::make_shared<PointLight>(Vec3(-2, 2, 1), Color(0.9, 0.9, 0.9)));
-    scene->addLight(std::make_shared<PointLight>(Vec3(2, 2, 1), Color(0.6, 0.6, 0.8)));
+    //scene->addLight(std::make_shared<PointLight>(Vec3(2, 2, 1), Color(0.6, 0.6, 0.8)));
     
     return scene;
 }
@@ -208,7 +208,7 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
     // Luz principal en el techo
     scene->addLight(std::make_shared<PointLight>(
         Vec3(1.0, 1.8, 1.0),
-        Color(3.0, 3.0, 3.0)  // Luz más intensa
+        Color(1.0, 1.0, 1.0)  // Luz más intensa
     ));
 
     // === ESFERA DE VIDRIO ===

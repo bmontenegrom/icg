@@ -52,6 +52,8 @@ public:
 	 */
 	void setMaterial(std::shared_ptr<Material> material) override;
 
+	std::vector<std::shared_ptr<Entity>> getEntities() const;
+
 private:
 	std::vector<std::shared_ptr<Entity>> entities; ///< Lista de entidades
 };

@@ -1,7 +1,5 @@
-﻿  Camera.cpp
-  EntityList.cpp
-  Interval.cpp
+﻿  LambertianMaterial.cpp
   main.cpp
-  Sphere.cpp
+  Scene.cpp
   Generando código...
   ray_tracer.vcxproj -> C:\repos\icg\ray_tracer\x64\Debug\ray_tracer.exe

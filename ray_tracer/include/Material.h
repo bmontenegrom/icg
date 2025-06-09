@@ -90,4 +90,6 @@ public:
      * @return Valor entre 0.0 (opaco) y 1.0 (totalmente transparente)
      */
     virtual double transparency() const { return 0.0; }
+
+
 }; 

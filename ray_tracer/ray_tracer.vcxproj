@@ -144,9 +144,17 @@
     <ClInclude Include="include\EntityList.h" />
     <ClInclude Include="include\HitRecord.h" />
     <ClInclude Include="include\Interval.h" />
+    <ClInclude Include="include\LambertianMaterial.h" />
+    <ClInclude Include="include\Light.h" />
+    <ClInclude Include="include\Material.h" />
+    <ClInclude Include="include\MaterialGlass.h" />
+    <ClInclude Include="include\PointLight.h" />
+    <ClInclude Include="include\Quad.h" />
     <ClInclude Include="include\Ray.h" />
+    <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\Sphere.h" />
     <ClInclude Include="include\Vec3.h" />
+    <ClInclude Include="include\WhittedTracer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Camera.cpp" />
@@ -155,10 +163,17 @@
     <ClCompile Include="source\EntityList.cpp" />
     <ClCompile Include="source\HitRecord.cpp" />
     <ClCompile Include="source\Interval.cpp" />
+    <ClCompile Include="source\LambertianMaterial.cpp" />
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\Material.cpp" />
+    <ClCompile Include="source\MaterialGlass.cpp" />
+    <ClCompile Include="source\PointLight.cpp" />
+    <ClCompile Include="source\Quad.cpp" />
     <ClCompile Include="source\Ray.cpp" />
+    <ClCompile Include="source\Scene.cpp" />
     <ClCompile Include="source\Sphere.cpp" />
     <ClCompile Include="source\Vec3.cpp" />
+    <ClCompile Include="source\WhittedTracer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

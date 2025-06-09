@@ -82,11 +82,11 @@ bool Quad::hit(const Ray& ray, Interval ray_t, HitRecord& rec) const {
     
     // Llenar el registro de intersección
     rec.t = t;
-    rec.p = hitPoint;
+    //rec.point = hitPoint;
     rec.point = hitPoint;
     rec.normal = normal;
     rec.frontFace = dotProduct(direction, normal) < 0;
-    rec.mat = material_ptr;
+    //rec.mat = material_ptr;
     rec.material_ptr = material_ptr;
     
     return true;

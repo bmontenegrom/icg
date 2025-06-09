@@ -4,7 +4,14 @@ C:\repos\icg\ray_tracer\source\Entity.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64
 C:\repos\icg\ray_tracer\source\EntityList.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\EntityList.obj
 C:\repos\icg\ray_tracer\source\HitRecord.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\HitRecord.obj
 C:\repos\icg\ray_tracer\source\Interval.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Interval.obj
+C:\repos\icg\ray_tracer\source\LambertianMaterial.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\LambertianMaterial.obj
 C:\repos\icg\ray_tracer\source\main.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\main.obj
+C:\repos\icg\ray_tracer\source\Material.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Material.obj
+C:\repos\icg\ray_tracer\source\MaterialGlass.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\MaterialGlass.obj
+C:\repos\icg\ray_tracer\source\PointLight.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\PointLight.obj
+C:\repos\icg\ray_tracer\source\Quad.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Quad.obj
 C:\repos\icg\ray_tracer\source\Ray.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Ray.obj
+C:\repos\icg\ray_tracer\source\Scene.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Scene.obj
 C:\repos\icg\ray_tracer\source\Sphere.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Sphere.obj
 C:\repos\icg\ray_tracer\source\Vec3.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Vec3.obj
+C:\repos\icg\ray_tracer\source\WhittedTracer.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\WhittedTracer.obj

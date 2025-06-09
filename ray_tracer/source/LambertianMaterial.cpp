@@ -57,10 +57,18 @@ Color LambertianMaterial::shade(const Ray& r_in, const HitRecord& rec, const Sce
 
     for (const auto& light : scene.lights) {
         Vec3 to_light = unitVector(light->getDirection(rec.point));
-
+        /*
         // Verificar sombras
         if (light->isInShadow(rec.point, *scene.world))
             continue;
+        */
+		Ray shadow_ray(rec.point + rec.normal * 0.001, to_light);
+        double distance_to_light = light->getDistance(rec.point);
+		Color transmission = scene.transmissionAlong(shadow_ray, distance_to_light);
+		
+		if (transmission.nearZero()) {
+			continue; // Si está en sombra, no contribuye a la iluminación
+		}
 
         // Componente difusa Lambertiana
         // Ecuación: k_d * (N·L) * intensidad_luz con normalización por π

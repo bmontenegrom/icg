@@ -83,3 +83,8 @@ void EntityList::setMaterial(std::shared_ptr<Material> material) {
 		entity->setMaterial(material);
 	}
 }
+
+std::vector<std::shared_ptr<Entity>> EntityList::getEntities() const
+{
+	return entities;
+}
