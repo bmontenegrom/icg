@@ -16,6 +16,10 @@
  * 
  * @author Valentin Dutra
  * @date 07/06/2025
+ * @version 1.0
+ * @author Valentin Dutra
+ * @date 08/06/2025
+ * @version 1.1
  */
 
 #include <FreeImage.h>
@@ -38,6 +42,9 @@
 
 // Materiales
 #include "LambertianMaterial.h"
+
+// Geometría adicional
+#include "Quad.h"
 
 // Luces
 #include "PointLight.h"
@@ -96,26 +103,132 @@ std::shared_ptr<Scene> createScene() {
     return scene;
 }
 
+/**
+ * @brief Crea la famosa escena Cornell Box
+ * 
+ * Implementa la clásica Cornell Box con:
+ * - Paredes blancas, roja (izquierda) y verde (derecha)
+ * - Piso y techo blancos
+ * - Luz puntual en el centro superior
+ * - Dos esferas dentro de la escena como objetos de prueba
+ * 
+ * @return Puntero a la escena Cornell Box
+ */
+std::shared_ptr<Scene> createCornellBoxScene() {
+    auto world = std::make_shared<EntityList>();
+
+    // === MATERIALES DE LA CORNELL BOX ===
+    auto red_material = std::make_shared<LambertianMaterial>(
+        Color(0.1, 0.0, 0.0),
+        Color(0.65, 0.05, 0.05),
+        Color(0.1, 0.1, 0.1),
+        10.0
+    );
+    auto green_material = std::make_shared<LambertianMaterial>(
+        Color(0.0, 0.1, 0.0),
+        Color(0.12, 0.45, 0.15),
+        Color(0.1, 0.1, 0.1),
+        10.0
+    );
+    auto white_material = std::make_shared<LambertianMaterial>(
+        Color(0.1, 0.1, 0.1),
+        Color(0.73, 0.73, 0.73),
+        Color(0.1, 0.1, 0.1),
+        10.0
+    );
+
+    // === CONSTRUCCIÓN DE LAS PAREDES (Cornell Box clásica) ===
+    
+    // Pared izquierda (roja) - X = 0
+    auto left_wall = std::make_shared<Quad>(
+        Vec3(0, 0, 0), Vec3(0, 2, 2), 0, 0.0  // min, max, eje X fijo, valor X=0
+    );
+    left_wall->setMaterial(red_material);
+    world->addEntity(left_wall);
+
+    // Pared derecha (verde) - X = 2
+    auto right_wall = std::make_shared<Quad>(
+        Vec3(2, 0, 0), Vec3(2, 2, 2), 0, 2.0  // min, max, eje X fijo, valor X=2
+    );
+    right_wall->setMaterial(green_material);
+    world->addEntity(right_wall);
+
+    // Pared trasera (blanca) - Z = 2
+    auto back_wall = std::make_shared<Quad>(
+        Vec3(0, 0, 2), Vec3(2, 2, 2), 2, 2.0  // min, max, eje Z fijo, valor Z=2
+    );
+    back_wall->setMaterial(white_material);
+    world->addEntity(back_wall);
+
+    // Piso (blanco) - Y = 0
+    auto floor_quad = std::make_shared<Quad>(
+        Vec3(0, 0, 0), Vec3(2, 0, 2), 1, 0.0  // min, max, eje Y fijo, valor Y=0
+    );
+    floor_quad->setMaterial(white_material);
+    world->addEntity(floor_quad);
+
+    // Techo (blanco) - Y = 2
+    auto ceiling = std::make_shared<Quad>(
+        Vec3(0, 2, 0), Vec3(2, 2, 2), 1, 2.0  // min, max, eje Y fijo, valor Y=2
+    );
+    ceiling->setMaterial(white_material);
+    world->addEntity(ceiling);
+
+    // === OBJETOS DENTRO DE LA CAJA ===
+    
+    // Esfera central
+    auto sphere_material = std::make_shared<LambertianMaterial>(
+        Color(0.1, 0.1, 0.1),
+        Color(0.7, 0.3, 0.3),
+        Color(0.5, 0.5, 0.5),
+        32.0
+    );
+    auto sphere = std::make_shared<Sphere>(Vec3(0.7, 0.5, 0.7), 0.3);
+    sphere->setMaterial(sphere_material);
+    world->addEntity(sphere);
+
+    // Otra esfera
+    auto sphere2_material = std::make_shared<LambertianMaterial>(
+        Color(0.0, 0.0, 0.1),
+        Color(0.3, 0.3, 0.7),
+        Color(0.5, 0.5, 0.5),
+        32.0
+    );
+    auto sphere2 = std::make_shared<Sphere>(Vec3(1.3, 0.3, 1.3), 0.25);
+    sphere2->setMaterial(sphere2_material);
+    world->addEntity(sphere2);
+
+    // Crear escena
+    auto scene = std::make_shared<Scene>(world);
+
+    // === LUCES ===
+    
+    // Luz principal en el techo
+    scene->addLight(std::make_shared<PointLight>(
+        Vec3(1.0, 1.8, 1.0),
+        Color(3.0, 3.0, 3.0)  // Luz más intensa
+    ));
+
+    return scene;
+}
 
 /**
- * @brief Configura la cámara para la renderización
+ * @brief Configura la cámara específicamente para la Cornell Box
  * 
- * Establece los parámetros de la cámara optimizados para mostrar
- * los efectos del ray tracing de Whitted:
- * - Resolución apropiada para calidad vs. tiempo de renderización
- * - Muestreo antialiasing para suavizar bordes
- * - Ratio de aspecto estándar
+ * Establece los parámetros de la cámara optimizados para la Cornell Box:
+ * - Posición de la cámara para ver la escena completa
+ * - Ratio de aspecto cuadrado (1:1) típico de la Cornell Box
+ * - Resolución y muestreo balanceados
  * 
- * @return Puntero único a la cámara configurada
+ * @return Puntero único a la cámara configurada para Cornell Box
  */
-std::unique_ptr<Camera> createCamera() {
-    // Configuración de imagen
-    double aspect_ratio = 16.0 / 9.0;
-    int image_width = 800;         // Resolución moderada para pruebas rápidas
-    int samples_per_pixel = 10;    // Muestreo moderado para balance calidad/velocidad
-    
+std::unique_ptr<Camera> createCornellBoxCamera() {
+    // Configuración de imagen para Cornell Box
+    double aspect_ratio = 1.0;     // Relación de aspecto cuadrada
+    int image_width = 800;         // Resolución
+    int samples_per_pixel = 10;    // Muestras por pixel
+
     auto camera = std::make_unique<Camera>(aspect_ratio, image_width, samples_per_pixel);
-    
     return camera;
 }
 
@@ -215,11 +328,11 @@ int main() {
         // Inicializar FreeImage para manejo de imágenes
         FreeImage_Initialise();
         
-        // Crear escena con geometría variada
-        auto scene = createScene();
+        // Crear escena Cornell Box
+        auto scene = createCornellBoxScene();
         
-        // Configurar cámara
-        auto camera = createCamera();
+        // Configurar cámara para Cornell Box
+        auto camera = createCornellBoxCamera();
         
         // === RENDERIZACIÓN CON WHITTED RAY TRACING ===
         renderWhittedScene(*scene, *camera);

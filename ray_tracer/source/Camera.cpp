@@ -49,25 +49,26 @@ Camera::Camera(double aspect_ratio, int image_width, int samples_per_pixel)
  */
 void Camera::initialize() {
 	image_height = static_cast<int>(image_width / aspect_ratio);
-	image_height = image_height < 1 ? 1 : image_height; // Asegurarse de que la altura sea al menos 1
+	image_height = image_height < 1 ? 1 : image_height;
 	pixel_sample_scale = 1.0 / static_cast<double>(samples_per_pixel);
 
 	double focal_length = 1.0;
-	double viewport_height = 2.0;
-	double viewport_width = viewport_height * static_cast<double>(image_width) / image_height;
-	center = Vec3(0, 0, 0);
+	double viewport_height = 2.5;
+	double viewport_width = viewport_height * aspect_ratio;
 
+	// Cámara más cerca de la caja
+	center = Vec3(1.0, 1.0, -1.0);
 
-	// Calculate the vectors across the horizontal and down the vertical viewport edges.
+	// Dirección hacia el centro de la caja
+	Vec3 look_direction = unitVector(Vec3(1.0, 1.0, 1.0) - center);
+
 	Vec3 viewport_u = Vec3(viewport_width, 0, 0);
 	Vec3 viewport_v = Vec3(0, -viewport_height, 0);
 
-	//Calculate the horizontal and vertical delta vectors from pixel to pixel.
-	pixel_delta_u = viewport_u / static_cast<double>(image_width); //horizontal
-	pixel_delta_v = viewport_v / static_cast<double>(image_height);//vertical
+	pixel_delta_u = viewport_u / static_cast<double>(image_width);
+	pixel_delta_v = viewport_v / static_cast<double>(image_height);
 
-	// Calculate the position of the upper left pixel.
-	Vec3 viewport_upper_left = center - Vec3(0, 0, focal_length) - viewport_u / 2 - viewport_v / 2;
+	Vec3 viewport_upper_left = center + focal_length * look_direction - viewport_u / 2 - viewport_v / 2;
 	pixel00_loc = viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
 }
 

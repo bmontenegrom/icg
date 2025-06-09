@@ -7,6 +7,10 @@
  * 
  * @author Benjamin Montenegro
  * @date 07/06/2025
+ * @version 1.0
+ * @author Valentin Dutra
+ * @date 08/06/2025
+ * @version 1.1
  */
 
 #include "HitRecord.h"
@@ -17,7 +21,7 @@
  * @param n Vector normal en el punto de intersección
  * @param t_val Parámetro t del rayo en el punto de intersección
  */
-HitRecord::HitRecord(const Vec3& p, const Vec3& n, double t_val): point(p), normal(n), t(t_val), frontFace(true) {}
+HitRecord::HitRecord(const Vec3& p_val, const Vec3& n, double t_val): p(p_val), point(p_val), normal(n), t(t_val), u(0), v(0), frontFace(true) {}
 
 /**
  * @brief Configura la normal de la cara según la dirección del rayo
