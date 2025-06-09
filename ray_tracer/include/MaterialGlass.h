@@ -50,8 +50,8 @@ public:
      */
     Color shade(const Ray& incident_ray, const HitRecord& hit_record, const class Scene& scene, int depth) const override;
 
-    double reflectivity() const override { return 0.1; }     // Ajustable
-    double transparency() const override { return 0.9; }     // Mayormente transparente
+    double reflectivity() const override; // { return 0.1; }     // Ajustable
+    double transparency() const override; // { return 0.9; }     // Mayormente transparente
 private:
     const WhittedTracer& tracer;
 };
