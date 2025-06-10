@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\repos\\icg\\ray_tracer\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\source\\LambertianMaterial.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:source\\LambertianMaterial.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\source\\Scene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:source\\Scene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\source\\LambertianMaterial.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:source\\LambertianMaterial.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\source\\Quad.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:source\\Quad.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\include\\Scene.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -45,10 +49,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\include\\HitRecord.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:include\\HitRecord.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\source\\Quad.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:source\\Quad.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\source\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -130,7 +130,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -142,59 +142,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Scene.cpp",
-              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\Scene.cpp",
-              "RelativeDocumentMoniker": "source\\Scene.cpp",
-              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\Scene.cpp",
-              "RelativeToolTip": "source\\Scene.cpp",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAqwFgAAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-09T14:27:50.876Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Ray.h",
-              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\Ray.h",
-              "RelativeDocumentMoniker": "include\\Ray.h",
-              "ToolTip": "C:\\repos\\icg\\ray_tracer\\include\\Ray.h",
-              "RelativeToolTip": "include\\Ray.h",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T10:44:34.869Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "PointLight.cpp",
-              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\PointLight.cpp",
-              "RelativeDocumentMoniker": "source\\PointLight.cpp",
-              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\PointLight.cpp",
-              "RelativeToolTip": "source\\PointLight.cpp",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAqwC0AAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-09T14:06:28.846Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "HitRecord.cpp",
-              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\HitRecord.cpp",
-              "RelativeDocumentMoniker": "source\\HitRecord.cpp",
-              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\HitRecord.cpp",
-              "RelativeToolTip": "source\\HitRecord.cpp",
-              "ViewState": "AgIAAAkAAAAAAAAAAAASwBcAAABFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-04T11:16:34.174Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "EntityList.cpp",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\EntityList.cpp",
               "RelativeDocumentMoniker": "source\\EntityList.cpp",
@@ -202,25 +150,48 @@
               "RelativeToolTip": "source\\EntityList.cpp",
               "ViewState": "AgIAAEIAAAAAAAAAAAAqwFgAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-04T11:50:29.119Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T11:50:29.119Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 2,
               "Title": "Quad.cpp",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\Quad.cpp",
               "RelativeDocumentMoniker": "source\\Quad.cpp",
               "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\Quad.cpp",
               "RelativeToolTip": "source\\Quad.cpp",
-              "ViewState": "AgIAAEAAAAAAAAAAAAASwFQAAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAACsAAAAAAAAAAAASwDQAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-06-09T16:42:12.986Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
+              "Title": "PointLight.cpp",
+              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\PointLight.cpp",
+              "RelativeDocumentMoniker": "source\\PointLight.cpp",
+              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\PointLight.cpp",
+              "RelativeToolTip": "source\\PointLight.cpp",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAqwC0AAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-06-09T14:06:28.846Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Ray.h",
+              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\Ray.h",
+              "RelativeDocumentMoniker": "include\\Ray.h",
+              "ToolTip": "C:\\repos\\icg\\ray_tracer\\include\\Ray.h",
+              "RelativeToolTip": "include\\Ray.h",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-06-04T10:44:34.869Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "EntityList.h",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\EntityList.h",
               "RelativeDocumentMoniker": "include\\EntityList.h",
@@ -228,12 +199,11 @@
               "RelativeToolTip": "include\\EntityList.h",
               "ViewState": "AgIAACMAAAAAAAAAAAAkwDYAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T11:48:36.159Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T11:48:36.159Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Sphere.h",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\Sphere.h",
               "RelativeDocumentMoniker": "include\\Sphere.h",
@@ -241,12 +211,49 @@
               "RelativeToolTip": "include\\Sphere.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T11:17:22.414Z",
+              "WhenOpened": "2025-06-04T11:17:22.414Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LambertianMaterial.cpp",
+              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\LambertianMaterial.cpp",
+              "RelativeDocumentMoniker": "source\\LambertianMaterial.cpp",
+              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\LambertianMaterial.cpp",
+              "RelativeToolTip": "source\\LambertianMaterial.cpp",
+              "ViewState": "AgIAADQAAAAAAAAAAAAqwE8AAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-06-09T14:07:04.774Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
+              "Title": "HitRecord.cpp",
+              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\HitRecord.cpp",
+              "RelativeDocumentMoniker": "source\\HitRecord.cpp",
+              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\HitRecord.cpp",
+              "RelativeToolTip": "source\\HitRecord.cpp",
+              "ViewState": "AgIAAAkAAAAAAAAAAAASwBcAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-06-04T11:16:34.174Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Scene.cpp",
+              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\Scene.cpp",
+              "RelativeDocumentMoniker": "source\\Scene.cpp",
+              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\Scene.cpp",
+              "RelativeToolTip": "source\\Scene.cpp",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAqwGwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-06-09T14:27:50.876Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Scene.h",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\Scene.h",
               "RelativeDocumentMoniker": "include\\Scene.h",
@@ -254,21 +261,7 @@
               "RelativeToolTip": "include\\Scene.h",
               "ViewState": "AgIAABQAAAAAAAAAAAASwDQAAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-09T14:20:21.806Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "LambertianMaterial.cpp",
-              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\LambertianMaterial.cpp",
-              "RelativeDocumentMoniker": "source\\LambertianMaterial.cpp",
-              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\LambertianMaterial.cpp",
-              "RelativeToolTip": "source\\LambertianMaterial.cpp",
-              "ViewState": "AgIAACwAAAAAAAAAAAAiwEIAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-09T14:07:04.774Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T14:20:21.806Z"
             },
             {
               "$type": "Document",
@@ -280,12 +273,11 @@
               "RelativeToolTip": "source\\main.cpp",
               "ViewState": "AgIAAAYBAAAAAAAAAAASwBkBAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-04T13:50:41.89Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T13:50:41.89Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "MaterialGlass.cpp",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\MaterialGlass.cpp",
               "RelativeDocumentMoniker": "source\\MaterialGlass.cpp",
@@ -293,12 +285,11 @@
               "RelativeToolTip": "source\\MaterialGlass.cpp",
               "ViewState": "AgIAABkAAAAAAAAAAAASwC0AAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-09T14:09:01.552Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T14:09:01.552Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "HitRecord.h",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\HitRecord.h",
               "RelativeDocumentMoniker": "include\\HitRecord.h",
@@ -306,8 +297,7 @@
               "RelativeToolTip": "include\\HitRecord.h",
               "ViewState": "AgIAABoAAAAAAAAAAAASwCMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T11:14:18.328Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T11:14:18.328Z"
             },
             {
               "$type": "Document",
@@ -319,8 +309,7 @@
               "RelativeToolTip": "include\\Material.h",
               "ViewState": "AgIAAEIAAAAAAAAAAAAAAFsAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-09T16:13:53.179Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T16:13:53.179Z"
             },
             {
               "$type": "Document",
@@ -332,8 +321,7 @@
               "RelativeToolTip": "source\\WhittedTracer.cpp",
               "ViewState": "AgIAADkAAAAAAAAAAAAqwDIAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-09T17:00:49.285Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T17:00:49.285Z"
             },
             {
               "$type": "Document",
@@ -345,8 +333,7 @@
               "RelativeToolTip": "source\\Color.cpp",
               "ViewState": "AgIAAGcAAAAAAAAAAAAqwH4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-04T10:40:20.993Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T10:40:20.993Z"
             },
             {
               "$type": "Document",
@@ -358,8 +345,7 @@
               "RelativeToolTip": "include\\Color.h",
               "ViewState": "AgIAAEsAAAAAAAAAAAAAAGQAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T10:40:24.746Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T10:40:24.746Z"
             },
             {
               "$type": "Document",
@@ -371,8 +357,7 @@
               "RelativeToolTip": "include\\Vec3.h",
               "ViewState": "AgIAAGkAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T10:40:31.023Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T10:40:31.023Z"
             },
             {
               "$type": "Document",
@@ -384,8 +369,7 @@
               "RelativeToolTip": "include\\MaterialGlass.h",
               "ViewState": "AgIAABsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-09T14:41:40.295Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T14:41:40.295Z"
             },
             {
               "$type": "Document",
@@ -397,8 +381,7 @@
               "RelativeToolTip": "source\\Material.cpp",
               "ViewState": "AgIAACcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-09T14:08:25.549Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T14:08:25.549Z"
             },
             {
               "$type": "Document",
@@ -422,8 +405,7 @@
               "RelativeToolTip": "include\\WhittedTracer.h",
               "ViewState": "AgIAABUAAAAAAAAAAAAAACcAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-09T13:56:44.914Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T13:56:44.914Z"
             },
             {
               "$type": "Document",
@@ -447,8 +429,7 @@
               "RelativeToolTip": "include\\Interval.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T16:34:07.208Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T16:34:07.208Z"
             },
             {
               "$type": "Document",
@@ -472,8 +453,7 @@
               "RelativeToolTip": "include\\Entity.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T11:12:11.05Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T11:12:11.05Z"
             },
             {
               "$type": "Document",

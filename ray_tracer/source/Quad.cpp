@@ -44,7 +44,7 @@ bool Quad::hit(const Ray& ray, Interval ray_t, HitRecord& rec) const {
         t = (fixedValue - origin.getX()) / direction.getX();
     } else if (fixedAxis == 1) { // Piso/techo en Y fijo
         if (std::abs(direction.getY()) < 1e-8) return false; // Rayo paralelo
-        t = (fixedValue - origin.getY()) / direction.getY();
+        t = (fixedValue - origin.getY()) / direction.getY();;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     } else { // Pared trasera en Z fijo
         if (std::abs(direction.getZ()) < 1e-8) return false; // Rayo paralelo
         t = (fixedValue - origin.getZ()) / direction.getZ();

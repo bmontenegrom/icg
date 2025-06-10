@@ -65,11 +65,11 @@ Color LambertianMaterial::shade(const Ray& r_in, const HitRecord& rec, const Sce
 		Ray shadow_ray(rec.point + rec.normal * 0.001, to_light);
         double distance_to_light = light->getDistance(rec.point);
 		Color transmission = scene.transmissionAlong(shadow_ray, distance_to_light);
-		
+		/*
 		if (transmission.nearZero()) {
 			continue; // Si está en sombra, no contribuye a la iluminación
 		}
-
+        */
         // Componente difusa Lambertiana
         // Ecuación: k_d * (N·L) * intensidad_luz con normalización por π
         double cos_theta = std::max(0.0, dotProduct(rec.normal, to_light));
@@ -82,7 +82,7 @@ Color LambertianMaterial::shade(const Ray& r_in, const HitRecord& rec, const Sce
         double spec_intensity = std::pow(std::max(0.0, dotProduct(view_dir, reflect_dir)), shininess);
         Color specular_contribution = specular * light->getIntensity(rec.point) * spec_intensity;
 
-        result += diffuse_contribution + specular_contribution;
+        result += transmission * (diffuse_contribution + specular_contribution);
     }
 
     return result;
