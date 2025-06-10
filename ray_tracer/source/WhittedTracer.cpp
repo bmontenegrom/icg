@@ -69,7 +69,7 @@ Color WhittedTracer::trace(const Ray& ray, const Scene& scene, int depth) const 
     
     // Usar el método shade del material para calcular el color
     Color material_color = hit_record.material_ptr->shade(ray, hit_record, scene, depth);
-    
+    /*
     // Agregar reflexión si el material la soporta
     if (hit_record.material_ptr->reflectivity() > 0.0) {
         Vec3 reflected_direction = hit_record.material_ptr->reflect(ray.getDirection(), hit_record.normal);
@@ -80,17 +80,18 @@ Color WhittedTracer::trace(const Ray& ray, const Scene& scene, int depth) const 
         material_color += reflection_color * hit_record.material_ptr->reflectivity();
     }
     
+    
     // Agregar transmisión si el material la soporta
     if (hit_record.material_ptr->transparency() > 0.0) {
         // Implementación básica de transmisión
         Vec3 transmission_direction = ray.getDirection();
-        Vec3 transmission_origin = hit_record.point - shadow_bias * hit_record.normal;
+        Vec3 transmission_origin = hit_record.point + shadow_bias * hit_record.normal;
         Ray transmitted_ray(transmission_origin, transmission_direction);
         
         Color transmission_color = trace(transmitted_ray, scene, depth + 1);
         material_color += transmission_color * hit_record.material_ptr->transparency();
     }
-    
+    */
     return material_color;
 }
 

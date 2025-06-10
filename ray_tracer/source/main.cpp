@@ -211,6 +211,11 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
         Color(1.0, 1.0, 1.0)  // Luz más intensa
     ));
 
+	scene->addLight(std::make_shared<PointLight>(
+		Vec3(0.5, 1.8, 0.5),
+		Color(0.8, 0.8, 0.8)  // Luz secundaria
+	));
+
     // === ESFERA DE VIDRIO ===
     auto glass_color = Color(0.8, 0.9, 1.0); // Leve tinte azul
     double glass_ior = 1.5;
@@ -238,7 +243,7 @@ std::unique_ptr<Camera> createCornellBoxCamera() {
     // Configuración de imagen para Cornell Box
     double aspect_ratio = 1.0;     // Relación de aspecto cuadrada
     int image_width = 800;         // Resolución
-    int samples_per_pixel = 10;    // Muestras por pixel
+    int samples_per_pixel = 16;    // Muestras por pixel
 
     auto camera = std::make_unique<Camera>(aspect_ratio, image_width, samples_per_pixel);
     return camera;
@@ -284,7 +289,7 @@ void renderWhittedScene(const Scene& scene, Camera& camera) {
             
             // Promedio de las muestras
             pixel_color = pixel_color / static_cast<double>(samples);
-            
+            pixel_color = Color(std::sqrt(pixel_color.getR()), std::sqrt(pixel_color.getG()), std::sqrt(pixel_color.getB())); //gamma correction
             RGBQUAD color;
             color.rgbRed = pixel_color.getRbyte();
             color.rgbGreen = pixel_color.getGbyte();

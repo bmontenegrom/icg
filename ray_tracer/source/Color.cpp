@@ -77,7 +77,14 @@ void Color::setB(double b) {
  * @return Componente roja en formato byte
  */
 int Color::getRbyte() const {
-	return static_cast<int>(255.999 * r);
+	double temp = r; // Usar una copia para evitar modificar el original
+	if (r > 1.0) {
+		temp = 1.0; // Asegurar que no exceda el rango
+	}
+	else if (r < 0.0) {
+		temp = 0.0; // Asegurar que no sea negativo
+	}
+	return static_cast<int>(255.999 * temp);
 }
 
 /**
@@ -85,7 +92,14 @@ int Color::getRbyte() const {
  * @return Componente verde en formato byte
  */
 int Color::getGbyte() const {
-	return static_cast<int>(255.999 * g);
+	double temp = g; // Usar una copia para evitar modificar el original
+	if (g > 1.0) {
+		temp = 1.0; // Asegurar que no exceda el rango
+	}
+	else if (g < 0.0) {
+		temp = 0.0; // Asegurar que no sea negativo
+	}
+	return static_cast<int>(255.999 * temp);
 }
 
 /**
@@ -93,7 +107,15 @@ int Color::getGbyte() const {
  * @return Componente azul en formato byte
  */
 int Color::getBbyte() const {
-	return static_cast<int>(255.999 * b);
+	double temp = this->b; // Usar una copia para evitar modificar el original
+	if (b > 1.0) {
+		temp = 1.0; // Asegurar que no exceda el rango
+	}
+	else if (b < 0.0) {
+		temp = 0.0; // Asegurar que no sea negativo
+	}
+
+	return static_cast<int>(255.999 * temp);
 }
 
 /**
@@ -197,3 +219,4 @@ Color operator*(const Color& a, const Color& b) {
 Color operator/(const Color& a, double b) {
 	return Color(a.getR() / b, a.getG() / b, a.getB() / b);
 }
+

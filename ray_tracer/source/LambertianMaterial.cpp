@@ -52,6 +52,9 @@ LambertianMaterial::LambertianMaterial(const Color& a, const Color& d, const Col
  * @return Color resultante después de aplicar el modelo de iluminación
  */
 Color LambertianMaterial::shade(const Ray& r_in, const HitRecord& rec, const Scene& scene, int depth) const {
+    if (depth >= 10) {
+		return Color(0, 0, 0); // Limitar la profundidad de recursión
+    }
     // Componente ambiental (iluminación global básica)
     Color result = ambient;
 
