@@ -52,27 +52,17 @@ LambertianMaterial::LambertianMaterial(const Color& a, const Color& d, const Col
  * @return Color resultante después de aplicar el modelo de iluminación
  */
 Color LambertianMaterial::shade(const Ray& r_in, const HitRecord& rec, const Scene& scene, int depth) const {
-    if (depth >= 10) {
-		return Color(0, 0, 0); // Limitar la profundidad de recursión
-    }
+    
     // Componente ambiental (iluminación global básica)
     Color result = ambient;
 
     for (const auto& light : scene.lights) {
         Vec3 to_light = unitVector(light->getDirection(rec.point));
-        /*
-        // Verificar sombras
-        if (light->isInShadow(rec.point, *scene.world))
-            continue;
-        */
+       
 		Ray shadow_ray(rec.point + rec.normal * 0.001, to_light);
         double distance_to_light = light->getDistance(rec.point);
 		Color transmission = scene.transmissionAlong(shadow_ray, distance_to_light);
-		/*
-		if (transmission.nearZero()) {
-			continue; // Si está en sombra, no contribuye a la iluminación
-		}
-        */
+		
         // Componente difusa Lambertiana
         // Ecuación: k_d * (N·L) * intensidad_luz con normalización por π
         double cos_theta = std::max(0.0, dotProduct(rec.normal, to_light));

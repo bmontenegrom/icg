@@ -291,7 +291,7 @@ void renderWhittedScene(const Scene& scene, Camera& camera) {
             pixel_color = pixel_color / static_cast<double>(samples);
             pixel_color = Color(std::sqrt(pixel_color.getR()), std::sqrt(pixel_color.getG()), std::sqrt(pixel_color.getB())); //gamma correction
             RGBQUAD color;
-            color.rgbRed = pixel_color.getRbyte();
+            color.rgbRed = pixel_color.getRbyte(); //getByte satura en 0 y 255
             color.rgbGreen = pixel_color.getGbyte();
             color.rgbBlue = pixel_color.getBbyte();
             

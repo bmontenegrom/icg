@@ -80,6 +80,8 @@ public:
     void generateTransmissionMap(const Scene& scene, class Camera& camera,
                                 int width, int height, const std::string& filename) const;
 
+    int getMaxDepth() const;
+
 private:
     int max_depth;      ///< Profundidad máxima de recursión
     double shadow_bias; ///< Offset para evitar self-shadowing

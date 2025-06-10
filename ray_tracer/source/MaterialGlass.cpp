@@ -20,64 +20,10 @@ MaterialGlass::MaterialGlass(const Color& albedo, double ior, const WhittedTrace
 }
 
 Color MaterialGlass::shade(const Ray& incident_ray, const HitRecord& hit_record, const Scene& scene, int depth) const {
-    /*
-    if (depth >= 10) return Color(0, 0, 0);
-
-    Vec3 unit_direction = unitVector(incident_ray.getDirection());
-    Vec3 normal = hit_record.normal;
-    bool going_outside = hit_record.frontFace;
-    double eta_ratio = going_outside ? (1.0 / ior) : ior;
-    if (!going_outside)
-        normal = -normal;
-
-    double cos_theta = fmin(dotProduct(-unit_direction, normal), 1.0);
-    double sin_theta = sqrt(1.0 - cos_theta * cos_theta);
-
-    bool total_internal_reflection = eta_ratio * sin_theta > 1.0;
-    double reflect_prob = schlickApproximation(cos_theta, eta_ratio);
-
-    Color reflect_color = Color(0, 0, 0);
-    Color refract_color = Color(0, 0, 0);
-
-
-
-
-    
-    Vec3 direction;
-    if (total_internal_reflection || reflect_prob > static_cast<double>(rand()) / RAND_MAX) {
-        direction = reflect(unit_direction, normal);
+   
+    if (depth >= tracer.getMaxDepth()) {
+        return Color(0, 0, 0);
     }
-    else {
-        direction = refract(unit_direction, normal, eta_ratio);
-    }
-
-    Ray scattered(hit_record.p + direction * 1e-4, direction);
-    Color result = tracer.trace(scattered, scene, depth + 1);
-    return albedo*result;
-    
-
-    // Reflexión
-    Vec3 reflect_dir = reflect(unit_direction, normal);
-    Ray reflect_ray(hit_record.point + reflect_dir * 1e-4, reflect_dir);
-    reflect_color = tracer.trace(reflect_ray, scene, depth + 1);
-
-    // Refracción (si no hay reflexión total)
-    if (!total_internal_reflection) {
-        Vec3 refract_dir = refract(unit_direction, normal, eta_ratio);
-        Ray refract_ray(hit_record.point + refract_dir * 1e-4, refract_dir);
-        refract_color = tracer.trace(refract_ray, scene, depth + 1);
-    }
-
-    // Mezcla: parte reflejada y parte transmitida
-    Color result = reflect_prob * reflect_color + (1.0 - reflect_prob) * refract_color;
-
-    // Atenuación por color del vidrio
-    return albedo * result;
-
-    */
-
-
-    if (depth >= 10) return Color(0, 0, 0);
 
     Vec3 unit_dir = unitVector(incident_ray.getDirection());
     Vec3 normal = hit_record.normal;
@@ -108,10 +54,6 @@ Color MaterialGlass::shade(const Ray& incident_ray, const HitRecord& hit_record,
         transmission_color =tracer.trace(refracted_ray, scene, depth + 1);
     }
 
-    // Mezcla según Schlick
-    //Color combined = reflect_prob * reflection_color + (1.0 - reflect_prob) * transmission_color;
 
-    // Atenuar con albedo del vidrio (color del material)
-    //return albedo * combined;
     return albedo * (reflection_color + transmission_color);
 }

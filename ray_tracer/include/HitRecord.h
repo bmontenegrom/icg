@@ -33,7 +33,7 @@ class Material;
  */
 class HitRecord {
 public:
-	Vec3 p;                                  ///< Punto de intersección en el espacio 3D (alias point)
+                                
 	Vec3 point;                              ///< Punto de intersección en el espacio 3D
 	Vec3 normal;                             ///< Vector normal unitario en el punto de intersección
 	double t;                                ///< Valor del parámetro t en la ecuación del rayo
@@ -53,7 +53,7 @@ public:
 	/**
 	 * @brief Constructor por defecto
 	 */
-	HitRecord() : p(Vec3()), point(Vec3()), normal(Vec3()), t(0), u(0), v(0), frontFace(true) {}
+	HitRecord() : point(Vec3()), normal(Vec3()), t(0), u(0), v(0), frontFace(true) {}
 
 	/**
 	 * @brief Determina si la intersección es en la cara frontal o trasera

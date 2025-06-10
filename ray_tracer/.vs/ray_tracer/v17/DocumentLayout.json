@@ -3,20 +3,28 @@
   "WorkspaceRootPath": "C:\\repos\\icg\\ray_tracer\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\source\\WhittedTracer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:source\\WhittedTracer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\source\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:source\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\source\\LambertianMaterial.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:source\\LambertianMaterial.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\include\\WhittedTracer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:include\\WhittedTracer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\source\\MaterialGlass.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:source\\MaterialGlass.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\source\\LambertianMaterial.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:source\\LambertianMaterial.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\include\\HitRecord.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:include\\HitRecord.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\source\\WhittedTracer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:source\\WhittedTracer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\include\\MaterialGlass.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -49,10 +57,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\source\\Material.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:source\\Material.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\include\\WhittedTracer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:include\\WhittedTracer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\source\\Scene.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -91,10 +95,6 @@
       "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:include\\Ray.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\include\\HitRecord.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:include\\HitRecord.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\include\\Material.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:include\\Material.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -130,7 +130,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -142,111 +142,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "main.cpp",
-              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\main.cpp",
-              "RelativeDocumentMoniker": "source\\main.cpp",
-              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\main.cpp",
-              "RelativeToolTip": "source\\main.cpp",
-              "ViewState": "AgIAABABAAAAAAAAAAAqwCABAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-04T13:50:41.89Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Color.cpp",
-              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\Color.cpp",
-              "RelativeDocumentMoniker": "source\\Color.cpp",
-              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\Color.cpp",
-              "RelativeToolTip": "source\\Color.cpp",
-              "ViewState": "AgIAAEwAAAAAAAAAAAAqwE4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-04T10:40:20.993Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MaterialGlass.cpp",
-              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\MaterialGlass.cpp",
-              "RelativeDocumentMoniker": "source\\MaterialGlass.cpp",
-              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\MaterialGlass.cpp",
-              "RelativeToolTip": "source\\MaterialGlass.cpp",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAiwHMAAAA8AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-09T14:09:01.552Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "WhittedTracer.cpp",
-              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\WhittedTracer.cpp",
-              "RelativeDocumentMoniker": "source\\WhittedTracer.cpp",
-              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\WhittedTracer.cpp",
-              "RelativeToolTip": "source\\WhittedTracer.cpp",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAAAFkAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-09T17:00:49.285Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Vec3.h",
-              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\Vec3.h",
-              "RelativeDocumentMoniker": "include\\Vec3.h",
-              "ToolTip": "C:\\repos\\icg\\ray_tracer\\include\\Vec3.h",
-              "RelativeToolTip": "include\\Vec3.h",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T10:40:31.023Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Camera.cpp",
-              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\Camera.cpp",
-              "RelativeDocumentMoniker": "source\\Camera.cpp",
-              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\Camera.cpp",
-              "RelativeToolTip": "source\\Camera.cpp",
-              "ViewState": "AgIAAMwAAAAAAAAAAAAqwOAAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-04T16:03:24.251Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Camera.h",
-              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\Camera.h",
-              "RelativeDocumentMoniker": "include\\Camera.h",
-              "ToolTip": "C:\\repos\\icg\\ray_tracer\\include\\Camera.h",
-              "RelativeToolTip": "include\\Camera.h",
-              "ViewState": "AgIAABUAAAAAAAAAAAAqwDgAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T15:55:19.443Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "LambertianMaterial.cpp",
-              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\LambertianMaterial.cpp",
-              "RelativeDocumentMoniker": "source\\LambertianMaterial.cpp",
-              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\LambertianMaterial.cpp",
-              "RelativeToolTip": "source\\LambertianMaterial.cpp",
-              "ViewState": "AgIAADYAAAAAAAAAAAAAADgAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-09T14:07:04.774Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "MaterialGlass.h",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\MaterialGlass.h",
               "RelativeDocumentMoniker": "include\\MaterialGlass.h",
@@ -254,12 +150,137 @@
               "RelativeToolTip": "include\\MaterialGlass.h",
               "ViewState": "AgIAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-09T14:41:40.295Z",
+              "WhenOpened": "2025-06-09T14:41:40.295Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "WhittedTracer.h",
+              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\WhittedTracer.h",
+              "RelativeDocumentMoniker": "include\\WhittedTracer.h",
+              "ToolTip": "C:\\repos\\icg\\ray_tracer\\include\\WhittedTracer.h",
+              "RelativeToolTip": "include\\WhittedTracer.h",
+              "ViewState": "AgIAADQAAAAAAAAAAAAqwFIAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-06-09T13:56:44.914Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "HitRecord.h",
+              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\HitRecord.h",
+              "RelativeDocumentMoniker": "include\\HitRecord.h",
+              "ToolTip": "C:\\repos\\icg\\ray_tracer\\include\\HitRecord.h",
+              "RelativeToolTip": "include\\HitRecord.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-06-04T11:14:18.328Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "WhittedTracer.cpp",
+              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\WhittedTracer.cpp",
+              "RelativeDocumentMoniker": "source\\WhittedTracer.cpp",
+              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\WhittedTracer.cpp",
+              "RelativeToolTip": "source\\WhittedTracer.cpp",
+              "ViewState": "AgIAAMUAAAAAAAAAAAAqwNsAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-06-09T17:00:49.285Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MaterialGlass.cpp",
+              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\MaterialGlass.cpp",
+              "RelativeDocumentMoniker": "source\\MaterialGlass.cpp",
+              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\MaterialGlass.cpp",
+              "RelativeToolTip": "source\\MaterialGlass.cpp",
+              "ViewState": "AgIAABgAAAAAAAAAAAAiwBgAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-06-09T14:09:01.552Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\main.cpp",
+              "RelativeDocumentMoniker": "source\\main.cpp",
+              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\main.cpp",
+              "RelativeToolTip": "source\\main.cpp",
+              "ViewState": "AgIAAB8BAAAAAAAAAAAqwDMBAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-06-04T13:50:41.89Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LambertianMaterial.cpp",
+              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\LambertianMaterial.cpp",
+              "RelativeDocumentMoniker": "source\\LambertianMaterial.cpp",
+              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\LambertianMaterial.cpp",
+              "RelativeToolTip": "source\\LambertianMaterial.cpp",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAD8AAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-06-09T14:07:04.774Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
+              "Title": "Camera.h",
+              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\Camera.h",
+              "RelativeDocumentMoniker": "include\\Camera.h",
+              "ToolTip": "C:\\repos\\icg\\ray_tracer\\include\\Camera.h",
+              "RelativeToolTip": "include\\Camera.h",
+              "ViewState": "AgIAABUAAAAAAAAAAAAqwDgAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-06-04T15:55:19.443Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Camera.cpp",
+              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\Camera.cpp",
+              "RelativeDocumentMoniker": "source\\Camera.cpp",
+              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\Camera.cpp",
+              "RelativeToolTip": "source\\Camera.cpp",
+              "ViewState": "AgIAAMwAAAAAAAAAAAAqwOAAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-06-04T16:03:24.251Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Vec3.h",
+              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\Vec3.h",
+              "RelativeDocumentMoniker": "include\\Vec3.h",
+              "ToolTip": "C:\\repos\\icg\\ray_tracer\\include\\Vec3.h",
+              "RelativeToolTip": "include\\Vec3.h",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-06-04T10:40:31.023Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Color.cpp",
+              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\Color.cpp",
+              "RelativeDocumentMoniker": "source\\Color.cpp",
+              "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\Color.cpp",
+              "RelativeToolTip": "source\\Color.cpp",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAqwE4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-06-04T10:40:20.993Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "Color.h",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\Color.h",
               "RelativeDocumentMoniker": "include\\Color.h",
@@ -267,12 +288,11 @@
               "RelativeToolTip": "include\\Color.h",
               "ViewState": "AgIAAFQAAAAAAAAAAAAAAGQAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T10:40:24.746Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T10:40:24.746Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "Sphere.cpp",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\Sphere.cpp",
               "RelativeDocumentMoniker": "source\\Sphere.cpp",
@@ -280,12 +300,11 @@
               "RelativeToolTip": "source\\Sphere.cpp",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABQAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-04T11:18:52.82Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T11:18:52.82Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "Material.cpp",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\Material.cpp",
               "RelativeDocumentMoniker": "source\\Material.cpp",
@@ -293,12 +312,11 @@
               "RelativeToolTip": "source\\Material.cpp",
               "ViewState": "AgIAACQAAAAAAAAAAAAqwDIAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-09T14:08:25.549Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T14:08:25.549Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "HitRecord.cpp",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\HitRecord.cpp",
               "RelativeDocumentMoniker": "source\\HitRecord.cpp",
@@ -310,7 +328,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "Scene.h",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\Scene.h",
               "RelativeDocumentMoniker": "include\\Scene.h",
@@ -322,7 +340,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "Scene.cpp",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\Scene.cpp",
               "RelativeDocumentMoniker": "source\\Scene.cpp",
@@ -334,7 +352,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "Quad.cpp",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\Quad.cpp",
               "RelativeDocumentMoniker": "source\\Quad.cpp",
@@ -346,20 +364,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "WhittedTracer.h",
-              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\WhittedTracer.h",
-              "RelativeDocumentMoniker": "include\\WhittedTracer.h",
-              "ToolTip": "C:\\repos\\icg\\ray_tracer\\include\\WhittedTracer.h",
-              "RelativeToolTip": "include\\WhittedTracer.h",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAqwFQAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-09T13:56:44.914Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "Sphere.h",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\Sphere.h",
               "RelativeDocumentMoniker": "include\\Sphere.h",
@@ -371,7 +376,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "EntityList.h",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\EntityList.h",
               "RelativeDocumentMoniker": "include\\EntityList.h",
@@ -383,7 +388,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "Ray.h",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\Ray.h",
               "RelativeDocumentMoniker": "include\\Ray.h",
@@ -395,7 +400,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "PointLight.cpp",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\PointLight.cpp",
               "RelativeDocumentMoniker": "source\\PointLight.cpp",
@@ -407,7 +412,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "EntityList.cpp",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\EntityList.cpp",
               "RelativeDocumentMoniker": "source\\EntityList.cpp",
@@ -416,18 +421,6 @@
               "ViewState": "AgIAAEIAAAAAAAAAAAAqwFgAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-06-04T11:50:29.119Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "HitRecord.h",
-              "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\include\\HitRecord.h",
-              "RelativeDocumentMoniker": "include\\HitRecord.h",
-              "ToolTip": "C:\\repos\\icg\\ray_tracer\\include\\HitRecord.h",
-              "RelativeToolTip": "include\\HitRecord.h",
-              "ViewState": "AgIAABoAAAAAAAAAAAASwCMAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T11:14:18.328Z"
             },
             {
               "$type": "Document",
