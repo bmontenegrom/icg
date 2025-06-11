@@ -39,6 +39,7 @@
 // Geometría y entidades
 #include "Sphere.h"
 #include "EntityList.h"
+#include "Cylinder.h"
 
 // Materiales
 #include "LambertianMaterial.h"
@@ -188,7 +189,7 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
     auto sphere = std::make_shared<Sphere>(Vec3(0.7, 0.5, 0.7), 0.3);
     sphere->setMaterial(sphere_material);
     world->addEntity(sphere);
-
+    /*
     // Otra esfera
     auto sphere2_material = std::make_shared<LambertianMaterial>(
         Color(0.0, 0.0, 0.1),
@@ -199,7 +200,7 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
     auto sphere2 = std::make_shared<Sphere>(Vec3(1.3, 0.3, 1.3), 0.25);
     sphere2->setMaterial(sphere2_material);
     world->addEntity(sphere2);
-
+    */
     // Crear escena
     auto scene = std::make_shared<Scene>(world);
 
@@ -224,6 +225,20 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
     auto glass_sphere = std::make_shared<Sphere>(Vec3(1.0, 0.5, 1.0), 0.3);
     glass_sphere->setMaterial(glass_material);
     world->addEntity(glass_sphere);
+
+    //cilindro
+
+	auto cylinder_material = std::make_shared<LambertianMaterial>(
+        Color(0.0, 0.0, 0.1),
+        Color(0.3, 0.3, 0.7),
+        Color(0.5, 0.5, 0.5),
+        32.0
+	);
+
+	auto cylinder = std::make_shared<Cylinder>(Vec3(1.3, 0.0, 1.3),0.0, 0.2, 0.25);
+	cylinder->setMaterial(cylinder_material);
+	world->addEntity(cylinder);
+
 
     return scene;
 }

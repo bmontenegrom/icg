@@ -140,6 +140,7 @@
     <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\Color.h" />
     <ClInclude Include="include\Constants.h" />
+    <ClInclude Include="include\Cylinder.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\EntityList.h" />
     <ClInclude Include="include\HitRecord.h" />
@@ -159,6 +160,7 @@
   <ItemGroup>
     <ClCompile Include="source\Camera.cpp" />
     <ClCompile Include="source\Color.cpp" />
+    <ClCompile Include="source\Cylinder.cpp" />
     <ClCompile Include="source\Entity.cpp" />
     <ClCompile Include="source\EntityList.cpp" />
     <ClCompile Include="source\HitRecord.cpp" />

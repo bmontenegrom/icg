@@ -1,5 +1,6 @@
 C:\repos\icg\ray_tracer\source\Camera.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Camera.obj
 C:\repos\icg\ray_tracer\source\Color.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Color.obj
+C:\repos\icg\ray_tracer\source\Cylinder.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Cylinder.obj
 C:\repos\icg\ray_tracer\source\Entity.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Entity.obj
 C:\repos\icg\ray_tracer\source\EntityList.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\EntityList.obj
 C:\repos\icg\ray_tracer\source\HitRecord.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\HitRecord.obj
