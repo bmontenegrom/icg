@@ -72,6 +72,9 @@
     <ClInclude Include="include\Cylinder.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="include\MaterialMirror.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Color.cpp">
@@ -126,6 +129,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="source\Cylinder.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MaterialMirror.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

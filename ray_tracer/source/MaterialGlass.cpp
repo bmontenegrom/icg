@@ -20,9 +20,8 @@ MaterialGlass::MaterialGlass(const Color& albedo, double ior, const WhittedTrace
 }
 
 Color MaterialGlass::shade(const Ray& incident_ray, const HitRecord& hit_record, const Scene& scene, int depth) const {
-   
     if (depth >= tracer.getMaxDepth()) {
-        return Color(0, 0, 0);
+        return albedo;
     }
 
     Vec3 unit_dir = unitVector(incident_ray.getDirection());
@@ -30,30 +29,28 @@ Color MaterialGlass::shade(const Ray& incident_ray, const HitRecord& hit_record,
     bool front_face = hit_record.frontFace;
 
     double eta_ratio = front_face ? (1.0 / ior) : ior;
-    if (!front_face) normal = -normal;
+    //if (!front_face) normal = -normal;
 
     double cos_theta = fmin(dotProduct(-unit_dir, normal), 1.0);
     double sin_theta = sqrt(1.0 - cos_theta * cos_theta);
     bool total_internal_reflection = eta_ratio * sin_theta > 1.0;
 
     double reflect_prob = schlickApproximation(cos_theta, eta_ratio);
-    Color reflection_color(0, 0, 0);
-    Color transmission_color(0, 0, 0);
 
     // Calcular reflexión
     Vec3 reflected = reflect(unit_dir, normal);
     Ray reflected_ray(hit_record.point + reflected * 1e-4, reflected);
-    if (reflectivity() > 0.01) {
-        reflection_color = tracer.trace(reflected_ray, scene, depth + 1);
-    }
+    Color reflection_color = tracer.trace(reflected_ray, scene, depth + 1);
 
-    // Calcular refracción si no hay reflexión total
+    // Calcular refracción solo si no hay reflexión total
+    Color transmission_color(0, 0, 0);
     if (!total_internal_reflection) {
         Vec3 refracted = refract(unit_dir, normal, eta_ratio);
         Ray refracted_ray(hit_record.point + refracted * 1e-4, refracted);
-        transmission_color =tracer.trace(refracted_ray, scene, depth + 1);
+        transmission_color = tracer.trace(refracted_ray, scene, depth + 1);
     }
 
-
-    return albedo * (reflection_color + transmission_color);
+    // Mezcla ponderada según Fresnel
+    Color final_color = reflect_prob * reflection_color + (1 - reflect_prob) * transmission_color;
+    return albedo * final_color;
 }

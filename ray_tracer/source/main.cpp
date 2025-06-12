@@ -181,6 +181,7 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
     // === OBJETOS DENTRO DE LA CAJA ===
     
     // Esfera central
+    
     auto sphere_material = std::make_shared<LambertianMaterial>(
         Color(0.1, 0.1, 0.1),
         Color(0.7, 0.3, 0.3),
@@ -198,7 +199,7 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
         Color(0.5, 0.5, 0.5),
         32.0
     );
-    auto sphere2 = std::make_shared<Sphere>(Vec3(1.3, 0.3, 1.3), 0.25);
+    auto sphere2 = std::make_shared<Sphere>(Vec3(1.3, 0.3, 1.3), 0.40);
     sphere2->setMaterial(sphere2_material);
     world->addEntity(sphere2);
     */
@@ -228,18 +229,18 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
     world->addEntity(glass_sphere);
 
     //cilindro
-
+    
 	auto cylinder_material = std::make_shared<LambertianMaterial>(
         Color(0.0, 0.0, 0.1),
         Color(0.3, 0.3, 0.7),
         Color(0.5, 0.5, 0.5),
         32.0
 	);
-
-	auto cylinder = std::make_shared<Cylinder>(Vec3(1.3, 0.0, 1.3),0.0, 0.2, 0.25);
+    
+	auto cylinder = std::make_shared<Cylinder>(Vec3(1.3, 0.0, 1.3),0.0, 0.4, 0.4);
 	cylinder->setMaterial(cylinder_material);
 	world->addEntity(cylinder);
-
+    
     // === ESFERA ESPEJO ===
     auto mirror_color = Color(1.0, 1.0, 1.0); 
     auto mirror_material = std::make_shared<MaterialMirror>(mirror_color, tracer);
@@ -247,7 +248,7 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
     mirror_sphere->setMaterial(mirror_material);
     world->addEntity(mirror_sphere);
 
-
+   
 
 
 

@@ -149,6 +149,7 @@
     <ClInclude Include="include\Light.h" />
     <ClInclude Include="include\Material.h" />
     <ClInclude Include="include\MaterialGlass.h" />
+    <ClInclude Include="include\MaterialMirror.h" />
     <ClInclude Include="include\PointLight.h" />
     <ClInclude Include="include\Quad.h" />
     <ClInclude Include="include\Ray.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\Material.cpp" />
     <ClCompile Include="source\MaterialGlass.cpp" />
+    <ClCompile Include="source\MaterialMirror.cpp" />
     <ClCompile Include="source\PointLight.cpp" />
     <ClCompile Include="source\Quad.cpp" />
     <ClCompile Include="source\Ray.cpp" />

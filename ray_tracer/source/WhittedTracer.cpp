@@ -50,9 +50,7 @@ WhittedTracer::WhittedTracer(int max_depth, double shadow_bias)
  */
 Color WhittedTracer::trace(const Ray& ray, const Scene& scene, int depth) const {
     // Verificar límite de profundidad de recursión
-    if (depth >= max_depth) {
-        return Color(0, 0, 0); // Negro si se excede la profundidad
-    }
+    
     
     // Encontrar la intersección más cercana
     HitRecord hit_record;

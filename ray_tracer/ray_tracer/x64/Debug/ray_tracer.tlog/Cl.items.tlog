@@ -9,6 +9,7 @@ C:\repos\icg\ray_tracer\source\LambertianMaterial.cpp;C:\repos\icg\ray_tracer\ra
 C:\repos\icg\ray_tracer\source\main.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\main.obj
 C:\repos\icg\ray_tracer\source\Material.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Material.obj
 C:\repos\icg\ray_tracer\source\MaterialGlass.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\MaterialGlass.obj
+C:\repos\icg\ray_tracer\source\MaterialMirror.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\MaterialMirror.obj
 C:\repos\icg\ray_tracer\source\PointLight.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\PointLight.obj
 C:\repos\icg\ray_tracer\source\Quad.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Quad.obj
 C:\repos\icg\ray_tracer\source\Ray.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Ray.obj
