@@ -396,6 +396,8 @@ int main() {
         // === RENDERIZACIÓN CON WHITTED RAY TRACING ===
         renderWhittedScene(*scene, *camera);
         
+		tracer.generateReflectionMap(*scene, *camera, camera->getImageWidth(), camera->getImageHeight());
+		tracer.generateTransmissionMap(*scene, *camera, camera->getImageWidth(), camera->getImageHeight());
         // Finalizar FreeImage
         FreeImage_DeInitialise();
         return 0;

@@ -83,13 +83,13 @@ public:
      * @brief Obtiene el coeficiente de reflexión del material
      * @return Valor entre 0.0 (no reflectante) y 1.0 (totalmente reflectante)
      */
-    virtual double reflectivity() const { return 0.0; }
+    virtual double getReflectivity() const { return 0.0; }
 
     /**
      * @brief Obtiene el coeficiente de transmisión del material
      * @return Valor entre 0.0 (opaco) y 1.0 (totalmente transparente)
      */
-    virtual double transparency() const { return 0.0; }
+    virtual double getTransparency() const { return 0.0; }
 
 
 }; 

@@ -91,8 +91,7 @@ Color WhittedTracer::backgroundColor(const Ray& ray) const {
  * @param filename Nombre del archivo donde guardar el mapa
  */
 void WhittedTracer::generateReflectionMap(const Scene& scene, Camera& camera,
-                                        int width, int height, 
-                                        const std::string& filename) const {
+                                        int width, int height) const {
     FreeImage_Initialise();
     FIBITMAP* bitmap = FreeImage_Allocate(width, height, 24);
     
@@ -110,7 +109,7 @@ void WhittedTracer::generateReflectionMap(const Scene& scene, Camera& camera,
             double reflection_coeff = 0.0;
             if (scene.hit(ray, Interval(0.001, infinity), hit_record)) {
                 if (hit_record.material_ptr) {
-                    reflection_coeff = hit_record.material_ptr->reflectivity();
+                    reflection_coeff = hit_record.material_ptr->getReflectivity();
                 }
             }
             
@@ -157,8 +156,7 @@ void WhittedTracer::generateReflectionMap(const Scene& scene, Camera& camera,
  * @param filename Nombre del archivo donde guardar el mapa
  */
 void WhittedTracer::generateTransmissionMap(const Scene& scene, Camera& camera,
-                                          int width, int height,
-                                          const std::string& filename) const {
+                                          int width, int height) const {
     FreeImage_Initialise();
     FIBITMAP* bitmap = FreeImage_Allocate(width, height, 24);
     
@@ -176,7 +174,7 @@ void WhittedTracer::generateTransmissionMap(const Scene& scene, Camera& camera,
             double transmission_coeff = 0.0;
             if (scene.hit(ray, Interval(0.001, infinity), hit_record)) {
                 if (hit_record.material_ptr) {
-                    transmission_coeff = hit_record.material_ptr->transparency();
+                    transmission_coeff = hit_record.material_ptr->getTransparency();
                 }
             }
             

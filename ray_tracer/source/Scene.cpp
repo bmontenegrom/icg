@@ -88,7 +88,7 @@ Color Scene::transmissionAlong(const Ray& shadow_ray, double distance) const
 			
             if (entity->hit(shadow_ray, Interval(0.001, distance + 0.001), rec)) {
 			
-                if (rec.material_ptr->transparency() == 0.0) {
+                if (rec.material_ptr->getTransparency() == 0.0) {
 					
                     return Color(0.0, 0.0, 0.0);
                 }
@@ -97,7 +97,7 @@ Color Scene::transmissionAlong(const Ray& shadow_ray, double distance) const
 				auto glass = std::dynamic_pointer_cast<MaterialGlass >(rec.material_ptr);
                 if (glass) {
 					
-					transmission *= glass->albedo * glass->transparency();
+                    transmission *= glass->albedo * glass->getTransparency();
                 }
             }
 

@@ -67,7 +67,7 @@ public:
      * @param filename Nombre del archivo de salida
      */
     void generateReflectionMap(const Scene& scene, class Camera& camera, 
-                              int width, int height, const std::string& filename) const;
+                              int width, int height) const;
 
     /**
      * @brief Genera imagen auxiliar de coeficientes de transmisión
@@ -78,7 +78,7 @@ public:
      * @param filename Nombre del archivo de salida
      */
     void generateTransmissionMap(const Scene& scene, class Camera& camera,
-                                int width, int height, const std::string& filename) const;
+                                int width, int height) const;
 
     int getMaxDepth() const;
 

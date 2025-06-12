@@ -15,7 +15,12 @@
 #include <cmath>
 
 MaterialMirror::MaterialMirror(const Color& albedo, const WhittedTracer& tracer)
-    : albedo(albedo), tracer(tracer) {
+    : albedo(albedo), tracer(tracer), reflectivity(1.0), transparency(0.0) {
+}
+
+MaterialMirror::MaterialMirror(const Color& albedo, const WhittedTracer& tracer, double reflectivity, double transparency)
+	: albedo(albedo), tracer(tracer), reflectivity(reflectivity), transparency(transparency)
+{
 }
 
 
@@ -30,7 +35,17 @@ Color MaterialMirror::shade(const Ray& incident_ray, const HitRecord& hit_record
     Ray reflected_ray(hit_record.point + reflected * 1e-4, reflected);
     Color reflected_color = tracer.trace(reflected_ray, scene, depth + 1);
 
-    return albedo * reflected_color;
+    return albedo * reflected_color * getReflectivity();
+}
+
+double MaterialMirror::getReflectivity() const
+{
+    return reflectivity;
+}
+
+double MaterialMirror::getTransparency() const
+{
+    return transparency;
 }
 
 

@@ -30,6 +30,8 @@ public:
      */
     MaterialMirror(const Color& albedo, const WhittedTracer& tracer);
 
+    MaterialMirror(const Color& albedo, const WhittedTracer& tracer, double reflectivity, double transparency);
+
     /**
      * @brief Calcula el color reflejado desde la superficie del espejo
      * @param incident_ray Rayo que llega al espejo
@@ -41,6 +43,10 @@ public:
     Color shade(const Ray& incident_ray, const HitRecord& hit_record,
         const class Scene& scene, int depth) const override;
 
-    double reflectivity() const override { return 1.0; }   ///< Refleja todo
-    double transparency() const override { return 0.0; }   ///< No transmite nada
+    double getReflectivity() const override;  
+    double getTransparency() const override;  
+
+private:
+	double reflectivity;  ///< Coeficiente de reflexión (100% reflejado)
+	double transparency; ///< Coeficiente de transparencia (0% transmitido)
 };

@@ -39,7 +39,9 @@ public:
    * @param ior Índice de refracción
    * @param tracer Referencia al trazador de rayos Whitted para lanzar rayos secundarios
    */
-    MaterialGlass(const Color& albedo, double ior, const WhittedTracer& tracer);
+    MaterialGlass(const Color& albedo, double ior, const WhittedTracer& tracer );
+
+    MaterialGlass(const Color& albedo, double ior, const WhittedTracer& tracer, double reflectivity, double transparency);
     /**
      * @brief Calcula el color resultante aplicando refracción o reflexión
      * @param incident_ray Rayo que incide sobre la superficie
@@ -50,8 +52,10 @@ public:
      */
     Color shade(const Ray& incident_ray, const HitRecord& hit_record, const class Scene& scene, int depth) const override;
 
-    double reflectivity() const override { return 0.1; }     // Ajustable
-    double transparency() const override { return 0.9; }     // Mayormente transparente
+    double getReflectivity() const override;     // Ajustable
+    double getTransparency() const override;   // Mayormente transparente
 private:
     const WhittedTracer& tracer;
+    double reflectivity;
+	double transparency; 
 };

@@ -16,8 +16,11 @@
 #include <iomanip>
 
 MaterialGlass::MaterialGlass(const Color& albedo, double ior, const WhittedTracer& tracer)
-    : albedo(albedo), ior(ior), tracer(tracer) {
+    : albedo(albedo), ior(ior), tracer(tracer), reflectivity(0.1), transparency(0.9)  {
 }
+
+MaterialGlass::MaterialGlass(const Color& albedo, double ior, const WhittedTracer& tracer, double reflectivity, double transparency)
+	: albedo(albedo), ior(ior), tracer(tracer), reflectivity(reflectivity), transparency(transparency) {}
 
 Color MaterialGlass::shade(const Ray& incident_ray, const HitRecord& hit_record, const Scene& scene, int depth) const {
     if (depth >= tracer.getMaxDepth()) {
@@ -51,6 +54,13 @@ Color MaterialGlass::shade(const Ray& incident_ray, const HitRecord& hit_record,
     }
 
     // Mezcla ponderada según Fresnel
-    Color final_color = reflect_prob * reflection_color + (1 - reflect_prob) * transmission_color;
+    Color final_color = getReflectivity()* reflect_prob * reflection_color + getTransparency()*(1 - reflect_prob) * transmission_color;
     return albedo * final_color;
+}
+
+double MaterialGlass::getReflectivity() const {
+	return reflectivity;
+}
+double MaterialGlass::getTransparency() const {
+    return transparency;
 }

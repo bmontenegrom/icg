@@ -1,10 +1,2 @@
-﻿  AABB.cpp
-  main.cpp
-  MaterialGlass.cpp
-  Mesh.cpp
-  ObjectLoader.cpp
-  Triangle.cpp
-  WhittedTracer.cpp
-  Generando código...
-  LINK : no se encontró C:\repos\icg\ray_tracer\x64\Debug\ray_tracer.exe o no lo generó el último vínculo incremental; ejecutando vínculo completo
+﻿  main.cpp
   ray_tracer.vcxproj -> C:\repos\icg\ray_tracer\x64\Debug\ray_tracer.exe
