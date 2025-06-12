@@ -55,6 +55,7 @@
 #include "WhittedTracer.h"
 
 #include "MaterialGlass.h"
+#include <MaterialMirror.h>
 
 /**
  * @brief Crea y configura la escena de demostración
@@ -238,6 +239,16 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
 	auto cylinder = std::make_shared<Cylinder>(Vec3(1.3, 0.0, 1.3),0.0, 0.2, 0.25);
 	cylinder->setMaterial(cylinder_material);
 	world->addEntity(cylinder);
+
+    // === ESFERA ESPEJO ===
+    auto mirror_color = Color(1.0, 1.0, 1.0); 
+    auto mirror_material = std::make_shared<MaterialMirror>(mirror_color, tracer);
+    auto mirror_sphere = std::make_shared<Sphere>(Vec3(1.5, 0.5, 0.5), 0.25);
+    mirror_sphere->setMaterial(mirror_material);
+    world->addEntity(mirror_sphere);
+
+
+
 
 
     return scene;
