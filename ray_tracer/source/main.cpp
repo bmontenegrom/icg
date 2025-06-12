@@ -35,6 +35,7 @@
 #include "Ray.h"
 #include "Vec3.h"
 #include "Camera.h"
+#include "ObjectLoader.h"
 
 // Geometría y entidades
 #include "Sphere.h"
@@ -55,7 +56,7 @@
 #include "WhittedTracer.h"
 
 #include "MaterialGlass.h"
-#include <MaterialMirror.h>
+#include "MaterialMirror.h"
 
 /**
  * @brief Crea y configura la escena de demostración
@@ -249,7 +250,19 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
     world->addEntity(mirror_sphere);
 
    
-
+    auto apple_material = std::make_shared<LambertianMaterial>(
+        Color(0.0, 0.0, 0.1),
+        Color(0.3, 0.3, 0.7),
+        Color(0.5, 0.5, 0.5),
+        32.0
+    );
+    auto apple_mesh = ObjectLoader::loadObj("assets/cube_brick/Cube.obj", apple_material, Vec3(0.3, 0.3, 0.3), Vec3(1.3, 0.2, 1.0));
+    if (!apple_mesh) {
+        std::cerr << "Error al cargar el modelo apple.obj\n";
+    }
+    else {
+        world->addEntity(apple_mesh); // O el método equivalente que uses
+    }
 
 
     return scene;
