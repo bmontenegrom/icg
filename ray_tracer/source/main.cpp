@@ -58,6 +58,8 @@
 #include "MaterialGlass.h"
 #include "MaterialMirror.h"
 
+#include "SceneLoader.h"
+
 /**
  * @brief Crea y configura la escena de demostración
  * 
@@ -386,13 +388,14 @@ int main() {
         FreeImage_Initialise();
         
         WhittedTracer tracer(10, 0.001);
-        auto scene = createCornellBoxScene(tracer);
-   
+        std::unique_ptr<Camera> camera;
+        auto scene = SceneLoader::loadFromXML("assets/scenes/XMLscene.xml", camera, tracer);
 
-        
-        // Configurar cámara para Cornell Box
-        auto camera = createCornellBoxCamera();
-        
+        if (!scene || !camera) {
+            std::cerr << "Error al cargar la escena desde XML.\n";
+            return 1;
+        }
+
         // === RENDERIZACIÓN CON WHITTED RAY TRACING ===
         renderWhittedScene(*scene, *camera);
         
