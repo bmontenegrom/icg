@@ -54,6 +54,11 @@ public:
 
     double getReflectivity() const override;     // Ajustable
     double getTransparency() const override;   // Mayormente transparente
+
+    virtual Color shadeComponent(ShadeComponent component,
+        const Ray& ray,
+        const HitRecord& hit,
+        const Scene& scene) const override;
 private:
     const WhittedTracer& tracer;
     double reflectivity;

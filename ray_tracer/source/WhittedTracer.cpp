@@ -133,7 +133,7 @@ void WhittedTracer::generateReflectionMap(const Scene& scene, Camera& camera,
     }
 
     std::ostringstream oss;
-    oss << "images/reflection_"
+    oss << "images/reflection_map_"
         << std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S")
         << ".png";
     
@@ -198,7 +198,7 @@ void WhittedTracer::generateTransmissionMap(const Scene& scene, Camera& camera,
     }
 
     std::ostringstream oss;
-    oss << "images/transmission_"
+    oss << "images/transmission_map_"
         << std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S")
         << ".png";
     
@@ -215,3 +215,240 @@ int WhittedTracer::getMaxDepth() const
 {
     return max_depth;
 }
+
+Color WhittedTracer::traceComponent(const Ray& ray, const Scene& scene, ShadeComponent component) const
+{
+    HitRecord hit;
+    if (scene.hit(ray, Interval(0.001, infinity), hit)) {
+        if (hit.material_ptr) {
+            return hit.material_ptr->shadeComponent(component, ray, hit, scene);
+        }
+    }
+    return Color(0, 0, 0);
+}
+
+void WhittedTracer::generateAuxImages(const Scene& scene, Camera& camera, int width, int height) const
+{
+    generateDiffuseImage(scene, camera, width, height);
+    generateSpecularImage(scene, camera, width, height);
+    generateAmbientImage(scene, camera, width, height);
+	generateReflectionImage(scene, camera, width, height);
+	generateTransmissionImage(scene, camera, width, height);
+}
+
+void WhittedTracer::generateDiffuseImage(const Scene& scene, Camera& camera, int width, int height) const
+{
+	FreeImage_Initialise();
+    FIBITMAP* bitmap = FreeImage_Allocate(width, height, 24);
+
+	if (!bitmap) {
+		std::cerr << "Error creando imagen de difusos.\n";
+		FreeImage_DeInitialise();
+		return;
+	}
+
+    for (int j = 0; j < height; ++j) {
+        for (int i = 0; i < width; ++i) {
+            Ray ray = camera.getRay(i, j);
+            Color diffuse_color = traceComponent(ray, scene, ShadeComponent::Diffuse);
+			RGBQUAD color;
+			color.rgbRed = static_cast<BYTE>(diffuse_color.getRbyte());
+			color.rgbGreen = static_cast<BYTE>(diffuse_color.getGbyte());
+			color.rgbBlue = static_cast<BYTE>(diffuse_color.getBbyte());
+
+            FreeImage_SetPixelColor(bitmap, i, height - 1 - j, &color);
+		}
+	}
+
+	std::time_t now = std::time(nullptr);
+	std::tm tm_info{};
+	if (localtime_s(&tm_info, &now) != 0) {
+		std::cerr << "Error al obtener la hora local.\n";
+		return;
+	}
+	std::ostringstream oss;
+	oss << "images/diffuse_"
+		<< std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S")
+		<< ".png";
+
+	if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
+		std::cout << "Mapa difuso guardado: " << oss.str() << std::endl;
+	}
+	else {
+		std::cerr << "Error guardando mapa difuso.\n";
+	}
+
+	FreeImage_Unload(bitmap);
+	FreeImage_DeInitialise();
+}
+
+void WhittedTracer::generateSpecularImage(const Scene& scene, Camera& camera, int width, int height) const
+{
+	FreeImage_Initialise();
+    FIBITMAP* bitmap = FreeImage_Allocate(width, height, 24);
+	if (!bitmap) {
+		std::cerr << "Error creando imagen de especulares.\n";
+		FreeImage_DeInitialise();
+		return;
+	}
+    for (int j = 0; j < height; ++j) {
+        for (int i = 0; i < width; ++i) {
+            Ray ray = camera.getRay(i, j);
+            Color specular_color = traceComponent(ray, scene, ShadeComponent::Specular);
+			RGBQUAD color;
+			color.rgbRed = static_cast<BYTE>(specular_color.getRbyte());
+			color.rgbGreen = static_cast<BYTE>(specular_color.getGbyte());
+			color.rgbBlue = static_cast<BYTE>(specular_color.getBbyte());
+            FreeImage_SetPixelColor(bitmap, i, height - 1 - j, &color);
+		}
+	}
+	std::time_t now = std::time(nullptr);
+	std::tm tm_info{};
+	if (localtime_s(&tm_info, &now) != 0) {
+		std::cerr << "Error al obtener la hora local.\n";
+		return;
+	}
+	std::ostringstream oss;
+	oss << "images/specular_"
+		<< std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S")
+		<< ".png";
+	if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
+		std::cout << "Mapa especular guardado: " << oss.str() << std::endl;
+	}
+	else {
+		std::cerr << "Error guardando mapa especular.\n";
+	}
+	FreeImage_Unload(bitmap);
+	FreeImage_DeInitialise();
+}
+
+void WhittedTracer::generateAmbientImage(const Scene& scene, Camera& camera, int width, int height) const
+{
+	FreeImage_Initialise();
+    FIBITMAP* bitmap = FreeImage_Allocate(width, height, 24);
+	if (!bitmap) {
+		std::cerr << "Error creando imagen de ambiente.\n";
+		FreeImage_DeInitialise();
+		return;
+	}
+    for (int j = 0; j < height; ++j) {
+        for (int i = 0; i < width; ++i) {
+            Ray ray = camera.getRay(i, j);
+            Color ambient_color = traceComponent(ray, scene, ShadeComponent::Ambient);
+			RGBQUAD color;
+			color.rgbRed = static_cast<BYTE>(ambient_color.getRbyte());
+			color.rgbGreen = static_cast<BYTE>(ambient_color.getGbyte());
+			color.rgbBlue = static_cast<BYTE>(ambient_color.getBbyte());
+            FreeImage_SetPixelColor(bitmap, i, height - 1 - j, &color);
+		}
+	}
+	std::time_t now = std::time(nullptr);
+	std::tm tm_info{};
+	if (localtime_s(&tm_info, &now) != 0) {
+		std::cerr << "Error al obtener la hora local.\n";
+		return;
+	}
+	std::ostringstream oss;
+	oss << "images/ambient_"
+		<< std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S")
+		<< ".png";
+	if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
+		std::cout << "Mapa ambiental guardado: " << oss.str() << std::endl;
+	}
+	else {
+		std::cerr << "Error guardando mapa ambiental.\n";
+	}
+	FreeImage_Unload(bitmap);
+	FreeImage_DeInitialise();
+}
+
+void WhittedTracer::generateReflectionImage(const Scene& scene, Camera& camera, int width, int height) const
+{
+	FreeImage_Initialise();
+	FIBITMAP* bitmap = FreeImage_Allocate(width, height, 24);
+	if (!bitmap) {
+		std::cerr << "Error creando imagen de reflexión.\n";
+		FreeImage_DeInitialise();
+		return;
+	}
+
+	for (int j = 0; j < height; ++j) {
+		for (int i = 0; i < width; ++i) {
+			Ray ray = camera.getRay(i, j);
+			Color reflection_color = traceComponent(ray, scene, ShadeComponent::Reflection);
+			RGBQUAD color;
+			color.rgbRed = static_cast<BYTE>(reflection_color.getRbyte());
+			color.rgbGreen = static_cast<BYTE>(reflection_color.getGbyte());
+			color.rgbBlue = static_cast<BYTE>(reflection_color.getBbyte());
+			FreeImage_SetPixelColor(bitmap, i, height - 1 - j, &color);
+		}
+	}
+
+	std::time_t now = std::time(nullptr);
+	std::tm tm_info{};
+	if (localtime_s(&tm_info, &now) != 0) {
+		std::cerr << "Error al obtener la hora local.\n";
+		return;
+	}
+
+	std::ostringstream oss;
+	oss << "images/reflection_"
+		<< std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S")
+		<< ".png";
+
+	if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
+		std::cout << "Mapa de reflexión guardado: " << oss.str() << std::endl;
+	}
+	else {
+		std::cerr << "Error guardando mapa de reflexión.\n";
+	}
+
+	FreeImage_Unload(bitmap);
+	FreeImage_DeInitialise();
+}
+
+void WhittedTracer::generateTransmissionImage(const Scene& scene, Camera& camera, int width, int height) const
+{
+	FreeImage_Initialise();
+	FIBITMAP* bitmap = FreeImage_Allocate(width, height, 24);
+	if (!bitmap) {
+		std::cerr << "Error creando imagen de reflexión.\n";
+		FreeImage_DeInitialise();
+		return;
+	}
+
+	for (int j = 0; j < height; ++j) {
+		for (int i = 0; i < width; ++i) {
+			Ray ray = camera.getRay(i, j);
+			Color transmission_color = traceComponent(ray, scene, ShadeComponent::Transmission);
+			RGBQUAD color;
+			color.rgbRed = static_cast<BYTE>(transmission_color.getRbyte());
+			color.rgbGreen = static_cast<BYTE>(transmission_color.getGbyte());
+			color.rgbBlue = static_cast<BYTE>(transmission_color.getBbyte());
+			FreeImage_SetPixelColor(bitmap, i, height - 1 - j, &color);
+		}
+	}
+
+	std::time_t now = std::time(nullptr);
+	std::tm tm_info{};
+	if (localtime_s(&tm_info, &now) != 0) {
+		std::cerr << "Error al obtener la hora local.\n";
+		return;
+	}
+
+	std::ostringstream oss;
+	oss << "images/transmission"
+		<< std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S")
+		<< ".png";
+
+	if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
+		std::cout << "Mapa de reflexión guardado: " << oss.str() << std::endl;
+	}
+	else {
+		std::cerr << "Error guardando mapa de reflexión.\n";
+	}
+
+	FreeImage_Unload(bitmap);
+	FreeImage_DeInitialise();
+}
+

@@ -19,6 +19,14 @@ const int HEIGHT = 600; ///< Alto predeterminado de la imagen
 
 const double infinity = std::numeric_limits<double>::infinity(); ///< Valor de infinito
 
+
+enum class ShadeComponent {
+    Ambient,
+    Diffuse,
+    Specular,
+    Reflection,
+    Transmission
+};
 //utility functions
 
 /**

@@ -80,3 +80,43 @@ Color LambertianMaterial::shade(const Ray& r_in, const HitRecord& rec, const Sce
 
     return result;
 } 
+
+
+
+Color LambertianMaterial::shadeComponent(ShadeComponent component,
+    const Ray& r_in,
+    const HitRecord& rec,
+    const Scene& scene) const {
+    if (component == ShadeComponent::Ambient) {
+        return ambient;
+    }
+
+    if (component == ShadeComponent::Diffuse || component == ShadeComponent::Specular) {
+        Color result(0, 0, 0);
+
+        for (const auto& light : scene.lights) {
+            Vec3 to_light = unitVector(light->getDirection(rec.point));
+            Ray shadow_ray(rec.point + rec.normal * 0.001, to_light);
+            double distance_to_light = light->getDistance(rec.point);
+            Color transmission = scene.transmissionAlong(shadow_ray, distance_to_light);
+
+            if (component == ShadeComponent::Diffuse) {
+                double cos_theta = std::max(0.0, dotProduct(rec.normal, to_light));
+                Color diffuse_contribution = (diffuse / PI) * light->getIntensity(rec.point) * cos_theta;
+                result += transmission * diffuse_contribution;
+            }
+
+            if (component == ShadeComponent::Specular) {
+                Vec3 reflect_dir = reflect(-to_light, rec.normal);
+                Vec3 view_dir = unitVector(-r_in.getDirection());
+                double spec_intensity = std::pow(std::max(0.0, dotProduct(view_dir, reflect_dir)), shininess);
+                Color specular_contribution = specular * light->getIntensity(rec.point) * spec_intensity;
+                result += transmission * specular_contribution;
+            }
+        }
+
+        return result;
+    }
+
+    return Color(0, 0, 0); // No corresponde a este material
+}

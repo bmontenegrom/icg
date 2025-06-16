@@ -98,7 +98,7 @@ void Camera::render(const Entity& world) const {
 			// Set the pixel color in the bitmap
 			Color pixel_color(0, 0, 0); // Initialize pixel color
 			for (int s = 0; s < samples_per_pixel; ++s) {
-				Ray r = getRay(i, j);
+				Ray r = getRandomRay(i, j);
 				pixel_color += ray_color(r, world);
 			}
 			pixel_color = pixel_color * pixel_sample_scale; // Scale the color by the number of samples
@@ -179,7 +179,7 @@ Color Camera::ray_color(const Ray& r, const Entity& world) const {
  * @param j Coordenada y del píxel en la imagen
  * @return Rayo generado con origen en la cámara y dirección hacia el píxel
  */
-Ray Camera::getRay(int i, int j) const {
+Ray Camera::getRandomRay(int i, int j) const {
 	Vec3 offset = this->sample_square();
 
 	Vec3 pixel_sample = pixel00_loc + ((i + offset.getX()) * pixel_delta_u) + ((j + offset.getY()) * pixel_delta_v);
@@ -188,6 +188,14 @@ Ray Camera::getRay(int i, int j) const {
 	Vec3 ray_direction = pixel_sample - ray_origin;
 	return Ray(ray_origin, ray_direction);
 
+}
+
+Ray Camera::getRay(int i, int j) const
+{
+	auto pixel_center = pixel00_loc + (i * pixel_delta_u) + (j * pixel_delta_v);
+	auto ray_direction = pixel_center - center;
+	Vec3 ray_origin = center;
+	return Ray(ray_origin, ray_direction);
 }
 
 /**

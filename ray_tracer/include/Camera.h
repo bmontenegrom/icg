@@ -36,8 +36,10 @@ public:
 	 * @param j Coordenada y del píxel
 	 * @return Rayo generado
 	 */
-	Ray getRay(int i, int j) const;
+	Ray getRandomRay(int i, int j) const;
 	
+	Ray getRay(int i, int j) const;
+
 	/**
 	 * @brief Obtiene el ancho de la imagen
 	 * @return Ancho de la imagen en píxeles

@@ -65,4 +65,10 @@ public:
      */
     Color shade(const Ray& r_in, const HitRecord& rec, const class Scene& scene, int depth) const override;
     //double transparency() const;
-}; 
+
+
+    virtual Color shadeComponent(ShadeComponent component,
+        const Ray& ray,
+        const HitRecord& hit,
+        const Scene& scene) const override;
+};

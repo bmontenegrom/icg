@@ -87,6 +87,9 @@
     <ClInclude Include="include\Triangle.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="include\SceneLoader.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Color.cpp">
@@ -156,6 +159,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="source\Triangle.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SceneLoader.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

@@ -64,3 +64,30 @@ double MaterialGlass::getReflectivity() const {
 double MaterialGlass::getTransparency() const {
     return transparency;
 }
+
+Color MaterialGlass::shadeComponent(ShadeComponent component, const Ray& ray, const HitRecord& hit, const Scene& scene) const
+{
+    if (component == ShadeComponent::Reflection) {
+        Vec3 reflected = reflect(unitVector(ray.getDirection()), hit.normal);
+        Ray reflected_ray(hit.point + reflected * 1e-4, reflected);
+        return tracer.trace(reflected_ray, scene, tracer.getMaxDepth()-1); // solo primer rebote
+    }
+
+    if (component == ShadeComponent::Transmission) {
+        Vec3 unit_dir = unitVector(ray.getDirection());
+        Vec3 normal = hit.normal;
+        double eta = hit.frontFace ? (1.0 / ior) : ior;
+        //if (!hit.frontFace) normal = -normal;
+        double cos_theta = fmin(dotProduct(-unit_dir, normal), 1.0);
+        double sin_theta = sqrt(1.0 - cos_theta * cos_theta);
+
+        if (eta * sin_theta > 1.0) return Color(0, 0, 0); // reflexión total
+
+        Vec3 refracted = refract(unit_dir, normal, eta);
+        Ray refracted_ray(hit.point + refracted * 1e-4, refracted);
+        return tracer.trace(refracted_ray, scene, tracer.getMaxDepth() - 1); // solo primer rebote
+    }
+
+    return Color(0, 0, 0);
+
+}

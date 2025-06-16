@@ -157,6 +157,7 @@
     <ClInclude Include="include\Quad.h" />
     <ClInclude Include="include\Ray.h" />
     <ClInclude Include="include\Scene.h" />
+    <ClInclude Include="include\SceneLoader.h" />
     <ClInclude Include="include\Sphere.h" />
     <ClInclude Include="include\Triangle.h" />
     <ClInclude Include="include\Vec3.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="source\Quad.cpp" />
     <ClCompile Include="source\Ray.cpp" />
     <ClCompile Include="source\Scene.cpp" />
+    <ClCompile Include="source\SceneLoader.cpp" />
     <ClCompile Include="source\Sphere.cpp" />
     <ClCompile Include="source\Triangle.cpp" />
     <ClCompile Include="source\Vec3.cpp" />

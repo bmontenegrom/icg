@@ -82,6 +82,23 @@ public:
 
     int getMaxDepth() const;
 
+
+    Color traceComponent(const Ray& ray, const Scene& scene, ShadeComponent component) const;
+
+	void generateAuxImages(const Scene& scene, class Camera& camera,
+		int width, int height) const;
+    
+    void generateDiffuseImage(const Scene& scene, class Camera& camera,
+        int width, int height) const;
+    void generateSpecularImage(const Scene& scene, class Camera& camera,
+        int width, int height) const;
+    void generateAmbientImage(const Scene& scene, class Camera& camera,
+        int width, int height) const;
+	void generateReflectionImage(const Scene& scene, class Camera& camera,
+		int width, int height) const;
+	void generateTransmissionImage(const Scene& scene, class Camera& camera,
+		int width, int height) const;
+	
 private:
     int max_depth;      ///< Profundidad máxima de recursión
     double shadow_bias; ///< Offset para evitar self-shadowing

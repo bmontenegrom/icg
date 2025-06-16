@@ -3,6 +3,7 @@
 #include "Ray.h"
 #include "HitRecord.h"
 #include "Vec3.h"
+#include "Constants.h"
 
 /**
  * @brief Clase base abstracta para materiales en el sistema de ray tracing
@@ -91,5 +92,10 @@ public:
      */
     virtual double getTransparency() const { return 0.0; }
 
+
+    virtual Color shadeComponent(ShadeComponent component,
+        const Ray& ray,
+        const HitRecord& hit,
+        const Scene& scene) const;
 
 }; 

@@ -46,6 +46,11 @@ public:
     double getReflectivity() const override;  
     double getTransparency() const override;  
 
+    virtual Color shadeComponent(ShadeComponent component,
+        const Ray& ray,
+        const HitRecord& hit,
+        const Scene& scene) const override;
+
 private:
 	double reflectivity;  ///< Coeficiente de reflexión (100% reflejado)
 	double transparency; ///< Coeficiente de transparencia (0% transmitido)

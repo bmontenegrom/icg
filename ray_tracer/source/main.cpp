@@ -325,7 +325,7 @@ void renderWhittedScene(const Scene& scene, Camera& camera) {
             // Muestreo múltiple para antialiasing
             int samples = camera.getSamplesPerPixel();
             for (int s = 0; s < samples; ++s) {
-                Ray ray = camera.getRay(i, j);
+                Ray ray = camera.getRandomRay(i, j);
                 pixel_color += tracer.trace(ray, scene);
             }
             
@@ -401,6 +401,7 @@ int main() {
         
 		tracer.generateReflectionMap(*scene, *camera, camera->getImageWidth(), camera->getImageHeight());
 		tracer.generateTransmissionMap(*scene, *camera, camera->getImageWidth(), camera->getImageHeight());
+        tracer.generateAuxImages(*scene, *camera, camera->getImageWidth(), camera->getImageHeight());
         // Finalizar FreeImage
         FreeImage_DeInitialise();
         return 0;
