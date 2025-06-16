@@ -44,6 +44,8 @@
 
 // Materiales
 #include "LambertianMaterial.h"
+#include "Texture.h"
+#include "MaterialTextured.h"
 
 // Geometría adicional
 #include "Quad.h"
@@ -184,7 +186,7 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
     // === OBJETOS DENTRO DE LA CAJA ===
     
     // Esfera central
-    
+    /*
     auto sphere_material = std::make_shared<LambertianMaterial>(
         Color(0.1, 0.1, 0.1),
         Color(0.7, 0.3, 0.3),
@@ -223,6 +225,7 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
 	));
 
     // === ESFERA DE VIDRIO ===
+    /*
     auto glass_color = Color(0.8, 0.9, 1.0); // Leve tinte azul
     double glass_ior = 1.5;
     auto glass_material = std::make_shared<MaterialGlass>(glass_color, glass_ior, tracer);
@@ -265,7 +268,12 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
     else {
         world->addEntity(apple_mesh); // O el método equivalente que uses
     }
-
+    */
+	auto texture = std::make_shared<Texture>("assets/textures/earthmap.jpg");
+	auto textured_material = std::make_shared<MaterialTextured>(*texture, 1.0);
+	auto textured_sphere = std::make_shared<Sphere>(Vec3(1.0, 0.5, 1.0), 0.3);
+	textured_sphere->setMaterial(textured_material);
+	world->addEntity(textured_sphere);
 
     return scene;
 }
@@ -388,20 +396,22 @@ int main() {
         FreeImage_Initialise();
         
         WhittedTracer tracer(10, 0.001);
-        std::unique_ptr<Camera> camera;
-        auto scene = SceneLoader::loadFromXML("assets/scenes/XMLscene.xml", camera, tracer);
+        //std::unique_ptr<Camera> camera;
+		auto camera = createCornellBoxCamera();
+        /*auto scene = SceneLoader::loadFromXML("assets/scenes/XMLscene.xml", camera, tracer);
 
         if (!scene || !camera) {
             std::cerr << "Error al cargar la escena desde XML.\n";
             return 1;
         }
-
+        */
+		auto scene = createCornellBoxScene(tracer);
         // === RENDERIZACIÓN CON WHITTED RAY TRACING ===
         renderWhittedScene(*scene, *camera);
         
-		tracer.generateReflectionMap(*scene, *camera, camera->getImageWidth(), camera->getImageHeight());
-		tracer.generateTransmissionMap(*scene, *camera, camera->getImageWidth(), camera->getImageHeight());
-        tracer.generateAuxImages(*scene, *camera, camera->getImageWidth(), camera->getImageHeight());
+		//tracer.generateReflectionMap(*scene, *camera, camera->getImageWidth(), camera->getImageHeight());
+		//tracer.generateTransmissionMap(*scene, *camera, camera->getImageWidth(), camera->getImageHeight());
+        //tracer.generateAuxImages(*scene, *camera, camera->getImageWidth(), camera->getImageHeight());
         // Finalizar FreeImage
         FreeImage_DeInitialise();
         return 0;

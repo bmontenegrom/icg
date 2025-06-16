@@ -66,6 +66,15 @@ bool Sphere::hit(const Ray& ray, Interval ray_t, HitRecord& rec) const {
 	rec.setFaceNormal(ray, normal); //tambien setea el valor de la normal
 	rec.material_ptr = material_ptr; // Asignar el material al hit record
 	
+	// --- Cálculo de coordenadas de textura (u,v) ---
+	Vec3 p_local = unitVector(rec.point - center); // Punto en la superficie normalizado
+
+	float u = 0.5f + atan2(p_local.getZ(), p_local.getX()) / (2.0f * PI);
+	float v = 0.5f - asin(p_local.getY()) / PI;
+
+	rec.u = u;
+	rec.v = v;
+
 	return true;
 }
 

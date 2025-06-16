@@ -151,6 +151,7 @@
     <ClInclude Include="include\Material.h" />
     <ClInclude Include="include\MaterialGlass.h" />
     <ClInclude Include="include\MaterialMirror.h" />
+    <ClInclude Include="include\MaterialTextured.h" />
     <ClInclude Include="include\Mesh.h" />
     <ClInclude Include="include\ObjectLoader.h" />
     <ClInclude Include="include\PointLight.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="include\Scene.h" />
     <ClInclude Include="include\SceneLoader.h" />
     <ClInclude Include="include\Sphere.h" />
+    <ClInclude Include="include\Texture.h" />
     <ClInclude Include="include\Triangle.h" />
     <ClInclude Include="include\Vec3.h" />
     <ClInclude Include="include\WhittedTracer.h" />
@@ -177,6 +179,7 @@
     <ClCompile Include="source\Material.cpp" />
     <ClCompile Include="source\MaterialGlass.cpp" />
     <ClCompile Include="source\MaterialMirror.cpp" />
+    <ClCompile Include="source\MaterialTextured.cpp" />
     <ClCompile Include="source\Mesh.cpp" />
     <ClCompile Include="source\ObjectLoader.cpp" />
     <ClCompile Include="source\PointLight.cpp" />
@@ -185,6 +188,7 @@
     <ClCompile Include="source\Scene.cpp" />
     <ClCompile Include="source\SceneLoader.cpp" />
     <ClCompile Include="source\Sphere.cpp" />
+    <ClCompile Include="source\Texture.cpp" />
     <ClCompile Include="source\Triangle.cpp" />
     <ClCompile Include="source\Vec3.cpp" />
     <ClCompile Include="source\WhittedTracer.cpp" />

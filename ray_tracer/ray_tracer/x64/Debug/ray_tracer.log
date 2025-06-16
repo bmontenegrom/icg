@@ -1,8 +1,2 @@
-﻿  MaterialGlass.cpp
-  MaterialMirror.cpp
-  Scene.cpp
-  SceneLoader.cpp
-  WhittedTracer.cpp
-  main.cpp
-  Generando código...
+﻿  main.cpp
   ray_tracer.vcxproj -> C:\repos\icg\ray_tracer\x64\Debug\ray_tracer.exe

@@ -11,6 +11,7 @@ C:\repos\icg\ray_tracer\source\main.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\D
 C:\repos\icg\ray_tracer\source\Material.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Material.obj
 C:\repos\icg\ray_tracer\source\MaterialGlass.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\MaterialGlass.obj
 C:\repos\icg\ray_tracer\source\MaterialMirror.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\MaterialMirror.obj
+C:\repos\icg\ray_tracer\source\MaterialTextured.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\MaterialTextured.obj
 C:\repos\icg\ray_tracer\source\Mesh.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Mesh.obj
 C:\repos\icg\ray_tracer\source\ObjectLoader.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\ObjectLoader.obj
 C:\repos\icg\ray_tracer\source\PointLight.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\PointLight.obj
@@ -19,6 +20,7 @@ C:\repos\icg\ray_tracer\source\Ray.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\De
 C:\repos\icg\ray_tracer\source\Scene.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Scene.obj
 C:\repos\icg\ray_tracer\source\SceneLoader.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\SceneLoader.obj
 C:\repos\icg\ray_tracer\source\Sphere.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Sphere.obj
+C:\repos\icg\ray_tracer\source\Texture.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Texture.obj
 C:\repos\icg\ray_tracer\source\Triangle.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Triangle.obj
 C:\repos\icg\ray_tracer\source\Vec3.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\Vec3.obj
 C:\repos\icg\ray_tracer\source\WhittedTracer.cpp;C:\repos\icg\ray_tracer\ray_tracer\x64\Debug\WhittedTracer.obj
