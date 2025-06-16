@@ -182,7 +182,7 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
     // === OBJETOS DENTRO DE LA CAJA ===
     
     // Esfera central
-    
+    /*
     auto sphere_material = std::make_shared<LambertianMaterial>(
         Color(0.1, 0.1, 0.1),
         Color(0.7, 0.3, 0.3),
@@ -230,7 +230,7 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
     world->addEntity(glass_sphere);
 
     //cilindro
-    
+    /*
 	auto cylinder_material = std::make_shared<LambertianMaterial>(
         Color(0.0, 0.0, 0.1),
         Color(0.3, 0.3, 0.7),
@@ -248,7 +248,7 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
     auto mirror_sphere = std::make_shared<Sphere>(Vec3(1.5, 0.5, 0.5), 0.25);
     mirror_sphere->setMaterial(mirror_material);
     world->addEntity(mirror_sphere);
-
+    */
    
     auto apple_material = std::make_shared<LambertianMaterial>(
         Color(0.0, 0.0, 0.1),
@@ -256,7 +256,7 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
         Color(0.5, 0.5, 0.5),
         32.0
     );
-    auto apple_mesh = ObjectLoader::loadObj("assets/cube_brick/Cube.obj", apple_material, Vec3(0.3, 0.3, 0.3), Vec3(1.3, 0.2, 1.0));
+    auto apple_mesh = ObjectLoader::loadObj("assets/apple/apple.obj", apple_material, Vec3(0.3, 0.3, 0.3), Vec3(0.5, 0.5, 0.5));
     if (!apple_mesh) {
         std::cerr << "Error al cargar el modelo apple.obj\n";
     }

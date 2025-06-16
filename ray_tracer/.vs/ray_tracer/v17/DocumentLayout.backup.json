@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\repos\\icg\\ray_tracer\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\source\\WhittedTracer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:source\\WhittedTracer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\source\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:source\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\source\\WhittedTracer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|solutionrelative:source\\WhittedTracer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3CA4123C-B161-4D2E-B138-F309A9CF7716}|ray_tracer.vcxproj|C:\\repos\\icg\\ray_tracer\\include\\WhittedTracer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -153,7 +153,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -173,12 +173,11 @@
               "RelativeToolTip": "include\\MaterialGlass.h",
               "ViewState": "AgIAAB0AAAAAAAAAAADwvzoAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-09T14:41:40.295Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T14:41:40.295Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "WhittedTracer.cpp",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\WhittedTracer.cpp",
               "RelativeDocumentMoniker": "source\\WhittedTracer.cpp",
@@ -199,8 +198,7 @@
               "RelativeToolTip": "source\\MaterialMirror.cpp",
               "ViewState": "AgIAAAIAAAAAAAAAAAAjwBcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-12T14:39:48.16Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-12T14:39:48.16Z"
             },
             {
               "$type": "Document",
@@ -224,18 +222,17 @@
               "RelativeToolTip": "include\\WhittedTracer.h",
               "ViewState": "AgIAADcAAAAAAAAAAAAqwEYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-09T13:56:44.914Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T13:56:44.914Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\repos\\icg\\ray_tracer\\source\\main.cpp",
               "RelativeDocumentMoniker": "source\\main.cpp",
               "ToolTip": "C:\\repos\\icg\\ray_tracer\\source\\main.cpp",
               "RelativeToolTip": "source\\main.cpp",
-              "ViewState": "AgIAAHgBAAAAAAAAAAAAwI0BAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAOsAAAAAAAAAAAAAwP0AAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-06-04T13:50:41.89Z",
               "EditorCaption": ""
@@ -250,8 +247,7 @@
               "RelativeToolTip": "source\\LambertianMaterial.cpp",
               "ViewState": "AgIAAC0AAAAAAAAAAAAjwD8AAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-09T14:07:04.774Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T14:07:04.774Z"
             },
             {
               "$type": "Document",
@@ -263,8 +259,7 @@
               "RelativeToolTip": "include\\MaterialMirror.h",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAACAAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-12T17:22:40.977Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-12T17:22:40.977Z"
             },
             {
               "$type": "Document",
@@ -276,8 +271,7 @@
               "RelativeToolTip": "source\\MaterialGlass.cpp",
               "ViewState": "AgIAACYAAAAAAAAAAAAAwD4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-09T14:09:01.552Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T14:09:01.552Z"
             },
             {
               "$type": "Document",
@@ -289,8 +283,7 @@
               "RelativeToolTip": "include\\Material.h",
               "ViewState": "AgIAAEIAAAAAAAAAAAAAAFgAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-09T16:13:53.179Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T16:13:53.179Z"
             },
             {
               "$type": "Document",
@@ -326,8 +319,7 @@
               "RelativeToolTip": "source\\Scene.cpp",
               "ViewState": "AgIAAEUAAAAAAAAAAAAjwEsAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-06-09T14:27:50.876Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T14:27:50.876Z"
             },
             {
               "$type": "Document",
@@ -375,8 +367,7 @@
               "RelativeToolTip": "include\\Vec3.h",
               "ViewState": "AgIAAGAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T10:40:31.023Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T10:40:31.023Z"
             },
             {
               "$type": "Document",
@@ -388,8 +379,7 @@
               "RelativeToolTip": "include\\HitRecord.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T11:14:18.328Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T11:14:18.328Z"
             },
             {
               "$type": "Document",
@@ -401,8 +391,7 @@
               "RelativeToolTip": "include\\Entity.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T11:12:11.05Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T11:12:11.05Z"
             },
             {
               "$type": "Document",
@@ -414,8 +403,7 @@
               "RelativeToolTip": "include\\Camera.h",
               "ViewState": "AgIAABUAAAAAAAAAAAAqwDgAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T15:55:19.443Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T15:55:19.443Z"
             },
             {
               "$type": "Document",
@@ -451,8 +439,7 @@
               "RelativeToolTip": "include\\Color.h",
               "ViewState": "AgIAAFQAAAAAAAAAAAAAAGQAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T10:40:24.746Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T10:40:24.746Z"
             },
             {
               "$type": "Document",
@@ -488,8 +475,7 @@
               "RelativeToolTip": "include\\Scene.h",
               "ViewState": "AgIAABQAAAAAAAAAAAASwDQAAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-09T14:20:21.806Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-09T14:20:21.806Z"
             },
             {
               "$type": "Document",
@@ -525,8 +511,7 @@
               "RelativeToolTip": "include\\Ray.h",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T10:44:34.869Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T10:44:34.869Z"
             },
             {
               "$type": "Document",
@@ -586,8 +571,7 @@
               "RelativeToolTip": "include\\Interval.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-06-04T16:34:07.208Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-04T16:34:07.208Z"
             },
             {
               "$type": "Document",

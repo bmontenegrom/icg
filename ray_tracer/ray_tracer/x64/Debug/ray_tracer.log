@@ -1,2 +1,8 @@
-﻿  main.cpp
+﻿  MaterialGlass.cpp
+  MaterialMirror.cpp
+  Scene.cpp
+  WhittedTracer.cpp
+  main.cpp
+  Generando código...
+  LINK : no se encontró C:\repos\icg\ray_tracer\x64\Debug\ray_tracer.exe o no lo generó el último vínculo incremental; ejecutando vínculo completo
   ray_tracer.vcxproj -> C:\repos\icg\ray_tracer\x64\Debug\ray_tracer.exe
