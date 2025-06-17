@@ -10,8 +10,13 @@
  */
 
 #pragma once
-#include "Entity.h"
+#include <vector>
+#include "Vec3.h"
+#include "Ray.h"
 #include "Color.h"
+#include "Entity.h"
+#include "Scene.h"
+#include "WhittedTracer.h"
 
 class Camera {
 public:
@@ -57,6 +62,11 @@ public:
 	 * @return Número de muestras por píxel
 	 */
 	int getSamplesPerPixel() const; 
+
+	void renderRow(int j, const Scene& scene, const WhittedTracer& tracer, std::vector<Color>& buffer) const;
+
+
+
 
 private:
 	int image_height; ///< Altura de la imagen en píxeles

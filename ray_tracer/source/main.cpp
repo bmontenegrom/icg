@@ -390,7 +390,7 @@ void renderWhittedScene(const Scene& scene, Camera& camera) {
  * 
  * @return 0 si el programa se ejecuta correctamente, código de error en caso contrario
  */
-int main() {
+/*int main() {
     try {
         // Inicializar FreeImage para manejo de imágenes
         FreeImage_Initialise();
@@ -426,4 +426,4 @@ int main() {
         FreeImage_DeInitialise();
         return 1;
     }
-}
+}*/
