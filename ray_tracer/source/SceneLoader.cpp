@@ -9,6 +9,11 @@
 #include "PointLight.h"
 #include "Camera.h"
 #include "WhittedTracer.h"
+#include "MaterialTextured.h"
+#include "Texture.h"
+#include "Triangle.h"
+#include "Mesh.h"
+#include "ObjectLoader.h"
 #include <fstream>
 #include <sstream>
 #include <unordered_map>
@@ -165,6 +170,40 @@ std::shared_ptr<Scene> SceneLoader::loadFromXML(const std::string& filename, std
             auto light = std::make_shared<PointLight>(position, intensity);
             scene->addLight(light);
             }
+        else if (line.find("<textured") != std::string::npos) {
+            std::string id = getAttribute(line, "id");
+            std::string texturePath = getAttribute(line, "path");
+            double shininess = parseDouble(getAttribute(line, "shininess"));
+            Texture texture(texturePath);
+            auto mat = std::make_shared<MaterialTextured>(texture, shininess);
+            materialMap[id] = mat;
+        }
+        else if (line.find("<mesh") != std::string::npos) {
+            std::string path = getAttribute(line, "path");
+            std::string mat_id = getAttribute(line, "material");
+
+            double sx = parseDouble(getAttribute(line, "scaleX"));
+            double sy = parseDouble(getAttribute(line, "scaleY"));
+            double sz = parseDouble(getAttribute(line, "scaleZ"));
+            double tx = parseDouble(getAttribute(line, "translateX"));
+            double ty = parseDouble(getAttribute(line, "translateY"));
+            double tz = parseDouble(getAttribute(line, "translateZ"));
+
+            Vec3 scale(sx, sy, sz);
+            Vec3 translate(tx, ty, tz);
+
+            std::shared_ptr<Material> mat = nullptr;
+            if (materialMap.count(mat_id)) {
+                mat = materialMap[mat_id];
+            }
+
+            auto mesh = ObjectLoader::loadObj(path, mat, scale, translate);
+            if (mesh) {
+                world->addEntity(mesh);
+            }
+        }
+
+
 
 
     }
