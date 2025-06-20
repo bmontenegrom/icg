@@ -102,7 +102,7 @@ void mainLoop(const Scene& scene, Camera& camera, const WhittedTracer& tracer) {
         }
     }
 }
-
+/*
 int main(int argc, char* argv[]) {
     std::unique_ptr<Camera> camera;
     WhittedTracer tracer(10, 0.001);
@@ -126,3 +126,4 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
+*/

@@ -96,6 +96,9 @@
     <ClInclude Include="include\MaterialTextured.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="include\MaterialNormalMapped.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Color.cpp">
@@ -174,6 +177,12 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="source\MaterialTextured.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SceneViewer.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MaterialNormalMapped.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>

@@ -46,6 +46,7 @@
 #include "LambertianMaterial.h"
 #include "Texture.h"
 #include "MaterialTextured.h"
+#include "MaterialNormalMapped.h"
 
 // Geometría adicional
 #include "Quad.h"
@@ -268,13 +269,23 @@ std::shared_ptr<Scene> createCornellBoxScene(const WhittedTracer& tracer) {
     else {
         world->addEntity(apple_mesh); // O el método equivalente que uses
     }
-    */
+    
 	auto texture = std::make_shared<Texture>("assets/textures/earthmap.jpg");
 	auto textured_material = std::make_shared<MaterialTextured>(*texture, 1.0);
 	auto textured_sphere = std::make_shared<Sphere>(Vec3(1.0, 0.5, 1.0), 0.3);
 	textured_sphere->setMaterial(textured_material);
 	world->addEntity(textured_sphere);
-
+    */
+	auto normal_textured = std::make_shared<Texture>("assets/textures/normal_tex.png");
+	auto normal_material = std::make_shared<MaterialNormalMapped>( 
+        Color(0.0, 0.0, 0.1),
+        Color(0.3, 0.3, 0.7),
+        Color(0.5, 0.5, 0.5),
+        32.0, 
+        *normal_textured);
+	auto normal_sphere = std::make_shared<Sphere>(Vec3(1.0, 0.5, 1.0), 0.3);
+	normal_sphere->setMaterial(normal_material);
+	world->addEntity(normal_sphere);
     return scene;
 }
 
@@ -390,7 +401,7 @@ void renderWhittedScene(const Scene& scene, Camera& camera) {
  * 
  * @return 0 si el programa se ejecuta correctamente, código de error en caso contrario
  */
-/*int main() {
+int main() {
     try {
         // Inicializar FreeImage para manejo de imágenes
         FreeImage_Initialise();
@@ -398,13 +409,14 @@ void renderWhittedScene(const Scene& scene, Camera& camera) {
         WhittedTracer tracer(10, 0.001);
         //std::unique_ptr<Camera> camera;
 		auto camera = createCornellBoxCamera();
-        auto scene = SceneLoader::loadFromXML("assets/scenes/planetaTierra.xml", camera, tracer);
-
+		auto scene = createCornellBoxScene(tracer);
+        //auto scene = SceneLoader::loadFromXML("assets/scenes/planetaTierra.xml", camera, tracer);
+        /*
         if (!scene || !camera) {
             std::cerr << "Error al cargar la escena desde XML.\n";
             return 1;
         }
-        
+        */
 		//auto scene = createCornellBoxScene(tracer);
         // === RENDERIZACIÓN CON WHITTED RAY TRACING ===
         renderWhittedScene(*scene, *camera);
@@ -426,4 +438,4 @@ void renderWhittedScene(const Scene& scene, Camera& camera) {
         FreeImage_DeInitialise();
         return 1;
     }
-}*/
+}

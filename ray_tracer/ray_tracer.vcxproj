@@ -151,6 +151,7 @@
     <ClInclude Include="include\Material.h" />
     <ClInclude Include="include\MaterialGlass.h" />
     <ClInclude Include="include\MaterialMirror.h" />
+    <ClInclude Include="include\MaterialNormalMapped.h" />
     <ClInclude Include="include\MaterialTextured.h" />
     <ClInclude Include="include\Mesh.h" />
     <ClInclude Include="include\ObjectLoader.h" />
@@ -179,6 +180,7 @@
     <ClCompile Include="source\Material.cpp" />
     <ClCompile Include="source\MaterialGlass.cpp" />
     <ClCompile Include="source\MaterialMirror.cpp" />
+    <ClCompile Include="source\MaterialNormalMapped.cpp" />
     <ClCompile Include="source\MaterialTextured.cpp" />
     <ClCompile Include="source\Mesh.cpp" />
     <ClCompile Include="source\ObjectLoader.cpp" />
@@ -187,6 +189,7 @@
     <ClCompile Include="source\Ray.cpp" />
     <ClCompile Include="source\Scene.cpp" />
     <ClCompile Include="source\SceneLoader.cpp" />
+    <ClCompile Include="source\SceneViewer.cpp" />
     <ClCompile Include="source\Sphere.cpp" />
     <ClCompile Include="source\Texture.cpp" />
     <ClCompile Include="source\Triangle.cpp" />

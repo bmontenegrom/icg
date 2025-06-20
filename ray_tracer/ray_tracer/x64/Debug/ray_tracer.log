@@ -1,2 +1,31 @@
 ﻿  main.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\xutility(506,82): warning C4244: 'argumento': conversión de '_Ty' a 'float'; posible pérdida de datos
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\xutility(506,82): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\xutility(506,82): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\xutility(506,82): warning C4244:             _Ty=double
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\xutility(506,82): warning C4244:         ]
+  (compilando archivo de origen "source/main.cpp")
+      C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\xutility(506,82):
+      el contexto de creación de instancias de la plantilla (el más antiguo primero) es
+          C:\repos\icg\ray_tracer\source\main.cpp(280,30):
+          Vea la referencia a la creación de una instancia de la función plantilla "std::shared_ptr<MaterialNormalMapped> std::make_shared<MaterialNormalMapped,Color,Color,Color,double,_Ty2&>(Color &&,Color &&,Color &&,double &&,_Ty2 &)" que se está compilando
+          with
+          [
+              _Ty2=Texture
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\memory(2903,46):
+          Vea la referencia a la creación de una instancia de la función plantilla "std::_Ref_count_obj2<MaterialNormalMapped>::_Ref_count_obj2<_Ty,_Ty,_Ty,double,_Ty2&>(_Ty &&,_Ty &&,_Ty &&,double &&,_Ty2 &)" que se está compilando
+          with
+          [
+              _Ty=Color,
+              _Ty2=Texture
+          ]
+          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.43.34808\include\memory(2092,18):
+          Vea la referencia a la creación de una instancia de la función plantilla "void std::_Construct_in_place<_Ty,Color,Color,Color,double,_Ty2&>(_Ty &,Color &&,Color &&,Color &&,double &&,_Ty2 &) noexcept(false)" que se está compilando
+          with
+          [
+              _Ty=MaterialNormalMapped,
+              _Ty2=Texture
+          ]
+  
   ray_tracer.vcxproj -> C:\repos\icg\ray_tracer\x64\Debug\ray_tracer.exe
