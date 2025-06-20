@@ -25,6 +25,9 @@
 #include <ctime>
 #include <sstream>
 #include <iomanip>
+#include <vector>
+#include <Scene.h>
+#include <WhittedTracer.h>
 
 /**
  * @brief Constructor que inicializa la cámara con un aspect ratio, ancho de imagen y muestras por píxel
@@ -233,3 +236,16 @@ int Camera::getImageHeight() const {
 int Camera::getSamplesPerPixel() const {
 	return samples_per_pixel;
 }
+
+void Camera::renderRow(int j, const Scene& scene, const WhittedTracer& tracer, std::vector<Color>& buffer) const {
+	for (int i = 0; i < image_width; ++i) {
+		Color pixel_color(0, 0, 0);
+		for (int s = 0; s < samples_per_pixel; ++s) {
+			Ray r = getRandomRay(i, j);
+			pixel_color += tracer.trace(r, scene);
+		}
+		pixel_color = pixel_color * pixel_sample_scale;
+		buffer[j * image_width + i] = pixel_color;
+	}
+}
+

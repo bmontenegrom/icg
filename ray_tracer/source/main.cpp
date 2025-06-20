@@ -390,7 +390,7 @@ void renderWhittedScene(const Scene& scene, Camera& camera) {
  * 
  * @return 0 si el programa se ejecuta correctamente, código de error en caso contrario
  */
-int main() {
+/*int main() {
     try {
         // Inicializar FreeImage para manejo de imágenes
         FreeImage_Initialise();
@@ -398,14 +398,14 @@ int main() {
         WhittedTracer tracer(10, 0.001);
         //std::unique_ptr<Camera> camera;
 		auto camera = createCornellBoxCamera();
-        /*auto scene = SceneLoader::loadFromXML("assets/scenes/XMLscene.xml", camera, tracer);
+        auto scene = SceneLoader::loadFromXML("assets/scenes/planetaTierra.xml", camera, tracer);
 
         if (!scene || !camera) {
             std::cerr << "Error al cargar la escena desde XML.\n";
             return 1;
         }
-        */
-		auto scene = createCornellBoxScene(tracer);
+        
+		//auto scene = createCornellBoxScene(tracer);
         // === RENDERIZACIÓN CON WHITTED RAY TRACING ===
         renderWhittedScene(*scene, *camera);
         
@@ -426,4 +426,4 @@ int main() {
         FreeImage_DeInitialise();
         return 1;
     }
-}
+}*/

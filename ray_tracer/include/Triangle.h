@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Vec3.h"
 #include "Ray.h"
 #include "Interval.h"
