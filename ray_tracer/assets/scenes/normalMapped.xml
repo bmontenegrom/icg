@@ -1,0 +1,16 @@
+<scene>
+	<camera aspect="1.0" width="800" samples="8"/>
+	<lambertian id="red" ambientR="0.1" ambientG="0.0" ambientB="0.0" diffuseR="0.65" diffuseG="0.05" diffuseB="0.05" specularR="0.1" specularG="0.1" specularB="0.1" shininess="10.0"/>
+	<lambertian id="green" ambientR="0.0" ambientG="0.1" ambientB="0.0" diffuseR="0.12" diffuseG="0.45" diffuseB="0.15" specularR="0.1" specularG="0.1" specularB="0.1" shininess="10.0"/>
+	<lambertian id="white" ambientR="0.1" ambientG="0.1" ambientB="0.1" diffuseR="0.73" diffuseG="0.73" diffuseB="0.73" specularR="0.1" specularG="0.1" specularB="0.1" shininess="10.0"/>
+	<normalmapped id="normalMat" ambientR="0.0" ambientG="0.0" ambientB="0.1" diffuseR="0.3" diffuseG="0.3" diffuseB="0.7" specularR="0.5" specularG="0.5" specularB="0.5" shininess="32.0" normalmap="assets/textures/normal_tex.png"/>
+	<quad material="red"   min="0,0,0" max="0,2,2" axis="0" value="0.0"/>
+	<quad material="green" min="2,0,0" max="2,2,2" axis="0" value="2.0"/>
+	<quad material="white" min="0,0,2" max="2,2,2" axis="2" value="2.0"/>
+	<quad material="white" min="0,0,0" max="2,0,2" axis="1" value="0.0"/>
+	<quad material="white" min="0,2,0" max="2,2,2" axis="1" value="2.0"/>
+	<sphere material="normalMat" cx="1.0" cy="0.5" cz="1.0" radius="0.3"/>
+	<pointlight px="1.0" py="1.8" pz="1.0" r="1.0" g="1.0" b="1.0"/>
+	<pointlight px="0.5" py="1.8" pz="0.5" r="0.8" g="0.8" b="0.8"/>
+</scene>
+
