@@ -40,6 +40,13 @@ Camera::Camera(double aspect_ratio, int image_width, int samples_per_pixel)
 	initialize();
 }
 
+Camera::Camera(const Vec3& eye, const Vec3& lookAt, const Vec3& up, double aspect_ratio, int image_width, int samples_per_pixel)
+	: eye(eye), lookAt(lookAt), up(up),
+	aspect_ratio(aspect_ratio), image_width(image_width), samples_per_pixel(samples_per_pixel)
+{
+	initialize();
+}
+
 /**
  * @brief Inicializa la cámara con los parámetros necesarios para el renderizado
  * 
@@ -59,20 +66,21 @@ void Camera::initialize() {
 	double viewport_height = 2.5;
 	double viewport_width = viewport_height * aspect_ratio;
 
-	// Cámara más cerca de la caja
-	center = Vec3(1.0, 1.0, -1.0);
+	Vec3 look_direction = unitVector(lookAt - eye);  // usa el vector real
 
-	// Dirección hacia el centro de la caja
-	Vec3 look_direction = unitVector(Vec3(1.0, 1.0, 1.0) - center);
+	Vec3 u = unitVector(crossProduct(up, look_direction));
+	Vec3 v = crossProduct(look_direction, u); // aseguro ortogonalidad
 
-	Vec3 viewport_u = Vec3(viewport_width, 0, 0);
-	Vec3 viewport_v = Vec3(0, -viewport_height, 0);
+	Vec3 viewport_u = viewport_width * u;
+	Vec3 viewport_v = -viewport_height * v;
 
 	pixel_delta_u = viewport_u / static_cast<double>(image_width);
 	pixel_delta_v = viewport_v / static_cast<double>(image_height);
 
-	Vec3 viewport_upper_left = center + focal_length * look_direction - viewport_u / 2 - viewport_v / 2;
+	Vec3 viewport_upper_left = eye + focal_length * look_direction - viewport_u / 2 - viewport_v / 2;
 	pixel00_loc = viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
+
+	center = eye;
 }
 
 /**

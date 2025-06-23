@@ -39,7 +39,7 @@ static double parseDouble(const std::string& value) {
 // Mapa global de materiales por ID
 static std::unordered_map<std::string, std::shared_ptr<Material>> materialMap;
 
-std::shared_ptr<Scene> SceneLoader::loadFromXML(const std::string& filename, std::unique_ptr<Camera>& out_camera, const WhittedTracer& tracer)
+std::shared_ptr<Scene> SceneLoader::loadFromXML(const std::string& filename, std::unique_ptr<Camera>& out_camera, std::unique_ptr<WhittedTracer>& out_tracer)
 {
     auto world = std::make_shared<EntityList>();
     auto scene = std::make_shared<Scene>(world);
@@ -50,20 +50,64 @@ std::shared_ptr<Scene> SceneLoader::loadFromXML(const std::string& filename, std
     }
 
     std::string line;
-    double aspect = 1.0;
-    int width = 800;
-    int samples = 8;
+    std::vector<std::string> lines;
+    double aspect = -1.0;
+    int width = -1;
+    int samples = -1;
+    bool hasEye = false, hasLookAt = false, hasUp = false;
+    Vec3 eye, lookAt, up;
+    int max_depth = -1;
+    double bias = -1.0;
 
     while (std::getline(file, line)) {
-        // Camera
+        lines.push_back(line);
+    }
+    file.close();
+
+    for (const std::string& line : lines) {
         if (line.find("<camera") != std::string::npos) {
             aspect = parseDouble(getAttribute(line, "aspect"));
             width = std::stoi(getAttribute(line, "width"));
             samples = std::stoi(getAttribute(line, "samples"));
         }
+        else if (line.find("<position") != std::string::npos) {
+            eye = Vec3(
+                parseDouble(getAttribute(line, "x")),
+                parseDouble(getAttribute(line, "y")),
+                parseDouble(getAttribute(line, "z"))
+            );
+            hasEye = true;
+        }
+        else if (line.find("<lookat") != std::string::npos) {
+            lookAt = Vec3(
+                parseDouble(getAttribute(line, "x")),
+                parseDouble(getAttribute(line, "y")),
+                parseDouble(getAttribute(line, "z"))
+            );
+            hasLookAt = true;
+        }
+        else if (line.find("<up") != std::string::npos) {
+            up = Vec3(
+                parseDouble(getAttribute(line, "x")),
+                parseDouble(getAttribute(line, "y")),
+                parseDouble(getAttribute(line, "z"))
+            );
+            hasUp = true;
+        }
+        else if (line.find("<tracer") != std::string::npos) {
+            max_depth = std::stoi(getAttribute(line, "depth"));
+            bias = parseDouble(getAttribute(line, "bias"));
+        }
+    }
+    if (!hasEye || !hasLookAt || !hasUp || aspect <= 0 || width <= 0 || samples <= 0 || max_depth < 0 || bias < 0) {
+        std::cerr << "ERROR: El XML debe definir <camera>, <position>, <lookat>, <up>, y <tracer> correctamente.\n";
+        return nullptr;
+    }
+    out_camera = std::make_unique<Camera>(eye, lookAt, up, aspect, width, samples);
+    out_tracer = std::make_unique<WhittedTracer>(max_depth, bias);
 
-        // Materiales
-        else if (line.find("<lambertian") != std::string::npos) {
+    for (const std::string& line : lines) {
+        if (line.find("<lambertian") != std::string::npos) {
             std::string id = getAttribute(line, "id");
             Color ambient(parseDouble(getAttribute(line, "ambientR")),
                 parseDouble(getAttribute(line, "ambientG")),
@@ -84,7 +128,7 @@ std::shared_ptr<Scene> SceneLoader::loadFromXML(const std::string& filename, std
             Color albedo(parseDouble(getAttribute(line, "albedoR")),
                 parseDouble(getAttribute(line, "albedoG")),
                 parseDouble(getAttribute(line, "albedoB")));
-            auto mat = std::make_shared<MaterialMirror>(albedo, tracer);
+            auto mat = std::make_shared<MaterialMirror>(albedo, *out_tracer);
             materialMap[id] = mat;
         }
         else if (line.find("<glass") != std::string::npos) {
@@ -93,7 +137,7 @@ std::shared_ptr<Scene> SceneLoader::loadFromXML(const std::string& filename, std
                 parseDouble(getAttribute(line, "albedoG")),
                 parseDouble(getAttribute(line, "albedoB")));
             double ior = parseDouble(getAttribute(line, "ior"));
-            auto mat = std::make_shared<MaterialGlass>(albedo, ior, tracer);
+            auto mat = std::make_shared<MaterialGlass>(albedo, ior, *out_tracer);
             materialMap[id] = mat;
         }
 
@@ -170,7 +214,7 @@ std::shared_ptr<Scene> SceneLoader::loadFromXML(const std::string& filename, std
             );
             auto light = std::make_shared<PointLight>(position, intensity);
             scene->addLight(light);
-            }
+        }
         else if (line.find("<textured") != std::string::npos) {
             std::string id = getAttribute(line, "id");
             std::string texturePath = getAttribute(line, "path");
@@ -220,16 +264,10 @@ std::shared_ptr<Scene> SceneLoader::loadFromXML(const std::string& filename, std
             Texture normalMap(normalMapPath);
             auto mat = std::make_shared<MaterialNormalMapped>(ambient, diffuse, specular, shininess, normalMap);
             materialMap[id] = mat;
-            }
-
-
-
-
-
+        }
     }
-    file.close();
 
-    out_camera = std::make_unique<Camera>(aspect, width, samples);
+
 
     return scene;
 }

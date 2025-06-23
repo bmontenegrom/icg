@@ -4,6 +4,7 @@
 	<position x="1.0" y="1.0" z="-1.0" />
 	<lookat x="1.0" y="1.0" z="1.0" />
 	<up x="0.0" y="1.0" z="0.0" />
+	<tracer depth="15" bias="0.0005" />
 	<lambertian id="red" ambientR="0.1" ambientG="0.0" ambientB="0.0" diffuseR="0.65" diffuseG="0.05" diffuseB="0.05" specularR="0.1" specularG="0.1" specularB="0.1" shininess="10.0" />
 	<lambertian id="green" ambientR="0.0" ambientG="0.1" ambientB="0.0" diffuseR="0.12" diffuseG="0.45" diffuseB="0.15" specularR="0.1" specularG="0.1" specularB="0.1" shininess="10.0" />
 	<lambertian id="white" ambientR="0.1" ambientG="0.1" ambientB="0.1" diffuseR="0.73" diffuseG="0.73" diffuseB="0.73" specularR="0.1" specularG="0.1" specularB="0.1" shininess="10.0" />

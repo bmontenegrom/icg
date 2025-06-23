@@ -65,8 +65,10 @@ public:
 
 	void renderRow(int j, const Scene& scene, const WhittedTracer& tracer, std::vector<Color>& buffer) const;
 
-
-
+	Camera(const Vec3& eye, const Vec3& lookAt, const Vec3& up, double aspect_ratio, int image_width, int samples_per_pixel);
+	Vec3& getEye() { return eye; }
+	Vec3& getLookAt() { return lookAt; }
+	Vec3& getUp() { return up; }
 
 private:
 	int image_height; ///< Altura de la imagen en píxeles
@@ -104,4 +106,8 @@ private:
 	 * @return Nombre de archivo con timestamp
 	 */
 	std::string getTimestampedFilename() const;
+
+	Vec3 eye;
+	Vec3 lookAt;
+	Vec3 up;
 };
