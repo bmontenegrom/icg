@@ -397,10 +397,10 @@ void WhittedTracer::generateReflectionImage(const Scene& scene, Camera& camera, 
 		<< ".png";
 
 	if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
-		std::cout << "Mapa de reflexión guardado: " << oss.str() << std::endl;
+		std::cout << "Imagen de reflexión guardado: " << oss.str() << std::endl;
 	}
 	else {
-		std::cerr << "Error guardando mapa de reflexión.\n";
+		std::cerr << "Error guardando imaghen de reflexión.\n";
 	}
 
 	FreeImage_Unload(bitmap);
@@ -442,10 +442,10 @@ void WhittedTracer::generateTransmissionImage(const Scene& scene, Camera& camera
 		<< ".png";
 
 	if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
-		std::cout << "Mapa de reflexión guardado: " << oss.str() << std::endl;
+		std::cout << "Imagen de transmisión guardado: " << oss.str() << std::endl;
 	}
 	else {
-		std::cerr << "Error guardando mapa de reflexión.\n";
+		std::cerr << "Error en imagen de reflexión.\n";
 	}
 
 	FreeImage_Unload(bitmap);
@@ -569,7 +569,7 @@ void WhittedTracer::renderTransmissionLive(const Scene& scene, Camera& camera, S
         std::ostringstream oss;
         oss << "images/transmission_" << std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S") << ".png";
         if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
-            std::cout << "Mapa de transmisión guardado: " << oss.str() << std::endl;
+            std::cout << "Imagen de transmisión guardada: " << oss.str() << std::endl;
         }
         else {
             std::cerr << "Error guardando mapa de transmisión.\n";
@@ -621,10 +621,10 @@ void WhittedTracer::renderReflectionLive(const Scene& scene, Camera& camera, SDL
 		std::ostringstream oss;
 		oss << "images/reflection_" << std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S") << ".png";
 		if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
-			std::cout << "Mapa de reflexión guardado: " << oss.str() << std::endl;
+			std::cout << "Imagen de reflexión guardada: " << oss.str() << std::endl;
 		}
 		else {
-			std::cerr << "Error guardando mapa de reflexión.\n";
+			std::cerr << "Error guardando imagen de reflexión.\n";
 		}
 	}
 	FreeImage_Unload(bitmap);
@@ -671,10 +671,10 @@ void WhittedTracer::renderDiffuseLive(const Scene& scene, Camera& camera, SDL_Re
 		std::ostringstream oss;
 		oss << "images/diffuse_" << std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S") << ".png";
 		if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
-			std::cout << "Mapa difuso guardado: " << oss.str() << std::endl;
+			std::cout << "Imagen componente difusa guardada: " << oss.str() << std::endl;
 		}
 		else {
-			std::cerr << "Error guardando mapa difuso.\n";
+			std::cerr << "Error guardando imagen difusa.\n";
 		}
 	}
 	FreeImage_Unload(bitmap);
@@ -721,7 +721,7 @@ void WhittedTracer::renderSpecularLive(const Scene& scene, Camera& camera, SDL_R
 		std::ostringstream oss;
 		oss << "images/specular_" << std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S") << ".png";
 		if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
-			std::cout << "Mapa especular guardado: " << oss.str() << std::endl;
+			std::cout << "Imagen componente especular guardada: " << oss.str() << std::endl;
 		}
 		else {
 			std::cerr << "Error guardando mapa especular.\n";
@@ -771,7 +771,7 @@ void WhittedTracer::renderAmbientLive(const Scene& scene, Camera& camera, SDL_Re
 		std::ostringstream oss;
 		oss << "images/ambient_" << std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S") << ".png";
 		if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
-			std::cout << "Mapa ambiental guardado: " << oss.str() << std::endl;
+			std::cout << "Imagen componente ambiental guardada: " << oss.str() << std::endl;
 		}
 		else {
 			std::cerr << "Error guardando mapa ambiental.\n";
@@ -790,5 +790,8 @@ void WhittedTracer::renderLive(const Scene& scene, Camera& camera, SDL_Renderer*
 	renderReflectionLive(scene, camera, renderer, texture);
 	renderTransmissionLive(scene, camera, renderer, texture);
 	std::cout << "Renderizado en vivo completado.\n";
+	generateTransmissionMap(scene, camera, camera.getImageWidth(), camera.getImageHeight());
+	generateReflectionMap(scene, camera, camera.getImageWidth(), camera.getImageHeight());
+
 }
 

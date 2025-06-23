@@ -5,6 +5,7 @@
 #include "Light.h"
 #include "Material.h"
 #include "Scene.h"
+#include <SDL.h>
 #include <vector>
 #include <memory>
 
@@ -98,7 +99,22 @@ public:
 		int width, int height) const;
 	void generateTransmissionImage(const Scene& scene, class Camera& camera,
 		int width, int height) const;
-	
+
+   void renderWhittedSceneLive(const Scene& scene, Camera& camera, SDL_Renderer* renderer, SDL_Texture* texture);
+
+   void renderTransmissionLive(const Scene& scene, Camera& camera, SDL_Renderer* renderer, SDL_Texture* texture);
+
+   void renderReflectionLive(const Scene& scene, Camera& camera, SDL_Renderer* renderer, SDL_Texture* texture);
+
+   void renderDiffuseLive(const Scene& scene, Camera& camera, SDL_Renderer* renderer, SDL_Texture* texture);
+
+
+   void renderSpecularLive(const Scene& scene, Camera& camera, SDL_Renderer* renderer, SDL_Texture* texture);
+
+   void renderAmbientLive(const Scene& scene, Camera& camera, SDL_Renderer* renderer, SDL_Texture* texture);
+
+   void renderLive(const Scene& scene, Camera& camera, SDL_Renderer* renderer, SDL_Texture* texture);
+
 private:
     int max_depth;      ///< Profundidad máxima de recursión
     double shadow_bias; ///< Offset para evitar self-shadowing
@@ -109,4 +125,5 @@ private:
      * @return Color de fondo
      */
     Color backgroundColor(const Ray& ray) const;
-}; 
+    
+};
