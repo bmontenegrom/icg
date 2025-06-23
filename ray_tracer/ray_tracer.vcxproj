@@ -189,7 +189,6 @@
     <ClCompile Include="source\Ray.cpp" />
     <ClCompile Include="source\Scene.cpp" />
     <ClCompile Include="source\SceneLoader.cpp" />
-    <ClCompile Include="source\SceneViewer.cpp" />
     <ClCompile Include="source\Sphere.cpp" />
     <ClCompile Include="source\Texture.cpp" />
     <ClCompile Include="source\Triangle.cpp" />

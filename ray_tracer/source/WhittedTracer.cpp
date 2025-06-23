@@ -452,3 +452,343 @@ void WhittedTracer::generateTransmissionImage(const Scene& scene, Camera& camera
 	FreeImage_DeInitialise();
 }
 
+void WhittedTracer::renderWhittedSceneLive(const Scene& scene, Camera& camera, SDL_Renderer* renderer, SDL_Texture* texture)
+{
+    int width = camera.getImageWidth();
+    int height = camera.getImageHeight();
+    int spp = camera.getSamplesPerPixel();
+
+    FreeImage_Initialise();
+    FIBITMAP* bitmap = FreeImage_Allocate(width, height, 24);
+    if (!bitmap) {
+        std::cerr << "Error creando imagen.\n";
+        FreeImage_DeInitialise();
+        return;
+    }
+
+    std::vector<uint8_t> framebuffer(width * height * 3, 0);
+
+    for (int j = 0; j < height; ++j) {
+        for (int i = 0; i < width; ++i) {
+            Color pixel_color(0, 0, 0);
+            for (int s = 0; s < spp; ++s) {
+                Ray ray = camera.getRandomRay(i, j);
+                pixel_color += trace(ray, scene);
+            }
+            pixel_color = pixel_color / static_cast<double>(spp);
+            pixel_color = Color(
+                std::sqrt(pixel_color.getR()),
+                std::sqrt(pixel_color.getG()),
+                std::sqrt(pixel_color.getB())
+            );
+
+            uint8_t r = pixel_color.getRbyte();
+            uint8_t g = pixel_color.getGbyte();
+            uint8_t b = pixel_color.getBbyte();
+
+            int index = (j * width + i) * 3;
+            framebuffer[index + 0] = r;
+            framebuffer[index + 1] = g;
+            framebuffer[index + 2] = b;
+
+            RGBQUAD color;
+            color.rgbRed = r;
+            color.rgbGreen = g;
+            color.rgbBlue = b;
+            FreeImage_SetPixelColor(bitmap, i, height - 1 - j, &color);
+        }
+
+        SDL_UpdateTexture(texture, nullptr, framebuffer.data(), width * 3);
+        SDL_RenderClear(renderer);
+        SDL_RenderCopy(renderer, texture, nullptr, nullptr);
+        SDL_RenderPresent(renderer);
+    }
+
+    std::time_t now = std::time(nullptr);
+    std::tm tm_info{};
+    if (localtime_s(&tm_info, &now) == 0) {
+        std::ostringstream oss;
+        oss << "images/render_" << std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S") << ".png";
+        if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
+            std::cout << "Imagen guardada: " << oss.str() << std::endl;
+        }
+        else {
+            std::cerr << "Error guardando la imagen.\n";
+        }
+    }
+
+    FreeImage_Unload(bitmap);
+    FreeImage_DeInitialise();
+}
+
+void WhittedTracer::renderTransmissionLive(const Scene& scene, Camera& camera, SDL_Renderer* renderer, SDL_Texture* texture)
+{
+    int width = camera.getImageWidth();
+    int height = camera.getImageHeight();
+
+    FreeImage_Initialise();
+    FIBITMAP* bitmap = FreeImage_Allocate(width, height, 24);
+    if (!bitmap) {
+        std::cerr << "Error creando imagen de transmisión.\n";
+        FreeImage_DeInitialise();
+        return;
+    }
+
+    std::vector<uint8_t> framebuffer(width * height * 3, 0);
+
+    for (int j = 0; j < height; ++j) {
+        for (int i = 0; i < width; ++i) {
+            Ray ray = camera.getRay(i, j);
+            Color transmission_color = traceComponent(ray, scene, ShadeComponent::Transmission);
+
+            uint8_t r = transmission_color.getRbyte();
+            uint8_t g = transmission_color.getGbyte();
+            uint8_t b = transmission_color.getBbyte();
+
+			int index = (j * width + i) * 3;
+            framebuffer[index + 0] = r;
+            framebuffer[index + 1] = g;
+            framebuffer[index + 2] = b;
+
+            RGBQUAD color;
+            color.rgbRed = r;
+            color.rgbGreen = g;
+            color.rgbBlue = b;
+            FreeImage_SetPixelColor(bitmap, i, height - 1 - j, &color);
+        }
+
+        SDL_UpdateTexture(texture, nullptr, framebuffer.data(), width * 3);
+        SDL_RenderClear(renderer);
+        SDL_RenderCopy(renderer, texture, nullptr, nullptr);
+        SDL_RenderPresent(renderer);
+    }
+
+    std::time_t now = std::time(nullptr);
+    std::tm tm_info{};
+    if (localtime_s(&tm_info, &now) == 0) {
+        std::ostringstream oss;
+        oss << "images/transmission_" << std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S") << ".png";
+        if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
+            std::cout << "Mapa de transmisión guardado: " << oss.str() << std::endl;
+        }
+        else {
+            std::cerr << "Error guardando mapa de transmisión.\n";
+        }
+    }
+
+    FreeImage_Unload(bitmap);
+    FreeImage_DeInitialise();
+
+}
+
+void WhittedTracer::renderReflectionLive(const Scene& scene, Camera& camera, SDL_Renderer* renderer, SDL_Texture* texture)
+{
+	int width = camera.getImageWidth();
+	int height = camera.getImageHeight();
+	FreeImage_Initialise();
+	FIBITMAP* bitmap = FreeImage_Allocate(width, height, 24);
+	if (!bitmap) {
+		std::cerr << "Error creando imagen de reflexión.\n";
+		FreeImage_DeInitialise();
+		return;
+	}
+	std::vector<uint8_t> framebuffer(width * height * 3, 0);
+	for (int j = 0; j < height; ++j) {
+		for (int i = 0; i < width; ++i) {
+			Ray ray = camera.getRay(i, j);
+			Color reflection_color = traceComponent(ray, scene, ShadeComponent::Reflection);
+			uint8_t r = reflection_color.getRbyte();
+			uint8_t g = reflection_color.getGbyte();
+			uint8_t b = reflection_color.getBbyte();
+			int index = (j * width + i) * 3;
+			framebuffer[index + 0] = r;
+			framebuffer[index + 1] = g;
+			framebuffer[index + 2] = b;
+			RGBQUAD color;
+			color.rgbRed = r;
+			color.rgbGreen = g;
+			color.rgbBlue = b;
+			FreeImage_SetPixelColor(bitmap, i, height - 1 - j, &color);
+		}
+		SDL_UpdateTexture(texture, nullptr, framebuffer.data(), width * 3);
+		SDL_RenderClear(renderer);
+		SDL_RenderCopy(renderer, texture, nullptr, nullptr);
+		SDL_RenderPresent(renderer);
+	}
+	std::time_t now = std::time(nullptr);
+	std::tm tm_info{};
+	if (localtime_s(&tm_info, &now) == 0) {
+		std::ostringstream oss;
+		oss << "images/reflection_" << std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S") << ".png";
+		if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
+			std::cout << "Mapa de reflexión guardado: " << oss.str() << std::endl;
+		}
+		else {
+			std::cerr << "Error guardando mapa de reflexión.\n";
+		}
+	}
+	FreeImage_Unload(bitmap);
+	FreeImage_DeInitialise();
+}
+
+void WhittedTracer::renderDiffuseLive(const Scene& scene, Camera& camera, SDL_Renderer* renderer, SDL_Texture* texture)
+{
+	int width = camera.getImageWidth();
+	int height = camera.getImageHeight();
+	FreeImage_Initialise();
+	FIBITMAP* bitmap = FreeImage_Allocate(width, height, 24);
+	if (!bitmap) {
+		std::cerr << "Error creando imagen de difusos.\n";
+		FreeImage_DeInitialise();
+		return;
+	}
+	std::vector<uint8_t> framebuffer(width * height * 3, 0);
+	for (int j = 0; j < height; ++j) {
+		for (int i = 0; i < width; ++i) {
+			Ray ray = camera.getRay(i, j);
+			Color diffuse_color = traceComponent(ray, scene, ShadeComponent::Diffuse);
+			uint8_t r = diffuse_color.getRbyte();
+			uint8_t g = diffuse_color.getGbyte();
+			uint8_t b = diffuse_color.getBbyte();
+			int index = (j * width + i) * 3;
+			framebuffer[index + 0] = r;
+			framebuffer[index + 1] = g;
+			framebuffer[index + 2] = b;
+			RGBQUAD color;
+			color.rgbRed = r;
+			color.rgbGreen = g;
+			color.rgbBlue = b;
+			FreeImage_SetPixelColor(bitmap, i, height - 1 - j, &color);
+		}
+		SDL_UpdateTexture(texture, nullptr, framebuffer.data(), width * 3);
+		SDL_RenderClear(renderer);
+		SDL_RenderCopy(renderer, texture, nullptr, nullptr);
+		SDL_RenderPresent(renderer);
+	}
+	std::time_t now = std::time(nullptr);
+	std::tm tm_info{};
+	if (localtime_s(&tm_info, &now) == 0) {
+		std::ostringstream oss;
+		oss << "images/diffuse_" << std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S") << ".png";
+		if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
+			std::cout << "Mapa difuso guardado: " << oss.str() << std::endl;
+		}
+		else {
+			std::cerr << "Error guardando mapa difuso.\n";
+		}
+	}
+	FreeImage_Unload(bitmap);
+	FreeImage_DeInitialise();
+}
+
+void WhittedTracer::renderSpecularLive(const Scene& scene, Camera& camera, SDL_Renderer* renderer, SDL_Texture* texture)
+{
+	int width = camera.getImageWidth();
+	int height = camera.getImageHeight();
+	FreeImage_Initialise();
+	FIBITMAP* bitmap = FreeImage_Allocate(width, height, 24);
+	if (!bitmap) {
+		std::cerr << "Error creando imagen de especulares.\n";
+		FreeImage_DeInitialise();
+		return;
+	}
+	std::vector<uint8_t> framebuffer(width * height * 3, 0);
+	for (int j = 0; j < height; ++j) {
+		for (int i = 0; i < width; ++i) {
+			Ray ray = camera.getRay(i, j);
+			Color specular_color = traceComponent(ray, scene, ShadeComponent::Specular);
+			uint8_t r = specular_color.getRbyte();
+			uint8_t g = specular_color.getGbyte();
+			uint8_t b = specular_color.getBbyte();
+			int index = (j * width + i) * 3;
+			framebuffer[index + 0] = r;
+			framebuffer[index + 1] = g;
+			framebuffer[index + 2] = b;
+			RGBQUAD color;
+			color.rgbRed = r;
+			color.rgbGreen = g;
+			color.rgbBlue = b;
+			FreeImage_SetPixelColor(bitmap, i, height - 1 - j, &color);
+		}
+		SDL_UpdateTexture(texture, nullptr, framebuffer.data(), width * 3);
+		SDL_RenderClear(renderer);
+		SDL_RenderCopy(renderer, texture, nullptr, nullptr);
+		SDL_RenderPresent(renderer);
+	}
+	std::time_t now = std::time(nullptr);
+	std::tm tm_info{};
+	if (localtime_s(&tm_info, &now) == 0) {
+		std::ostringstream oss;
+		oss << "images/specular_" << std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S") << ".png";
+		if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
+			std::cout << "Mapa especular guardado: " << oss.str() << std::endl;
+		}
+		else {
+			std::cerr << "Error guardando mapa especular.\n";
+		}
+	}
+	FreeImage_Unload(bitmap);
+	FreeImage_DeInitialise();
+}
+
+void WhittedTracer::renderAmbientLive(const Scene& scene, Camera& camera, SDL_Renderer* renderer, SDL_Texture* texture)
+{
+	int width = camera.getImageWidth();
+	int height = camera.getImageHeight();
+	FreeImage_Initialise();
+	FIBITMAP* bitmap = FreeImage_Allocate(width, height, 24);
+	if (!bitmap) {
+		std::cerr << "Error creando imagen de ambiente.\n";
+		FreeImage_DeInitialise();
+		return;
+	}
+	std::vector<uint8_t> framebuffer(width * height * 3, 0);
+	for (int j = 0; j < height; ++j) {
+		for (int i = 0; i < width; ++i) {
+			Ray ray = camera.getRay(i, j);
+			Color ambient_color = traceComponent(ray, scene, ShadeComponent::Ambient);
+			uint8_t r = ambient_color.getRbyte();
+			uint8_t g = ambient_color.getGbyte();
+			uint8_t b = ambient_color.getBbyte();
+			int index = (j * width + i) * 3;
+			framebuffer[index + 0] = r;
+			framebuffer[index + 1] = g;
+			framebuffer[index + 2] = b;
+			RGBQUAD color;
+			color.rgbRed = r;
+			color.rgbGreen = g;
+			color.rgbBlue = b;
+			FreeImage_SetPixelColor(bitmap, i, height - 1 - j, &color);
+		}
+		SDL_UpdateTexture(texture, nullptr, framebuffer.data(), width * 3);
+		SDL_RenderClear(renderer);
+		SDL_RenderCopy(renderer, texture, nullptr, nullptr);
+		SDL_RenderPresent(renderer);
+	}
+	std::time_t now = std::time(nullptr);
+	std::tm tm_info{};
+	if (localtime_s(&tm_info, &now) == 0) {
+		std::ostringstream oss;
+		oss << "images/ambient_" << std::put_time(&tm_info, "%Y-%m-%d_%H-%M-%S") << ".png";
+		if (FreeImage_Save(FIF_PNG, bitmap, oss.str().c_str(), 0)) {
+			std::cout << "Mapa ambiental guardado: " << oss.str() << std::endl;
+		}
+		else {
+			std::cerr << "Error guardando mapa ambiental.\n";
+		}
+	}
+	FreeImage_Unload(bitmap);
+	FreeImage_DeInitialise();
+}
+
+void WhittedTracer::renderLive(const Scene& scene, Camera& camera, SDL_Renderer* renderer, SDL_Texture* texture)
+{
+	renderWhittedSceneLive(scene, camera, renderer, texture);
+	renderDiffuseLive(scene, camera, renderer, texture);
+	renderSpecularLive(scene, camera, renderer, texture);
+	renderAmbientLive(scene, camera, renderer, texture);
+	renderReflectionLive(scene, camera, renderer, texture);
+	renderTransmissionLive(scene, camera, renderer, texture);
+	std::cout << "Renderizado en vivo completado.\n";
+}
+

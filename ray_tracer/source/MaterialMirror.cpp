@@ -53,7 +53,7 @@ Color MaterialMirror::shadeComponent(ShadeComponent component, const Ray& ray, c
     if (component == ShadeComponent::Reflection) {
         Vec3 reflected = reflect(unitVector(ray.getDirection()), hit.normal);
         Ray reflected_ray(hit.point + reflected * 1e-4, reflected);
-        return tracer.trace(reflected_ray, scene, 1); // solo primer rebote
+        return tracer.trace(reflected_ray, scene, tracer.getMaxDepth() - 1); // solo primer rebote
     }
     return Color(0, 0, 0);
 }

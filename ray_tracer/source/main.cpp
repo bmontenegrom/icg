@@ -324,109 +324,7 @@ std::unique_ptr<Camera> createCornellBoxCamera() {
     return camera;
 }
 
-bool initializeOpenGL(int width, int height) {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        std::cerr << "Error al inicializar SDL: " << SDL_GetError() << std::endl;
-        return false;
-    }
 
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-    window = SDL_CreateWindow("Raytracer Viewer",
-        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-        width, height, SDL_WINDOW_OPENGL);
-
-    if (!window) {
-        std::cerr << "No se pudo crear la ventana: " << SDL_GetError() << std::endl;
-        return false;
-    }
-
-    gl_context = SDL_GL_CreateContext(window);
-    if (!gl_context) {
-        std::cerr << "No se pudo crear el contexto OpenGL: " << SDL_GetError() << std::endl;
-        return false;
-    }
-
-    glViewport(0, 0, width, height);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glOrtho(0, width, height, 0, -1, 1);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    glGenTextures(1, &texture_id);
-    glBindTexture(GL_TEXTURE_2D, texture_id);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-    return true;
-}
-
-void updateTextureRow(int row, int width) {
-    std::vector<unsigned char> row_data(width * 3);
-    for (int i = 0; i < width; ++i) {
-        const Color& c = framebuffer[row * width + i];
-        row_data[i * 3 + 0] = c.getRbyte();
-        row_data[i * 3 + 1] = c.getGbyte();
-        row_data[i * 3 + 2] = c.getBbyte();
-    }
-    glBindTexture(GL_TEXTURE_2D, texture_id);
-    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, row, width, 1, GL_RGB, GL_UNSIGNED_BYTE, row_data.data());
-}
-
-void drawTexture(int width, int height) {
-    glClear(GL_COLOR_BUFFER_BIT);
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, texture_id);
-
-    glBegin(GL_QUADS);
-    glTexCoord2f(0, 0); glVertex2f(0, 0);
-    glTexCoord2f(1, 0); glVertex2f(width, 0);
-    glTexCoord2f(1, 1); glVertex2f(width, height);
-    glTexCoord2f(0, 1); glVertex2f(0, height);
-    glEnd();
-
-    SDL_GL_SwapWindow(window);
-}
-
-void mainLoopVisual(const Scene& scene, Camera& camera, const WhittedTracer& tracer) {
-    int width = camera.getImageWidth();
-    int height = camera.getImageHeight();
-    framebuffer.resize(width * height);
-
-    bool quit = false;
-    int current_row = 0;
-    SDL_Event e;
-
-    while (!quit) {
-        while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT)
-                quit = true;
-        }
-
-        if (current_row < height) {
-            camera.renderRow(current_row, scene, tracer, framebuffer);
-            updateTextureRow(current_row, width);
-            drawTexture(width, height);
-            ++current_row;
-        }
-    }
-}
-
-void visualizeScene(std::unique_ptr<Camera>& camera, std::shared_ptr<Scene>& scene, const WhittedTracer& tracer) {
-    int width = camera->getImageWidth();
-    int height = camera->getImageHeight();
-
-    if (!initializeOpenGL(width, height)) {
-        std::cerr << "Falló OpenGL\n";
-        return;
-    }
-
-    mainLoopVisual(*scene, *camera, tracer);
-    SDL_GL_DeleteContext(gl_context);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-}
 
 /**
  * @brief Renderiza la imagen principal usando el WhittedTracer
@@ -506,6 +404,13 @@ void renderWhittedScene(const Scene& scene, Camera& camera) {
     FreeImage_DeInitialise();
 }
 
+
+
+
+
+
+
+
 /**
  * @brief Función principal del programa
  * 
@@ -520,47 +425,68 @@ void renderWhittedScene(const Scene& scene, Camera& camera) {
  * @return 0 si el programa se ejecuta correctamente, código de error en caso contrario
  */
 int main() {
-    try {
-        // Inicializar FreeImage para manejo de imágenes
-        FreeImage_Initialise();
-        
-        WhittedTracer tracer(10, 0.001);
-        //std::unique_ptr<Camera> camera;
-		auto camera = createCornellBoxCamera();
-		//auto scene = createCornellBoxScene(tracer);
-        auto scene = SceneLoader::loadFromXML("assets/scenes/normalMapped.xml", camera, tracer);
-        /*
-        if (!scene || !camera) {
-            std::cerr << "Error al cargar la escena desde XML.\n";
-            return 1;
-        }
-        */
-		//auto scene = createCornellBoxScene(tracer);
-        // === RENDERIZACIÓN CON WHITTED RAY TRACING ===
-        bool modo_visual = true;
 
-        if (modo_visual) {
-            visualizeScene(camera, scene, tracer);
-        }
-        else {
-            renderWhittedScene(*scene, *camera);
-        }
-        
-		//tracer.generateReflectionMap(*scene, *camera, camera->getImageWidth(), camera->getImageHeight());
-		//tracer.generateTransmissionMap(*scene, *camera, camera->getImageWidth(), camera->getImageHeight());
-        //tracer.generateAuxImages(*scene, *camera, camera->getImageWidth(), camera->getImageHeight());
-        // Finalizar FreeImage
-        FreeImage_DeInitialise();
-        return 0;
-        
-    } catch (const std::exception& e) {
-        std::cerr << "Error durante la ejecución: " << e.what() << std::endl;
-        FreeImage_DeInitialise();
-        return 1;
-        
-    } catch (...) {
-        std::cerr << "Error desconocido durante la ejecución." << std::endl;
-        FreeImage_DeInitialise();
+    FreeImage_Initialise();
+
+    WhittedTracer tracer(10, 0.001);
+    //std::unique_ptr<Camera> camera;
+    auto camera = createCornellBoxCamera();
+    //auto scene = createCornellBoxScene(tracer);
+    auto scene = SceneLoader::loadFromXML("assets/scenes/normalMapped.xml", camera, tracer);
+
+
+  
+	int width = camera->getImageWidth();
+	int height = camera->getImageHeight();
+
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        std::cerr << "Error inicializando SDL: " << SDL_GetError() << std::endl;
         return 1;
     }
+
+    SDL_Window* window = SDL_CreateWindow("Ray Tracer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
+    if (!window) {
+        std::cerr << "Error creando ventana: " << SDL_GetError() << std::endl;
+        SDL_Quit();
+        return 1;
+    }
+
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (!renderer) {
+        std::cerr << "Error creando renderer: " << SDL_GetError() << std::endl;
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 1;
+    }
+
+    SDL_Texture* texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB24, SDL_TEXTUREACCESS_STREAMING, width, height);
+    if (!texture) {
+        std::cerr << "Error creando textura: " << SDL_GetError() << std::endl;
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return 1;
+    }
+
+
+	tracer.renderLive(*scene, *camera, renderer, texture);
+	
+
+    SDL_Event event;
+    bool running = true;
+    while (running) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                running = false;
+            }
+        }
+        SDL_Delay(16);
+    }
+
+    SDL_DestroyTexture(texture);
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+    return 0;
+
 }

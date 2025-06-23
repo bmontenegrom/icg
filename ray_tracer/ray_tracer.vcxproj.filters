@@ -179,9 +179,6 @@
     <ClCompile Include="source\MaterialTextured.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="source\SceneViewer.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="source\MaterialNormalMapped.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
