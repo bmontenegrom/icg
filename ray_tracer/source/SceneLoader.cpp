@@ -21,6 +21,7 @@
 #include <memory>
 #include <iostream>
 #include <Quad.h>
+#include <MaterialNormalMapped.h>
 
 // Función utilitaria para extraer valores XML simples
 static std::string getAttribute(const std::string& line, const std::string& key) {
@@ -202,6 +203,25 @@ std::shared_ptr<Scene> SceneLoader::loadFromXML(const std::string& filename, std
                 world->addEntity(mesh);
             }
         }
+        else if (line.find("<normalmapped") != std::string::npos) {
+            std::string id = getAttribute(line, "id");
+            Color ambient(parseDouble(getAttribute(line, "ambientR")),
+                parseDouble(getAttribute(line, "ambientG")),
+                parseDouble(getAttribute(line, "ambientB")));
+            Color diffuse(parseDouble(getAttribute(line, "diffuseR")),
+                parseDouble(getAttribute(line, "diffuseG")),
+                parseDouble(getAttribute(line, "diffuseB")));
+            Color specular(parseDouble(getAttribute(line, "specularR")),
+                parseDouble(getAttribute(line, "specularG")),
+                parseDouble(getAttribute(line, "specularB")));
+            double shininess = parseDouble(getAttribute(line, "shininess"));
+            std::string normalMapPath = getAttribute(line, "normalmap");
+
+            Texture normalMap(normalMapPath);
+            auto mat = std::make_shared<MaterialNormalMapped>(ambient, diffuse, specular, shininess, normalMap);
+            materialMap[id] = mat;
+            }
+
 
 
 
