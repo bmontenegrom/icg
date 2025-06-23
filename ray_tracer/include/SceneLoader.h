@@ -18,6 +18,6 @@ public:
     static std::shared_ptr<Scene> loadFromXML(
         const std::string& filename,
         std::unique_ptr<Camera>& out_camera,
-        const WhittedTracer& tracer
+        std::unique_ptr<WhittedTracer>& out_tracer
     );
 };
