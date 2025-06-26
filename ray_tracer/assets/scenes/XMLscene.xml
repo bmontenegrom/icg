@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <scene>
 	<!-- Configuración de cámara para Cornell Box ajustada -->
-	<camera aspect="1.0" width="1200" samples="128" />
+	<camera aspect="1.0" width="1200" samples="10" />
 	<position x="1.0" y="1.0" z="-1.0" />
 	<lookat x="1.0" y="1.0" z="1.0" />
 	<up x="0.0" y="1.0" z="0.0" />
@@ -21,9 +21,7 @@
 	<mirror id="mirror" albedoR="1.0" albedoG="1.0" albedoB="1.0" />
 	<glass id="glass" albedoR="0.8" albedoG="0.9" albedoB="1.0" ior="1.5" />
 	<glass id="blue_glass" albedoR="0.2" albedoG="0.4" albedoB="0.8" ior="1.6" />
-	<metal id="gold" albedoR="1.0" albedoG="0.8" albedoB="0.2" roughness="0.1" />
-	<metal id="silver" albedoR="0.9" albedoG="0.9" albedoB="0.9" roughness="0.05" />
-	<metal id="copper" albedoR="0.8" albedoG="0.5" albedoB="0.2" roughness="0.2" />
+
 
 	<!-- === PAREDES CORNELL BOX === -->
 	<quad min="0,0,0" max="0,2,2" axis="0" value="0.0" material="red" />      <!-- Pared izquierda roja -->
@@ -42,7 +40,7 @@
 	<quad min="0.3,0.0,1.7" max="1.7,0.6,1.7" axis="2" value="1.7" material="gray_box" />    <!-- Atrás -->
 
 	<!-- Cilindro verde (superpuesto a la esfera de cristal, mitad de altura) -->
-	<cylinder cx="0.7" cy="0.15" cz="1.2" y0="0.0" y1="0.3" radius="0.15" material="green_cylinder" />
+	<cylinder cx="0.9" cy="0.15" cz="1.2" y0="0.4" y1="0.8" radius="0.15" material="green_cylinder" />
 
 	<!-- Esfera de cristal grande (atrás y parcialmente dentro del cilindro) -->
 	<sphere cx="0.7" cy="0.9" cz="1.2" radius="0.25" material="glass" />
@@ -50,17 +48,6 @@
 	<!-- Esfera reflectante pequeña (derecha) -->
 	<sphere cx="1.4" cy="0.75" cz="1.1" radius="0.12" material="mirror" />
 
-	<!-- Esfera adicional dorada (izquierda) -->
-	<sphere cx="0.4" cy="0.6" cz="1.0" radius="0.18" material="gold" />
-
-	<!-- Cilindro delgado plateado -->
-	<cylinder cx="1.2" cy="0.4" cz="0.9" y0="0.0" y1="0.8" radius="0.08" material="silver" />
-
-	<!-- Esfera pequeña de cristal azul -->
-	<sphere cx="1.6" cy="0.4" cz="0.8" radius="0.1" material="blue_glass" />
-
-	<!-- Cilindro ancho en el fondo -->
-	<cylinder cx="0.5" cy="0.5" cz="1.5" y0="0.0" y1="1.0" radius="0.2" material="copper" />
 
 	<!-- === ILUMINACIÓN === -->
 	<point x="1.0" y="1.8" z="1.0" r="1.0" g="1.0" b="1.0" />
