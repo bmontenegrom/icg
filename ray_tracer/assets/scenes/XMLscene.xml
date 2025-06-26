@@ -41,8 +41,8 @@
 	<quad min="0.3,0.0,0.8" max="1.7,0.6,0.8" axis="2" value="0.8" material="gray_box" />    <!-- Frente -->
 	<quad min="0.3,0.0,1.7" max="1.7,0.6,1.7" axis="2" value="1.7" material="gray_box" />    <!-- Atrás -->
 
-	<!-- Cilindro verde (superpuesto delante de la esfera de cristal) -->
-	<cylinder cx="0.9" cy="0.3" cz="1.2" y0="0.0" y1="0.6" radius="0.15" material="green_cylinder" />
+	<!-- Cilindro verde (superpuesto a la esfera de cristal, mitad de altura) -->
+	<cylinder cx="0.7" cy="0.15" cz="1.2" y0="0.0" y1="0.3" radius="0.15" material="green_cylinder" />
 
 	<!-- Esfera de cristal grande (atrás y parcialmente dentro del cilindro) -->
 	<sphere cx="0.7" cy="0.9" cz="1.2" radius="0.25" material="glass" />
