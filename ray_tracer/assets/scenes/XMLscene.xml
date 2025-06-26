@@ -1,26 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <scene>
-	<camera aspect="1.0" width="800" samples="16" />
+	<!-- Configuración de cámara para Cornell Box ajustada -->
+	<camera aspect="1.0" width="1200" samples="128" />
 	<position x="1.0" y="1.0" z="-1.0" />
 	<lookat x="1.0" y="1.0" z="1.0" />
 	<up x="0.0" y="1.0" z="0.0" />
-	<tracer depth="15" bias="0.0005" />
+	<tracer depth="25" bias="0.0001" />
+
+	<!-- === MATERIALES === -->
+	<!-- Paredes -->
 	<lambertian id="red" ambientR="0.1" ambientG="0.0" ambientB="0.0" diffuseR="0.65" diffuseG="0.05" diffuseB="0.05" specularR="0.1" specularG="0.1" specularB="0.1" shininess="10.0" />
 	<lambertian id="green" ambientR="0.0" ambientG="0.1" ambientB="0.0" diffuseR="0.12" diffuseG="0.45" diffuseB="0.15" specularR="0.1" specularG="0.1" specularB="0.1" shininess="10.0" />
 	<lambertian id="white" ambientR="0.1" ambientG="0.1" ambientB="0.1" diffuseR="0.73" diffuseG="0.73" diffuseB="0.73" specularR="0.1" specularG="0.1" specularB="0.1" shininess="10.0" />
-	<lambertian id="blue" ambientR="0.0" ambientG="0.0" ambientB="0.1" diffuseR="0.3" diffuseG="0.3" diffuseB="0.7" specularR="0.5" specularG="0.5" specularB="0.5" shininess="32.0" />
-	<lambertian id="center" ambientR="0.1" ambientG="0.1" ambientB="0.1" diffuseR="0.7" diffuseG="0.3" diffuseB="0.3" specularR="0.5" specularG="0.5" specularB="0.5" shininess="32.0" />
+	
+	<!-- Objetos -->
+	<lambertian id="gray_box" ambientR="0.05" ambientG="0.05" ambientB="0.05" diffuseR="0.4" diffuseG="0.4" diffuseB="0.4" specularR="0.2" specularG="0.2" specularB="0.2" shininess="20.0" />
+	<lambertian id="green_cylinder" ambientR="0.0" ambientG="0.1" ambientB="0.0" diffuseR="0.1" diffuseG="0.6" diffuseB="0.1" specularR="0.3" specularG="0.3" specularB="0.3" shininess="30.0" />
+	
+	<!-- Materiales especiales -->
 	<mirror id="mirror" albedoR="1.0" albedoG="1.0" albedoB="1.0" />
 	<glass id="glass" albedoR="0.8" albedoG="0.9" albedoB="1.0" ior="1.5" />
-	<quad min="0,0,0" max="0,2,2" axis="0" value="0.0" material="red" />
-	<quad min="2,0,0" max="2,2,2" axis="0" value="2.0" material="green" />
-	<quad min="0,0,2" max="2,2,2" axis="2" value="2.0" material="white" />
-	<quad min="0,0,0" max="2,0,2" axis="1" value="0.0" material="white" />
-	<quad min="0,2,0" max="2,2,2" axis="1" value="2.0" material="white" />
-	<sphere cx="0.7" cy="0.5" cz="0.7" radius="0.3" material="center" />
-	<sphere cx="1.0" cy="0.5" cz="1.0" radius="0.3" material="glass" />
-	<sphere cx="1.5" cy="0.5" cz="0.5" radius="0.25" material="mirror" />
-	<cylinder cx="1.3" cy="0.0" cz="1.3" y0="0.0" y1="0.4" radius="0.4" material="blue" />
+	<glass id="blue_glass" albedoR="0.2" albedoG="0.4" albedoB="0.8" ior="1.6" />
+	<metal id="gold" albedoR="1.0" albedoG="0.8" albedoB="0.2" roughness="0.1" />
+	<metal id="silver" albedoR="0.9" albedoG="0.9" albedoB="0.9" roughness="0.05" />
+	<metal id="copper" albedoR="0.8" albedoG="0.5" albedoB="0.2" roughness="0.2" />
+
+	<!-- === PAREDES CORNELL BOX === -->
+	<quad min="0,0,0" max="0,2,2" axis="0" value="0.0" material="red" />      <!-- Pared izquierda roja -->
+	<quad min="2,0,0" max="2,2,2" axis="0" value="2.0" material="green" />    <!-- Pared derecha verde -->
+	<quad min="0,0,2" max="2,2,2" axis="2" value="2.0" material="white" />    <!-- Pared trasera blanca -->
+	<quad min="0,0,0" max="2,0,2" axis="1" value="0.0" material="white" />    <!-- Suelo blanco -->
+	<quad min="0,2,0" max="2,2,2" axis="1" value="2.0" material="white" />    <!-- Techo blanco -->
+
+	<!-- === OBJETOS === -->
+	<!-- Caja gris grande como pedestal -->
+	<quad min="0.3,0.0,0.8" max="1.7,0.0,1.7" axis="1" value="0.0" material="gray_box" />    <!-- Base -->
+	<quad min="0.3,0.6,0.8" max="1.7,0.6,1.7" axis="1" value="0.6" material="gray_box" />    <!-- Tapa -->
+	<quad min="0.3,0.0,0.8" max="0.3,0.6,1.7" axis="0" value="0.3" material="gray_box" />    <!-- Lado izq -->
+	<quad min="1.7,0.0,0.8" max="1.7,0.6,1.7" axis="0" value="1.7" material="gray_box" />    <!-- Lado der -->
+	<quad min="0.3,0.0,0.8" max="1.7,0.6,0.8" axis="2" value="0.8" material="gray_box" />    <!-- Frente -->
+	<quad min="0.3,0.0,1.7" max="1.7,0.6,1.7" axis="2" value="1.7" material="gray_box" />    <!-- Atrás -->
+
+	<!-- Cilindro verde (superpuesto delante de la esfera de cristal) -->
+	<cylinder cx="0.9" cy="0.3" cz="1.2" y0="0.0" y1="0.6" radius="0.15" material="green_cylinder" />
+
+	<!-- Esfera de cristal grande (atrás y parcialmente dentro del cilindro) -->
+	<sphere cx="0.7" cy="0.9" cz="1.2" radius="0.25" material="glass" />
+	
+	<!-- Esfera reflectante pequeña (derecha) -->
+	<sphere cx="1.4" cy="0.75" cz="1.1" radius="0.12" material="mirror" />
+
+	<!-- Esfera adicional dorada (izquierda) -->
+	<sphere cx="0.4" cy="0.6" cz="1.0" radius="0.18" material="gold" />
+
+	<!-- Cilindro delgado plateado -->
+	<cylinder cx="1.2" cy="0.4" cz="0.9" y0="0.0" y1="0.8" radius="0.08" material="silver" />
+
+	<!-- Esfera pequeña de cristal azul -->
+	<sphere cx="1.6" cy="0.4" cz="0.8" radius="0.1" material="blue_glass" />
+
+	<!-- Cilindro ancho en el fondo -->
+	<cylinder cx="0.5" cy="0.5" cz="1.5" y0="0.0" y1="1.0" radius="0.2" material="copper" />
+
+	<!-- === ILUMINACIÓN === -->
 	<point x="1.0" y="1.8" z="1.0" r="1.0" g="1.0" b="1.0" />
 	<point x="0.5" y="1.8" z="0.5" r="0.8" g="0.8" b="0.8" />
-</scene>
+</scene> 

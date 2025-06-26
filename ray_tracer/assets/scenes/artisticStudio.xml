@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scene>
+	<!-- Configuración de cámara para estudio artístico -->
+	<camera aspect="1.0" width="900" samples="64" />
+	<position x="0.8" y="1.2" z="-1.5" />
+	<lookat x="1.0" y="0.8" z="1.0" />
+	<up x="0.0" y="1.0" z="0.0" />
+	<tracer depth="20" bias="0.0005" />
+
+	<!-- === MATERIALES ARTÍSTICOS === -->
+	<!-- Paredes del estudio -->
+	<lambertian id="wall_cream" ambientR="0.15" ambientG="0.12" ambientB="0.08" diffuseR="0.8" diffuseG="0.75" diffuseB="0.6" specularR="0.1" specularG="0.1" specularB="0.1" shininess="5.0" />
+	<lambertian id="wall_dark" ambientR="0.05" ambientG="0.05" ambientB="0.08" diffuseR="0.2" diffuseG="0.2" diffuseB="0.3" specularR="0.1" specularG="0.1" specularB="0.1" shininess="5.0" />
+	<lambertian id="floor_wood" ambientR="0.1" ambientG="0.08" ambientB="0.05" diffuseR="0.6" diffuseG="0.4" diffuseB="0.2" specularR="0.2" specularG="0.2" specularB="0.2" shininess="15.0" />
+	
+	<!-- Materiales de objetos artísticos -->
+	<lambertian id="clay_red" ambientR="0.1" ambientG="0.05" ambientB="0.05" diffuseR="0.7" diffuseG="0.3" diffuseB="0.2" specularR="0.1" specularG="0.1" specularB="0.1" shininess="8.0" />
+	<lambertian id="clay_blue" ambientR="0.05" ambientG="0.05" ambientB="0.1" diffuseR="0.3" diffuseG="0.4" diffuseB="0.7" specularR="0.1" specularG="0.1" specularB="0.1" shininess="8.0" />
+	<lambertian id="metal_brass" ambientR="0.1" ambientG="0.08" ambientB="0.05" diffuseR="0.8" diffuseG="0.6" diffuseB="0.3" specularR="0.4" specularG="0.4" specularB="0.4" shininess="25.0" />
+	<lambertian id="glass_clear" ambientR="0.1" ambientG="0.1" ambientB="0.1" diffuseR="0.9" diffuseG="0.9" diffuseB="0.9" specularR="0.8" specularG="0.8" specularB="0.8" shininess="50.0" />
+	
+	<!-- Materiales especiales -->
+	<mirror id="mirror" albedoR="1.0" albedoG="1.0" albedoB="1.0" />
+	<glass id="crystal" albedoR="0.9" albedoG="0.95" albedoB="1.0" ior="1.6" />
+	<textured id="earth" path="assets/textures/earthmap.jpg" shininess="10.0"/>
+	<normalmapped id="normalMat" ambientR="0.0" ambientG="0.0" ambientB="0.1" diffuseR="0.3" diffuseG="0.3" diffuseB="0.7" specularR="0.5" specularG="0.5" specularB="0.5" shininess="32.0" normalmap="assets/textures/normal_tex.png"/>
+
+	<!-- === PAREDES DEL ESTUDIO === -->
+	<!-- Pared trasera (crema) -->
+	<quad min="0,0,0" max="2,2,2" axis="2" value="2.0" material="wall_cream" />
+	<!-- Pared izquierda (oscura) -->
+	<quad min="0,0,0" max="0,2,2" axis="0" value="0.0" material="wall_dark" />
+	<!-- Pared derecha (crema) -->
+	<quad min="2,0,0" max="2,2,2" axis="0" value="2.0" material="wall_cream" />
+	<!-- Suelo de madera -->
+	<quad min="0,0,0" max="2,0,2" axis="1" value="0.0" material="floor_wood" />
+	<!-- Techo (crema) -->
+	<quad min="0,2,0" max="2,2,2" axis="1" value="2.0" material="wall_cream" />
+
+	<!-- === MESA LATERAL ARTÍSTICA === -->
+	<!-- Tablero de la mesa -->
+	<quad min="0.1,0.6,0.8" max="0.8,0.65,1.8" axis="1" value="0.65" material="floor_wood" />
+	<!-- Pata frontal izquierda -->
+	<quad min="0.15,0.0,0.85" max="0.2,0.6,0.9" axis="0" value="0.2" material="floor_wood" />
+	<!-- Pata frontal derecha -->
+	<quad min="0.15,0.0,1.75" max="0.2,0.6,1.8" axis="0" value="0.2" material="floor_wood" />
+	<!-- Pata trasera izquierda -->
+	<quad min="0.75,0.0,0.85" max="0.8,0.6,0.9" axis="0" value="0.8" material="floor_wood" />
+	<!-- Pata trasera derecha -->
+	<quad min="0.75,0.0,1.75" max="0.8,0.6,1.8" axis="0" value="0.8" material="floor_wood" />
+
+	<!-- === OBJETOS ARTÍSTICOS EN LA MESA === -->
+	<!-- Jarrón de cristal con flores -->
+	<cylinder cx="0.3" cy="0.8" cz="1.2" y0="0.65" y1="1.0" radius="0.08" material="crystal" />
+	<cylinder cx="0.3" cy="1.1" cz="1.2" y0="1.0" y1="1.3" radius="0.06" material="clay_red" />
+	
+	<!-- Esfera de la Tierra como decoración -->
+	<sphere cx="0.6" cy="0.8" cz="1.0" radius="0.12" material="earth" />
+	
+	<!-- Escultura abstracta (malla icosaédrica) -->
+	<mesh path="assets/ico/icos.obj" material="normalMat" translateX="0.5" translateY="0.75" translateZ="1.4" scaleX="0.15" scaleY="0.15" scaleZ="0.15"/>
+	
+	<!-- Cilindro de arcilla azul -->
+	<cylinder cx="0.25" cy="0.75" cz="1.5" y0="0.65" y1="0.85" radius="0.06" material="clay_blue" />
+	
+	<!-- Esfera reflectante pequeña -->
+	<sphere cx="0.7" cy="0.75" cz="1.3" radius="0.05" material="mirror" />
+
+	<!-- === OBJETOS FLOTANTES ARTÍSTICOS === -->
+	<!-- Esfera de cristal flotante -->
+	<sphere cx="1.3" cy="1.4" cz="1.1" radius="0.15" material="crystal" />
+	
+	<!-- Cilindro de latón suspendido -->
+	<cylinder cx="1.6" cy="1.2" cz="0.8" y0="1.0" y1="1.4" radius="0.08" material="metal_brass" />
+	
+	<!-- Esfera con normal mapping flotante -->
+	<sphere cx="0.8" cy="1.5" cz="0.7" radius="0.12" material="normalMat" />
+
+	<!-- === ELEMENTOS DECORATIVOS === -->
+	<!-- Lámpara de mesa (cilindro alto) -->
+	<cylinder cx="0.4" cy="1.1" cz="0.9" y0="0.65" y1="1.5" radius="0.03" material="metal_brass" />
+	<!-- Pantalla de la lámpara -->
+	<sphere cx="0.4" cy="1.5" cz="0.9" radius="0.12" material="glass_clear" />
+	
+	<!-- Escultura de arcilla roja en el suelo -->
+	<cylinder cx="1.4" cy="0.3" cz="0.6" y0="0.0" y1="0.6" radius="0.15" material="clay_red" />
+	
+	<!-- Esfera de cristal en el suelo -->
+	<sphere cx="1.7" cy="0.15" cz="1.3" radius="0.15" material="crystal" />
+
+	<!-- === ILUMINACIÓN ATMOSFÉRICA === -->
+	<!-- Luz principal (lámpara de mesa) -->
+	<point x="0.4" y="1.5" z="0.9" r="1.0" g="0.9" b="0.7" />
+	<!-- Luz ambiental suave -->
+	<point x="1.0" y="1.8" z="1.0" r="0.6" g="0.6" b="0.8" />
+	<!-- Luz de acento -->
+	<point x="1.5" y="1.6" z="0.5" r="0.8" g="0.7" b="0.9" />
+	<!-- Luz cálida de fondo -->
+	<point x="0.2" y="1.5" z="0.3" r="1.0" g="0.8" b="0.6" />
+</scene> 

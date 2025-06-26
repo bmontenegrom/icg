@@ -236,7 +236,7 @@ int main() {
     std::unique_ptr<Camera> camera;
     std::unique_ptr<WhittedTracer> tracer;
 
-    auto scene = SceneLoader::loadFromXML("assets/scenes/earthScene.xml", camera, tracer);
+    auto scene = SceneLoader::loadFromXML("assets/scenes/XMLscene.xml", camera, tracer);
 
     if (!scene || !camera) {
         std::cerr << "Error al cargar la escena desde XML.\n";
